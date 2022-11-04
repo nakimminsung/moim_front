@@ -273,3 +273,6 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/react,macos,windows,linux,node,yarn
  
+
+# intelliJ iDEA
+.idea/*
