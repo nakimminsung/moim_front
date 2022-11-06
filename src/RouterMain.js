@@ -1,9 +1,9 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import Home from "./pages/Home";
-import List1 from "./pages/List1";
-import List2 from "./pages/List2";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
+import Home from './pages/Home';
+import List1 from './pages/List1';
+import List2 from './pages/List2';
 
 function RouterMain() {
   return (
