@@ -6,6 +6,7 @@ import List1 from './pages/components/List1';
 import List2 from './pages/components/List2';
 import Menu from './pages/components/Menu';
 import SpaceList from './pages/host/SpaceList';
+import ReviewList from './pages/review/ReviewList';
 
 function RouterMain() {
 	return (
@@ -17,6 +18,8 @@ function RouterMain() {
 				<Route path='/menu2'>
 					<Route path='list' element={<List2 />} />
 				</Route>
+				{/* 리뷰/Q&A 리스트(게스트) */}
+				<Route path='/review' element={<ReviewList />} />
 				{/* 호스트 */}
 				<Route path='host'>
 					<Route path='slist' element={<SpaceList />} />

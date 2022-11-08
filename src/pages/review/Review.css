@@ -1,0 +1,8 @@
+span.reviewGuest {
+	width: 30%;
+	height: 40p;
+	line-height: 35px;
+	text-align: center;
+	border-top: 2px solid #7b68ee;
+	cursor: pointer;
+}
