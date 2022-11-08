@@ -1,4 +1,6 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
+import './Footer.css';
 
 function footer(props) {
 	return (
@@ -15,7 +17,7 @@ function footer(props) {
 					<div
 						className='footer-content'
 						style={{
-							maxWidth: 1030,
+							maxWidth: 1200,
 							width: '100%',
 							display: 'flex',
 							justifyContent: 'center',
@@ -29,9 +31,7 @@ function footer(props) {
 								textAlign: 'right',
 								paddingRight: 10,
 							}}
-						>
-							<b style={{fontSize: 20}}>모임</b>
-						</div>
+						></div>
 						<div
 							className='footer-right'
 							style={{
@@ -43,6 +43,8 @@ function footer(props) {
 						>
 							<div>
 								<div>
+									<b style={{fontSize: 20}}>모임</b>
+									<br />
 									<span>(주)모임 : 김병찬</span>&nbsp;&nbsp;
 									<span>
 										주소 : 서울특별시 강남구 역삼동
@@ -61,21 +63,21 @@ function footer(props) {
 								</div>
 								<span style={{display: 'block'}}>
 									구매안전서비스 : 가입사실확인이메일 :
-									cs.gift@kakaocorp.com
+									cs@moim.com
 								</span>
 								<span style={{display: 'block'}}>
 									고객센터 : 1544-2431 (통화료 발생 / 평일
 									09:00~19:00) 톡상담하기 (평일 09:00~19:00)
 								</span>
 								<span style={{display: 'block'}}>
-									©jogong Corp. All rights reserved
+									©moim Corp. All rights reserved
 								</span>
 							</div>
 							<div
 								style={{
 									position: 'relative',
 									float: 'right',
-									width: 400,
+									width: 420,
 									display: 'flex',
 									flexDirection: 'column',
 									alignItems: 'flex-end',
@@ -90,9 +92,12 @@ function footer(props) {
 									&nbsp;|&nbsp;
 									<a>지식재산권보호센터</a>
 									&nbsp;|&nbsp;
-									<a>admin</a>
+									<NavLink to={'/admin'}>admin</NavLink>
 								</span>
-								<img src='https://gift-s.kakaocdn.net/dn/gift/images/m640/img_pcfamily.png' />
+								<img
+									alt=''
+									src='https://gift-s.kakaocdn.net/dn/gift/images/m640/img_pcfamily.png'
+								/>
 							</div>
 						</div>
 					</div>
