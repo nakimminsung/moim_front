@@ -1,11 +1,11 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import './Main.css';
+import Layout from '../layout/Layout';
 
 function mainpage(props) {
 	return (
 		<div>
-			<h1>Hello World!!!</h1>
 			<ul className='menu'>
 				<li>
 					<NavLink to={'/'}>Home</NavLink>

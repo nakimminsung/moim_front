@@ -15,31 +15,32 @@ function RouterMain() {
 		<div>
 			{/* <Menu /> */}
 
-			<Routes>
-				{/* <Route path='/' element={<Home />} /> */}
-				{/* <Route path='/' element={<MainPage />} /> */}
-				<Route path='/' element={<Layout />} />
+			<Layout>
+				<Routes>
+					{/* <Route path='/' element={<Home />} /> */}
+					<Route path='/' element={<MainPage />} />
 
-				<Route path='/menu1/list' element={<List1 />} />
-				<Route path='/menu2'>
-					<Route path='list' element={<List2 />} />
-				</Route>
+					<Route path='/menu1/list' element={<List1 />} />
+					<Route path='/menu2'>
+						<Route path='list' element={<List2 />} />
+					</Route>
 
-				{/* 호스트 */}
-				<Route path='host'>
-					<Route path='slist' element={<SpaceList />} />
-				</Route>
-				{/* 호스트 끝 */}
+					{/* 호스트 */}
+					<Route path='host'>
+						<Route path='slist' element={<SpaceList />} />
+					</Route>
+					{/* 호스트 끝 */}
 
-				<Route
-					path='*'
-					element={
-						<div>
-							<h1>잘못된 URL 주소입니다</h1>
-						</div>
-					}
-				/>
-			</Routes>
+					<Route
+						path='*'
+						element={
+							<div>
+								<h1>잘못된 URL 주소입니다</h1>
+							</div>
+						}
+					/>
+				</Routes>
+			</Layout>
 		</div>
 	);
 }
