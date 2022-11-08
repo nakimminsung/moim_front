@@ -1,37 +1,16 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import './Main.css';
+import './MainPage.css';
 
 function mainpage(props) {
 	return (
 		<div>
-			<h1>Hello World!!!</h1>
-			<ul className='menu'>
+			<ul className='main'>
 				<li>
-					<NavLink to={'/'}>Home</NavLink>
+					<NavLink to={'/'}>메인 페이지</NavLink>
 				</li>
 				<li>
-					<NavLink to={'/member/form'}>회원가입</NavLink>
-				</li>
-				<li>
-					<NavLink to={'/member/list'}>회원목록</NavLink>
-				</li>
-				<li>
-					<NavLink to={'/board/list'}>게시판</NavLink>
-				</li>
-
-				<li>
-					<NavLink to={'/reducer1'}>리듀서에제1</NavLink>
-				</li>
-
-				<li>
-					<NavLink to={'/reducer2'}>리듀서예제2</NavLink>
-				</li>
-
-				<li>
-					<NavLink to={'/qstring?color=red&name=lee&addr=seoul'}>
-						쿼리스트링
-					</NavLink>
+					<NavLink to={'/host/slist'}>호스트 페이지</NavLink>
 				</li>
 			</ul>
 		</div>
