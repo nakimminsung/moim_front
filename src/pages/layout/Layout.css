@@ -1,0 +1,13 @@
+.layHeader {
+	width: 100%;
+	border-bottom: 1px solid gray;
+}
+
+.layContent {
+	height: 700px;
+}
+
+.layFooter {
+	height: 180px;
+	background-color: #d5d5d5;
+}
