@@ -1,5 +1,6 @@
 import {SearchOutlined, SearchRounded} from '@material-ui/icons';
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 import mlogo from '../../asset/logo/m_logo.png';
 
 function header(props) {
@@ -54,6 +55,13 @@ function header(props) {
 							outline: 'none',
 						}}
 					/>
+				</div>
+				<div>
+					<ul className='menu'>
+						<li>
+							<NavLink to={'/host/slist'}>HostPage</NavLink>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</header>
