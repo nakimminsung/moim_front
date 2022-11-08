@@ -1,0 +1,35 @@
+* {
+	font-family: 'Jua';
+}
+
+ul.main {
+	list-style: none;
+}
+
+ul.main li {
+	/* float: left; */
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
+	border: 1px solid black;
+	text-align: center;
+	font-size: 16px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+}
+
+ul.main li a {
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+
+ul.main li:hover {
+	background-color: lightgray;
+	box-shadow: 5px 5px 5px gray;
+}
+
+ul.main li a:hover {
+	color: black;
+}

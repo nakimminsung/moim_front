@@ -8,8 +8,8 @@ function layout(props) {
 		<div className='layout'>
 			<Header />
 
-			<main className='layContent'>
-				<div>{props.children}</div>
+			<main>
+				<div className='layContent'>{props.children}</div>
 			</main>
 
 			<Footer />

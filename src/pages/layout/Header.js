@@ -15,10 +15,18 @@ function header(props) {
 						width: '300px',
 					}}
 				>
-					<span style={{cursor: 'pointer'}}>
-						<img className='headerLogo' alt='' src={mlogo} />
-						<b style={{fontSize: '40px'}}>MoiM</b>
-					</span>
+					<NavLink to={'/'} className='logoLink'>
+						<span className='logo_span' style={{cursor: 'pointer'}}>
+							<img className='headerLogo' alt='' src={mlogo} />
+							<b
+								style={{
+									fontSize: '40px',
+								}}
+							>
+								MoiM
+							</b>
+						</span>
+					</NavLink>
 				</div>
 
 				<div className='headerSearch'>

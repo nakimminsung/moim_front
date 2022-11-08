@@ -44,3 +44,12 @@
 	color: black;
 	cursor: pointer;
 }
+
+.logoLink {
+	text-decoration: none;
+	color: black;
+}
+
+.logoLink:hover {
+	color: black;
+}

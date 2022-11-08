@@ -7,6 +7,10 @@
 .layContent {
 	height: 100%;
 	min-height: 700px;
+
+	margin-top: 10px;
+	margin-left: 20%;
+	margin-right: 20%;
 }
 
 .layFooter {
