@@ -10,11 +10,12 @@ import SpaceList from './pages/host/SpaceList';
 import MainPage from './pages/main/MainPage';
 import Layout from './pages/layout/Layout';
 
+import AdminMain from './pages/admin/AdminMain';
+
 function RouterMain() {
 	return (
 		<div>
 			{/* <Menu /> */}
-
 			<Layout>
 				<Routes>
 					{/* <Route path='/' element={<Home />} /> */}
@@ -30,6 +31,11 @@ function RouterMain() {
 						<Route path='slist' element={<SpaceList />} />
 					</Route>
 					{/* 호스트 끝 */}
+
+					{/* 어드민_관리자 */}
+					<Route path='admin'>
+						<Route path='' element={<AdminMain />} />
+					</Route>
 
 					<Route
 						path='*'
