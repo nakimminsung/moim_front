@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import RoomIcon from '@mui/icons-material/Room';
 import List from './List';
 import './Banner.css';
@@ -8,6 +8,7 @@ import './Banner.css';
 function Banner(props) {
 	const [data, setData] = useState('');
 	const {num} = useParams();
+	const navi = useNavigate();
 
 	const selectTheme = () => {
 		let url = localStorage.url + '/theme/data?num=' + num;
@@ -37,7 +38,7 @@ function Banner(props) {
 						width: '100%',
 						height: '400px',
 						padding: '10% 35px 30px 35px',
-						marginBottom: '50px',
+						marginBottom: '10px',
 						display: 'flex',
 						flexDirection: 'column',
 						justifyContent: 'space-between',
@@ -82,6 +83,9 @@ function Banner(props) {
 								lineHeight: '45px',
 								borderRadius: '50px',
 								cursor: 'pointer',
+							}}
+							onClick={() => {
+								navi('/map/' + num);
 							}}
 						>
 							<span style={{color: 'white', fontSize: '30p'}}>

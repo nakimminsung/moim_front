@@ -2,6 +2,7 @@ import {Mic} from '@material-ui/icons';
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import './MainPage.css';
+import Theme from './Theme';
 
 function mainpage(props) {
 	return (
@@ -74,9 +75,7 @@ function mainpage(props) {
 			<br />
 			<hr />
 
-			<div className='themeArea' style={{textAlign: 'center'}}>
-				<h3>기획전 영역</h3>
-			</div>
+			<Theme />
 
 			<br />
 			<br />
