@@ -9,7 +9,8 @@ import Menu from './pages/components/Menu';
 import SpaceList from './pages/host/SpaceList';
 import MainPage from './pages/main/MainPage';
 import Layout from './pages/layout/Layout';
-import MainTheme from './pages/main/MainTheme';
+import MainTheme from './pages/main/Theme';
+import Theme from './pages/theme/Banner';
 
 function RouterMain() {
 	return (
@@ -24,7 +25,8 @@ function RouterMain() {
 					<Route path='/menu2'>
 						<Route path='list' element={<List2 />} />
 					</Route>
-					<Route path='main_theme' element={<MainTheme />} />
+					<Route path='/main_theme' element={<MainTheme />} />
+					<Route path='/theme/:num' element={<Theme />} />
 
 					{/* 호스트 */}
 					<Route path='host'>
