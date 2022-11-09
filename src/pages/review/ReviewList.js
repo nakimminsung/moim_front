@@ -1,10 +1,16 @@
 import React, {useState} from 'react';
+import QNA from './QNA';
+import Review from './Review';
 import './Review.css';
 
 function ReviewList(props) {
 	const [show, setShow] = useState(1);
 	return (
-		<div style={{width: '100%'}}>
+		<div className='reviewQnaGuest' style={{width: '100%'}}>
+			<h4 style={{marginLeft: '21%'}}>
+				{show === 1 ? <b>이용후기관리</b> : <b> Q & A 관리 </b>}
+			</h4>
+			<br />
 			<div className='input-group'>
 				<span
 					className='reviewGuest'
@@ -33,6 +39,8 @@ function ReviewList(props) {
 			</div>
 			<br />
 			<br />
+
+			{show === 1 ? <Review /> : <QNA />}
 		</div>
 	);
 }

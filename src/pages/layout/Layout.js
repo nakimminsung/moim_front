@@ -2,7 +2,6 @@ import React from 'react';
 import './Layout.css';
 import Header from './Header';
 import Footer from './Footer';
-import Content from './Content';
 
 function layout(props) {
 	return (
@@ -10,7 +9,7 @@ function layout(props) {
 			<Header />
 
 			<main>
-				<Content />
+				<div className='layContent'>{props.children}</div>
 			</main>
 
 			<Footer />
