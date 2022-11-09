@@ -1,0 +1,22 @@
+div.footer-right span {
+	font-size: 14px;
+	color: gray;
+}
+div.footer-right div {
+	margin-bottom: -3px;
+}
+div.footer-left b {
+	font-size: 30px;
+	color: gray;
+}
+span.footer-link a {
+	font-size: 13px;
+	color: gray;
+	cursor: pointer;
+}
+div.footer-right img {
+	margin-top: 10px;
+}
+
+a {
+}
