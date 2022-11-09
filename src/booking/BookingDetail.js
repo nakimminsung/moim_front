@@ -1,14 +1,35 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import './booking.css';
 
 function BookingDetail() {
 	const [roomData, setRoomData] = useState('');
+	const [categoryList, setCategoryList] = useState([]);
+	const [facilityList, setFacilityList] = useState([]);
+	const [optionList, setOptionList] = useState([]);
+	const [name, setName] = useState('');
+	const [phone, setPhone] = useState('');
+	const [email, setEmail] = useState('');
+	const [purpose, setPurpose] = useState('');
+	// 요청사항 (textarea)
+	const contentRef = useRef('');
+	//const bookingTime
+
 	const navi = useNavigate();
 	//const { num } = useParams();
-	const {num} = 1;
-	const url = `http://localhost:9000/room/detail?num=1`;
+	const num = 1;
+	const url = `http://localhost:9000/room/detail?num=${num}`;
+	const cUrl = `http://localhost:9000/room/category?num=${num}`;
+	const fUrl = `http://localhost:9000/room/facility?num=${num}`;
+	const oUrl = `http://localhost:9000/room/option?num=${num}`;
+	let totalPrice = 100000;
+	let bookingStatus = 0;
+	let userNum = 1;
+	let roomNum = num;
+	let bookingTime = '10';
+	let headCount = 50;
 
 	const selectRoomData = () => {
 		axios.get(url).then((res) => {
@@ -16,264 +37,401 @@ function BookingDetail() {
 		});
 	};
 
+	const selectCategoryData = () => {
+		axios.get(cUrl).then((res) => {
+			setCategoryList(res.data);
+		});
+	};
+
+	const selectFacilityData = () => {
+		axios.get(fUrl).then((res) => {
+			setFacilityList(res.data);
+		});
+	};
+
+	const selectOptionData = () => {
+		axios.get(oUrl).then((res) => {
+			console.log(res.data);
+			setOptionList(res.data);
+		});
+	};
+
+	const onSubmit = (e) => {
+		e.preventDefault(); // submit의 기본 이벤트 무효화시킴
+		// 요청사항
+		let request = contentRef.current.value;
+		let insertUrl = 'http://localhost:9000/bookingDetail/insert';
+
+		axios
+			.post(insertUrl, {
+				bookingTime,
+				headCount,
+				name,
+				phone,
+				email,
+				purpose,
+				request,
+				totalPrice,
+				bookingStatus,
+				roomNum,
+				userNum,
+			})
+			.then((res) => {
+				setName('');
+				setPhone('');
+				setEmail('');
+				setPurpose('');
+				contentRef.current.value = '';
+				alert('성공');
+			});
+	};
+
 	useEffect(() => {
 		selectRoomData();
+		selectCategoryData();
+		selectFacilityData();
+		selectOptionData();
 	}, []);
 
+	useEffect(() => {
+		if (phone.length === 10) {
+			setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+		}
+		if (phone.length === 13) {
+			setPhone(
+				phone
+					.replace(/-/g, '')
+					.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+			);
+		}
+	}, [phone]);
+
 	return (
-		<div style={{background: '#f0f0f1'}}>
-			<div className='bookingTop'>
-				<h1>예약하기</h1>
-			</div>
-			<div className='bdContainer'>
-				<div class='dbItem'>
-					<div className='bdSpace'>
-						<div
-							style={{
-								display: 'flex',
-								borderBottom: '3px solid #704de4',
-							}}
-						>
-							<h4>예약공간</h4>
-							<h4 style={{marginLeft: 'auto', color: '#704de4'}}>
-								₩60000
-							</h4>
-						</div>
+		<>
+			<form onSubmit={onSubmit}>
+				<div>
+					<div className='bookingTop'>
+						<h1>예약하기</h1>
+					</div>
+					<div className='bdContainer'>
+						<div class='dbItem'>
+							<div className='bdSpace'>
+								<div
+									style={{
+										display: 'flex',
+										borderBottom: '3px solid #704de4',
+									}}
+								>
+									<h4>예약공간</h4>
+									<h4
+										style={{
+											marginLeft: 'auto',
+											color: '#704de4',
+										}}
+									>
+										₩60000
+									</h4>
+								</div>
 
-						<div className='bdSpaceInfo'>
-							<img
-								alt=''
-								// src={require(`./img/404.png`)}
-								src={roomData.thumbnailImage}
-								width='100'
-								height={100}
-							/>
-							<div>
-								<h3>{roomData.name}</h3>
-								<h5>{roomData.fullIntroduction}</h5>
-							</div>
-						</div>
-						<hr />
-						<p>공간유형&nbsp;&nbsp;&nbsp;파티룸</p>
-						<p>예약유형&nbsp;&nbsp;&nbsp;최소2명~최대12명</p>
-						<p>추가인원&nbsp;&nbsp;&nbsp;3명 초과시 10,000원/인</p>
-						<div style={{display: 'flex', flexWrap: 'wrap'}}>
-							<div style={{display: 'flex'}}>
-								<img
-									alt=''
-									src={require(`./img/beer.png`)}
-									width='30'
-									height={30}
-								/>
-								&nbsp;&nbsp;
-								<p>주류반입 가능</p>
-							</div>
-							&nbsp;&nbsp;&nbsp;
-							<div style={{display: 'flex'}}>
-								<img
-									alt=''
-									src={require(`./img/beer.png`)}
-									width='30'
-									height={30}
-								/>
-								&nbsp;&nbsp;
-								<p>주류반입 가능</p>
-							</div>
-							&nbsp;&nbsp;&nbsp;
-							<div style={{display: 'flex'}}>
-								<img
-									alt=''
-									src={require(`./img/beer.png`)}
-									width='30'
-									height={30}
-								/>
-								&nbsp;&nbsp;
-								<p>주류반입 가능</p>
-							</div>
-							&nbsp;&nbsp;&nbsp;
-							<div style={{display: 'flex'}}>
-								<img
-									alt=''
-									src={require(`./img/beer.png`)}
-									width='30'
-									height={30}
-								/>
-								&nbsp;&nbsp;
-								<p>주류반입 가능</p>
-							</div>
-							&nbsp;&nbsp;&nbsp;
-							<div style={{display: 'flex'}}>
-								<img
-									alt=''
-									src={require(`./img/beer.png`)}
-									width='30'
-									height={30}
-								/>
-								&nbsp;&nbsp;
-								<p>주류반입 가능</p>
-							</div>
-							&nbsp;&nbsp;&nbsp;
-							<div style={{display: 'flex'}}>
-								<img
-									alt=''
-									src={require(`./img/beer.png`)}
-									width='30'
-									height={30}
-								/>
-								&nbsp;&nbsp;
-								<p>주류반입 가능</p>
-							</div>
-							&nbsp;&nbsp;&nbsp;
-							<div style={{display: 'flex'}}>
-								<img
-									alt=''
-									src={require(`./img/beer.png`)}
-									width='30'
-									height={30}
-								/>
-								&nbsp;&nbsp;
-								<p>주류반입 가능</p>
-							</div>
-							&nbsp;&nbsp;&nbsp;
-							<div style={{display: 'flex'}}>
-								<img
-									alt=''
-									src={require(`./img/beer.png`)}
-									width='30'
-									height={30}
-								/>
-								&nbsp;&nbsp;
-								<p>주류반입 가능</p>
-							</div>
-							&nbsp;&nbsp;&nbsp;
-							<div style={{display: 'flex'}}>
-								<img
-									alt=''
-									src={require(`./img/beer.png`)}
-									width='30'
-									height={30}
-								/>
-								&nbsp;&nbsp;
-								<p>주류반입 가능</p>
-							</div>
-						</div>
-					</div>
+								<div className='bdSpaceInfo'>
+									<img
+										alt=''
+										// src={require(`./img/404.png`)}
+										src={roomData.thumbnailImage}
+										width='200'
+										height={200}
+									/>
+									<div
+										style={{
+											marginTop: '30px',
+											marginLeft: '20px',
+										}}
+									>
+										<h3>{roomData.name}</h3>
+										<h6>{roomData.fullIntroduction}</h6>
+									</div>
+								</div>
+								<hr />
+								<span
+									style={{
+										marginLeft: '30px',
+										marginRight: '50px',
+									}}
+								>
+									<CheckOutlinedIcon />
+									&nbsp; 공간유형
+								</span>
+								{categoryList.map((item, idx) => (
+									<span key='idx'>{item.cname} </span>
+								))}
+								<p style={{marginLeft: '30px'}}>
+									<CheckOutlinedIcon />
+									&nbsp; 예약가능인원&nbsp;&nbsp;&nbsp;&nbsp;
+									최대&nbsp;
+									{roomData.headcount}명
+								</p>
 
-					<div className='bdInfo'>
-						<div
-							style={{
-								display: 'flex',
-								borderBottom: '3px solid #704de4',
-							}}
-						>
-							<h4>예약정보</h4>
+								<div
+									style={{
+										display: 'flex',
+										flexWrap: 'wrap',
+										marginLeft: '30px',
+									}}
+								>
+									{facilityList.map((item, idx) => (
+										<>
+											<div
+												style={{display: 'flex'}}
+												key='idx'
+											>
+												<img
+													alt=''
+													src={item.imageUrl}
+													width='30'
+													height={30}
+												/>
+												&nbsp;&nbsp;
+												<p>{item.fname}</p>
+											</div>
+											&nbsp;&nbsp;&nbsp;
+										</>
+									))}
+								</div>
+							</div>
+
+							<div className='bdInfo'>
+								<div
+									style={{
+										display: 'flex',
+										borderBottom: '3px solid #704de4',
+										marginTop: '30px',
+									}}
+								>
+									<h4>예약정보</h4>
+								</div>
+								<div
+									style={{
+										display: 'flex',
+										marginLeft: '30px',
+										marginTop: '10px',
+									}}
+								>
+									<p>예약날짜</p>
+									<p style={{marginLeft: 'auto'}}>
+										2022-11-08
+									</p>
+								</div>
+								<div
+									style={{
+										display: 'flex',
+										marginLeft: '30px',
+									}}
+								>
+									<p>예약인원</p>
+									<p style={{marginLeft: 'auto'}}>2명</p>
+								</div>
+							</div>
+							<hr />
+
+							<div className='bdOption'>
+								{/* <h4>추가옵션선택 </h4> */}
+								{optionList.map((item, idx) =>
+									item.oname == null ? (
+										<></>
+									) : (
+										<div className='bdSpaceInfo'>
+											<>
+												<img
+													alt=''
+													src={require(`./img/404.png`)}
+													width='100'
+													height={100}
+												/>
+												<div>
+													<h4>{item.oname}</h4>
+													<h6>
+														{item.price} / 수량 1개
+													</h6>
+												</div>
+											</>
+										</div>
+									),
+								)}
+							</div>
+
+							<div className='bdUserInfo'>
+								<div
+									style={{
+										display: 'flex',
+										borderBottom: '3px solid #704de4',
+										marginTop: '30px',
+									}}
+								>
+									<h4>예약자정보</h4>
+									<p
+										style={{
+											marginLeft: 'auto',
+											color: 'red',
+										}}
+									>
+										*필수입력
+									</p>
+								</div>
+
+								<div
+									style={{
+										display: 'flex',
+										marginBottom: '15px',
+										marginTop: '15px',
+									}}
+								>
+									<h6 style={{marginTop: '8px'}}>
+										예약자&nbsp;
+										<span style={{color: 'red'}}>*</span>
+									</h6>
+									<input
+										type='text'
+										style={{
+											width: '88%',
+											height: '40px',
+											marginLeft: '30px',
+										}}
+										onChange={(e) =>
+											setName(e.target.value)
+										}
+									/>
+								</div>
+								<div
+									style={{
+										display: 'flex',
+										marginBottom: '15px',
+									}}
+								>
+									<h6 style={{marginTop: '8px'}}>
+										연락처&nbsp;
+										<span style={{color: 'red'}}>*</span>
+									</h6>
+									<input
+										type='text'
+										style={{
+											width: '88%',
+											height: '40px',
+											marginLeft: '30px',
+										}}
+										onChange={(e) => {
+											return setPhone(e.target.value);
+										}}
+										value={phone}
+									/>
+								</div>
+								<div
+									style={{
+										display: 'flex',
+										marginBottom: '15px',
+									}}
+								>
+									<h6 style={{marginTop: '8px'}}>
+										이메일&nbsp;
+										<span style={{color: 'red'}}>*</span>
+									</h6>
+									<input
+										type='text'
+										style={{
+											width: '88%',
+											height: '40px',
+											marginLeft: '30px',
+										}}
+										onChange={(e) =>
+											setEmail(e.target.value)
+										}
+									/>
+								</div>
+								<div
+									style={{
+										display: 'flex',
+										marginBottom: '15px',
+									}}
+								>
+									<h6 style={{marginTop: '8px'}}>사용목적</h6>
+									<input
+										type='text'
+										style={{
+											width: '88%',
+											height: '40px',
+											marginLeft: '30px',
+										}}
+										onChange={(e) =>
+											setPurpose(e.target.value)
+										}
+									/>
+								</div>
+								<div
+									style={{
+										display: 'flex',
+										marginBottom: '15px',
+									}}
+								>
+									<h6 style={{marginTop: '8px'}}>요청사항</h6>
+									<textarea
+										ref={contentRef}
+										style={{
+											width: '88%',
+											height: '100px',
+											marginLeft: '25px',
+										}}
+										className='form-control'
+									></textarea>
+								</div>
+							</div>
+							<hr />
+							<div className='otherInfo'>다른 정보들</div>
 						</div>
-						<div style={{display: 'flex'}}>
-							<p>예약날짜</p>
-							<p style={{marginLeft: 'auto'}}>2022-11-08</p>
-						</div>
-						<div style={{display: 'flex'}}>
-							<p>예약인원</p>
-							<p style={{marginLeft: 'auto'}}>2명</p>
-						</div>
-					</div>
-					<hr />
-					<div className='bdOption'>
-						<h4>추가옵션선택</h4>
-						<div className='bdSpaceInfo'>
-							<img
-								alt=''
-								src={require(`./img/404.png`)}
-								width='100'
-								height={100}
-							/>
-							<div>
-								<h3>바베큐</h3>
-								<h5>30,000 / 수량 1개</h5>
+						<div className='dbItem'>
+							<div
+								style={{
+									display: 'flex',
+									borderBottom: '3px solid #704de4',
+								}}
+							>
+								<h4>결제 예정금액</h4>
+							</div>
+							<div className='bdPrice'>
+								<div>
+									<p>예약날짜&nbsp;&nbsp;2022-11-25</p>
+									<p>예약시간&nbsp;&nbsp;11시~16시, 5시간</p>
+									<p
+										style={{
+											display: 'flex',
+											borderBottom: '3px solid #704de4',
+										}}
+									>
+										예약인원&nbsp;&nbsp;2명
+									</p>
+									<div
+										style={{
+											display: 'flex',
+											color: '#704de4',
+										}}
+									>
+										<h4>₩</h4>
+										<h4
+											style={{
+												marginLeft: 'auto',
+											}}
+										>
+											60000
+										</h4>
+									</div>
+								</div>
+								<button class='loadProduct' type='submit'>
+									예약신청하기&nbsp;
+								</button>
 							</div>
 						</div>
 					</div>
-
-					<div className='bdUserInfo'>
-						<div
-							style={{
-								display: 'flex',
-								borderBottom: '3px solid #704de4',
-							}}
-						>
-							<h4>예약자정보</h4>
-							<h5 style={{marginLeft: 'auto', color: 'red'}}>
-								*필수입력
-							</h5>
-						</div>
-						<div style={{display: 'flex'}}>
-							<h4>예약자</h4>
-							<input
-								type='text'
-								style={{
-									width: '400px',
-									height: '30px',
-									marginTop: '10px',
-									marginLeft: '30px',
-								}}
-							/>
-						</div>
-						<div style={{display: 'flex'}}>
-							<h4>연락처</h4>
-							<input
-								type='text'
-								style={{
-									width: '400px',
-									height: '30px',
-									marginTop: '10px',
-									marginLeft: '30px',
-								}}
-								placeholder='010-0000-0000'
-							/>
-						</div>
-						<div style={{display: 'flex'}}>
-							<h4>이메일</h4>
-							<input
-								type='text'
-								style={{
-									width: '400px',
-									height: '30px',
-									marginTop: '10px',
-									marginLeft: '30px',
-								}}
-							/>
-						</div>
-						<div style={{display: 'flex'}}>
-							<h4>사용목적</h4>
-							<input
-								type='text'
-								style={{
-									width: '400px',
-									height: '30px',
-									marginTop: '10px',
-									marginLeft: '20px',
-								}}
-							/>
-						</div>
-						<div style={{display: 'flex'}}>
-							<h4>요청사항</h4>
-							<input
-								type='text'
-								style={{
-									width: '400px',
-									height: '30px',
-									marginTop: '10px',
-									marginLeft: '20px',
-								}}
-							/>
-						</div>
-					</div>
-					<hr />
-					<div className='otherInfo'>다른 정보들</div>
 				</div>
-				<div class='dbItem'>결제예정금액</div>
-			</div>
-		</div>
+			</form>
+		</>
 	);
 }
 
