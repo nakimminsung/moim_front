@@ -26,10 +26,19 @@ function DetailInfo(props) {
 		onSelectData(num);
 	}, []);
 
+	// 버튼 클릭 시 스크롤을 맨 위로 올려주는 함수
+	const goToTop = () => {
+		let location = document.querySelector('.champPre1');
+		console.log(location);
+		window.scrollTo({top: 100, behavior: 'smooth'});
+	};
+
 	return (
 		<div>
 			<div className='input-group' style={{width: '100%'}}>
-				<button className='detailMenu'>공간소개</button>
+				<button className='detailMenu' onClick={goToTop}>
+					공간소개
+				</button>
 				<button className='detailMenu'>시설안내</button>
 				<button className='detailMenu'>유의사항</button>
 				<button className='detailMenu'>환불정책</button>
