@@ -1,0 +1,56 @@
+/* 헤더 왼쪽 : 로고 */
+.headerLogo {
+	width: 60px;
+	height: 40px;
+
+	margin-top: -20px;
+}
+
+/* 헤더 중간 : 검색 */
+.headerSearch {
+	margin-top: 10px;
+	width: 500px;
+	height: 50px;
+	background-color: #f1f1f1;
+	display: flex;
+	justify-content: start;
+	border-radius: 100px;
+}
+
+.searchBox {
+	width: 320px;
+	background-color: #f1f1f1;
+	border: none;
+	outline: none;
+}
+
+/* 헤더 오른쪽 */
+.headerRight {
+	margin-top: 12px;
+	width: 400px;
+	height: 50px;
+
+	display: flex;
+	justify-content: start;
+}
+
+.headerRight span {
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
+}
+
+.headerRight a {
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+
+.logoLink {
+	text-decoration: none;
+	color: black;
+}
+
+.logoLink:hover {
+	color: black;
+}
