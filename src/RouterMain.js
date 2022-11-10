@@ -12,6 +12,8 @@ import ReviewList from './pages/review/ReviewList';
 
 import MainPage from './pages/main/MainPage';
 import Layout from './pages/layout/Layout';
+import Like from './pages/like/Like';
+import Detail from './pages/roomsdetail/Detail';
 
 function RouterMain() {
 	return (
@@ -25,6 +27,10 @@ function RouterMain() {
 
 					{/* 리뷰/Q&A 리스트(게스트) */}
 					<Route path='/review' element={<ReviewList />} />
+					{/* 찜하기 */}
+					<Route path='/like' element={<Like />} />
+					{/* 공간 상세페이지 */}
+					<Route path='/detail/:num' element={<Detail />} />
 
 					<Route path='/menu1/list' element={<List1 />} />
 					<Route path='/menu2'>
