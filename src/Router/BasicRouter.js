@@ -16,10 +16,9 @@ import BookingMain from '../pages/booking/BookingMain';
 import SpaceAddForm from '../pages/host/SpaceAddForm';
 import SpaceAddForm2 from '../pages/host/SpaceAddForm2';
 
-function Router() {
+function BasicRouter() {
 	return (
 		<>
-			<Header />
 			<Routes>
 				<Route path='' element={<Mainpage />} />
 				{/* 리뷰/Q&A 리스트(게스트) */}
@@ -60,9 +59,8 @@ function Router() {
 					}
 				/>
 			</Routes>
-			<Footer />
 		</>
 	);
 }
 
-export default Router;
+export default BasicRouter;
