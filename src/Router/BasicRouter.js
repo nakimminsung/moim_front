@@ -18,13 +18,13 @@ function Router() {
 			<Routes>
 				<Route path='' element={<Mainpage />} />
 				{/* 리뷰/Q&A 리스트(게스트) */}
-				<Route path='/review' element={<ReviewList />} />
+				<Route path='review' element={<ReviewList />} />
 				{/* 찜하기 */}
-				<Route path='/like' element={<Like />} />
+				<Route path='like' element={<Like />} />
 				{/* 공간 상세페이지 */}
-				<Route path='/detail/:num' element={<Detail />} />
+				<Route path='detail/:num' element={<Detail />} />
 				{/* 메인페이지 theme component */}
-				<Route path='/main_theme' element={<MainTheme />} />
+				<Route path='main_theme' element={<MainTheme />} />
 				{/* 기획전 페이지 */}
 				<Route path='theme'>
 					<Route path=':num' element={<Theme />} />
