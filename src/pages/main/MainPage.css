@@ -1,6 +1,5 @@
 * {
-	font-family: 'Jua';
-	/* god 주아 맛 좀 봐라 */
+	/* 킹 갓 Jua 삭제함 */
 }
 
 ul.main {
@@ -9,7 +8,7 @@ ul.main {
 
 ul.main li {
 	float: left;
-	width: 100px;
+	width: 110px;
 	height: 50px;
 	line-height: 50px;
 	border: 1px solid black;
@@ -34,3 +33,20 @@ ul.main li:hover {
 ul.main li a:hover {
 	color: black;
 }
+
+/* .categoryBox {
+	width: 100%;
+}
+
+.categoryCard {
+	width: 60px;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.categoryCardInfo {
+	width: 60px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+} */
