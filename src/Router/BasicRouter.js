@@ -10,6 +10,8 @@ import Theme from '../pages/theme/Theme';
 import AdminMain from '../pages/admin/AdminMain';
 import Header from '../pages/layout/Header';
 import Footer from '../pages/layout/Footer';
+import SpaceAddForm from '../pages/host/SpaceAddForm';
+import SpaceAddForm2 from '../pages/host/SpaceAddForm2';
 
 function Router() {
 	return (
@@ -32,6 +34,8 @@ function Router() {
 				{/* 호스트 */}
 				<Route path='host'>
 					<Route path='slist' element={<SpaceList />} />
+					<Route path='addform' element={<SpaceAddForm />} />
+					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
 				</Route>
 				{/* 호스트 끝 */}
 				{/* 어드민_관리자 */}
