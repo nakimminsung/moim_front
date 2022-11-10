@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import './MainPage.css';
+import Theme from './Theme';
 
 function Mainpage(props) {
 	localStorage.url = process.env.REACT_APP_URL;
@@ -160,9 +161,7 @@ function Mainpage(props) {
 			<br />
 			<hr />
 
-			<div className='themeArea' style={{textAlign: 'center'}}>
-				<h3>기획전 영역</h3>
-			</div>
+			<Theme />
 
 			<br />
 			<br />
