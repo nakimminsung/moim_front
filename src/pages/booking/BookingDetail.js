@@ -58,7 +58,7 @@ function BookingDetail() {
 
 	const selectOptionData = () => {
 		axios.get(oUrl).then((res) => {
-			console.log(res.data);
+			//console.log(res.data);
 			setOptionList(res.data);
 		});
 	};
@@ -135,7 +135,7 @@ function BookingDetail() {
 						<h1>예약하기</h1>
 					</div>
 					<div className='bdContainer'>
-						<div class='dbItem'>
+						<div className='dbItem'>
 							<div className='bdSpace'>
 								<div
 									style={{
@@ -183,7 +183,7 @@ function BookingDetail() {
 									&nbsp; 공간유형
 								</span>
 								{categoryList.map((item, idx) => (
-									<span key='idx'>{item.cname} </span>
+									<span key={idx}>{item.cname} </span>
 								))}
 								<p style={{marginLeft: '30px'}}>
 									<CheckOutlinedIcon />
@@ -203,7 +203,7 @@ function BookingDetail() {
 										<>
 											<div
 												style={{display: 'flex'}}
-												key='idx'
+												key={idx}
 											>
 												<img
 													alt=''
@@ -260,7 +260,7 @@ function BookingDetail() {
 									item.oname == null ? (
 										<></>
 									) : (
-										<div className='bdSpaceInfo'>
+										<div className='bdSpaceInfo' key={idx}>
 											<>
 												<img
 													alt=''
@@ -466,8 +466,22 @@ function BookingDetail() {
 									aria-labelledby='alert-dialog-title'
 									aria-describedby='alert-dialog-description'
 								>
-									<DialogTitle id='alert-dialog-title'>
-										{"Use Google's location service?"}
+									<DialogTitle
+										id='alert-dialog-title'
+										style={{
+											borderBottom: '3px solid #704de4',
+											marginBotton: '40px',
+										}}
+									>
+										<h4
+											style={{
+												marginBottom: '10px',
+												marginTop: '10px',
+												textAlign: 'center',
+											}}
+										>
+											예약 내용을 확인해주세요
+										</h4>
 									</DialogTitle>
 									<DialogContent>
 										<DialogContentText id='alert-dialog-description'>
@@ -482,7 +496,7 @@ function BookingDetail() {
 											onClick={handleClose}
 											color='primary'
 										>
-											Disagree
+											닫기
 										</Button>
 										<Button
 											onClick={() => {
@@ -493,7 +507,7 @@ function BookingDetail() {
 											autoFocus
 											type='button'
 										>
-											Agree
+											예약신청
 										</Button>
 									</DialogActions>
 								</Dialog>
