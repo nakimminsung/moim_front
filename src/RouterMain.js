@@ -9,6 +9,8 @@ import Menu from './pages/components/Menu';
 import SpaceList from './pages/host/SpaceList';
 import MainPage from './pages/main/MainPage';
 import Layout from './pages/layout/Layout';
+import SpaceAddForm from './pages/host/SpaceAddForm';
+import SpaceAddForm2 from './pages/host/SpaceAddForm2';
 
 function RouterMain() {
 	return (
@@ -28,6 +30,11 @@ function RouterMain() {
 					{/* 호스트 */}
 					<Route path='host'>
 						<Route path='slist' element={<SpaceList />} />
+						<Route path='addform' element={<SpaceAddForm />} />
+						<Route
+							path='addform2/:num'
+							element={<SpaceAddForm2 />}
+						/>
 					</Route>
 					{/* 호스트 끝 */}
 

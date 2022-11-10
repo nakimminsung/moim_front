@@ -6,6 +6,9 @@ import './SpaceList.css';
 
 function SpaceList(props) {
 	localStorage.url = 'http://localhost:9000';
+
+	let imageUrl = localStorage.url + '/image/';
+
 	const [spacelist, setSpacelist] = useState([]);
 
 	const list = () => {
@@ -23,12 +26,6 @@ function SpaceList(props) {
 
 	const navi = useNavigate();
 
-	const addButtonEvent = () => {
-		let addUrl = localStorage.url + '/host/spaceadd';
-		// console.log(addUrl);
-		navi(`/host/addform`);
-	};
-
 	return (
 		<div className='roomlist'>
 			<div className='btn_wrap'>
@@ -37,7 +34,7 @@ function SpaceList(props) {
 					color='primary'
 					className='btn_newadd'
 					style={{border: '1px solid blueviolet'}}
-					onClick={addButtonEvent}
+					onClick={() => navi(`/host/addform`)}
 				>
 					<h5>
 						<b style={{color: 'blueviolet'}}>새 공간 등록하기</b>
@@ -57,7 +54,8 @@ function SpaceList(props) {
 						<br />
 						<img
 							alt=''
-							src={r.thumbnailImage}
+							src={`${imageUrl + r.thumbnailImage}`}
+							// src={r.thumbnailImage}
 							style={{width: '200px'}}
 						/>
 					</div>
