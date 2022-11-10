@@ -1,7 +1,7 @@
 import React from 'react';
 import {List, Menu, Content} from './index';
 import styled from '@emotion/styled/macro';
-import {Box, Typography} from '@mui/material';
+import {Box} from '@mui/material';
 
 function Map(props) {
 	return (

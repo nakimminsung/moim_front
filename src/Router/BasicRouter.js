@@ -8,23 +8,22 @@ import Detail from '../pages/roomsdetail/Detail';
 import MainTheme from '../pages/main/Theme';
 import Theme from '../pages/theme/Theme';
 import AdminMain from '../pages/admin/AdminMain';
-import Header from '../pages/layout/Header';
-import Footer from '../pages/layout/Footer';
+import SpaceAddForm from '../pages/host/SpaceAddForm';
+import SpaceAddForm2 from '../pages/host/SpaceAddForm2';
 
-function Router() {
+function BasicRouter() {
 	return (
 		<>
-			<Header />
 			<Routes>
 				<Route path='' element={<Mainpage />} />
 				{/* 리뷰/Q&A 리스트(게스트) */}
-				<Route path='/review' element={<ReviewList />} />
+				<Route path='review' element={<ReviewList />} />
 				{/* 찜하기 */}
-				<Route path='/like' element={<Like />} />
+				<Route path='like' element={<Like />} />
 				{/* 공간 상세페이지 */}
-				<Route path='/detail/:num' element={<Detail />} />
+				<Route path='detail/:num' element={<Detail />} />
 				{/* 메인페이지 theme component */}
-				<Route path='/main_theme' element={<MainTheme />} />
+				<Route path='main_theme' element={<MainTheme />} />
 				{/* 기획전 페이지 */}
 				<Route path='theme'>
 					<Route path=':num' element={<Theme />} />
@@ -32,6 +31,8 @@ function Router() {
 				{/* 호스트 */}
 				<Route path='host'>
 					<Route path='slist' element={<SpaceList />} />
+					<Route path='addform' element={<SpaceAddForm />} />
+					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
 				</Route>
 				{/* 호스트 끝 */}
 				{/* 어드민_관리자 */}
@@ -47,9 +48,8 @@ function Router() {
 					}
 				/>
 			</Routes>
-			<Footer />
 		</>
 	);
 }
 
-export default Router;
+export default BasicRouter;
