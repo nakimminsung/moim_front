@@ -6,9 +6,14 @@ import './MainPage.css';
 import Theme from './Theme';
 
 function Mainpage(props) {
+<<<<<<< HEAD
 	localStorage.url = 'http://localhost:9000';
 	// localStorage.url = process.env.MOIM_APP_BACK_URL;
 
+=======
+	//localStorage.url = process.env.REACT_APP_URL;
+	localStorage.url = 'http://localhost:9000';
+>>>>>>> 0209f78dc8cd7edcf2c6dd5a616b82c5061516d0
 	const [category, setCategory] = useState('');
 
 	const getCategoryList = () => {
