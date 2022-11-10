@@ -6,7 +6,6 @@ import {Box} from '@mui/material';
 function Map(props) {
 	return (
 		<MapWrapper>
-			<h1>지도페이지</h1>
 			<List />
 			<Menu />
 			<Content />
@@ -17,3 +16,12 @@ function Map(props) {
 export default Map;
 
 const MapWrapper = styled(Box)``;
+List = styled(Box)`
+	border: 1px solid gray;
+`;
+Menu = styled(Box)`
+	border: 1px solid gray;
+`;
+Content = styled(Box)`
+	border: 1px solid gray;
+`;

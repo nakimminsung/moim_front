@@ -8,13 +8,11 @@ function layout(props) {
 	return (
 		<div className='layout'>
 			<Header />
-
 			<main>
 				<div className='layContent'>
 					<BasicRouter />
 				</div>
 			</main>
-
 			<Footer />
 		</div>
 	);
