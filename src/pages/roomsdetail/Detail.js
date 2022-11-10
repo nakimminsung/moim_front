@@ -81,7 +81,7 @@ function Detail() {
 			</div>
 			<br />
 			<br />
-			<br />
+
 			<DetailInfo />
 		</div>
 	);

@@ -29,7 +29,11 @@ function DetailInfo(props) {
 
 	return (
 		<div>
-			<div className='input-group' style={{width: '100%'}}>
+			<br id='1' />
+			<div
+				className='input-group'
+				style={{width: '100%', position: 'sticky', top: '60px'}}
+			>
 				<Link to='1' spy={true} className='detailMenu'>
 					<button>공간소개</button>
 				</Link>
@@ -49,7 +53,6 @@ function DetailInfo(props) {
 					<button>이용후기</button>
 				</Link>
 			</div>
-			<br id='1' />
 			<br />
 			<br />
 			<div style={{width: '49.8%'}}>
@@ -98,9 +101,9 @@ function DetailInfo(props) {
 						: '없음'}
 				</span>
 			</div>
-			<br />
-			<br />
 			<br id='2' />
+			<br />
+			<br />
 			<br />
 			<br />
 			<div>
@@ -126,13 +129,13 @@ function DetailInfo(props) {
 						</div>
 					))}
 			</div>
-			<br />
+			<br id='3' />
 			<br />
 			<br />
 			<br />
 			<br />
 			<div>
-				<b style={{borderBottom: '2px solid #ffd014'}} id='3'>
+				<b style={{borderBottom: '2px solid #ffd014'}}>
 					예약시 주의사항
 				</b>
 				<br />
@@ -156,7 +159,7 @@ function DetailInfo(props) {
 						</div>
 					))}
 			</div>
-			<br />
+			<br id='4' />
 			<br />
 			<br />
 			<br />
