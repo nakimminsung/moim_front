@@ -2,6 +2,7 @@
 .headerLogo {
 	width: 60px;
 	height: 40px;
+
 	margin-top: -20px;
 }
 
@@ -30,7 +31,7 @@
 	height: 50px;
 
 	display: flex;
-	justify-content: 'start';
+	justify-content: start;
 }
 
 .headerRight span {

@@ -1,4 +1,6 @@
-import {Button, TextField} from '@material-ui/core';
+import {Button, Checkbox, Input, TextField} from '@material-ui/core';
+import {CloseOutlined} from '@material-ui/icons';
+import {borderBottom, height, style} from '@mui/system';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
@@ -15,6 +17,8 @@ function SpaceAddForm2(props) {
 	const [roomnNum, setRoomNum] = useState(num);
 
 	const [tag, setTag] = useState([]);
+	const [info, setInfo] = useState([]);
+	const [precautions, setPrecautions] = useState([]);
 
 	localStorage.url = 'http://localhost:9000';
 	let imageUrl = localStorage.url + '/image/';
@@ -55,9 +59,26 @@ function SpaceAddForm2(props) {
 			headers: {'Content-Type': 'multipart/form-data'},
 		}).then((res) => {
 			console.log(res.data.length + '개 들어옴');
-
-			setRoomImage(res.data); // res.data에 배열에 업로드된 사진이름이 배열 형태로 리턴
+			setRoomImage(roomImage.concat(res.data)); // res.data에 배열에 업로드된 사진이름이 배열 형태로 리턴
+			// setRoomArray(roomArray.concat(res.data));
 		});
+	};
+
+	const onchange = () => {
+		setTag(tag.concat(document.getElementById('tag').value));
+		document.getElementById('tag').value = '';
+	};
+
+	const onchange2 = () => {
+		setInfo(info.concat(document.getElementById('info').value));
+		document.getElementById('info').value = '';
+	};
+
+	const onchange3 = () => {
+		setPrecautions(
+			precautions.concat(document.getElementById('precautions').value),
+		);
+		document.getElementById('precautions').value = '';
 	};
 
 	return (
@@ -70,18 +91,75 @@ function SpaceAddForm2(props) {
 							<tbody>
 								{maincategorylist &&
 									maincategorylist.map((mc, idx) => (
-										<tr className='depth_1'>
-											<th key={idx}>
-												<span>{mc.mcname}</span>
+										<tr>
+											<th
+												className='depth_1'
+												key={idx}
+												style={{
+													height: '48px',
+													verticalAlign: 'top',
+												}}
+											>
+												<span
+													style={{
+														width: '130px',
+														padding: '4px 24px',
+														lineHeight: '1.3',
+														display: 'block',
+														borderRadius: '14px',
+														backgroundColor:
+															'#e2e2e2',
+														textAlign: 'center',
+													}}
+												>
+													{mc.mcname}
+												</span>
+												<span
+													className='pointer'
+													style={{
+														position: 'absolute',
+														marginTop: '-20.5px',
+														width: '0',
+														height: '0',
+														borderLeft:
+															' 10px solid #e2e2e2',
+														borderTop:
+															'5px solid transparent',
+														borderBottom:
+															'5px solid transparent',
+														marginLeft: '128.5px',
+													}}
+												></span>
 											</th>
 											{categorylist &&
 												categorylist.map((c, idx) =>
 													mc.num ===
 													c.mainCategoryNum ? (
 														<td key={idx}>
-															<span>
-																{c.cname}
-															</span>
+															<label
+																style={{
+																	cursor: 'pointer',
+																}}
+															>
+																<span
+																	style={{
+																		padding:
+																			'0 16px 16px 0',
+																		fontSize:
+																			'18px',
+																	}}
+																>
+																	<Checkbox
+																		inputProps={{
+																			'aria-label':
+																				'uncontrolled-checkbox',
+																		}}
+																		name='space'
+																	/>
+
+																	{c.cname}
+																</span>
+															</label>
 														</td>
 													) : null,
 												)}
@@ -122,12 +200,36 @@ function SpaceAddForm2(props) {
 					>
 						{roomImage &&
 							roomImage.map((room, idx) => (
-								<img
-									alt=''
-									src={`${imageUrl}${room}`}
-									className='roomImge'
-									style={{maxWidth: '150px'}}
-								/>
+								<figure style={{float: 'left'}}>
+									<img
+										alt=''
+										src={`${imageUrl}${room}`}
+										className='roomImge'
+										style={{maxWidth: '100px'}}
+									/>
+									<figcaption>
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												const delUrl =
+													localStorage.url +
+													'/host/delphoto?idx' +
+													idx;
+												axios
+													.get(delUrl)
+													.then((res) => {
+														//DB는 삭제되지 않음
+													});
+
+												setRoomImage(
+													roomImage.filter(
+														(a, i) => i !== idx,
+													),
+												);
+											}}
+										/>
+									</figcaption>
+								</figure>
 							))}
 					</div>
 					<div>
@@ -144,7 +246,7 @@ function SpaceAddForm2(props) {
 					<h3>인원수</h3>
 					<div>
 						<TextField
-							id='outlined-number'
+							id='headcount'
 							type='number'
 							style={{margin: 8, width: '250px'}}
 							placeholder='최대 인원수를 선택해주세요'
@@ -164,7 +266,7 @@ function SpaceAddForm2(props) {
 					<h3>공간 태그</h3>
 					<div>
 						<TextField
-							id='outlined-number'
+							id='tag'
 							style={{margin: 8, width: '800px'}}
 							placeholder='게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요'
 							required
@@ -180,7 +282,11 @@ function SpaceAddForm2(props) {
 								}
 							}}
 						/>
-						<Button variant='contained' color='primary'>
+						<Button
+							variant='contained'
+							color='primary'
+							onClick={onchange}
+						>
 							추가
 						</Button>
 						<div>
@@ -204,7 +310,7 @@ function SpaceAddForm2(props) {
 					<h3>시설안내</h3>
 					<div>
 						<TextField
-							id='outlined-number'
+							id='info'
 							style={{margin: 8, width: '800px'}}
 							placeholder='게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요'
 							required
@@ -213,10 +319,27 @@ function SpaceAddForm2(props) {
 							}}
 							variant='outlined'
 							size='small'
+							onKeyUp={(e) => {
+								if (e.key === 'Enter') {
+									setInfo(info.concat(e.target.value));
+									e.target.value = '';
+								}
+							}}
 						/>
-						<Button variant='contained' color='primary'>
+						<Button
+							variant='contained'
+							color='primary'
+							onClick={onchange2}
+						>
 							추가
 						</Button>
+						<div>
+							{info.map((info, i) => (
+								<h5>
+									<b>{info}</b>
+								</h5>
+							))}
+						</div>
 					</div>
 				</div>
 				<br />
@@ -225,7 +348,7 @@ function SpaceAddForm2(props) {
 					<h3>예약시 주의사항</h3>
 					<div>
 						<TextField
-							id='outlined-number'
+							id='precautions'
 							style={{margin: 8, width: '800px'}}
 							placeholder='게스트들이 예약 시 확인해야 하는 주의사항을 상세하게 입력해주세요'
 							required
@@ -234,10 +357,29 @@ function SpaceAddForm2(props) {
 							}}
 							variant='outlined'
 							size='small'
+							onKeyUp={(e) => {
+								if (e.key === 'Enter') {
+									setPrecautions(
+										precautions.concat(e.target.value),
+									);
+									e.target.value = '';
+								}
+							}}
 						/>
-						<Button variant='contained' color='primary'>
+						<Button
+							variant='contained'
+							color='primary'
+							onClick={onchange3}
+						>
 							추가
 						</Button>
+						<div>
+							{precautions.map((pre, i) => (
+								<h5>
+									<b>{pre}</b>
+								</h5>
+							))}
+						</div>
 					</div>
 				</div>
 			</form>
