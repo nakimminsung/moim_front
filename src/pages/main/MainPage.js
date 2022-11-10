@@ -6,7 +6,8 @@ import './MainPage.css';
 import Theme from './Theme';
 
 function Mainpage(props) {
-	localStorage.url = process.env.REACT_APP_URL;
+	localStorage.url = 'http://localhost:9000';
+	// localStorage.url = process.env.MOIM_APP_BACK_URL;
 
 	const [category, setCategory] = useState('');
 
@@ -139,8 +140,10 @@ function Mainpage(props) {
 			</div>
 
 			<br />
-			<hr />
+			<br />
+			<br />
 
+			{/* 
 			<div className='noticeBox' style={{textAlign: 'center'}}>
 				<div>
 					<h3>광고 / 공지사항 / 이벤트 배너 영역</h3>
@@ -155,11 +158,8 @@ function Mainpage(props) {
 						/>
 					</div>
 				</div>
-			</div>
-
-			<br />
-			<br />
-			<hr />
+			</div> 
+			*/}
 
 			<Theme />
 
