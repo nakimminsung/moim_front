@@ -8,7 +8,6 @@ import './Detail.css';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import DetailInfo from './DetailInfo';
-
 function Detail() {
 	const {num} = useParams();
 	const navi = useNavigate();
@@ -20,7 +19,6 @@ function Detail() {
 	const onSelectData = () => {
 		let url = localStorage.url + '/detailroom?num=' + num;
 		axios.get(url).then((res) => {
-			console.log(res.data.tag);
 			setRoomData(res.data.roomData);
 			setTag(res.data.tag);
 			setImg(res.data.roomImg);
@@ -29,6 +27,7 @@ function Detail() {
 
 	useEffect(() => {
 		onSelectData(num);
+		window.scrollTo({top: 0});
 	}, []);
 	//Slick Setting(사진 넘기기)
 	var settings = {

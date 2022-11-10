@@ -10,12 +10,12 @@ function DetailInfo(props) {
 	const [holiday, setHoliday] = useState('');
 	const [roomInfo, setRoomInfo] = useState('');
 	const [roomPre, setRoomPre] = useState('');
+	let [btnActive, setBtnActive] = useState('');
 
 	//룸관련 데이터 출력
 	const onSelectData = () => {
-		let url = localStorage.url + '/detailroom?num=' + num;
+		let url = localStorage.url + '/detailInfo?num=' + num;
 		axios.get(url).then((res) => {
-			console.log(res.data.tag);
 			setRoomData(res.data.roomData);
 			setHoliday(res.data.holiday);
 			setRoomInfo(res.data.roomInfo);
@@ -23,39 +23,98 @@ function DetailInfo(props) {
 		});
 	};
 
-	useEffect(() => {
+	useEffect((e) => {
 		onSelectData(num);
 	}, []);
 
+	const cssActive = (e) => {
+		setBtnActive(() => {
+			return e.target.value;
+		});
+	};
+
 	return (
 		<div>
-			<br id='1' />
+			<br />
 			<div
 				className='input-group'
 				style={{width: '100%', position: 'sticky', top: '60px'}}
 			>
-				<Link to='1' spy={true} className='detailMenu'>
-					<button>공간소개</button>
+				<Link
+					to='1'
+					spy={true}
+					value={1}
+					offset={-110}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 1 ? ' active' : '')
+					}
+				>
+					공간소개{btnActive}
 				</Link>
-				<Link to='2' spy={true} className='detailMenu'>
-					<button>시설안내</button>
+
+				<Link
+					to='2'
+					spy={true}
+					value={2}
+					offset={-120}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 2 ? ' active' : '')
+					}
+				>
+					시설안내
 				</Link>
-				<Link to='3' spy={true} className='detailMenu'>
-					<button>유의사항</button>
+				<Link
+					to='3'
+					spy={true}
+					value={3}
+					offset={-120}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 3 ? ' active' : '')
+					}
+				>
+					유의사항
 				</Link>
-				<Link to='4' spy={true} className='detailMenu'>
-					<button>환불정책</button>
+				<Link
+					to='4'
+					spy={true}
+					value={4}
+					offset={-120}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 4 ? ' active' : '')
+					}
+				>
+					환불정책
 				</Link>
-				<Link to='5' spy={true} className='detailMenu'>
-					<button>Q&A</button>
+				<Link
+					to='5'
+					spy={true}
+					value={5}
+					offset={-120}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 5 ? ' active' : '')
+					}
+				>
+					Q&A
 				</Link>
-				<Link to='6' spy={true} className='detailMenu'>
-					<button>이용후기</button>
+				<Link
+					to='6'
+					spy={true}
+					value={6}
+					offset={-120}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 6 ? ' active' : '')
+					}
+				>
+					이용후기
 				</Link>
 			</div>
-			<br />
-			<br />
-			<div style={{width: '49.8%'}}>
+			<div id='1' style={{width: '55%', marginTop: '70px'}}>
 				<b style={{borderBottom: '2px solid #ffd014'}}>공간소개</b>
 				<br />
 				<br />
@@ -68,16 +127,6 @@ function DetailInfo(props) {
 				>
 					{roomData.fullIntroduction}
 				</pre>
-			</div>
-			<br />
-			{/* 영업시간 */}
-			<div
-				style={{
-					fontFamily: 'normal',
-					color: '#656565',
-					fontSize: '15px',
-				}}
-			>
 				<span>
 					<span style={{color: 'black'}}>영업시간 </span>
 					{roomData.stime} ~ {roomData.etime}시
@@ -101,12 +150,8 @@ function DetailInfo(props) {
 						: '없음'}
 				</span>
 			</div>
-			<br id='2' />
-			<br />
-			<br />
-			<br />
-			<br />
-			<div>
+
+			<div id='2' style={{marginTop: '100px'}}>
 				<b style={{borderBottom: '2px solid #ffd014'}}>시설안내</b>
 				<br />
 				<br />
@@ -119,6 +164,7 @@ function DetailInfo(props) {
 								fontSize: '15px',
 								width: '49.8%',
 							}}
+							key={idx}
 						>
 							<span style={{color: 'black'}}>
 								{idx + 1}.&nbsp;{' '}
@@ -129,12 +175,8 @@ function DetailInfo(props) {
 						</div>
 					))}
 			</div>
-			<br id='3' />
-			<br />
-			<br />
-			<br />
-			<br />
-			<div>
+
+			<div id='3' style={{marginTop: '100px'}}>
 				<b style={{borderBottom: '2px solid #ffd014'}}>
 					예약시 주의사항
 				</b>
@@ -149,26 +191,22 @@ function DetailInfo(props) {
 								fontSize: '15px',
 								width: '49.8%',
 							}}
+							key={idx}
 						>
 							<span style={{color: 'black'}}>
 								{idx + 1}.&nbsp;{' '}
 							</span>
 							{row}
-							<br />
-							<br />
 						</div>
 					))}
 			</div>
-			<br id='4' />
-			<br />
-			<br />
-			<br />
-			<br />
+
 			<div
+				id='4'
 				style={{
 					fontFamily: 'normal',
 					fontSize: '15px',
-					width: '49.8%',
+					marginTop: '120px',
 				}}
 			>
 				<b style={{borderBottom: '2px solid #ffd014'}} id='4'>
@@ -222,8 +260,18 @@ function DetailInfo(props) {
 					<b>이용 3일전 ~ 당일</b>&nbsp;&nbsp;
 					<span>환불 불가</span>
 				</span>
-				<br />
-				<br />
+			</div>
+			<div
+				id='4'
+				style={{
+					fontFamily: 'normal',
+					fontSize: '15px',
+					marginTop: '300px',
+				}}
+			>
+				<b style={{borderBottom: '2px solid #ffd014'}} id='4'>
+					Q&A
+				</b>
 			</div>
 		</div>
 	);
