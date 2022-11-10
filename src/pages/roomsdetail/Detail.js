@@ -7,6 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import './Detail.css';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import DetailInfo from './DetailInfo';
 
 function Detail() {
 	const {num} = useParams();
@@ -78,6 +79,10 @@ function Detail() {
 						))}
 				</Slider>
 			</div>
+			<br />
+			<br />
+			<br />
+			<DetailInfo />
 		</div>
 	);
 }
