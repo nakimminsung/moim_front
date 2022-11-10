@@ -1,14 +1,16 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import './App.css';
-import BookingDetail from './booking/BookingDetail';
-import BookingList from './booking/BookingList';
-import BookingMain from './booking/BookingMain';
+import BookingDetail from './pages/booking/BookingDetail';
+import BookingList from './pages/booking/BookingList';
+import BookingMain from './pages/booking/BookingMain';
 import List1 from './pages/components/List1';
 import List2 from './pages/components/List2';
 import SpaceList from './pages/host/SpaceList';
 import MainPage from './pages/main/MainPage';
 import Layout from './pages/layout/Layout';
+
+import AdminMain from './pages/admin/AdminMain';
 
 function RouterMain() {
 	return (
@@ -35,6 +37,11 @@ function RouterMain() {
 						<Route path='main' element={<BookingMain />} />
 						<Route path='list' element={<BookingList />} />
 						<Route path='detail' element={<BookingDetail />} />
+					</Route>
+
+					{/* 어드민_관리자 */}
+					<Route path='admin'>
+						<Route path='' element={<AdminMain />} />
 					</Route>
 
 					<Route

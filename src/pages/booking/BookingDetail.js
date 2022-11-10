@@ -4,6 +4,12 @@ import {useNavigate, useParams} from 'react-router-dom';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import './booking.css';
 import BookingModal from './BookingModal';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 function BookingDetail() {
 	const [roomData, setRoomData] = useState('');
@@ -57,8 +63,22 @@ function BookingDetail() {
 		});
 	};
 
-	const onSubmit = (e) => {
-		e.preventDefault(); // submit의 기본 이벤트 무효화시킴
+	// 모달
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+		if (name && phone && email !== '') {
+			setOpen(true);
+		} else {
+			alert('필수 정보를 입력해주세요');
+		}
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const onSend = () => {
 		// 요청사항
 		let request = contentRef.current.value;
 		let insertUrl = 'http://localhost:9000/bookingDetail/insert';
@@ -109,7 +129,7 @@ function BookingDetail() {
 
 	return (
 		<>
-			<form onSubmit={onSubmit}>
+			<form>
 				<div>
 					<div className='bookingTop'>
 						<h1>예약하기</h1>
@@ -297,6 +317,8 @@ function BookingDetail() {
 											height: '40px',
 											marginLeft: '30px',
 										}}
+										required
+										value={name}
 										onChange={(e) =>
 											setName(e.target.value)
 										}
@@ -319,6 +341,7 @@ function BookingDetail() {
 											height: '40px',
 											marginLeft: '30px',
 										}}
+										required
 										onChange={(e) => {
 											return setPhone(e.target.value);
 										}}
@@ -342,6 +365,8 @@ function BookingDetail() {
 											height: '40px',
 											marginLeft: '30px',
 										}}
+										required
+										value={email}
 										onChange={(e) =>
 											setEmail(e.target.value)
 										}
@@ -424,10 +449,54 @@ function BookingDetail() {
 										</h4>
 									</div>
 								</div>
-								<button class='bookingBtn' type='submit'>
+								<Button
+									class='bookingBtn'
+									type='button'
+									id='btn_submit'
+									variant='outlined'
+									onClick={handleClickOpen}
+								>
 									예약신청하기&nbsp;
-								</button>
-								<BookingModal />
+								</Button>
+
+								{/* 모달 */}
+								<Dialog
+									open={open}
+									onClose={handleClose}
+									aria-labelledby='alert-dialog-title'
+									aria-describedby='alert-dialog-description'
+								>
+									<DialogTitle id='alert-dialog-title'>
+										{"Use Google's location service?"}
+									</DialogTitle>
+									<DialogContent>
+										<DialogContentText id='alert-dialog-description'>
+											Let Google help apps determine
+											location. This means sending
+											anonymous location data to Google,
+											even when no apps are running.
+										</DialogContentText>
+									</DialogContent>
+									<DialogActions>
+										<Button
+											onClick={handleClose}
+											color='primary'
+										>
+											Disagree
+										</Button>
+										<Button
+											onClick={() => {
+												onSend();
+												handleClose();
+											}}
+											color='primary'
+											autoFocus
+											type='button'
+										>
+											Agree
+										</Button>
+									</DialogActions>
+								</Dialog>
 							</div>
 						</div>
 					</div>

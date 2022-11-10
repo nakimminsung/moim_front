@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-function BookingModal() {
+function BookingModal(props) {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -19,13 +19,6 @@ function BookingModal() {
 
 	return (
 		<div>
-			<Button
-				variant='outlined'
-				color='primary'
-				onClick={handleClickOpen}
-			>
-				Open alert dialog
-			</Button>
 			<Dialog
 				open={open}
 				onClose={handleClose}
