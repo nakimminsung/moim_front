@@ -5,17 +5,17 @@ import SmsIcon from '@mui/icons-material/Sms';
 import PersonIcon from '@mui/icons-material/Person';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import {CardActionArea} from '@mui/material';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import {useTheme} from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import {autoPlay} from 'react-swipeable-views-utils';
+import styled from '@emotion/styled/macro';
+import {Box, Typography} from '@mui/material';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -104,10 +104,7 @@ function RoomCard(props) {
 					>
 						{imageData &&
 							imageData.map((step, index) => (
-								<div
-									key={step.label}
-									style={{overflow: 'hidden'}}
-								>
+								<ImageDiv key={step.label}>
 									{Math.abs(activeStep - index) <= 2 ? (
 										<Box
 											component='img'
@@ -122,67 +119,38 @@ function RoomCard(props) {
 											id='image'
 											src={step.rimageUrl}
 											alt={step.label}
+											onClick={() => {
+												navi('/detail/' + roomData.num);
+											}}
 										/>
 									) : null}
-								</div>
+								</ImageDiv>
 							))}
 					</AutoPlaySwipeableViews>
-					<div
+					<ImageButtonDiv
 						id='show'
-						style={{display: 'none'}}
+						style={{}}
 						onMouseEnter={() => zoomIn()}
 						onMouseLeave={() => zoomOut()}
 					>
-						<Button
-							size='small'
-							onClick={handleBack}
-							// disabled={activeStep === 0}
-							style={{
-								position: 'absolute',
-								top: '0',
-								left: '0',
-								bottom: '0',
-								cursor: 'pointer',
-								height: '200px',
-								border: '0',
-								background: 'none',
-								color: 'white',
-							}}
-						>
+						<PrevButton size='small' onClick={handleBack}>
 							{theme.direction === 'rtl' ? (
 								<KeyboardArrowRight />
 							) : (
 								<KeyboardArrowLeft />
 							)}
-						</Button>
-						<Button
-							size='small'
-							onClick={handleNext}
-							// disabled={activeStep === maxSteps - 1}
-							style={{
-								position: 'absolute',
-								top: '0',
-								right: '0',
-								bottom: '0',
-								cursor: 'pointer',
-								height: '200px',
-								border: '0px',
-								background: 'none',
-								color: 'white',
-							}}
-						>
+						</PrevButton>
+						<NextButton size='small' onClick={handleNext}>
 							{theme.direction === 'rtl' ? (
 								<KeyboardArrowLeft />
 							) : (
 								<KeyboardArrowRight />
 							)}
-						</Button>
-					</div>
+						</NextButton>
+					</ImageButtonDiv>
 				</Box>
-				<span
+				<PayInfo
 					style={{
-						width: '60px',
-						height: '60px',
 						backgroundColor:
 							roomData.payment === '바로결제'
 								? '#ffff33'
@@ -191,21 +159,10 @@ function RoomCard(props) {
 							roomData.payment !== '바로결제'
 								? '#ffff33'
 								: '#9b4de3',
-						paddingLeft: '18px',
-						paddingRight: '13px',
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-						position: 'absolute',
-						top: '0',
-						right: '0',
-						borderRadius: '2px',
-						opacity: '0.9',
-						zIndex: '10',
 					}}
 				>
 					{roomData.payment}
-				</span>
+				</PayInfo>
 				<CardContent
 					onClick={() => {
 						navi('/detail/' + roomData.num);
@@ -217,69 +174,38 @@ function RoomCard(props) {
 							: roomData.name}
 					</Typography>
 					<Typography variant='body2' color='text.secondary'>
-						<div>
-							<div
-								style={{
-									display: 'flex',
-									alignItems: 'center',
-									position: 'relative',
-									right: '5px',
-								}}
-							>
-								<RoomIcon />
-								{roomData.address.split(' ')[2]}
-							</div>
-							<div style={{marginTop: '10px'}}>
-								{tagData &&
-									tagData.map((item, i) => (
-										<span
-											key={i}
-											style={{
-												marginRight: '5px',
-											}}
-										>
-											#{item.tname}
-										</span>
-									))}
-							</div>
-						</div>
-						<div
-							style={{
-								display: 'flex',
-								justifyContent: 'space-between',
-								marginTop: '10px',
-							}}
-						>
-							<div
-								style={{display: 'flex', alignItems: 'center'}}
-							>
-								<b
-									style={{
-										fontSize: '23px',
-										marginRight: '5px',
-										color: '#9b4de3',
-									}}
-								>
+						<Address>
+							<RoomIcon />
+							{roomData.address.split(' ')[2]}
+						</Address>
+						<TagDiv>
+							{tagData &&
+								tagData.map((item, i) => (
+									<Tag key={i}>#{item.tname}</Tag>
+								))}
+						</TagDiv>
+						<RoomInfoBottom>
+							<PriceDiv>
+								<Price>
 									{roomData.weekAmPrice.toLocaleString(
 										'ko-KR',
 									)}
-								</b>
+								</Price>
 								원/시간
-							</div>
-							<div>
-								<span style={{marginLeft: '5px'}}>
+							</PriceDiv>
+							<EtcInfoDiv>
+								<HeadCount>
 									<PersonIcon /> {roomData.headcount}
-								</span>
-								<span style={{marginLeft: '5px'}}>
-									<SmsIcon style={{marginRight: '3px'}} />
+								</HeadCount>
+								<ReviewCount>
+									<SmsIcon style={{marginRight: '5px'}} />
 									{reviewCount}
-								</span>
-								<span style={{marginLeft: '5px'}}>
-									<Favorite style={{marginRight: '3px'}} />{' '}
-									{likeCount}
-								</span>
-							</div>
-						</div>
+								</ReviewCount>
+								<LikeCount>
+									<Favorite /> {likeCount}
+								</LikeCount>
+							</EtcInfoDiv>
+						</RoomInfoBottom>
 					</Typography>
 				</CardContent>
 			</CardActionArea>
@@ -288,3 +214,88 @@ function RoomCard(props) {
 }
 
 export default RoomCard;
+
+const ImageDiv = styled(Box)`
+	overflow: hidden;
+`;
+const ImageButtonDiv = styled(Box)`
+	display: none;
+`;
+const PrevButton = styled(Button)`
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	cursor: pointer;
+	height: 200px;
+	border: 0;
+	background: none;
+	color: white;
+`;
+const NextButton = styled(Button)`
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	cursor: pointer;
+	height: 200px;
+	border: 0px;
+	background: none;
+	color: white;
+`;
+const PayInfo = styled(Typography)`
+	width: 60px;
+	height: 60px;
+	padding-left: 18px;
+	padding-right: 13px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-radius: 2px;
+	opacity: 0.9;
+	z-index: 10;
+	font-weight: 1000;
+`;
+const Address = styled(Typography)`
+	display: flex;
+	align-items: center;
+	position: relative;
+	right: 5px;
+`;
+const TagDiv = styled(Box)`
+	margin-top: 10px;
+`;
+const Tag = styled(Typography)`
+	margin-right: 5px;
+	display: inline;
+`;
+const RoomInfoBottom = styled(Box)`
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+`;
+const PriceDiv = styled(Box)`
+	display: flex;
+	align-items: flex-end;
+`;
+const Price = styled(Typography)`
+	font-size: 23px;
+	margin-right: 5px;
+	color: #9b4de3;
+	margin-bottom: -3px;
+`;
+const EtcInfoDiv = styled(Box)`
+	display: flex;
+`;
+const HeadCount = styled(Typography)`
+	margin-left: 5px;
+`;
+const ReviewCount = styled(Typography)`
+	margin-left: 5px;
+`;
+const LikeCount = styled(Typography)`
+	margin-left: 5px;
+`;

@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import RoomIcon from '@mui/icons-material/Room';
-import List from './List';
 import './Banner.css';
+import styled from '@emotion/styled/macro';
+import {Box, Typography} from '@mui/material';
 
 function Banner(props) {
 	const [data, setData] = useState('');
@@ -21,84 +22,87 @@ function Banner(props) {
 	}, []);
 
 	return (
-		<>
-			<div
+		<BannerWrapper>
+			<Card
 				style={{
-					maxWidth: '1200px',
-					margin: '0 auto',
-					minHeight: '1000px',
+					backgroundImage: `url(${data.bannerImage})`,
 				}}
 			>
-				<div
-					style={{
-						backgroundImage: `url(${data.bannerImage})`,
-						backgroundRepeat: 'no-repeat',
-						backgroundSize: '100% auto',
-						backgroundPosition: 'center',
-						width: '100%',
-						height: '400px',
-						padding: '10% 35px 30px 35px',
-						marginBottom: '10px',
-						display: 'flex',
-						flexDirection: 'column',
-						justifyContent: 'space-between',
-					}}
-				>
-					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
+				<Info>
+					<Title>{data.description}</Title>
+					<Line />
+					<SubTitle>{data.title}</SubTitle>
+				</Info>
+				<MapButtonDiv>
+					<MapButton
+						onClick={() => {
+							navi('/map/' + num);
 						}}
 					>
-						<span
-							style={{
-								display: 'block',
-								color: 'white',
-								fontSize: '40px',
-							}}
-						>
-							{data.description}
-						</span>
-						<div
-							style={{
-								width: '40px',
-								height: '5px',
-								backgroundColor: 'yellow',
-								opacity: '0.8',
-								margin: '20px auto 30px',
-							}}
-						/>
-						<span style={{fontSize: '20px', color: 'white'}}>
-							{data.title}
-						</span>
-					</div>
-					<div style={{display: 'flex', justifyContent: 'flex-end'}}>
-						<div
-							style={{
-								width: '150px',
-								height: '45px',
-								border: '2px solid white',
-								textAlign: 'center',
-								lineHeight: '45px',
-								borderRadius: '50px',
-								cursor: 'pointer',
-							}}
-							onClick={() => {
-								navi('/map/' + num);
-							}}
-						>
-							<span style={{color: 'white', fontSize: '30p'}}>
-								<RoomIcon />
-								지도로 보기
-							</span>
-						</div>
-					</div>
-				</div>
-				<List />
-			</div>
-		</>
+						<MapButtonTitle>
+							<RoomIcon />
+							지도로 보기
+						</MapButtonTitle>
+					</MapButton>
+				</MapButtonDiv>
+			</Card>
+		</BannerWrapper>
 	);
 }
 
 export default Banner;
+
+const BannerWrapper = styled(Box)`
+	max-width: 1200px;
+	margin: 0 auto;
+`;
+const Card = styled(Box)`
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-position: center;
+	width: 100%;
+	height: 400px;
+	padding: 10% 35px 30px 35px;
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+`;
+const Info = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+const Title = styled(Typography)`
+	display: block;
+	color: white;
+	font-size: 40px;
+`;
+const Line = styled(Box)`
+	width: 40px;
+	height: 5px;
+	background-color: yellow;
+	opacity: 0.8;
+	margin: 20px auto 30px;
+`;
+const SubTitle = styled(Typography)`
+	font-size: 20px;
+	color: white;
+`;
+const MapButtonDiv = styled(Box)`
+	display: flex;
+	justify-content: flex-end;
+`;
+const MapButton = styled(Box)`
+	width: 150px;
+	height: 45px;
+	border: 2px solid white;
+	text-align: center;
+	line-height: 45px;
+	border-radius: 50px;
+	cursor: pointer;
+`;
+const MapButtonTitle = styled(Box)`
+	color: white;
+	font-size: 30p;
+`;

@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React from 'react';
-import {useEffect} from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import RoomCard from './RoomCard';
+import RoomCard from './Card';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import styled from '@emotion/styled/macro';
+import {Box} from '@mui/material';
 
 function List(props) {
 	const {num} = useParams();
@@ -29,14 +30,8 @@ function List(props) {
 	}, [sort]);
 
 	return (
-		<div style={{width: '100%'}}>
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'flex-end',
-					marginBottom: '10px',
-				}}
-			>
+		<ListWrapper>
+			<SelectDiv style={{}}>
 				<FormControl sx={{m: 1, minWidth: 120}} size='small'>
 					<Select
 						labelId='demo-select-small'
@@ -49,12 +44,21 @@ function List(props) {
 						<MenuItem value={'weekAmPrice'}>가격순</MenuItem>
 					</Select>
 				</FormControl>
-			</div>
+			</SelectDiv>
 			{data.map((item, i) => (
 				<RoomCard roomData={item} key={i} roomNum={item.num} />
 			))}
-		</div>
+		</ListWrapper>
 	);
 }
 
 export default List;
+
+const ListWrapper = styled(Box)`
+	padding-bottom: 50px;
+`;
+const SelectDiv = styled(Box)`
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 10px;
+`;
