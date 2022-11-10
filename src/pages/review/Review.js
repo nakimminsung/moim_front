@@ -1,4 +1,3 @@
-import {FormControl, InputLabel, NativeSelect, Select} from '@material-ui/core';
 import React, {useState} from 'react';
 
 function Review(props) {
@@ -27,25 +26,11 @@ function Review(props) {
 				</button>
 			</div>
 			<br />
-			<br />
-			<select>
+			<select style={{float: 'right', marginRight: '20%'}}>
 				<option>최신순</option>
 				<option>답글있음</option>
 				<option>답글없음</option>
 			</select>
-			<FormControl variant='outlined'>
-				<Select
-					native
-					inputProps={{
-						id: 'outlined-age-native-simple',
-					}}
-				>
-					<option aria-label='None' value='' />
-					<option value={10}>Ten</option>
-					<option value={20}>Twenty</option>
-					<option value={30}>Thirty</option>
-				</Select>
-			</FormControl>
 		</div>
 	);
 }
