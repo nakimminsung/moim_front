@@ -42,8 +42,8 @@ function Detail() {
 		autoplaySpeed: 10000, // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
 		pauseOnHover: true, // 슬라이드 이동시 마우스 호버하면 슬라이더 멈추게 설정
 		draggable: true, //드래그 가능 여부(없어도 가능)
-		nextArrow: <ChevronRightIcon />,
-		prevArrow: <ChevronLeftIcon />,
+		nextArrow: <ChevronRightIcon />, //화살표
+		prevArrow: <ChevronLeftIcon />, //화살표
 	};
 
 	return (
