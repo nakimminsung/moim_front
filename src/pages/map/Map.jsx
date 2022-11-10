@@ -16,12 +16,3 @@ function Map(props) {
 export default Map;
 
 const MapWrapper = styled(Box)``;
-List = styled(Box)`
-	border: 1px solid gray;
-`;
-Menu = styled(Box)`
-	border: 1px solid gray;
-`;
-Content = styled(Box)`
-	border: 1px solid gray;
-`;
