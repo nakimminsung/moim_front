@@ -1,4 +1,4 @@
-import {ArrowUpward, ExpandLess} from '@material-ui/icons';
+import {KeyboardArrowUp} from '@material-ui/icons';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
@@ -59,7 +59,6 @@ function Mainpage(props) {
 	return (
 		<div>
 			<div className='directButton'>
-				<h5>바로가기 버튼(임시)</h5>
 				<ul
 					className='main'
 					style={{display: 'flex', justifyContent: 'center'}}
@@ -208,6 +207,7 @@ function Mainpage(props) {
 						width: '70px',
 						height: '70px',
 						borderRadius: '50px',
+						marginTop: '10px',
 					}}
 				>
 					<b>상담하기</b>
@@ -223,10 +223,11 @@ function Mainpage(props) {
 						width: '70px',
 						height: '70px',
 						borderRadius: '50px',
+						marginTop: '10px',
 					}}
 				>
 					{/* <ArrowUpward /> */}
-					<ExpandLess />
+					<KeyboardArrowUp />
 					<br />
 					TOP
 				</button>
