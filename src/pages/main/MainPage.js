@@ -6,13 +6,13 @@ import './MainPage.css';
 import Theme from './Theme';
 
 function Mainpage(props) {
-	//localStorage.url = process.env.REACT_APP_URL;
 	localStorage.url = 'http://localhost:9000';
+
 	const [category, setCategory] = useState('');
 
 	const getCategoryList = () => {
-		let url = localStorage.url + '/categoryList';
-
+		//let url = localStorage.url + '/categoryList';
+		let url = `${localStorage.url}/categoryList`;
 		axios.get(url).then((res) => {
 			// console.log(res.data);
 
@@ -79,7 +79,7 @@ function Mainpage(props) {
 					</li>
 					{/* 임시버튼 */}
 					<li>
-						<NavLink to={'/'}>임시 버튼</NavLink>
+						<NavLink to={'/booking/detail'}>예약페이지</NavLink>
 					</li>
 					<li>
 						<NavLink to={'/'}>임시 버튼</NavLink>
