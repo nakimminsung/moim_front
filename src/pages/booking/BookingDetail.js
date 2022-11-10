@@ -485,10 +485,8 @@ function BookingDetail() {
 									</DialogTitle>
 									<DialogContent>
 										<DialogContentText id='alert-dialog-description'>
-											Let Google help apps determine
-											location. This means sending
-											anonymous location data to Google,
-											even when no apps are running.
+											<p>예약공간</p>
+											<p>예약날짜</p>
 										</DialogContentText>
 									</DialogContent>
 									<DialogActions>
