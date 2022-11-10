@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
+import {Link} from 'react-scroll';
 
 function DetailInfo(props) {
 	const {num} = useParams();
@@ -26,25 +27,29 @@ function DetailInfo(props) {
 		onSelectData(num);
 	}, []);
 
-	// 버튼 클릭 시 스크롤을 맨 위로 올려주는 함수
-	const goToTop = () => {
-		let location = document.querySelector('.champPre1');
-		console.log(location);
-		window.scrollTo({top: 100, behavior: 'smooth'});
-	};
-
 	return (
 		<div>
 			<div className='input-group' style={{width: '100%'}}>
-				<button className='detailMenu' onClick={goToTop}>
-					공간소개
-				</button>
-				<button className='detailMenu'>시설안내</button>
-				<button className='detailMenu'>유의사항</button>
-				<button className='detailMenu'>환불정책</button>
-				<button className='detailMenu'>Q&A</button>
-				<button className='detailMenu'>이용후기</button>
+				<Link to='1' spy={true} className='detailMenu'>
+					<button>공간소개</button>
+				</Link>
+				<Link to='2' spy={true} className='detailMenu'>
+					<button>시설안내</button>
+				</Link>
+				<Link to='3' spy={true} className='detailMenu'>
+					<button>유의사항</button>
+				</Link>
+				<Link to='4' spy={true} className='detailMenu'>
+					<button>환불정책</button>
+				</Link>
+				<Link to='5' spy={true} className='detailMenu'>
+					<button>Q&A</button>
+				</Link>
+				<Link to='6' spy={true} className='detailMenu'>
+					<button>이용후기</button>
+				</Link>
 			</div>
+			<br id='1' />
 			<br />
 			<br />
 			<div style={{width: '49.8%'}}>
@@ -95,7 +100,7 @@ function DetailInfo(props) {
 			</div>
 			<br />
 			<br />
-			<br />
+			<br id='2' />
 			<br />
 			<br />
 			<div>
@@ -127,7 +132,7 @@ function DetailInfo(props) {
 			<br />
 			<br />
 			<div>
-				<b style={{borderBottom: '2px solid #ffd014'}}>
+				<b style={{borderBottom: '2px solid #ffd014'}} id='3'>
 					예약시 주의사항
 				</b>
 				<br />
@@ -163,7 +168,9 @@ function DetailInfo(props) {
 					width: '49.8%',
 				}}
 			>
-				<b style={{borderBottom: '2px solid #ffd014'}}>환불규정 안내</b>
+				<b style={{borderBottom: '2px solid #ffd014'}} id='4'>
+					환불규정 안내
+				</b>
 				<br />
 				<br />
 
