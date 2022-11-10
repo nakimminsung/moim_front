@@ -33,3 +33,20 @@ ul.main li:hover {
 ul.main li a:hover {
 	color: black;
 }
+
+/* .categoryBox {
+	width: 100%;
+}
+
+.categoryCard {
+	width: 60px;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.categoryCardInfo {
+	width: 60px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+} */

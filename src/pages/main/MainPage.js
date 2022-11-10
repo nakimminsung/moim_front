@@ -1,11 +1,60 @@
-import {Mic} from '@material-ui/icons';
-import React from 'react';
+import {ArrowUpward, ExpandLess} from '@material-ui/icons';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import './MainPage.css';
 
-function mainpage(props) {
-	const categoryImg =
-		'https://github.com/MoiM-Project/data/blob/main/category/party.png?raw=true';
+function Mainpage(props) {
+	localStorage.url = process.env.REACT_APP_URL;
+
+	const [category, setCategory] = useState('');
+
+	const getCategoryList = () => {
+		let url = localStorage.url + '/categoryList';
+
+		axios.get(url).then((res) => {
+			// console.log(res.data);
+
+			var x = res.data;
+
+			setCategory(x);
+
+			console.log(x.length);
+		});
+	};
+
+	// 맨 위로 관련
+	// 토글 여부를 결정하는 state 선언
+	const [toggleBtn, setToggleBtn] = useState(true);
+
+	// window 객체에서 scrollY 값을 받아옴
+	// 어느정도 스크롤이 된건지 판단 후, 토글 여부 결정
+	const handleScroll = () => {
+		const {scrollY} = window;
+
+		scrollY > 200 ? setToggleBtn(true) : setToggleBtn(false);
+	};
+
+	// scroll 이벤트 발생 시 이를 감지하고 handleScroll 함수를 실행
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
+	// 버튼 클릭 시 스크롤을 맨 위로 올려주는 함수
+	const goToTop = () => {
+		window.scrollTo({top: 0, behavior: 'smooth'});
+	};
+
+	useEffect(() => {
+		//카테고리 리스트
+		getCategoryList();
+
+		//공지사항 가져오기
+	}, []);
 
 	return (
 		<div>
@@ -40,61 +89,71 @@ function mainpage(props) {
 					<li>
 						<NavLink to={'/'}>임시 버튼</NavLink>
 					</li>
-					<li>
-						<NavLink to={'/'}>임시 버튼</NavLink>
-					</li>
-					<li>
-						<NavLink to={'/'}>임시 버튼</NavLink>
-					</li>
 				</ul>
 			</div>
 
-			<br />
-			<br />
 			<hr />
+			<br />
 
 			<div className='categoryBox' style={{textAlign: 'center'}}>
-				<h3>어떤 공간을 찾고있나요?</h3>
-				<div>
-					<h6>DB에서 category 테이블 가져오기</h6>
-				</div>
+				<h2 style={{marginBottom: '50px', fontWeight: 'bold'}}>
+					어떤 공간을 찾고있나요?
+				</h2>
 
-				{/* DB가져오기 전 테스트 */}
+				{/* 카테고리 아이콘 영역 */}
 				<div
+					className='categoryCard'
 					style={{
 						display: 'flex',
-						justifyContent: 'center',
-						flexWrap: 'wrap',
+						justifyContent: 'center', //정렬
+						gap: '40px 2.7%', //다음 행(세로) 과의 간격 px, 같은 행의 다음 열 과의 간격 %
+						flexWrap: 'wrap', //줄넘김
 					}}
 				>
-					<div
-						style={{
-							width: '60px',
-							marginRight: '10px',
-							marginBottom: '10px',
-						}}
-					>
-						<img alt='' src={categoryImg} style={{width: '50px'}} />
-						<p style={{marginTop: '10px'}}>파티룸</p>
-					</div>
+					{/* 카테고리 img + 카테고리 name 을 묶은 div 반복 구간 */}
+					{category &&
+						category.map((row, idx) => (
+							<div
+								className='categoryCardInfo'
+								key={idx}
+								style={{cursor: 'pointer', width: '100px'}}
+								onClick={() => {
+									console.log('num=' + (idx + 1));
+								}}
+							>
+								<img
+									alt=''
+									src={row.categoryImg}
+									style={{
+										width: '80px',
+										marginBottom: '10px',
+									}}
+								/>
+								<br />
+								<span style={{}}>{row.cname}</span>
+							</div>
+						))}
+					{/* 반복구간 종료 */}
 				</div>
+				{/* 카테고리 아이콘 영역 종료 */}
 			</div>
-			<br />
-			<br />
-			<br />
+
 			<br />
 			<hr />
 
-			<div className='categoryBox' style={{textAlign: 'center'}}>
+			<div className='noticeBox' style={{textAlign: 'center'}}>
 				<div>
 					<h3>광고 / 공지사항 / 이벤트 배너 영역</h3>
 					<br />
 					<br />
-					<img
-						alt=''
-						src='https://kr.object.ncloudstorage.com/scloud-service/service/166677817_5bcdfa7d1d565f1dcf9c5fd4675c31d1.png'
-						style={{borderRadius: '20px'}}
-					/>
+
+					<div>
+						<img
+							alt=''
+							src='https://kr.object.ncloudstorage.com/scloud-service/service/166677817_5bcdfa7d1d565f1dcf9c5fd4675c31d1.png'
+							style={{borderRadius: '20px'}}
+						/>
+					</div>
 				</div>
 			</div>
 
@@ -113,7 +172,7 @@ function mainpage(props) {
 			<hr />
 
 			<div className='themeArea' style={{textAlign: 'center'}}>
-				<h3>추천 공간 - 최신순 or ReadCount</h3>
+				<h3>오늘의 추천 공간</h3>
 				<h6 style={{color: 'gray'}}>뜨기 전에 먼저 예약하세요!</h6>
 			</div>
 			<br />
@@ -132,8 +191,48 @@ function mainpage(props) {
 			<br />
 			<br />
 			<br />
+
+			{/* 우측 하단 고정부 */}
+			<div
+				style={{
+					position: 'fixed',
+					bottom: '20px',
+					right: '20px',
+					opacity: '0.8',
+				}}
+			>
+				<button
+					type='button'
+					className='btn btn-warning'
+					style={{
+						width: '70px',
+						height: '70px',
+						borderRadius: '50px',
+					}}
+				>
+					<b>상담하기</b>
+				</button>
+				<br />
+
+				{/* 맨 위로 버튼 */}
+				<button
+					type='button'
+					className='btn btn-dark'
+					onClick={goToTop}
+					style={{
+						width: '70px',
+						height: '70px',
+						borderRadius: '50px',
+					}}
+				>
+					{/* <ArrowUpward /> */}
+					<ExpandLess />
+					<br />
+					TOP
+				</button>
+			</div>
 		</div>
 	);
 }
 
-export default mainpage;
+export default Mainpage;
