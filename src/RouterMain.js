@@ -9,6 +9,8 @@ import Layout from './pages/layout/Layout';
 import MainTheme from './pages/main/Theme';
 import Theme from './pages/theme/Theme';
 
+import AdminMain from './pages/admin/AdminMain';
+
 function RouterMain() {
 	return (
 		<div>
@@ -30,6 +32,11 @@ function RouterMain() {
 						<Route path='slist' element={<SpaceList />} />
 					</Route>
 					{/* 호스트 끝 */}
+
+					{/* 어드민_관리자 */}
+					<Route path='admin'>
+						<Route path='' element={<AdminMain />} />
+					</Route>
 
 					<Route
 						path='*'
