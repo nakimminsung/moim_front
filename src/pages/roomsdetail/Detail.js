@@ -9,7 +9,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 function Detail() {
-	localStorage.url = process.env.React_APP_URL;
 	const {num} = useParams();
 	const navi = useNavigate();
 	const [roomData, setRoomData] = useState(''); //룸정보
