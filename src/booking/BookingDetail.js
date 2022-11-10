@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import './booking.css';
+import BookingModal from './BookingModal';
 
 function BookingDetail() {
 	const [roomData, setRoomData] = useState('');
@@ -335,7 +336,7 @@ function BookingDetail() {
 										<span style={{color: 'red'}}>*</span>
 									</h6>
 									<input
-										type='text'
+										type='email'
 										style={{
 											width: '88%',
 											height: '40px',
@@ -423,9 +424,10 @@ function BookingDetail() {
 										</h4>
 									</div>
 								</div>
-								<button class='loadProduct' type='submit'>
+								<button class='bookingBtn' type='submit'>
 									예약신청하기&nbsp;
 								</button>
+								<BookingModal />
 							</div>
 						</div>
 					</div>
