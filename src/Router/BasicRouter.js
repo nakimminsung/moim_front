@@ -8,15 +8,12 @@ import Detail from '../pages/roomsdetail/Detail';
 import MainTheme from '../pages/main/Theme';
 import Theme from '../pages/theme/Theme';
 import AdminMain from '../pages/admin/AdminMain';
-import Header from '../pages/layout/Header';
-import Footer from '../pages/layout/Footer';
 import SpaceAddForm from '../pages/host/SpaceAddForm';
 import SpaceAddForm2 from '../pages/host/SpaceAddForm2';
 
-function Router() {
+function BasicRouter() {
 	return (
 		<>
-			<Header />
 			<Routes>
 				<Route path='' element={<Mainpage />} />
 				{/* 리뷰/Q&A 리스트(게스트) */}
@@ -51,9 +48,8 @@ function Router() {
 					}
 				/>
 			</Routes>
-			<Footer />
 		</>
 	);
 }
 
-export default Router;
+export default BasicRouter;
