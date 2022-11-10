@@ -1,13 +1,13 @@
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import RouterMain from "./RouterMain";
+import React from 'react';
+import {BrowserRouter} from 'react-router-dom';
+import Router from './Router/Router';
 
 function Root() {
-  return (
-    <BrowserRouter>
-      <RouterMain />
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<Router />
+		</BrowserRouter>
+	);
 }
 
 export default Root;
