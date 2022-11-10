@@ -6,8 +6,8 @@ import './MainPage.css';
 import Theme from './Theme';
 
 function Mainpage(props) {
-	localStorage.url = process.env.REACT_APP_URL;
-
+	//localStorage.url = process.env.REACT_APP_URL;
+	localStorage.url = 'http://localhost:9000';
 	const [category, setCategory] = useState('');
 
 	const getCategoryList = () => {
