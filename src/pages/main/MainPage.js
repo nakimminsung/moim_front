@@ -8,6 +8,7 @@ import Theme from './Theme';
 
 function Mainpage(props) {
 	localStorage.url = 'http://localhost:9000';
+
 	// localStorage.url = process.env.MOIM_APP_BACK_URL;
 
 	return (
@@ -31,7 +32,7 @@ function Mainpage(props) {
 					</li>
 					{/* 임시버튼 */}
 					<li>
-						<NavLink to={'/'}>임시 버튼</NavLink>
+						<NavLink to={'/booking/detail'}>예약페이지</NavLink>
 					</li>
 					<li>
 						<NavLink to={'/'}>임시 버튼</NavLink>
