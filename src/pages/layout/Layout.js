@@ -3,6 +3,7 @@ import './Layout.css';
 import Header from './Header';
 import Footer from './Footer';
 import {KeyboardArrowUp} from '@material-ui/icons';
+import BasicRouter from '../../Router/BasicRouter';
 
 function Layout(props) {
 	// 맨 위로 관련
@@ -78,6 +79,8 @@ function Layout(props) {
 							TOP
 						</button>
 					</div>
+
+					<BasicRouter />
 				</div>
 			</main>
 
