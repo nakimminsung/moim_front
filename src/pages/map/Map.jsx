@@ -8,7 +8,6 @@ import styled from '@emotion/styled/macro';
 import {Box} from '@mui/material';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
-import Test from './Test';
 
 function Map(props) {
 	const [data, setData] = useState('');
@@ -37,8 +36,7 @@ function Map(props) {
 				</ListDiv>
 				<ContentDiv>
 					<BottomMenu />
-					{/* <Content /> */}
-					<Test />
+					<Content />
 				</ContentDiv>
 			</Bottom>
 		</Wrapper>
