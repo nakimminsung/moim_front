@@ -37,7 +37,7 @@ function Category(props) {
 				style={{
 					display: 'flex',
 					justifyContent: 'center', //정렬
-					gap: '40px 2.7%', //다음 행(세로) 과의 간격 px, 같은 행의 다음 열 과의 간격 %
+					gap: '40px 2.5%', //다음 행(세로) 과의 간격 px, 같은 행의 다음 열 과의 간격 %
 					flexWrap: 'wrap', //줄넘김
 				}}
 			>
@@ -47,7 +47,7 @@ function Category(props) {
 						<div
 							className='categoryCardInfo'
 							key={idx}
-							style={{cursor: 'pointer', width: '100px'}}
+							style={{cursor: 'pointer', width: '80px'}}
 							onClick={() => {
 								console.log('num=' + (idx + 1));
 							}}
@@ -56,7 +56,7 @@ function Category(props) {
 								alt=''
 								src={row.categoryImg}
 								style={{
-									width: '80px',
+									width: '70px',
 									marginBottom: '10px',
 								}}
 							/>
