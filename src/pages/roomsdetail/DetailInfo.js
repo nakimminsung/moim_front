@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Link} from 'react-scroll';
+import DetailReview from './DetailReview';
 
 function DetailInfo(props) {
 	const {num} = useParams();
@@ -10,12 +11,12 @@ function DetailInfo(props) {
 	const [holiday, setHoliday] = useState('');
 	const [roomInfo, setRoomInfo] = useState('');
 	const [roomPre, setRoomPre] = useState('');
+	let [btnActive, setBtnActive] = useState('');
 
 	//룸관련 데이터 출력
 	const onSelectData = () => {
-		let url = localStorage.url + '/detailroom?num=' + num;
+		let url = localStorage.url + '/detailInfo?num=' + num;
 		axios.get(url).then((res) => {
-			console.log(res.data.tag);
 			setRoomData(res.data.roomData);
 			setHoliday(res.data.holiday);
 			setRoomInfo(res.data.roomInfo);
@@ -23,39 +24,98 @@ function DetailInfo(props) {
 		});
 	};
 
-	useEffect(() => {
+	useEffect((e) => {
 		onSelectData(num);
 	}, []);
 
+	const cssActive = (e) => {
+		setBtnActive(() => {
+			return e.target.value;
+		});
+	};
+
 	return (
 		<div>
-			<br id='1' />
+			<br />
 			<div
 				className='input-group'
 				style={{width: '100%', position: 'sticky', top: '60px'}}
 			>
-				<Link to='1' spy={true} className='detailMenu'>
-					<button>공간소개</button>
+				<Link
+					to='1'
+					spy={true}
+					value={1}
+					offset={-110}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 1 ? ' active' : '')
+					}
+				>
+					공간소개{btnActive}
 				</Link>
-				<Link to='2' spy={true} className='detailMenu'>
-					<button>시설안내</button>
+
+				<Link
+					to='2'
+					spy={true}
+					value={2}
+					offset={-120}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 2 ? ' active' : '')
+					}
+				>
+					시설안내
 				</Link>
-				<Link to='3' spy={true} className='detailMenu'>
-					<button>유의사항</button>
+				<Link
+					to='3'
+					spy={true}
+					value={3}
+					offset={-120}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 3 ? ' active' : '')
+					}
+				>
+					유의사항
 				</Link>
-				<Link to='4' spy={true} className='detailMenu'>
-					<button>환불정책</button>
+				<Link
+					to='4'
+					spy={true}
+					value={4}
+					offset={-120}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 4 ? ' active' : '')
+					}
+				>
+					환불정책
 				</Link>
-				<Link to='5' spy={true} className='detailMenu'>
-					<button>Q&A</button>
+				<Link
+					to='5'
+					spy={true}
+					value={5}
+					offset={-120}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 5 ? ' active' : '')
+					}
+				>
+					Q&A
 				</Link>
-				<Link to='6' spy={true} className='detailMenu'>
-					<button>이용후기</button>
+				<Link
+					to='6'
+					spy={true}
+					value={6}
+					offset={-120}
+					onClick={cssActive}
+					className={
+						'detailMenu' + (btnActive === 6 ? ' active' : '')
+					}
+				>
+					이용후기
 				</Link>
 			</div>
-			<br />
-			<br />
-			<div style={{width: '49.8%'}}>
+			<div id='1' style={{width: '100%', marginTop: '70px'}}>
 				<b style={{borderBottom: '2px solid #ffd014'}}>공간소개</b>
 				<br />
 				<br />
@@ -68,23 +128,24 @@ function DetailInfo(props) {
 				>
 					{roomData.fullIntroduction}
 				</pre>
-			</div>
-			<br />
-			{/* 영업시간 */}
-			<div
-				style={{
-					fontFamily: 'normal',
-					color: '#656565',
-					fontSize: '15px',
-				}}
-			>
-				<span>
-					<span style={{color: 'black'}}>영업시간 </span>
+				<br />
+				<span
+					style={{
+						fontFamily: 'normal',
+						color: '#656565',
+						fontSize: '15px',
+						marginRight: '20%',
+					}}
+				>
+					<span style={{color: 'black'}}>영업시간: </span>
 					{roomData.stime} ~ {roomData.etime}시
 				</span>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>
-					<span style={{color: 'black'}}>휴무일</span>
+				<span
+					style={{
+						color: '#656565',
+					}}
+				>
+					<span style={{color: 'black'}}>휴무일: </span>
 					&nbsp;&nbsp;
 					{holiday === 1
 						? '월'
@@ -100,13 +161,45 @@ function DetailInfo(props) {
 						? '토'
 						: '없음'}
 				</span>
+				{/* 주차,계단,엘베 옵션 */}
+				<div className='mainFigure'>
+					<figure className='fceFigure'>
+						<img
+							alt=''
+							src='https://github.com/MoiM-Project/data/blob/main/icon/KakaoTalk_20221111_155826855.png?raw=true'
+						/>
+						<figcaption>
+							{roomData.floor > 0
+								? '지상' + roomData.floor + '층'
+								: roomData.floor === 0
+								? '지상1층'
+								: '지하' + roomData.floor + '층'}
+						</figcaption>
+					</figure>
+					<figure className='fceFigure'>
+						<img
+							alt=''
+							src='https://github.com/MoiM-Project/data/blob/main/icon/KakaoTalk_20221111_155826945.png?raw=true'
+						/>
+						<figcaption>
+							{roomData.parking === 0
+								? '주차불가'
+								: roomData.parking + '대가능'}
+						</figcaption>
+					</figure>
+					<figure className='fceFigure'>
+						<img
+							alt=''
+							src='https://github.com/MoiM-Project/data/blob/main/icon/KakaoTalk_20221111_155826780.png?raw=true'
+						/>
+						<figcaption>
+							엘베{roomData.elevator === 0 ? '없음' : '있음'}
+						</figcaption>
+					</figure>
+				</div>
 			</div>
-			<br id='2' />
-			<br />
-			<br />
-			<br />
-			<br />
-			<div>
+
+			<div id='2' style={{marginTop: '100px'}}>
 				<b style={{borderBottom: '2px solid #ffd014'}}>시설안내</b>
 				<br />
 				<br />
@@ -117,8 +210,9 @@ function DetailInfo(props) {
 								fontFamily: 'normal',
 								color: '#656565',
 								fontSize: '15px',
-								width: '49.8%',
+								width: '100%',
 							}}
+							key={idx}
 						>
 							<span style={{color: 'black'}}>
 								{idx + 1}.&nbsp;{' '}
@@ -129,12 +223,8 @@ function DetailInfo(props) {
 						</div>
 					))}
 			</div>
-			<br id='3' />
-			<br />
-			<br />
-			<br />
-			<br />
-			<div>
+
+			<div id='3' style={{marginTop: '100px'}}>
 				<b style={{borderBottom: '2px solid #ffd014'}}>
 					예약시 주의사항
 				</b>
@@ -147,28 +237,24 @@ function DetailInfo(props) {
 								fontFamily: 'normal',
 								color: '#656565',
 								fontSize: '15px',
-								width: '49.8%',
+								width: '100%',
 							}}
+							key={idx}
 						>
 							<span style={{color: 'black'}}>
 								{idx + 1}.&nbsp;{' '}
 							</span>
 							{row}
-							<br />
-							<br />
 						</div>
 					))}
 			</div>
-			<br id='4' />
-			<br />
-			<br />
-			<br />
-			<br />
+
 			<div
+				id='4'
 				style={{
 					fontFamily: 'normal',
 					fontSize: '15px',
-					width: '49.8%',
+					marginTop: '120px',
 				}}
 			>
 				<b style={{borderBottom: '2px solid #ffd014'}} id='4'>
@@ -222,9 +308,8 @@ function DetailInfo(props) {
 					<b>이용 3일전 ~ 당일</b>&nbsp;&nbsp;
 					<span>환불 불가</span>
 				</span>
-				<br />
-				<br />
 			</div>
+			<DetailReview />
 		</div>
 	);
 }
