@@ -31,7 +31,7 @@ function List(props) {
 
 	return (
 		<ListWrapper>
-			<SelectDiv style={{}}>
+			<SelectDiv>
 				<FormControl sx={{m: 1, minWidth: 120}} size='small'>
 					<Select
 						labelId='demo-select-small'
@@ -45,9 +45,12 @@ function List(props) {
 					</Select>
 				</FormControl>
 			</SelectDiv>
-			{data.map((item, i) => (
-				<RoomCard roomData={item} key={i} roomNum={item.num} />
-			))}
+			<RoomList>
+				{data &&
+					data.map((item, i) => (
+						<RoomCard roomData={item} key={i} roomNum={item.num} />
+					))}
+			</RoomList>
 		</ListWrapper>
 	);
 }
@@ -60,5 +63,12 @@ const ListWrapper = styled(Box)`
 const SelectDiv = styled(Box)`
 	display: flex;
 	justify-content: flex-end;
-	margin-bottom: 10px;
+	margin: 20px 0;
+`;
+const RoomList = styled(Box)`
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	flex-direction: row;
+	width: 100%;
 `;

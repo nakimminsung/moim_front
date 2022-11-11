@@ -53,7 +53,6 @@ function Banner(props) {
 export default Banner;
 
 const BannerWrapper = styled(Box)`
-	max-width: 1200px;
 	margin: 0 auto;
 `;
 const Card = styled(Box)`

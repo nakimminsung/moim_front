@@ -8,8 +8,6 @@ import Detail from '../pages/roomsdetail/Detail';
 import MainTheme from '../pages/main/Theme';
 import Theme from '../pages/theme/Theme';
 import AdminMain from '../pages/admin/AdminMain';
-import Header from '../pages/layout/Header';
-import Footer from '../pages/layout/Footer';
 import BookingDetail from '../pages/booking/BookingDetail';
 import BookingList from '../pages/booking/BookingList';
 import BookingMain from '../pages/booking/BookingMain';

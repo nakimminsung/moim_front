@@ -86,7 +86,8 @@ function RoomCard(props) {
 
 	return (
 		<Card
-			sx={{maxWidth: '30%'}}
+			sx={{minWidth: '290px', width: '100%', maxWidth: '95%'}}
+			style={{marginBottom: '10px'}}
 			onMouseEnter={() => zoomIn()}
 			onMouseLeave={() => zoomOut()}
 		>
@@ -94,7 +95,7 @@ function RoomCard(props) {
 				onMouseEnter={() => btnShow()}
 				onMouseLeave={() => btnHidden()}
 			>
-				<Box sx={{maxWidth: 400, flexGrow: 1}}>
+				<Box sx={{maxWidth: '100%', flexGrow: 1}}>
 					<AutoPlaySwipeableViews
 						axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
 						index={activeStep}
@@ -111,7 +112,6 @@ function RoomCard(props) {
 											sx={{
 												height: 200,
 												display: 'block',
-												maxWidth: '100%',
 												overflow: 'hidden',
 												width: '100%',
 											}}
@@ -154,11 +154,15 @@ function RoomCard(props) {
 						backgroundColor:
 							roomData.payment === '바로결제'
 								? '#ffff33'
-								: '#9b4de3',
+								: roomData.payment === '승인결제'
+								? '#9b4de3'
+								: '',
 						color:
-							roomData.payment !== '바로결제'
+							roomData.payment === '바로결제'
+								? '#9b4de3'
+								: roomData.payment === '승인결제'
 								? '#ffff33'
-								: '#9b4de3',
+								: '',
 					}}
 				>
 					{roomData.payment}
@@ -169,14 +173,14 @@ function RoomCard(props) {
 					}}
 				>
 					<Typography gutterBottom variant='h5' component='div'>
-						{roomData.name.length > 14
-							? roomData.name.substr(0, 15) + '...'
+						{roomData.name.length > 11
+							? roomData.name.substr(0, 12) + '...'
 							: roomData.name}
 					</Typography>
 					<Typography variant='body2' color='text.secondary'>
 						<Address>
 							<RoomIcon />
-							{roomData.address.split(' ')[2]}
+							{roomData.address.split(' ')[1]}
 						</Address>
 						<TagDiv>
 							{tagData &&
@@ -246,7 +250,7 @@ const NextButton = styled(Button)`
 const PayInfo = styled(Typography)`
 	width: 60px;
 	height: 60px;
-	padding-left: 18px;
+	padding-left: 17px;
 	padding-right: 13px;
 	display: flex;
 	justify-content: center;
