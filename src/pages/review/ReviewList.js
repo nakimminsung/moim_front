@@ -40,7 +40,6 @@ function ReviewList(props) {
 				</div>
 			</div>
 			<br />
-			<br />
 
 			{show === 1 ? <Review /> : <QNA />}
 		</div>
