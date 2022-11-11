@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -10,6 +10,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import DetailInfo from './DetailInfo';
 import DatailPrice from './DatailPrice';
 function Detail() {
+	const {pathname} = useLocation();
 	const {num} = useParams();
 	const navi = useNavigate();
 	const [roomData, setRoomData] = useState(''); //룸정보
@@ -28,8 +29,8 @@ function Detail() {
 
 	useEffect(() => {
 		onSelectData(num);
-		window.scrollTo({top: 0});
-	}, []);
+		window.scrollTo(0, 0);
+	}, [pathname]);
 
 	//Slick Setting(사진 넘기기)
 	var settings = {
@@ -94,7 +95,7 @@ function Detail() {
 					position: 'sticky',
 					top: '70px',
 					height: '1000px',
-					width: '50%',
+					width: '60%',
 				}}
 			>
 				<DatailPrice />
