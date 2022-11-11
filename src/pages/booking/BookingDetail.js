@@ -10,6 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import InfoIcon from '@mui/icons-material/Info';
 
 function BookingDetail() {
 	const [roomData, setRoomData] = useState('');
@@ -20,6 +21,7 @@ function BookingDetail() {
 	const [phone, setPhone] = useState('');
 	const [email, setEmail] = useState('');
 	const [purpose, setPurpose] = useState('');
+	const [bs, setBs] = useState('');
 	// 요청사항 (textarea)
 	const contentRef = useRef('');
 	//const bookingTime
@@ -31,8 +33,8 @@ function BookingDetail() {
 	const cUrl = `http://localhost:9000/room/category?num=${num}`;
 	const fUrl = `http://localhost:9000/room/facility?num=${num}`;
 	const oUrl = `http://localhost:9000/room/option?num=${num}`;
-	let totalPrice = 100000;
-	let bookingStatus = 0;
+	let totalPrice = 60000;
+	let bookingStatus = bs;
 	let userNum = 1;
 	let roomNum = num;
 	let bookingTime = '10';
@@ -103,7 +105,6 @@ function BookingDetail() {
 				setEmail('');
 				setPurpose('');
 				contentRef.current.value = '';
-				alert('성공');
 			});
 	};
 
@@ -449,15 +450,17 @@ function BookingDetail() {
 										</h4>
 									</div>
 								</div>
-								<Button
-									class='bookingBtn'
-									type='button'
-									id='btn_submit'
-									variant='outlined'
-									onClick={handleClickOpen}
-								>
-									예약신청하기&nbsp;
-								</Button>
+								{
+									<Button
+										class='bookingBtn'
+										type='button'
+										id='btn_submit'
+										variant='outlined'
+										onClick={handleClickOpen}
+									>
+										예약신청하기
+									</Button>
+								}
 
 								{/* 모달 */}
 								<Dialog
@@ -473,20 +476,84 @@ function BookingDetail() {
 											marginBotton: '40px',
 										}}
 									>
-										<h4
-											style={{
-												marginBottom: '10px',
-												marginTop: '10px',
-												textAlign: 'center',
-											}}
-										>
-											예약 내용을 확인해주세요
-										</h4>
+										{roomData.payment === '바로결제' ? (
+											<h4
+												style={{
+													marginBottom: '10px',
+													marginTop: '10px',
+													textAlign: 'center',
+												}}
+											>
+												결제하시겠습니까?
+											</h4>
+										) : (
+											<h4
+												style={{
+													marginBottom: '10px',
+													marginTop: '10px',
+													textAlign: 'center',
+												}}
+											>
+												예약 내용을 확인해주세요
+											</h4>
+										)}
 									</DialogTitle>
 									<DialogContent>
 										<DialogContentText id='alert-dialog-description'>
-											<p>예약공간</p>
-											<p>예약날짜</p>
+											<span
+												style={{
+													marginTop: '5px',
+													marginRight: '40px',
+												}}
+											>
+												예약공간
+											</span>
+											<span style={{float: 'right'}}>
+												{roomData.name}
+											</span>
+											<hr />
+											<span>예약날짜</span>
+											<span style={{float: 'right'}}>
+												2022-11-25
+											</span>
+											<hr />
+											<span>예약시간</span>
+											<span style={{float: 'right'}}>
+												11시~16시, 5시간
+											</span>
+											<hr />
+											<span>예약인원</span>
+											<span style={{float: 'right'}}>
+												2명
+											</span>
+											<hr />
+											<span>결제예정금액</span>
+											<span
+												style={{
+													float: 'right',
+													color: '#704de4',
+												}}
+											>
+												₩60000
+											</span>
+											<hr />
+											{roomData.payment === '바로결제' ? (
+												<>
+													<InfoIcon
+														style={{color: 'red'}}
+													/>
+													&nbsp;&nbsp;
+													<span
+														style={{color: 'red'}}
+													>
+														결제전에, 환불기준과
+														예약내용을 반드시
+														확인해주세요!
+													</span>
+												</>
+											) : (
+												<></>
+											)}
 										</DialogContentText>
 									</DialogContent>
 									<DialogActions>
@@ -496,17 +563,34 @@ function BookingDetail() {
 										>
 											닫기
 										</Button>
-										<Button
-											onClick={() => {
-												onSend();
-												handleClose();
-											}}
-											color='primary'
-											autoFocus
-											type='button'
-										>
-											예약신청
-										</Button>
+										{roomData.payment === '바로결제' ? (
+											<Button
+												onClick={() => {
+													setBs('5');
+													onSend();
+
+													handleClose();
+												}}
+												color='primary'
+												autoFocus
+												type='button'
+											>
+												결제하기
+											</Button>
+										) : (
+											<Button
+												onClick={() => {
+													setBs('2');
+													onSend();
+													handleClose();
+												}}
+												color='primary'
+												autoFocus
+												type='button'
+											>
+												예약신청
+											</Button>
+										)}
 									</DialogActions>
 								</Dialog>
 							</div>
