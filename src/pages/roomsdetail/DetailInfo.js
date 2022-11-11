@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Link} from 'react-scroll';
+import DetailReview from './DetailReview';
 
 function DetailInfo(props) {
 	const {num} = useParams();
@@ -114,7 +115,7 @@ function DetailInfo(props) {
 					이용후기
 				</Link>
 			</div>
-			<div id='1' style={{width: '55%', marginTop: '70px'}}>
+			<div id='1' style={{width: '100%', marginTop: '70px'}}>
 				<b style={{borderBottom: '2px solid #ffd014'}}>공간소개</b>
 				<br />
 				<br />
@@ -127,13 +128,24 @@ function DetailInfo(props) {
 				>
 					{roomData.fullIntroduction}
 				</pre>
-				<span>
-					<span style={{color: 'black'}}>영업시간 </span>
+				<br />
+				<span
+					style={{
+						fontFamily: 'normal',
+						color: '#656565',
+						fontSize: '15px',
+						marginRight: '20%',
+					}}
+				>
+					<span style={{color: 'black'}}>영업시간: </span>
 					{roomData.stime} ~ {roomData.etime}시
 				</span>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>
-					<span style={{color: 'black'}}>휴무일</span>
+				<span
+					style={{
+						color: '#656565',
+					}}
+				>
+					<span style={{color: 'black'}}>휴무일: </span>
 					&nbsp;&nbsp;
 					{holiday === 1
 						? '월'
@@ -149,6 +161,42 @@ function DetailInfo(props) {
 						? '토'
 						: '없음'}
 				</span>
+				{/* 주차,계단,엘베 옵션 */}
+				<div className='mainFigure'>
+					<figure className='fceFigure'>
+						<img
+							alt=''
+							src='https://github.com/MoiM-Project/data/blob/main/icon/KakaoTalk_20221111_155826855.png?raw=true'
+						/>
+						<figcaption>
+							{roomData.floor > 0
+								? '지상' + roomData.floor + '층'
+								: roomData.floor === 0
+								? '지상1층'
+								: '지하' + roomData.floor + '층'}
+						</figcaption>
+					</figure>
+					<figure className='fceFigure'>
+						<img
+							alt=''
+							src='https://github.com/MoiM-Project/data/blob/main/icon/KakaoTalk_20221111_155826945.png?raw=true'
+						/>
+						<figcaption>
+							{roomData.parking === 0
+								? '주차불가'
+								: roomData.parking + '대가능'}
+						</figcaption>
+					</figure>
+					<figure className='fceFigure'>
+						<img
+							alt=''
+							src='https://github.com/MoiM-Project/data/blob/main/icon/KakaoTalk_20221111_155826780.png?raw=true'
+						/>
+						<figcaption>
+							엘베{roomData.elevator === 0 ? '없음' : '있음'}
+						</figcaption>
+					</figure>
+				</div>
 			</div>
 
 			<div id='2' style={{marginTop: '100px'}}>
@@ -162,7 +210,7 @@ function DetailInfo(props) {
 								fontFamily: 'normal',
 								color: '#656565',
 								fontSize: '15px',
-								width: '49.8%',
+								width: '100%',
 							}}
 							key={idx}
 						>
@@ -189,7 +237,7 @@ function DetailInfo(props) {
 								fontFamily: 'normal',
 								color: '#656565',
 								fontSize: '15px',
-								width: '49.8%',
+								width: '100%',
 							}}
 							key={idx}
 						>
@@ -261,18 +309,7 @@ function DetailInfo(props) {
 					<span>환불 불가</span>
 				</span>
 			</div>
-			<div
-				id='4'
-				style={{
-					fontFamily: 'normal',
-					fontSize: '15px',
-					marginTop: '300px',
-				}}
-			>
-				<b style={{borderBottom: '2px solid #ffd014'}} id='4'>
-					Q&A
-				</b>
-			</div>
+			<DetailReview />
 		</div>
 	);
 }
