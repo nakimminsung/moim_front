@@ -27,8 +27,8 @@ function Detail() {
 	};
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
 		onSelectData(num);
+		window.scrollTo(0, 0);
 	}, []);
 
 	//Slick Setting(사진 넘기기)
