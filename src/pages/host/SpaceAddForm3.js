@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SpaceType(props) {
+function SpaceAddForm3(props) {
 	return (
 		<div>
 			<h1>공간유형 선택</h1>
@@ -8,4 +8,4 @@ function SpaceType(props) {
 	);
 }
 
-export default SpaceType;
+export default SpaceAddForm3;
