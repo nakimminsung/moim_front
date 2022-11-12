@@ -175,7 +175,7 @@ function SpaceAddForm2(props) {
 		});
 	};
 
-	//다음 버튼 클릭 이벤트
+	// 다음 버튼 클릭 이벤트
 	const nextButton = (e) => {
 		e.preventDefault();
 
@@ -321,7 +321,6 @@ function SpaceAddForm2(props) {
 								multiple
 								style={{visibility: 'hidden'}}
 								onChange={photoUploadEvent2}
-								required
 							/>
 							<span
 								onClick={() => {
@@ -344,7 +343,7 @@ function SpaceAddForm2(props) {
 					>
 						{rimageUrl &&
 							rimageUrl.map((room, idx) => (
-								<figure style={{float: 'left'}}>
+								<figure key={idx} style={{float: 'left'}}>
 									<img
 										alt=''
 										src={`${imageUrl}${room}`}
@@ -395,7 +394,6 @@ function SpaceAddForm2(props) {
 								id='roption1'
 								style={{visibility: 'hidden'}}
 								onChange={photoUploadEvent3}
-								required
 							/>
 							<span
 								onClick={() => {
@@ -454,7 +452,7 @@ function SpaceAddForm2(props) {
 									  roptionList.map((rotion, idx) => (
 											<table>
 												<tbody>
-													<tr>
+													<tr key={idx}>
 														<td>
 															<img
 																style={{
@@ -476,13 +474,6 @@ function SpaceAddForm2(props) {
 													</tr>
 												</tbody>
 											</table>
-											//  <img alt='' src={rotion.oimageUrl},
-											// <h3 key={idx}>
-											// 	{rotion.optionName}
-											// 	{rotion.optionPrice}
-											// 	{rotion.oimageUrl}
-											// </h3>
-											// <img alt='' src={rotion.oimageUrl}/>
 									  ))}
 							</div>
 						</div>
@@ -561,7 +552,7 @@ function SpaceAddForm2(props) {
 						</Button>
 						<div>
 							{icontent.map((info, i) => (
-								<h5>
+								<h5 key={i}>
 									<b>{info}</b>
 								</h5>
 							))}
@@ -600,7 +591,7 @@ function SpaceAddForm2(props) {
 						</Button>
 						<div>
 							{pcontent.map((pre, i) => (
-								<h5>
+								<h5 key={i}>
 									<b>{pre}</b>
 								</h5>
 							))}

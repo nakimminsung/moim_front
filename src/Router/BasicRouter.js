@@ -15,6 +15,7 @@ import BookingList from '../pages/booking/BookingList';
 import BookingMain from '../pages/booking/BookingMain';
 import SpaceAddForm from '../pages/host/SpaceAddForm';
 import SpaceAddForm2 from '../pages/host/SpaceAddForm2';
+import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
 
 function BasicRouter() {
 	return (
@@ -38,6 +39,10 @@ function BasicRouter() {
 					<Route path='slist' element={<SpaceList />} />
 					<Route path='addform' element={<SpaceAddForm />} />
 					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
+					<Route
+						path='addform3/:roomNum'
+						element={<SpaceAddForm3 />}
+					/>
 				</Route>
 				{/* 호스트 끝 */}
 				{/* 어드민_관리자 */}
