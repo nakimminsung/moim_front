@@ -43,7 +43,7 @@ function Mypage(props) {
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(
-        "https://localhost:8080/member/modify",
+        "https://localhost:9000/member/modify",
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -78,7 +78,7 @@ function Mypage(props) {
           document.location.href = "/login";
         } else {
           response = await axios.patch(
-            "https://localhost:8080/member/modify/" +
+            "https://localhost:9000/member/modify/" +
             jwt_decode(localStorage.getItem("token")).idx,
             body,
             {
@@ -108,7 +108,7 @@ function Mypage(props) {
       let response = "";
 
       response = await axios.patch(
-        "https://localhost:8080/member/delete/" +
+        "https://localhost:9000/member/delete/" +
         jwt_decode(localStorage.getItem("token")).idx,
         body,
         {

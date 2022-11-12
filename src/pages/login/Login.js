@@ -14,7 +14,7 @@ function Login() {
   const onSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/member/authenticate",
+        "http://localhost:9000/member/authenticate",
         body,
         {
           headers: { "Content-Type": "application/json" },
@@ -37,7 +37,7 @@ function Login() {
       }
     } catch (e) {
       alert(
-        "회원 정보가 일치 하지 않습니다. 아이디와 비민번호를 다시 확인해 주세요!"
+        "회원 정보가 일치 하지 않습니다. 아이디와 비밀번호를 다시 확인해 주세요!"
       );
       console.log(e);
     }
@@ -81,7 +81,7 @@ function Login() {
             <VerticalButtons>
               <BarButton
                 // href="https://backend.alittlevanilla.kro.kr/oauth2/authorization/kakao"
-                href="http://localhost:8080/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect"
+                href="http://localhost:9000/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect"
                 className="kakao"
               >
                 <SpIcon className="Kakaotalk"></SpIcon>

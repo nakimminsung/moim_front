@@ -52,7 +52,7 @@ function SignUpEmail() {
     try {
       const response = await axios.post(
         // "https://backend.alittlevanilla.kro.kr/member/signup",
-        "http://localhost:8080/member/signup",
+        "http://localhost:9000/member/signup",
         body,
         {
           headers: { "Content-Type": "application/json" },
@@ -91,7 +91,7 @@ function SignUpEmail() {
         try {
           const response = await axios.get(
             // "https://backend.alittlevanilla.kro.kr/member/" + email
-            "https://localhost:8080/member/" + email
+            "https://localhost:9000/member/" + email
           );
           if (response.data === true) {
             setCheckedEmail("이미 존재하는 이메일 입니다.");

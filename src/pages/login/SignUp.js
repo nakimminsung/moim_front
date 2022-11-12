@@ -30,7 +30,7 @@ function SignUp() {
             <LoginSns className="wrap">
               <Item>
                 {/* <Kakaotalk href="https://backend.alittlevanilla.kro.kr/oauth2/authorization/kakao"> */}
-                <Kakaotalk href="http://localhost:8080/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect">
+                <Kakaotalk href="http://localhost:9000/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect">
                   <SpIcon className="Kakaotalk" />
                   "카카오톡으로 가입하기"
                 </Kakaotalk>
@@ -51,19 +51,19 @@ function SignUp() {
 
               <Hidden className={emailVisible ? "" : "HiddenTag"}>
                 <Item>
-                  <Naver href="http://localhost:8080/oauth2/authorization/naver?redirect_uri=http://localhost:3000/oauth/redirect">
+                  <Naver href="http://localhost:9000/oauth2/authorization/naver?redirect_uri=http://localhost:3000/oauth/redirect">
                     <SpIcon className="SpNaver" />
                     네이버로 가입하기
                   </Naver>
                 </Item>
                 <Item>
-                  <Facebook href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect">
+                  <Facebook href="http://localhost:9000/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect">
                     <SpIcon className="Facebook" />
                     페이스북으로 가입하기
                   </Facebook>
                 </Item>
                 <Item>
-                  <Twitter href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
+                  <Twitter href="http://localhost:9000/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
                     <SpIcon className="Twitter" />
                     구글 가입하기
                   </Twitter>
