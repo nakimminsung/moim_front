@@ -3,7 +3,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import './booking.css';
-import BookingModal from './BookingModal';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,6 +10,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import InfoIcon from '@mui/icons-material/Info';
+import BdOtherInfo from './BdOtherInfo';
+import defaultImg from './img/404.png';
 
 function BookingDetail() {
 	const [roomData, setRoomData] = useState('');
@@ -22,6 +23,7 @@ function BookingDetail() {
 	const [email, setEmail] = useState('');
 	const [purpose, setPurpose] = useState('');
 	const [bs, setBs] = useState('');
+	const [hostNum, setHostNum] = useState('');
 	// 요청사항 (textarea)
 	const contentRef = useRef('');
 	//const bookingTime
@@ -35,16 +37,19 @@ function BookingDetail() {
 	const cUrl = `http://localhost:9000/room/category?num=${num}`;
 	const fUrl = `http://localhost:9000/room/facility?num=${num}`;
 	const oUrl = `http://localhost:9000/room/option?num=${num}`;
-	let totalPrice = 60000;
+	let totalPrice = roomData.weekAmPrice;
 	let bookingStatus = bs;
 	let userNum = 1;
 	let roomNum = num;
 	let bookingTime = '10';
 	let headCount = 50;
 
+	//let hostNum = roomData.hostNum;
+
 	const selectRoomData = () => {
 		axios.get(url).then((res) => {
 			setRoomData(res.data);
+			setHostNum(res.data.hostNum);
 		});
 	};
 
@@ -67,6 +72,9 @@ function BookingDetail() {
 		});
 	};
 
+	const onErrorImg = (e) => {
+		e.target.src = defaultImg;
+	};
 	// 모달
 	const [open, setOpen] = React.useState(false);
 
@@ -192,7 +200,7 @@ function BookingDetail() {
 											color: '#704de4',
 										}}
 									>
-										₩60000
+										₩{roomData.weekAmPrice}
 									</h4>
 								</div>
 
@@ -294,10 +302,17 @@ function BookingDetail() {
 									<p style={{marginLeft: 'auto'}}>2명</p>
 								</div>
 							</div>
-							<hr />
 
 							<div className='bdOption'>
-								{/* <h4>추가옵션선택 </h4> */}
+								<div
+									style={{
+										display: 'flex',
+										borderBottom: '3px solid #704de4',
+										marginTop: '30px',
+									}}
+								>
+									<h4>추가옵션선택</h4>
+								</div>
 								{optionList.map((item, idx) =>
 									item.oname == null ? (
 										<></>
@@ -306,15 +321,16 @@ function BookingDetail() {
 											<>
 												<img
 													alt=''
-													src={require(`./img/404.png`)}
+													src={item.oimageUrl}
 													width='100'
 													height={100}
+													onError={onErrorImg}
 												/>
 												<div>
-													<h4>{item.oname}</h4>
-													<h6>
+													<h5>{item.oname}</h5>
+													<p>
 														{item.price} / 수량 1개
-													</h6>
+													</p>
 												</div>
 											</>
 										</div>
@@ -452,8 +468,13 @@ function BookingDetail() {
 									></textarea>
 								</div>
 							</div>
-							<hr />
-							<div className='otherInfo'>다른 정보들</div>
+
+							<div className='otherInfo'>
+								<BdOtherInfo
+									hostNum={hostNum}
+									roomNum={roomNum}
+								/>
+							</div>
 						</div>
 						<div className='dbItem'>
 							<div
@@ -488,7 +509,7 @@ function BookingDetail() {
 												marginLeft: 'auto',
 											}}
 										>
-											60000
+											{roomData.weekAmPrice}
 										</h4>
 									</div>
 								</div>
