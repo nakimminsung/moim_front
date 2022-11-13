@@ -48,9 +48,10 @@ function Login() {
       <LoginWrap>
         <LoginContainer>
           <LoginHeadLogo>
-            <h1>
-              <a>{/* <IconLogo /> */}</a>
-            </h1>
+            <h2>
+              로그인
+            </h2>
+            <br />
           </LoginHeadLogo>
           <LoginSignupContent>
             <BorderAndText>
@@ -60,8 +61,7 @@ function Login() {
             <HorizontalButtons>
               <RadiusButton
                 className="naver"
-                href="/w/naver/login?redirect_uri=https%3A%2F%2Fwww.idus.com%2Fw%2Fmain%2Ftoday-recommend-product"
-              >
+                href="/w/naver/login?redirect_uri=https%3A%2F%2Fwww.idus.com%2Fw%2Fmain%2Ftoday-recommend-product">
                 <SpIcon className="naver"></SpIcon>
               </RadiusButton>
 
@@ -69,18 +69,12 @@ function Login() {
                 <SpIcon className="facebook"></SpIcon>
               </RadiusButton>
 
-              <RadiusButton className="twitter" href="">
-                <SpIcon className="twitter"></SpIcon>
-              </RadiusButton>
 
-              <RadiusButton className="apple" href="">
-                <SpIcon className="apple"></SpIcon>
-              </RadiusButton>
+
             </HorizontalButtons>
 
             <VerticalButtons>
               <BarButton
-                // href="https://backend.alittlevanilla.kro.kr/oauth2/authorization/kakao"
                 href="http://localhost:9000/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect"
                 className="kakao"
               >
@@ -139,6 +133,9 @@ function Login() {
               로그인
             </CommonButton>
           </LoginSigninContent>
+          <MoveSignUP>
+            <span>아직 모임의 회원이 아니신가요? <a href='/signUp'>회원가입</a></span>
+          </MoveSignUP>
         </LoginContainer>
       </LoginWrap>
     </>
@@ -470,4 +467,11 @@ const LoginWrap = styled.div`
   min-height: 100%;
   background: #fff;
 `;
+
+const MoveSignUP = styled.div`
+  margin-top:10px;
+  text-align:center;
+  font-size:15px;
+`;
+
 export default Login;
