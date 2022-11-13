@@ -24,8 +24,10 @@ function SpaceAddForm2(props) {
 	const [roptionList, setRoptionList] = useState([{}]);
 	// 옵션 네임
 	const NameRef = React.useRef('');
+	const [oname, setOname] = useState('');
 	// 옵션 가격
 	const PriceRef = React.useRef('');
+	const [price, setPrice] = useState('');
 	// 옵션 이미지
 	const [oimageUrl, setOimageUrl] = useState('');
 
@@ -52,19 +54,21 @@ function SpaceAddForm2(props) {
 
 	//옵션 버튼 추가 버튼 이벤트
 	const optionButton = () => {
-		let optionName = NameRef.current.value;
+		let oname = NameRef.current.value;
 		let optionPrice = PriceRef.current.value;
 
-		console.log(optionName);
+		console.log(oname);
 		console.log(optionPrice);
 		console.log(oimageUrl);
 
 		setRoptionList(
 			roptionList.concat({
-				optionName,
+				oname,
 				optionPrice,
 				oimageUrl,
 			}),
+			setOname(oname),
+			setPrice(optionPrice),
 		);
 
 		console.log(roptionList);
@@ -180,6 +184,16 @@ function SpaceAddForm2(props) {
 		e.preventDefault();
 
 		let insertUrl = localStorage.url + '/host/insert2';
+
+		console.log('broomNum=' + roomNum);
+		console.log('btname=' + tname);
+		console.log('bicontent=' + icontent);
+		console.log('bpcontent=' + icontent);
+		console.log('bcheckedArr=' + icontent);
+		console.log('oname=' + oname);
+		console.log('price=' + oname);
+		// console.log(oimageUrl);
+
 		axios
 			.post(insertUrl, {
 				roomNum,
@@ -187,9 +201,9 @@ function SpaceAddForm2(props) {
 				icontent,
 				pcontent,
 				checkedArr,
-				oname: 'optionName',
-				oimgeUrl: 'optionPrice',
-				oimageUrl,
+				oname,
+				price,
+				// oimageUrl,
 			})
 			.then((res) => {
 				navi(`/host/addform3/${res.roomNum}`);
@@ -465,9 +479,7 @@ function SpaceAddForm2(props) {
 																}
 															/>
 														</td>
-														<td>
-															{rotion.optionName}
-														</td>
+														<td>{rotion.oname}</td>
 														<td>
 															{rotion.optionPrice}
 														</td>
