@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function SignUpEmail() {
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
+  const navigate = useNavigate();
 
   const allAgreeHandler = (checked) => {
     setIsAllChecked(!isAllChecked);
@@ -249,6 +251,7 @@ function SignUpEmail() {
                   type="button"
                   onClick={() => {
                     onSubmit();
+                    navigate('/login');
                   }}
                 >
                   회원가입하기
