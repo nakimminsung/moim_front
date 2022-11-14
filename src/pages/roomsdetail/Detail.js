@@ -47,10 +47,7 @@ function Detail() {
 	};
 
 	return (
-		<div
-			className='detailContainer'
-			style={{width: '100%', paddingLeft: '10%', paddingTop: '2%'}}
-		>
+		<div className='detailContainer' style={{width: '100%'}}>
 			<div className='detailItem' style={{width: '100%'}}>
 				<h2>
 					<b>{roomData.name}</b>
@@ -64,8 +61,8 @@ function Detail() {
 					))}
 			</div>
 			<br />
-			<div className='sliderBanner'>
-				<Slider {...settings} style={{width: '600px'}}>
+			<div className='sliderBanner' style={{width: '600px'}}>
+				<Slider {...settings}>
 					{img &&
 						img.map((row, idx) => (
 							<div>
@@ -92,8 +89,8 @@ function Detail() {
 				style={{
 					position: 'sticky',
 					top: '70px',
-					height: 'auto',
-					width: '300px',
+					height: '2000px',
+					width: '320px',
 				}}
 			>
 				<DatailPrice />

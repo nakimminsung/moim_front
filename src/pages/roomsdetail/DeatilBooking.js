@@ -93,20 +93,25 @@ function DeatilBooking(props) {
 		}
 
 		var price = 0;
-		for (var i = selectStime; i <= selectEtime - 1; i++) {
+		for (var i = selectStime; i < selectEtime; i++) {
 			//console.log(i);
+			let p = '';
 
 			//주말
 			if (selectDay.getDay() === 0 || selectDay.getDay() === 6) {
 				if (selectEtime > 5 && selectEtime <= 18) {
-					price += roomData.holiAmPrice;
+					p = roomData.holiAmPrice;
+					price = price + p;
 				} else {
-					price += roomData.holiPmPrice;
+					p = roomData.holiPmPrice;
+					price = price + p;
 				}
 				if (selectStime > 5 && selectStime <= 18) {
-					price += roomData.holiAmPrice;
+					p = roomData.holiAmPrice;
+					price = price + p;
 				} else {
-					price += roomData.holiPmPrice;
+					p = roomData.holiPmPrice;
+					price = price + p;
 				}
 			} else {
 				if (
@@ -151,13 +156,15 @@ function DeatilBooking(props) {
 			<div>
 				<b>예약선택</b>
 				<br />
-				<input
-					type={'radio'}
-					onClick={() => {
-						setShowCalendar(true);
-					}}
-				/>
-				<label>시간단위예약</label>
+				<label style={{cursor: 'pointer'}}>
+					<input
+						type={'radio'}
+						onClick={() => {
+							setShowCalendar(true);
+						}}
+					/>
+					시간단위예약
+				</label>
 			</div>
 			<br />
 			<div style={{display: showCalendar ? 'block' : 'none'}}>
@@ -276,28 +283,34 @@ function DeatilBooking(props) {
 					</div>
 					<br />
 					<div>
-						<b>총 예약인원</b>
-						<div
-							style={{
-								fontSize: '14px',
-								borderBottom: '2px solid #704de4',
-								width: '270px',
-								textAlign: 'center',
-							}}
-						>
-							(최대 10명, 6명 초과시 시간당 1,000원/인)
+						<div style={{borderBottom: '2px solid #704de4'}}>
+							<b>총 예약인원 (최대 {roomData.headcount}명)</b>
 						</div>
-						<div class='detailNum'>
-							<span>인원</span>
-							<span class='detailCount'>
-								<span onClick={minusHandler}>
-									<RemoveIcon />
-								</span>
 
-								<span id='detailResult'>{inwon}</span>
-								<span onClick={plusHandler}>
-									<AddIcon />
-								</span>
+						<div
+							style={{width: '100%', padding: '10px 45px'}}
+							className='input-group'
+						>
+							<span
+								className='changeInwon'
+								onClick={minusHandler}
+							>
+								<RemoveIcon />
+							</span>
+
+							<span
+								style={{
+									width: '130px',
+									border: '1px solid lightgray',
+									textAlign: 'center',
+									lineHeight: '40px',
+									height: '40px',
+								}}
+							>
+								{inwon}
+							</span>
+							<span className='changeInwon' onClick={plusHandler}>
+								<AddIcon />
 							</span>
 						</div>
 					</div>

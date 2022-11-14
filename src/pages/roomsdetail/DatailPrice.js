@@ -111,7 +111,7 @@ function DatailPrice(props) {
 						</li>
 						<li style={{borderTop: '1px solid #ebebeb'}}>
 							<span>예약시간 : </span>
-							<span>최소 2시간</span>
+							<span>최소 1시간</span>
 						</li>
 						<li
 							style={{
@@ -131,11 +131,11 @@ function DatailPrice(props) {
 								<img
 									alt=''
 									src={item.imageUrl}
-									width='30'
-									height={30}
+									width='20'
+									height={20}
 								/>
 								&nbsp;&nbsp;
-								<p>{item.fname}</p>
+								<p style={{fontSize: '10px'}}>{item.fname}</p>
 							</div>
 						))}
 				</div>

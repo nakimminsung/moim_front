@@ -142,7 +142,9 @@ function DetailInfo(props) {
 				</span>
 				<span
 					style={{
+						fontFamily: 'normal',
 						color: '#656565',
+						fontSize: '15px',
 					}}
 				>
 					<span style={{color: 'black'}}>휴무일: </span>
