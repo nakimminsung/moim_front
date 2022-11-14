@@ -39,28 +39,6 @@ function RoomCard(props) {
 		});
 	};
 
-	// image prev, next button option
-	const show = document.getElementById('show');
-	const btnShow = () => {
-		show.style.display = 'block';
-	};
-	const btnHidden = () => {
-		show.style.display = 'none';
-	};
-
-	// image zoom
-	const img = document.getElementById('image');
-	const zoomIn = () => {
-		img.style.transform = 'scale(1.2)';
-		img.style.zIndex = 1;
-		img.style.transition = 'all 0.5s';
-	};
-	const zoomOut = () => {
-		img.style.transform = 'scale(1)';
-		img.style.zIndex = 0;
-		img.style.transition = 'all 0.5s';
-	};
-
 	useEffect(() => {
 		selectTagList(roomNum);
 	}, []);
@@ -85,131 +63,134 @@ function RoomCard(props) {
 	};
 
 	return (
-		<Card
-			sx={{maxWidth: '30%'}}
-			onMouseEnter={() => zoomIn()}
-			onMouseLeave={() => zoomOut()}
-		>
-			<CardActionArea
-				onMouseEnter={() => btnShow()}
-				onMouseLeave={() => btnHidden()}
-			>
-				<Box sx={{maxWidth: 400, flexGrow: 1}}>
-					<AutoPlaySwipeableViews
-						axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-						index={activeStep}
-						onChangeIndex={handleStepChange}
-						enableMouseEvents
-						className='img'
-					>
-						{imageData &&
-							imageData.map((step, index) => (
-								<ImageDiv key={step.label}>
-									{Math.abs(activeStep - index) <= 2 ? (
-										<Box
-											component='img'
-											sx={{
-												height: 200,
-												display: 'block',
-												maxWidth: '100%',
-												overflow: 'hidden',
-												width: '100%',
-											}}
-											className='scale'
-											id='image'
-											src={step.rimageUrl}
-											alt={step.label}
-											onClick={() => {
-												navi('/detail/' + roomData.num);
-											}}
-										/>
-									) : null}
-								</ImageDiv>
-							))}
-					</AutoPlaySwipeableViews>
-					<ImageButtonDiv
-						id='show'
-						style={{}}
-						onMouseEnter={() => zoomIn()}
-						onMouseLeave={() => zoomOut()}
-					>
-						<PrevButton size='small' onClick={handleBack}>
-							{theme.direction === 'rtl' ? (
-								<KeyboardArrowRight />
-							) : (
-								<KeyboardArrowLeft />
-							)}
-						</PrevButton>
-						<NextButton size='small' onClick={handleNext}>
-							{theme.direction === 'rtl' ? (
-								<KeyboardArrowLeft />
-							) : (
-								<KeyboardArrowRight />
-							)}
-						</NextButton>
-					</ImageButtonDiv>
-				</Box>
-				<PayInfo
-					style={{
-						backgroundColor:
-							roomData.payment === '바로결제'
-								? '#ffff33'
-								: '#9b4de3',
-						color:
-							roomData.payment !== '바로결제'
-								? '#ffff33'
-								: '#9b4de3',
-					}}
-				>
-					{roomData.payment}
-				</PayInfo>
-				<CardContent
-					onClick={() => {
-						navi('/detail/' + roomData.num);
-					}}
-				>
-					<Typography gutterBottom variant='h5' component='div'>
-						{roomData.name.length > 14
-							? roomData.name.substr(0, 15) + '...'
-							: roomData.name}
-					</Typography>
-					<Typography variant='body2' color='text.secondary'>
-						<Address>
-							<RoomIcon />
-							{roomData.address.split(' ')[2]}
-						</Address>
-						<TagDiv>
-							{tagData &&
-								tagData.map((item, i) => (
-									<Tag key={i}>#{item.tname}</Tag>
+		<CardWrapper>
+			<Card>
+				<CardActionArea>
+					<Box>
+						<AutoPlaySwipeableViews
+							axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+							index={activeStep}
+							onChangeIndex={handleStepChange}
+							enableMouseEvents
+							className='img'
+						>
+							{imageData &&
+								imageData.map((step, index) => (
+									<ImageDiv key={step.label}>
+										{Math.abs(activeStep - index) <= 2 ? (
+											<Box
+												component='img'
+												sx={{
+													height: '100%',
+													minHeight: '200px',
+													display: 'block',
+													maxWidth: '100%',
+													overflow: 'hidden',
+													width: '100%',
+												}}
+												className='scale'
+												id='image'
+												src={step.rimageUrl}
+												alt={step.label}
+												onClick={() => {
+													navi(
+														'/detail/' +
+															roomData.num,
+													);
+												}}
+											/>
+										) : null}
+									</ImageDiv>
 								))}
-						</TagDiv>
-						<RoomInfoBottom>
-							<PriceDiv>
-								<Price>
-									{roomData.weekAmPrice.toLocaleString(
-										'ko-KR',
-									)}
-								</Price>
-								원/시간
-							</PriceDiv>
-							<EtcInfoDiv>
-								<HeadCount>
-									<PersonIcon /> {roomData.headcount}
-								</HeadCount>
-								<ReviewCount>
-									<SmsIcon style={{marginRight: '5px'}} />
-									{reviewCount}
-								</ReviewCount>
-								<LikeCount>
-									<Favorite /> {likeCount}
-								</LikeCount>
-							</EtcInfoDiv>
-						</RoomInfoBottom>
-					</Typography>
-				</CardContent>
-			</CardActionArea>
-		</Card>
+						</AutoPlaySwipeableViews>
+						<ImageButtonDiv
+							style={{
+								display:
+									imageData.length < 2 ? 'none' : 'block',
+							}}
+						>
+							<PrevButton size='small' onClick={handleBack}>
+								{theme.direction === 'rtl' ? (
+									<KeyboardArrowRight />
+								) : (
+									<KeyboardArrowLeft />
+								)}
+							</PrevButton>
+							<NextButton size='small' onClick={handleNext}>
+								{theme.direction === 'rtl' ? (
+									<KeyboardArrowLeft />
+								) : (
+									<KeyboardArrowRight />
+								)}
+							</NextButton>
+						</ImageButtonDiv>
+					</Box>
+					<PayInfo
+						style={{
+							backgroundColor:
+								roomData.payment === '바로결제'
+									? '#ffff33'
+									: roomData.payment === '승인결제'
+									? '#9b4de3'
+									: '',
+							color:
+								roomData.payment === '바로결제'
+									? '#9b4de3'
+									: roomData.payment === '승인결제'
+									? '#ffff33'
+									: '',
+						}}
+					>
+						{roomData.payment}
+					</PayInfo>
+					<CardContent
+						onClick={() => {
+							navi('/detail/' + roomData.num);
+						}}
+					>
+						<Typography gutterBottom variant='h5' component='div'>
+							{roomData.name.length > 11
+								? roomData.name.substr(0, 12) + '...'
+								: roomData.name}
+						</Typography>
+						<Typography variant='body2' color='text.secondary'>
+							<Address>
+								<RoomIcon />
+								{roomData.address.split(' ')[1]}
+							</Address>
+							<TagDiv>
+								{tagData &&
+									tagData.map((item, i) => (
+										<Tag key={i}>#{item.tname}</Tag>
+									))}
+							</TagDiv>
+							<RoomInfoBottom>
+								<PriceDiv>
+									<Price>
+										{roomData.weekAmPrice.toLocaleString(
+											'ko-KR',
+										)}
+									</Price>
+									원/시간
+								</PriceDiv>
+								<EtcInfoDiv>
+									<HeadCount>
+										<PersonIcon /> {roomData.headcount}
+									</HeadCount>
+									<ReviewCount>
+										<SmsIcon style={{marginRight: '5px'}} />
+										{reviewCount}
+									</ReviewCount>
+									<LikeCount>
+										<Favorite /> {likeCount}
+									</LikeCount>
+								</EtcInfoDiv>
+							</RoomInfoBottom>
+						</Typography>
+					</CardContent>
+				</CardActionArea>
+			</Card>
+		</CardWrapper>
 	);
 }
 
@@ -218,9 +199,7 @@ export default RoomCard;
 const ImageDiv = styled(Box)`
 	overflow: hidden;
 `;
-const ImageButtonDiv = styled(Box)`
-	display: none;
-`;
+const ImageButtonDiv = styled(Box)``;
 const PrevButton = styled(Button)`
 	position: absolute;
 	top: 0;
@@ -254,7 +233,7 @@ const PayInfo = styled(Typography)`
 	position: absolute;
 	top: 0;
 	right: 0;
-	border-radius: 2px;
+	border-radius: 1px;
 	opacity: 0.9;
 	z-index: 10;
 	font-weight: 1000;
@@ -267,8 +246,9 @@ const Address = styled(Typography)`
 `;
 const TagDiv = styled(Box)`
 	margin-top: 10px;
+	min-height: 40px;
 `;
-const Tag = styled(Typography)`
+const Tag = styled(Box)`
 	margin-right: 5px;
 	display: inline;
 `;
@@ -298,4 +278,22 @@ const ReviewCount = styled(Typography)`
 `;
 const LikeCount = styled(Typography)`
 	margin-left: 5px;
+`;
+const CardWrapper = styled(Typography)`
+	@media (max-width: 1920px) {
+		width: 25%;
+		padding: 5px;
+	}
+	@media (max-width: 1680px) {
+		width: 33.3%;
+		padding: 5px;
+	}
+	@media (max-width: 1000px) {
+		width: 50%;
+		padding: 5px;
+	}
+	@media (max-width: 900px) {
+		width: 100%;
+		padding-bottom: 5px;
+	}
 `;
