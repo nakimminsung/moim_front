@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function SignUpEmail() {
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
+  const navigate = useNavigate();
 
   const allAgreeHandler = (checked) => {
     setIsAllChecked(!isAllChecked);
@@ -51,7 +53,6 @@ function SignUpEmail() {
   const onSubmit = async () => {
     try {
       const response = await axios.post(
-        // "https://backend.alittlevanilla.kro.kr/member/signup",
         "http://localhost:9000/member/signup",
         body,
         {
@@ -67,31 +68,18 @@ function SignUpEmail() {
     }
   };
 
-  // const onEmailAuth = async () => {
-  //   console.log("onEmailAuth!");
-
-  //   try {
-  //     const response = await axios.post("https://backend.alittlevanilla.kro.kr/member/", body, {
-  //       headers: { "Content-Type": "application/json" },
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
   const emailCheck = async () => {
     if (email === "") {
       setCheckedEmail("필수 항목입니다.");
     } else {
-      var regex =
-        /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+      var regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
       console.log("비밀번호 유효성 검사 :: ", regex.test(email));
 
       if (regex.test(email)) {
         try {
           const response = await axios.get(
             // "https://backend.alittlevanilla.kro.kr/member/" + email
-            "https://localhost:9000/member/" + email
+            "http://localhost:9000/member/" + email
           );
           if (response.data === true) {
             setCheckedEmail("이미 존재하는 이메일 입니다.");
@@ -199,25 +187,6 @@ function SignUpEmail() {
               </FormBlockBody>
             </FormBlock>
 
-            {/* <FormBlock>
-              <FormBlockHead>
-                <AsteriskRed>*</AsteriskRed> 전화번호
-              </FormBlockHead>
-              <FormBlockBody>
-                <UiInputBtnCombo>
-                  <InputTextSizeWTypeL>
-                    <EmailInput type="hidden" required />
-                    <EmailInput
-                      type="tel"
-                      placeholder="010-1234-5678"
-                      data-auth="cell_phone"
-                      required
-                    />
-                  </InputTextSizeWTypeL>
-                </UiInputBtnCombo>
-              </FormBlockBody>
-            </FormBlock> */}
-
             <FormBlockCheckAllWrap>
               <Terms>
                 <TermsHead>
@@ -282,6 +251,7 @@ function SignUpEmail() {
                   type="button"
                   onClick={() => {
                     onSubmit();
+                    navigate('/login');
                   }}
                 >
                   회원가입하기
@@ -358,8 +328,9 @@ const Terms1Error = styled.span`
   cursor: default !important;
 `;
 const Terms2A = styled.a`
-  text-decoration: underline;
+  text-decoration: none;
   overflow: hidden;
+  color:black;
   display: block;
   font-size: 14px;
 `;

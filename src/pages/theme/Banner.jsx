@@ -8,11 +8,11 @@ import {Box, Typography} from '@mui/material';
 
 function Banner(props) {
 	const [data, setData] = useState('');
-	const {num} = useParams();
+	const {themeNum} = useParams();
 	const navi = useNavigate();
 
 	const selectTheme = () => {
-		let url = localStorage.url + '/theme/data?num=' + num;
+		let url = localStorage.url + '/theme/data?themeNum=' + themeNum;
 		console.log(url);
 		axios.get(url).then((res) => setData(res.data));
 	};
@@ -36,7 +36,7 @@ function Banner(props) {
 				<MapButtonDiv>
 					<MapButton
 						onClick={() => {
-							navi('/map/' + num);
+							navi('/map/' + themeNum);
 						}}
 					>
 						<MapButtonTitle>
@@ -53,7 +53,6 @@ function Banner(props) {
 export default Banner;
 
 const BannerWrapper = styled(Box)`
-	max-width: 1200px;
 	margin: 0 auto;
 `;
 const Card = styled(Box)`
@@ -61,12 +60,27 @@ const Card = styled(Box)`
 	background-size: 100% auto;
 	background-position: center;
 	width: 100%;
-	height: 400px;
 	padding: 10% 35px 30px 35px;
 	margin-bottom: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	@media (max-width: 1920px) {
+		height: 400px;
+		padding: 10% 35px 30px 35px;
+	}
+	@media (max-width: 1680px) {
+		height: 400px;
+		padding: 10% 35px 30px 35px;
+	}
+	@media (max-width: 1000px) {
+		height: 340px;
+		padding: 10% 25px 30px 25px;
+	}
+	@media (max-width: 900px) {
+		height: 340px;
+		padding: 10% 15px 30px 15px;
+	}
 `;
 const Info = styled(Box)`
 	display: flex;
@@ -77,6 +91,9 @@ const Title = styled(Typography)`
 	display: block;
 	color: white;
 	font-size: 40px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
 `;
 const Line = styled(Box)`
 	width: 40px;

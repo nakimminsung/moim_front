@@ -1,0 +1,13 @@
+body {
+	-ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+input:focus {
+	outline: none;
+}
+ul.MuiMenu-list {
+	padding-bottom: 0;
+}
