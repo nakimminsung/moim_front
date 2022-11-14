@@ -29,6 +29,8 @@ function BookingDetail() {
 	//const bookingTime
 	// iamport
 	const {IMP} = window;
+	// 옵션 수량 버튼
+	const [count, setCount] = useState([]);
 
 	const navi = useNavigate();
 	//const { num } = useParams();
@@ -69,6 +71,13 @@ function BookingDetail() {
 		axios.get(oUrl).then((res) => {
 			//console.log(res.data);
 			setOptionList(res.data);
+			//setCount(count);
+			let c = [];
+			for (let i = 0; i < res.data.length; i++) {
+				c[i] = 0;
+			}
+			setCount(c);
+			//console.log('count: ' + count);
 		});
 	};
 
@@ -116,6 +125,22 @@ function BookingDetail() {
 				setPurpose('');
 				contentRef.current.value = '';
 			});
+	};
+
+	// 옵션 수량 버튼
+	const onIncrease = (idx) => {
+		let countArray = [...count];
+		countArray[idx] += 1;
+		setCount(countArray);
+		// console.log(idx);
+		console.log('idx: ' + idx);
+	};
+
+	const onDecrease = (idx) => {
+		let countArray = [...count];
+		countArray[idx] -= 1;
+		setCount(countArray);
+		console.log('idx: ' + idx);
 	};
 
 	// 결제
@@ -317,23 +342,48 @@ function BookingDetail() {
 									item.oname == null ? (
 										<></>
 									) : (
-										<div className='bdSpaceInfo' key={idx}>
-											<>
-												<img
-													alt=''
-													src={item.oimageUrl}
-													width='100'
-													height={100}
-													onError={onErrorImg}
-												/>
-												<div>
-													<h5>{item.oname}</h5>
-													<p>
-														{item.price} / 수량 1개
-													</p>
-												</div>
-											</>
-										</div>
+										<>
+											<div
+												className='bdSpaceInfo'
+												key={idx}
+											>
+												<>
+													<img
+														alt=''
+														src={item.oimageUrl}
+														width='100'
+														height={100}
+														onError={onErrorImg}
+													/>
+													<div>
+														<h5>{item.oname}</h5>
+														<p>
+															{item.price} / 수량
+															1개
+														</p>
+														<span
+															onClick={() => {
+																onDecrease(idx);
+															}}
+														>
+															-
+														</span>
+														<span>
+															{count[idx]}
+														</span>
+														<span
+															onClick={() =>
+																onIncrease(idx)
+															}
+														>
+															+
+														</span>
+													</div>
+													<br />
+													<br />
+												</>
+											</div>
+										</>
 									),
 								)}
 							</div>
