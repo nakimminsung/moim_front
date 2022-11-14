@@ -34,7 +34,6 @@ function Layout(props) {
 	return (
 		<div className='layout'>
 			<Header />
-
 			<main>
 				<div className='layContent'>
 					{props.children}
@@ -118,7 +117,6 @@ function Layout(props) {
 					<BasicRouter />
 				</div>
 			</main>
-
 			<Footer />
 		</div>
 	);

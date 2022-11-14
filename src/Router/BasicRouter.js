@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -8,8 +8,6 @@ import Detail from '../pages/roomsdetail/Detail';
 import MainTheme from '../pages/main/Theme';
 import Theme from '../pages/theme/Theme';
 import AdminMain from '../pages/admin/AdminMain';
-import Header from '../pages/layout/Header';
-import Footer from '../pages/layout/Footer';
 import BookingDetail from '../pages/booking/BookingDetail';
 import BookingList from '../pages/booking/BookingList';
 import BookingMain from '../pages/booking/BookingMain';
@@ -36,7 +34,7 @@ function BasicRouter() {
 				<Route path='main_theme' element={<MainTheme />} />
 				{/* 기획전 페이지 */}
 				<Route path='theme'>
-					<Route path=':num' element={<Theme />} />
+					<Route path=':themeNum' element={<Theme />} />
 				</Route>
 				{/* 호스트 */}
 				<Route path='host'>
