@@ -9,7 +9,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import DetailInfo from './DetailInfo';
 import DatailPrice from './DatailPrice';
-function Detail() {
+function Detail(props) {
 	const {num} = useParams();
 	const [roomData, setRoomData] = useState(''); //룸정보
 	const [tag, setTag] = useState(''); //태그
@@ -90,7 +90,7 @@ function Detail() {
 					position: 'sticky',
 					top: '70px',
 					height: '2000px',
-					width: '320px',
+					width: '335px',
 				}}
 			>
 				<DatailPrice />

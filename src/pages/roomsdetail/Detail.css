@@ -100,11 +100,13 @@
 }
 .detailPriceInfo {
 	border: 1px solid #704de4;
+	padding: 14px;
 }
-.detailPriceImg {
-	height: auto;
-	padding-top: 15px;
-	text-align: center;
+
+.facilityItem {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10px;
 }
 /* 달력 css*/
 .react-calendar__month-view__weekdays abbr {

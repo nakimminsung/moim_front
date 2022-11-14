@@ -40,7 +40,7 @@ function DatailPrice(props) {
 						fontSize: '15px',
 					}}
 				>
-					<span style={{paddingRight: '10px'}}>
+					<span>
 						<SmsOutlined />
 					</span>
 					<span
@@ -63,8 +63,6 @@ function DatailPrice(props) {
 							style={{
 								width: '23px',
 								height: '23px',
-								marginLeft: '8px',
-								marginBottom: '5px',
 							}}
 						/>
 					</span>
@@ -99,12 +97,12 @@ function DatailPrice(props) {
 					<img
 						alt=''
 						src={roomData.thumbnailImage}
-						style={{width: '85%', height: '140px'}}
+						style={{height: '180px', width: '100%'}}
 					/>
 				</div>
 				<br />
 				<div>
-					<ul>
+					<ul style={{listStyle: 'inside'}}>
 						<li style={{borderTop: '1px solid #ebebeb'}}>
 							<span>공간유형 : </span>
 							<span>{category[0]}</span>
@@ -122,22 +120,43 @@ function DatailPrice(props) {
 							<span>수용인원 : </span>
 							<span>최대 {roomData.headcount}명</span>
 						</li>
-					</ul>
-				</div>
-				<div>
-					{facility &&
-						facility.map((item, idx) => (
-							<div style={{display: 'flex'}} key={idx}>
-								<img
-									alt=''
-									src={item.imageUrl}
-									width='20'
-									height={20}
-								/>
-								&nbsp;&nbsp;
-								<p style={{fontSize: '10px'}}>{item.fname}</p>
+						<li
+							style={{
+								borderTop: '1px solid #ebebeb',
+								borderBottom: '1px solid #ebebeb',
+							}}
+						>
+							<span>부가서비스</span>
+							<div className='facilityItem'>
+								{facility &&
+									facility.map((item, idx) => (
+										<div
+											key={idx}
+											style={{
+												textAlign: 'center',
+												width: '33%',
+											}}
+										>
+											<img
+												alt=''
+												src={item.imageUrl}
+												width='30'
+												height={30}
+											/>
+											&nbsp;&nbsp;
+											<p
+												style={{
+													fontSize: '12px',
+													marginRight: '17px',
+												}}
+											>
+												{item.fname}
+											</p>
+										</div>
+									))}
 							</div>
-						))}
+						</li>
+					</ul>
 				</div>
 
 				<DeatilBooking />

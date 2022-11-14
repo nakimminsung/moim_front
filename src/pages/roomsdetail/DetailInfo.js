@@ -1,12 +1,11 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {Link} from 'react-scroll';
 import DetailReview from './DetailReview';
 
 function DetailInfo(props) {
 	const {num} = useParams();
-	const navi = useNavigate();
 	const [roomData, setRoomData] = useState('');
 	const [holiday, setHoliday] = useState('');
 	const [roomInfo, setRoomInfo] = useState('');
