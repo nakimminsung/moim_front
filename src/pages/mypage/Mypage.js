@@ -5,7 +5,7 @@ import axios from "axios";
 import { useParams } from "react-router";
 
 function Mypage(props) {
-  if (localStorage.getItem("token") === null) {
+  if (localStorage.getItem("token") == null) {
     alert("로그인 해주세요.");
     document.location.href = "/";
   }

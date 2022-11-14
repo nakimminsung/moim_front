@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 function Category(props) {
 	const [category, setCategory] = useState('');
+	const navi = useNavigate();
 
 	const getCategoryList = () => {
 		let url = localStorage.url + '/categoryList';
@@ -26,8 +27,8 @@ function Category(props) {
 	}, []);
 
 	return (
-		<div className='categoryBox' style={{textAlign: 'center'}}>
-			<h2 style={{marginBottom: '50px', fontWeight: 'bold'}}>
+		<div className='categoryBox' style={{ textAlign: 'center' }}>
+			<h2 style={{ marginBottom: '50px', fontWeight: 'bold' }}>
 				어떤 공간을 찾고있나요?
 			</h2>
 
@@ -46,10 +47,10 @@ function Category(props) {
 					category.map((row, idx) => (
 						<div
 							className='categoryCardInfo'
-							key={idx}
-							style={{cursor: 'pointer', width: '80px'}}
+							key={row.num}
+							style={{ cursor: 'pointer', width: '80px' }}
 							onClick={() => {
-								console.log('num=' + (idx + 1));
+								navi('/categoryroomList/' + row.num);
 							}}
 						>
 							<img

@@ -19,6 +19,7 @@ import Login from '../pages/login/Login';
 import SignUp from '../pages/login/SignUp';
 import SignUpEmail from '../pages/login/SignUpEmail';
 import Mypage from '../pages/mypage/Mypage';
+import CategoryRoom from '../pages/categoryroom/CategoryRoom';
 
 function BasicRouter() {
 	return (
@@ -58,6 +59,12 @@ function BasicRouter() {
 				<Route path='signup' element={<SignUp />} />
 				<Route path='signupEmail' element={<SignUpEmail />} />
 				<Route path='mypage' element={<Mypage />} />
+
+				{/* 테마별 방 페이지 */}
+				<Route path='categoryroomList'>
+					<Route path=':num' element={<CategoryRoom />} />
+				</Route>
+
 				<Route
 					path='*'
 					element={
