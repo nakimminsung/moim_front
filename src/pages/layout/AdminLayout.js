@@ -1,0 +1,95 @@
+import React from 'react';
+import AdminRouter from '../../Router/AdminRouter';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import HomeIcon from '@material-ui/icons/Home';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import GrainIcon from '@material-ui/icons/Grain';
+import './AdminLayout.css';
+
+import {makeStyles, Typography} from '@material-ui/core';
+import AdminMenu from './AdminMenu';
+
+function AdminLayout(props) {
+	const useStyles = makeStyles((theme) => ({
+		link: {
+			display: 'flex',
+		},
+		icon: {
+			marginRight: theme.spacing(0.5),
+			width: 20,
+			height: 20,
+		},
+	}));
+
+	function handleClick(event) {
+		event.preventDefault();
+		console.info('You clicked a breadcrumb.');
+	}
+
+	const classes = useStyles();
+	return (
+		// 전체 div에 대한 css
+		<div
+			style={{
+				display: 'flex',
+				justifyContent: 'start',
+				backgroundColor: 'rgba(240, 242, 245)',
+				height: '100%',
+			}}
+		>
+			<AdminMenu />
+			{/* Breadcrumbs 상단 경로 */}
+			<div style={{marginTop: '20px'}}>
+				<div
+					style={{
+						width: '1000px',
+						border: '0.5px solid gray',
+						borderRadius: '10px',
+						height: '80px',
+						paddingLeft: '10px',
+						paddingTop: '10px',
+						marginBottom: '20px',
+					}}
+				>
+					<Breadcrumbs aria-label='breadcrumb'>
+						<Link
+							color='inherit'
+							href='/'
+							onClick={handleClick}
+							className={classes.link}
+						>
+							<HomeIcon className={classes.icon} />
+							Admin Main
+						</Link>
+						<Link
+							color='inherit'
+							href='/admin/member'
+							onClick={handleClick}
+							className={classes.link}
+						>
+							<WhatshotIcon className={classes.icon} />
+							회원 관리
+						</Link>
+						<Typography
+							color='textPrimary'
+							className={classes.link}
+						>
+							<GrainIcon className={classes.icon} />
+							게스트 회원
+						</Typography>
+					</Breadcrumbs>
+					<span>
+						<GrainIcon className={classes.icon} />
+						게스트 회원
+					</span>
+				</div>
+
+				{/* 하위 컴포넌트 호출 */}
+				<AdminRouter />
+			</div>
+		</div>
+	);
+}
+
+export default AdminLayout;

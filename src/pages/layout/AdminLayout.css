@@ -1,0 +1,19 @@
+ul {
+	list-style: none;
+	/* padding-left: 0px; */
+	padding-top: 10px;
+}
+
+li {
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+.NavLink {
+	text-decoration: none;
+	color: lightgray;
+}
+
+.NavLink:hover {
+	color: lightgray;
+}

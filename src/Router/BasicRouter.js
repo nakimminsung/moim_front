@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -44,10 +44,12 @@ function BasicRouter() {
 					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
 				</Route>
 				{/* 호스트 끝 */}
+
 				{/* 어드민_관리자 */}
-				<Route path='admin'>
+				{/* <Route path='admin'>
 					<Route path='' element={<AdminMain />} />
-				</Route>
+				</Route> */}
+
 				{/* 예약페이지 */}
 				<Route path='/booking'>
 					<Route path='main' element={<BookingMain />} />

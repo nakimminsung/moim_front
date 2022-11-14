@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import Category from './Category';
 import './MainPage.css';
 import NoticeEvent from './NoticeEvent';
@@ -16,7 +16,7 @@ function Mainpage(props) {
 			<div className='directButton'>
 				<ul
 					className='main'
-					style={{ display: 'flex', justifyContent: 'center' }}
+					style={{display: 'flex', justifyContent: 'center'}}
 				>
 					<li>
 						<NavLink to={'/'}>메인 페이지</NavLink>
