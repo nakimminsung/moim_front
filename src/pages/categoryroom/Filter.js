@@ -24,6 +24,7 @@ import TuneIcon from '@mui/icons-material/Tune';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import Menu from '@mui/material/Menu';
 import Filter from './Filter';
+import FilterContent from './FilterContent';
 
 const CustomTabs = (props) => (
     <React.Fragment>
@@ -291,7 +292,7 @@ function Filtering(props) {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <Filter />
+                        <FilterContent />
                     </Menu>
                 </div>
             </Middle>

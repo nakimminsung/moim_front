@@ -38,6 +38,24 @@ function List(props) {
 
     return (
         <ListWrapper>
+            <SelectDiv>
+                <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
+                    <Select
+                        labelId='demo-select-small'
+                        id='demo-select-small'
+                        value={sort}
+                        onChange={optionChange}
+                    >
+                        <MenuItem value={'readCount desc'}>베스트 공간 순</MenuItem>
+                        <MenuItem value={'weekAmPrice asc'}>
+                            낮은 가격순
+                        </MenuItem>
+                        <MenuItem value={'weekAmPrice desc'}>
+                            높은 가격순
+                        </MenuItem>
+                    </Select>
+                </FormControl>
+            </SelectDiv>
             <RoomList>
                 {data &&
                     data.map((item, i) => (
