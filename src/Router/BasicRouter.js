@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -15,6 +15,10 @@ import BookingList from '../pages/booking/BookingList';
 import BookingMain from '../pages/booking/BookingMain';
 import SpaceAddForm from '../pages/host/SpaceAddForm';
 import SpaceAddForm2 from '../pages/host/SpaceAddForm2';
+import Login from '../pages/login/Login';
+import SignUp from '../pages/login/SignUp';
+import SignUpEmail from '../pages/login/SignUpEmail';
+import Mypage from '../pages/mypage/Mypage';
 
 function BasicRouter() {
 	return (
@@ -50,6 +54,10 @@ function BasicRouter() {
 					<Route path='list' element={<BookingList />} />
 					<Route path='detail' element={<BookingDetail />} />
 				</Route>
+				<Route path='login' element={<Login />} />
+				<Route path='signup' element={<SignUp />} />
+				<Route path='signupEmail' element={<SignUpEmail />} />
+				<Route path='mypage' element={<Mypage />} />
 				<Route
 					path='*'
 					element={
