@@ -8,13 +8,19 @@ import Detail from '../pages/roomsdetail/Detail';
 import MainTheme from '../pages/main/Theme';
 import Theme from '../pages/theme/Theme';
 import AdminMain from '../pages/admin/AdminMain';
-import Header from '../pages/layout/Header';
-import Footer from '../pages/layout/Footer';
+import BookingDetail from '../pages/booking/BookingDetail';
+import BookingList from '../pages/booking/BookingList';
+import BookingMain from '../pages/booking/BookingMain';
+import SpaceAddForm from '../pages/host/SpaceAddForm';
+import SpaceAddForm2 from '../pages/host/SpaceAddForm2';
+import Login from '../pages/login/Login';
+import SignUp from '../pages/login/SignUp';
+import SignUpEmail from '../pages/login/SignUpEmail';
+import Mypage from '../pages/mypage/Mypage';
 
-function Router() {
+function BasicRouter() {
 	return (
 		<>
-			<Header />
 			<Routes>
 				<Route path='' element={<Mainpage />} />
 				{/* 리뷰/Q&A 리스트(게스트) */}
@@ -27,17 +33,29 @@ function Router() {
 				<Route path='main_theme' element={<MainTheme />} />
 				{/* 기획전 페이지 */}
 				<Route path='theme'>
-					<Route path=':num' element={<Theme />} />
+					<Route path=':themeNum' element={<Theme />} />
 				</Route>
 				{/* 호스트 */}
 				<Route path='host'>
 					<Route path='slist' element={<SpaceList />} />
+					<Route path='addform' element={<SpaceAddForm />} />
+					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
 				</Route>
 				{/* 호스트 끝 */}
 				{/* 어드민_관리자 */}
 				<Route path='admin'>
 					<Route path='' element={<AdminMain />} />
 				</Route>
+				{/* 예약페이지 */}
+				<Route path='/booking'>
+					<Route path='main' element={<BookingMain />} />
+					<Route path='list' element={<BookingList />} />
+					<Route path='detail' element={<BookingDetail />} />
+				</Route>
+				<Route path='login' element={<Login />} />
+				<Route path='signup' element={<SignUp />} />
+				<Route path='signupEmail' element={<SignUpEmail />} />
+				<Route path='mypage' element={<Mypage />} />
 				<Route
 					path='*'
 					element={
@@ -47,9 +65,8 @@ function Router() {
 					}
 				/>
 			</Routes>
-			<Footer />
 		</>
 	);
 }
 
-export default Router;
+export default BasicRouter;

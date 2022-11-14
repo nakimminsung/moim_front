@@ -7,7 +7,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import './Detail.css';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-
+import DetailInfo from './DetailInfo';
+import DatailPrice from './DatailPrice';
 function Detail() {
 	const {num} = useParams();
 	const navi = useNavigate();
@@ -19,7 +20,6 @@ function Detail() {
 	const onSelectData = () => {
 		let url = localStorage.url + '/detailroom?num=' + num;
 		axios.get(url).then((res) => {
-			console.log(res.data.tag);
 			setRoomData(res.data.roomData);
 			setTag(res.data.tag);
 			setImg(res.data.roomImg);
@@ -27,8 +27,10 @@ function Detail() {
 	};
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		onSelectData(num);
 	}, []);
+
 	//Slick Setting(사진 넘기기)
 	var settings = {
 		dots: true, //하단 점
@@ -38,16 +40,19 @@ function Detail() {
 		slidesToScroll: 1, //스크롤 한번에 움직일 컨텐츠 개수
 		arrows: true, // 옆으로 이동하는 화살표 표시 여부
 		autoplay: true, // 자동 스크롤 사용 여부
-		autoplaySpeed: 10000, // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+		autoplaySpeed: 5000, // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
 		pauseOnHover: true, // 슬라이드 이동시 마우스 호버하면 슬라이더 멈추게 설정
 		draggable: true, //드래그 가능 여부(없어도 가능)
-		nextArrow: <ChevronRightIcon />,
-		prevArrow: <ChevronLeftIcon />,
+		nextArrow: <ChevronRightIcon />, //화살표
+		prevArrow: <ChevronLeftIcon />, //화살표
 	};
 
 	return (
-		<div style={{paddingLeft: '10%', paddingTop: '2%'}}>
-			<div>
+		<div
+			className='detailContainer'
+			style={{paddingLeft: '8%', paddingTop: '2%'}}
+		>
+			<div className='detailItem'>
 				<h2>
 					<b>{roomData.name}</b>
 				</h2>
@@ -77,6 +82,22 @@ function Detail() {
 							</div>
 						))}
 				</Slider>
+
+				<br />
+				<br />
+
+				<DetailInfo />
+			</div>
+			<div
+				className='detailItem'
+				style={{
+					position: 'sticky',
+					top: '70px',
+					height: '1000px',
+					width: '80%',
+				}}
+			>
+				<DatailPrice />
 			</div>
 		</div>
 	);

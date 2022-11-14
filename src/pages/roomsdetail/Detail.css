@@ -1,3 +1,20 @@
+/*Detail css */
+.detailContainer {
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 10px 60px;
+}
+
+.detailItem:nth-child(1) {
+	grid-column: 1/2;
+}
+.detailItem:nth-child(2) {
+	grid-column: 2/3;
+	margin-left: 30px;
+	height: 400px;
+}
 .tagRoom {
 	width: auto;
 	margin: 6px 6px 6px 0;
@@ -28,4 +45,57 @@
 	font-size: 90px !important;
 	opacity: 0.75;
 	color: #ebffeb;
+}
+
+/*DetailInfo css */
+.detailMenu {
+	width: 16.8%;
+	background-color: #f5f5f5;
+	border-top: 2px solid gray !important;
+	text-align: center;
+	border: 1px solid lightgray;
+	height: 50px;
+	line-height: 50px;
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 13px;
+}
+.detailMenu:hover {
+	color: black;
+}
+
+.detailMenu.active {
+	background-color: white;
+	border-bottom: none;
+	line-height: 50px;
+	height: 50px;
+}
+.mainFigure {
+	display: flex;
+	margin-top: 40px;
+	font-size: 13px;
+}
+.fceFigure {
+	margin-right: 7%;
+}
+.fceFigure img {
+	width: 60px;
+	height: 60px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	padding: 5px 5px 5px 5px;
+}
+.fceFigure figcaption {
+	text-align: center;
+}
+
+/*DetailPrice css */
+.priceEvent {
+	border-bottom: 2px solid #704de4;
+	padding-bottom: 10px;
+}
+.smallContent {
+	font-size: 14px;
+	color: gray;
 }

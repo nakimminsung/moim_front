@@ -13,9 +13,7 @@ function Theme(props) {
 	// theme list select
 	const getThemeList = () => {
 		let url = localStorage.url + '/main/theme';
-		console.log(url);
 		axios.get(url).then((res) => setData(res.data));
-		console.log(data.length);
 	};
 	// 더보기 button event
 	const moreButton = () => {
@@ -74,7 +72,6 @@ function Theme(props) {
 export default Theme;
 
 const ThemeWrapper = styled(Box)`
-	max-width: 1200px;
 	margin: 0 auto;
 	width: 100%;
 `;
@@ -84,13 +81,14 @@ const ThemeTitleWrapper = styled(Box)`
 	align-items: center;
 `;
 const Title = styled(Typography)`
-	font-size: 30px;
+	font-size: 40px;
+	font-weight: 1000;
 	display: block;
 	text-align: center;
 	margin-bottom: 10px;
 `;
 const SubTitle = styled(Typography)`
-	font-size: 15px;
+	font-size: 17px;
 	text-align: center;
 	margin-bottom: 30px;
 `;
@@ -101,6 +99,9 @@ const ThemeListWrapper = styled(Box)`
 	justify-content: space-between;
 `;
 const ThemeContent = styled(Box)`
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-position: top;
 	width: 49%;
 	height: 150px;
 	cursor: pointer;

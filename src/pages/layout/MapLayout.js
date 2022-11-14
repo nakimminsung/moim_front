@@ -1,13 +1,17 @@
 import React from 'react';
+import NoneRouter from '../../Router/NoneRouter';
+import './MapLayout.css';
 
-function layout(props) {
+function NoneLayout(props) {
 	return (
-		<div className='layout'>
+		<div>
 			<main>
-				<div className='layContent'>{props.children}</div>
+				<div>
+					<NoneRouter />
+				</div>
 			</main>
 		</div>
 	);
 }
 
-export default layout;
+export default NoneLayout;
