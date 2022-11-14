@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -11,7 +11,6 @@ import DetailInfo from './DetailInfo';
 import DatailPrice from './DatailPrice';
 function Detail() {
 	const {num} = useParams();
-	const navi = useNavigate();
 	const [roomData, setRoomData] = useState(''); //룸정보
 	const [tag, setTag] = useState(''); //태그
 	const [img, setImg] = useState(''); //방이미지
@@ -50,9 +49,9 @@ function Detail() {
 	return (
 		<div
 			className='detailContainer'
-			style={{paddingLeft: '8%', paddingTop: '2%'}}
+			style={{width: '100%', paddingLeft: '10%', paddingTop: '2%'}}
 		>
-			<div className='detailItem'>
+			<div className='detailItem' style={{width: '100%'}}>
 				<h2>
 					<b>{roomData.name}</b>
 				</h2>
@@ -74,7 +73,7 @@ function Detail() {
 									alt=''
 									src={row}
 									style={{
-										width: '600px',
+										width: '100%',
 										height: '350px',
 										zIndex: '1',
 									}}
@@ -93,8 +92,8 @@ function Detail() {
 				style={{
 					position: 'sticky',
 					top: '70px',
-					height: '1000px',
-					width: '80%',
+					height: 'auto',
+					width: '300px',
 				}}
 			>
 				<DatailPrice />
