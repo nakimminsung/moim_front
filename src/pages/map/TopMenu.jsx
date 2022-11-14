@@ -4,57 +4,122 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
-import {Box, InputLabel} from '@mui/material';
+import {Box, InputLabel, Typography, Button} from '@mui/material';
 import styled from '@emotion/styled/macro';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {koKR} from '@mui/x-date-pickers';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import {
+	DateTimePicker,
+	DateTimePickerTabs,
+} from '@mui/x-date-pickers/DateTimePicker';
+import SearchIcon from '@mui/icons-material/Search';
+import {Card} from '@material-ui/core';
+import TuneIcon from '@mui/icons-material/Tune';
+import Menu from '@mui/material/Menu';
 import Filter from './Filter';
 
+const CustomTabs = (props) => (
+	<React.Fragment>
+		<DateTimePickerTabs {...props} />
+		<Box sx={{backgroundColor: 'blueviolet', height: 5}} />
+	</React.Fragment>
+);
+
 function TopMenu(props) {
-	const [space, setSpace] = useState('');
-	const [headCount, setHeadCount] = useState('');
-	const [date, setDate] = useState('');
+	const [value, setValue] = useState(dayjs(new Date()).locale('ko'));
+	const {
+		roomName,
+		setRoomName,
+		address,
+		setAddress,
+		headCount,
+		setHeadCount,
+		sort,
+		setSort,
+	} = props;
+
+	// 공간 정렬
+	const handleChange = (e) => {
+		setSort(e.target.value);
+	};
+
+	// 달력 테마
+	const theme = createTheme(
+		{
+			palette: {
+				primary: {main: '#9b4de3'},
+			},
+		},
+		koKR,
+	);
 
 	// 지역, 인원, 날짜 select
 	const spaceChange = (event) => {
-		setSpace(event.target.value);
+		setAddress(event.target.value);
 	};
 	const headCountChange = (event) => {
 		setHeadCount(event.target.value);
 	};
-	const dateChange = (event) => {
-		setDate(event.target.value);
+
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const open = Boolean(anchorEl);
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
 	};
 
 	return (
 		<Wrapper>
 			<Left>
-				<Stack
-					spacing={2}
-					sx={{
+				<Card
+					style={{
+						display: 'flex',
+						justifyContent: 'flex-end',
+						alignItems: 'center',
 						width: '100%',
-						backgroundColor: '#fff',
-						borderRadius: '5px',
+						height: '100%',
+						minHeight: '55px',
+						padding: '0 20px',
+						position: 'relative',
 					}}
 				>
-					<Autocomplete
-						id='free-solo-demo'
-						freeSolo
-						options={top100Films.map((option) => option.title)}
-						renderInput={(params) => (
-							<TextField
-								{...params}
-								label='지역, 공간유형, 공간명으로 찾아보세요'
-							/>
-						)}
+					<SearchIcon
+						style={{
+							position: 'absolute',
+							zIndex: 1,
+							color: '#a0a0a0',
+							cursor: 'pointer',
+						}}
 					/>
-				</Stack>
+					<input
+						type='text'
+						placeholder='공간명 검색'
+						value={roomName}
+						onChange={(e) => {
+							setRoomName(e.target.value);
+						}}
+						style={{
+							width: '100%',
+							backgroundColor: 'white',
+							border: '0px',
+						}}
+					/>
+				</Card>
 			</Left>
-			<Right>
+			<Middle>
 				<Box
 					sx={{
 						minWidth: 120,
-						width: '27%',
-						marginRight: '10px',
+						width: '20%',
+						marginRight: '20px',
 						backgroundColor: '#fff',
 						borderRadius: '5px',
 					}}
@@ -66,21 +131,21 @@ function TopMenu(props) {
 						<Select
 							labelId='demo-simple-select-label'
 							id='demo-simple-select'
-							value={space}
-							label='공간'
+							value={address}
+							label='지역'
 							onChange={spaceChange}
 						>
-							<MenuItem value={10}>Ten</MenuItem>
-							<MenuItem value={20}>Twenty</MenuItem>
-							<MenuItem value={30}>Thirty</MenuItem>
+							<MenuItem value={'서울'}>서울</MenuItem>
+							<MenuItem value={'강동'}>강동</MenuItem>
+							<MenuItem value={'부산'}>부산</MenuItem>
 						</Select>
 					</FormControl>
 				</Box>
 				<Box
 					sx={{
 						minWidth: 120,
-						width: '27%',
-						marginRight: '10px',
+						width: '20%',
+						marginRight: '20px',
 						backgroundColor: '#fff',
 						borderRadius: '5px',
 					}}
@@ -92,58 +157,140 @@ function TopMenu(props) {
 						<Select
 							labelId='demo-simple-select-label'
 							id='demo-simple-select'
-							value={space}
+							value={headCount}
 							label='인원'
 							onChange={headCountChange}
 						>
-							<MenuItem value={10}>Ten</MenuItem>
-							<MenuItem value={20}>Twenty</MenuItem>
-							<MenuItem value={30}>Thirty</MenuItem>
+							<MenuItem value={1}>1</MenuItem>
+							<MenuItem value={2}>2</MenuItem>
+							<MenuItem value={3}>3</MenuItem>
+							<MenuItem value={4}>4</MenuItem>
+							<MenuItem value={5}>5</MenuItem>
+							<MenuItem value={6}>6</MenuItem>
+							<MenuItem value={7}>7</MenuItem>
+							<MenuItem value={8}>8</MenuItem>
+							<MenuItem value={9}>9</MenuItem>
+							<MenuItem value={10}>10</MenuItem>
 						</Select>
 					</FormControl>
 				</Box>
+				<ThemeProvider theme={theme}>
+					<LocalizationProvider
+						dateAdapter={AdapterDayjs}
+						dateFormats={dayjs.locale('ko')}
+					>
+						<Stack spacing={3}>
+							<DateTimePicker
+								renderInput={(params) => (
+									<TextField {...params} />
+								)}
+								value={value}
+								onChange={(newValue) => {
+									setValue(newValue);
+								}}
+								style={{color: 'lightgray'}}
+								hideTabs={false}
+								components={{Tabs: CustomTabs}}
+								componentsProps={{
+									// actionBar: {
+									// 	actions: ['today'],
+									// },
+									tabs: {
+										dateRangeIcon: <LightModeIcon />,
+										timeIcon: <AcUnitIcon />,
+									},
+								}}
+							/>
+						</Stack>
+					</LocalizationProvider>
+				</ThemeProvider>
 				<Box
-					sx={{
-						minWidth: 120,
-						width: '27%',
-						marginRight: '10px',
-						backgroundColor: '#fff',
-						borderRadius: '5px',
+					style={{
+						marginLeft: '20px',
 					}}
 				>
-					<FormControl fullWidth>
-						<InputLabel id='demo-simple-select-label'>
-							날짜
-						</InputLabel>
+					<FormControl
+						style={{
+							m: 1,
+							minWidth: 140,
+						}}
+					>
 						<Select
-							labelId='demo-simple-select-label'
-							id='demo-simple-select'
-							value={space}
-							label='날짜'
-							onChange={dateChange}
+							labelId='demo-select-small'
+							id='demo-select-small'
+							value={sort}
+							onChange={handleChange}
 						>
-							<MenuItem value={10}>Ten</MenuItem>
-							<MenuItem value={20}>Twenty</MenuItem>
-							<MenuItem value={30}>Thirty</MenuItem>
+							<MenuItem value={'readCount desc'}>인기순</MenuItem>
+							<MenuItem value={'weekAmPrice asc'}>
+								낮은 가격순
+							</MenuItem>
+							<MenuItem value={'weekAmPrice desc'}>
+								높은 가격순
+							</MenuItem>
 						</Select>
 					</FormControl>
 				</Box>
 				<div
 					style={{
 						display: 'flex',
+						width: '25%',
 						justifyContent: 'flex-end',
-						width: '19%',
 					}}
 				>
-					<Filter />
+					<FilterButton
+						onClick={handleClick}
+						id='basic-button'
+						aria-controls={open ? 'basic-menu' : undefined}
+						aria-haspopup='true'
+						aria-expanded={open ? 'true' : undefined}
+					>
+						<TuneIcon
+							style={{color: '#9b4de3', fontSize: '25px;'}}
+						/>
+						<Typography
+							style={{
+								marginLeft: '10px',
+								fontSize: '20px',
+								color: '#9b4de3',
+								fontWeight: '1000',
+							}}
+						>
+							필터
+						</Typography>
+					</FilterButton>
+					<Menu
+						id='basic-menu'
+						anchorEl={anchorEl}
+						open={open}
+						onClose={handleClose}
+						MenuListProps={{
+							'aria-labelledby': 'basic-button',
+						}}
+					>
+						<Filter />
+					</Menu>
 				</div>
-			</Right>
+			</Middle>
 		</Wrapper>
 	);
 }
 
 export default TopMenu;
 
+const FilterButton = styled(Button)`
+	border: 2px solid #9b4de3;
+	width: 130px;
+	height: 55px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 25px;
+	font-weight: 1000;
+	background-color: #fff;
+	border-radius: 30px;
+`;
 const Wrapper = styled(Box)`
 	display: flex;
 	align-items: center;
@@ -161,9 +308,10 @@ const Left = styled(Box)`
 		width: 45%;
 	}
 `;
-const Right = styled(Box)`
+const Middle = styled(Box)`
 	display: flex;
 	align-items: center;
+	justify-content: flex-start;
 	padding-left: 10px;
 	@media (max-width: 1920px) {
 		width: 80.8%;
@@ -175,130 +323,3 @@ const Right = styled(Box)`
 		width: 55%;
 	}
 `;
-
-const top100Films = [
-	{title: 'The Shawshank Redemption', year: 1994},
-	{title: 'The Godfather', year: 1972},
-	{title: 'The Godfather: Part II', year: 1974},
-	{title: 'The Dark Knight', year: 2008},
-	{title: '12 Angry Men', year: 1957},
-	{title: "Schindler's List", year: 1993},
-	{title: 'Pulp Fiction', year: 1994},
-	{
-		title: 'The Lord of the Rings: The Return of the King',
-		year: 2003,
-	},
-	{title: 'The Good, the Bad and the Ugly', year: 1966},
-	{title: 'Fight Club', year: 1999},
-	{
-		title: 'The Lord of the Rings: The Fellowship of the Ring',
-		year: 2001,
-	},
-	{
-		title: 'Star Wars: Episode V - The Empire Strikes Back',
-		year: 1980,
-	},
-	{title: 'Forrest Gump', year: 1994},
-	{title: 'Inception', year: 2010},
-	{
-		title: 'The Lord of the Rings: The Two Towers',
-		year: 2002,
-	},
-	{title: "One Flew Over the Cuckoo's Nest", year: 1975},
-	{title: 'Goodfellas', year: 1990},
-	{title: 'The Matrix', year: 1999},
-	{title: 'Seven Samurai', year: 1954},
-	{
-		title: 'Star Wars: Episode IV - A New Hope',
-		year: 1977,
-	},
-	{title: 'City of God', year: 2002},
-	{title: 'Se7en', year: 1995},
-	{title: 'The Silence of the Lambs', year: 1991},
-	{title: "It's a Wonderful Life", year: 1946},
-	{title: 'Life Is Beautiful', year: 1997},
-	{title: 'The Usual Suspects', year: 1995},
-	{title: 'Léon: The Professional', year: 1994},
-	{title: 'Spirited Away', year: 2001},
-	{title: 'Saving Private Ryan', year: 1998},
-	{title: 'Once Upon a Time in the West', year: 1968},
-	{title: 'American History X', year: 1998},
-	{title: 'Interstellar', year: 2014},
-	{title: 'Casablanca', year: 1942},
-	{title: 'City Lights', year: 1931},
-	{title: 'Psycho', year: 1960},
-	{title: 'The Green Mile', year: 1999},
-	{title: 'The Intouchables', year: 2011},
-	{title: 'Modern Times', year: 1936},
-	{title: 'Raiders of the Lost Ark', year: 1981},
-	{title: 'Rear Window', year: 1954},
-	{title: 'The Pianist', year: 2002},
-	{title: 'The Departed', year: 2006},
-	{title: 'Terminator 2: Judgment Day', year: 1991},
-	{title: 'Back to the Future', year: 1985},
-	{title: 'Whiplash', year: 2014},
-	{title: 'Gladiator', year: 2000},
-	{title: 'Memento', year: 2000},
-	{title: 'The Prestige', year: 2006},
-	{title: 'The Lion King', year: 1994},
-	{title: 'Apocalypse Now', year: 1979},
-	{title: 'Alien', year: 1979},
-	{title: 'Sunset Boulevard', year: 1950},
-	{
-		title: 'Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb',
-		year: 1964,
-	},
-	{title: 'The Great Dictator', year: 1940},
-	{title: 'Cinema Paradiso', year: 1988},
-	{title: 'The Lives of Others', year: 2006},
-	{title: 'Grave of the Fireflies', year: 1988},
-	{title: 'Paths of Glory', year: 1957},
-	{title: 'Django Unchained', year: 2012},
-	{title: 'The Shining', year: 1980},
-	{title: 'WALL·E', year: 2008},
-	{title: 'American Beauty', year: 1999},
-	{title: 'The Dark Knight Rises', year: 2012},
-	{title: 'Princess Mononoke', year: 1997},
-	{title: 'Aliens', year: 1986},
-	{title: 'Oldboy', year: 2003},
-	{title: 'Once Upon a Time in America', year: 1984},
-	{title: 'Witness for the Prosecution', year: 1957},
-	{title: 'Das Boot', year: 1981},
-	{title: 'Citizen Kane', year: 1941},
-	{title: 'North by Northwest', year: 1959},
-	{title: 'Vertigo', year: 1958},
-	{
-		title: 'Star Wars: Episode VI - Return of the Jedi',
-		year: 1983,
-	},
-	{title: 'Reservoir Dogs', year: 1992},
-	{title: 'Braveheart', year: 1995},
-	{title: 'M', year: 1931},
-	{title: 'Requiem for a Dream', year: 2000},
-	{title: 'Amélie', year: 2001},
-	{title: 'A Clockwork Orange', year: 1971},
-	{title: 'Like Stars on Earth', year: 2007},
-	{title: 'Taxi Driver', year: 1976},
-	{title: 'Lawrence of Arabia', year: 1962},
-	{title: 'Double Indemnity', year: 1944},
-	{
-		title: 'Eternal Sunshine of the Spotless Mind',
-		year: 2004,
-	},
-	{title: 'Amadeus', year: 1984},
-	{title: 'To Kill a Mockingbird', year: 1962},
-	{title: 'Toy Story 3', year: 2010},
-	{title: 'Logan', year: 2017},
-	{title: 'Full Metal Jacket', year: 1987},
-	{title: 'Dangal', year: 2016},
-	{title: 'The Sting', year: 1973},
-	{title: '2001: A Space Odyssey', year: 1968},
-	{title: "Singin' in the Rain", year: 1952},
-	{title: 'Toy Story', year: 1995},
-	{title: 'Bicycle Thieves', year: 1948},
-	{title: 'The Kid', year: 1921},
-	{title: 'Inglourious Basterds', year: 2009},
-	{title: 'Snatch', year: 2000},
-	{title: '3 Idiots', year: 2009},
-	{title: 'Monty Python and the Holy Grail', year: 1975},
-];

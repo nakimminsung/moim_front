@@ -66,7 +66,7 @@ function RoomCard(props) {
 		<CardWrapper>
 			<Card>
 				<CardActionArea>
-					<Box sx={{maxWidth: 400, flexGrow: 1}}>
+					<Box>
 						<AutoPlaySwipeableViews
 							axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
 							index={activeStep}
@@ -81,7 +81,8 @@ function RoomCard(props) {
 											<Box
 												component='img'
 												sx={{
-													height: 200,
+													height: '100%',
+													minHeight: '200px',
 													display: 'block',
 													maxWidth: '100%',
 													overflow: 'hidden',
@@ -148,8 +149,8 @@ function RoomCard(props) {
 						}}
 					>
 						<Typography gutterBottom variant='h5' component='div'>
-							{roomData.name.length > 13
-								? roomData.name.substr(0, 14) + '...'
+							{roomData.name.length > 11
+								? roomData.name.substr(0, 12) + '...'
 								: roomData.name}
 						</Typography>
 						<Typography variant='body2' color='text.secondary'>
@@ -232,7 +233,7 @@ const PayInfo = styled(Typography)`
 	position: absolute;
 	top: 0;
 	right: 0;
-	border-radius: 4px;
+	border-radius: 1px;
 	opacity: 0.9;
 	z-index: 10;
 	font-weight: 1000;
@@ -279,6 +280,20 @@ const LikeCount = styled(Typography)`
 	margin-left: 5px;
 `;
 const CardWrapper = styled(Typography)`
-	width: 24%;
-	margin-bottom: 20px;
+	@media (max-width: 1920px) {
+		width: 25%;
+		padding: 5px;
+	}
+	@media (max-width: 1680px) {
+		width: 33.3%;
+		padding: 5px;
+	}
+	@media (max-width: 1000px) {
+		width: 50%;
+		padding: 5px;
+	}
+	@media (max-width: 900px) {
+		width: 100%;
+		padding-bottom: 5px;
+	}
 `;

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import TopMenu from './TopMenu';
-import BottomMenu from './BottomMenu';
 import Title from './Title';
 import List from './/List';
 import Content from './Content';
@@ -10,33 +9,66 @@ import {useParams} from 'react-router-dom';
 import axios from 'axios';
 
 function Map(props) {
-	const [data, setData] = useState('');
-	const {num} = useParams();
+	const [themeData, setThemeData] = useState('');
+	const [roomData, setRoomData] = useState([]);
+	const [sort, setSort] = useState('readCount desc');
+	const [roomName, setRoomName] = useState('');
+	const [headCount, setHeadCount] = useState('');
+	const [address, setAddress] = useState('');
+	const {themeNum} = useParams();
 
+	// 테마 데이터 select
 	const selectTheme = () => {
-		let url = localStorage.url + '/theme/data?num=' + num;
-		axios.get(url).then((res) => setData(res.data));
+		let url = localStorage.url + '/theme/data?themeNum=' + themeNum;
+		axios.get(url).then((res) => setThemeData(res.data));
+	};
+	// 테마의 공간 리스트 select
+	const selectThemeRoomList = () => {
+		let url =
+			localStorage.url +
+			'/theme/list?themeNum=' +
+			themeNum +
+			'&sort=' +
+			sort +
+			'&headCount=' +
+			headCount +
+			'&address=' +
+			address +
+			'&name=' +
+			roomName;
+		axios.get(url).then((res) => setRoomData(res.data));
+		console.log(roomData);
 	};
 
 	useEffect(() => {
 		selectTheme();
-	}, []);
+		selectThemeRoomList();
+	}, [sort, roomName, address, headCount]);
 
 	return (
 		<Wrapper>
 			<Top>
-				<Title data={data} />
+				<Title themeData={themeData} />
 				<MenuDiv>
-					<TopMenu />
+					<TopMenu
+						roomName={roomName}
+						setRoomName={setRoomName}
+						address={address}
+						setAddress={setAddress}
+						headCount={headCount}
+						setHeadCount={setHeadCount}
+						roomData={roomData}
+						sort={sort}
+						setSort={setSort}
+					/>
 				</MenuDiv>
 			</Top>
 			<Bottom>
 				<ListDiv>
-					<List />
+					<List roomData={roomData} />
 				</ListDiv>
 				<ContentDiv>
-					<BottomMenu />
-					<Content />
+					<Content roomData={roomData} />
 				</ContentDiv>
 			</Bottom>
 		</Wrapper>
@@ -52,11 +84,10 @@ const Top = styled(Box)`
 	top: 0;
 	z-index: 15;
 	background-color: white;
-	border-bottom: #f0f0f0;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	background-color: #f5f5f5;
+	background-color: #fff;
 `;
 const MenuDiv = styled(Box)`
 	padding: 10px;

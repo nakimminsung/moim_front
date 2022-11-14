@@ -10,19 +10,23 @@ import styled from '@emotion/styled/macro';
 import {Box} from '@mui/material';
 
 function List(props) {
-	const {num} = useParams();
+	const {themeNum} = useParams();
 	const [data, setData] = useState([]);
-	const [sort, setSort] = useState('num');
+	const [sort, setSort] = useState('readCount desc');
 
+	// theme의 space list select
 	const selectThemeRoomList = () => {
-		let url = localStorage.url + '/theme/list?num=' + num + '&sort=' + sort;
+		let url =
+			localStorage.url +
+			'/theme/list?themeNum=' +
+			themeNum +
+			'&sort=' +
+			sort;
 		console.log(url);
 		axios.get(url).then((res) => setData(res.data));
 	};
-
 	const handleChange = (e) => {
 		setSort(e.target.value);
-		console.log(sort);
 	};
 
 	useEffect(() => {
@@ -36,12 +40,16 @@ function List(props) {
 					<Select
 						labelId='demo-select-small'
 						id='demo-select-small'
-						defaultValue={'num'}
+						value={sort}
 						onChange={handleChange}
 					>
-						<MenuItem value={'num'}>최신순</MenuItem>
-						<MenuItem value={'readCount'}>인기순</MenuItem>
-						<MenuItem value={'weekAmPrice'}>가격순</MenuItem>
+						<MenuItem value={'readCount desc'}>인기순</MenuItem>
+						<MenuItem value={'weekAmPrice asc'}>
+							낮은 가격순
+						</MenuItem>
+						<MenuItem value={'weekAmPrice desc'}>
+							높은 가격순
+						</MenuItem>
 					</Select>
 				</FormControl>
 			</SelectDiv>
@@ -59,16 +67,20 @@ export default List;
 
 const ListWrapper = styled(Box)`
 	padding-bottom: 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 `;
 const SelectDiv = styled(Box)`
 	display: flex;
 	justify-content: flex-end;
+	width: 100%;
 	margin: 20px 0;
 `;
 const RoomList = styled(Box)`
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
 	flex-direction: row;
 	width: 100%;
 `;

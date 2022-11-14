@@ -258,7 +258,7 @@ const PayInfo = styled(Typography)`
 	position: absolute;
 	top: 0;
 	right: 0;
-	border-radius: 2px;
+	border-radius: 1px;
 	opacity: 0.9;
 	z-index: 10;
 	font-weight: 1000;

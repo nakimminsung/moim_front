@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -33,7 +33,7 @@ function BasicRouter() {
 				<Route path='main_theme' element={<MainTheme />} />
 				{/* 기획전 페이지 */}
 				<Route path='theme'>
-					<Route path=':num' element={<Theme />} />
+					<Route path=':themeNum' element={<Theme />} />
 				</Route>
 				{/* 호스트 */}
 				<Route path='host'>

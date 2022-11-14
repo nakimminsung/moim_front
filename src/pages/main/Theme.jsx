@@ -13,9 +13,7 @@ function Theme(props) {
 	// theme list select
 	const getThemeList = () => {
 		let url = localStorage.url + '/main/theme';
-		console.log(url);
 		axios.get(url).then((res) => setData(res.data));
-		console.log(data.length);
 	};
 	// 더보기 button event
 	const moreButton = () => {
