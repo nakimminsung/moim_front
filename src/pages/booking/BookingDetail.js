@@ -12,6 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import InfoIcon from '@mui/icons-material/Info';
 import BdOtherInfo from './BdOtherInfo';
 import defaultImg from './img/404.png';
+import styled from 'styled-components';
 
 function BookingDetail() {
 	const [roomData, setRoomData] = useState('');
@@ -361,23 +362,51 @@ function BookingDetail() {
 															{item.price} / 수량
 															1개
 														</p>
-														<span
-															onClick={() => {
-																onDecrease(idx);
-															}}
-														>
-															-
-														</span>
-														<span>
-															{count[idx]}
-														</span>
-														<span
-															onClick={() =>
-																onIncrease(idx)
-															}
-														>
-															+
-														</span>
+														<div>
+															<Button
+																variant='outlined'
+																style={{
+																	marginBottom:
+																		'3px',
+																	width: '10px',
+																}}
+																onClick={() => {
+																	onDecrease(
+																		idx,
+																	);
+																}}
+															>
+																-
+															</Button>
+
+															<input
+																type='text'
+																value={
+																	count[idx]
+																}
+																style={{
+																	width: '100px',
+																	height: '36px',
+																	textAlign:
+																		'center',
+																}}
+															></input>
+
+															<Button
+																variant='outlined'
+																style={{
+																	marginBottom:
+																		'3px',
+																}}
+																onClick={() =>
+																	onIncrease(
+																		idx,
+																	)
+																}
+															>
+																+
+															</Button>
+														</div>
 													</div>
 													<br />
 													<br />
