@@ -9,8 +9,10 @@ function AdminMenu(props) {
 			{/* 좌측 메뉴 div */}
 			<div
 				style={{
-					width: '250px',
-					height: '900px',
+					// minHeight: '920px',
+					width: '14%',
+					height: '96vh',
+					position: 'fixed',
 
 					margin: '20px 20px',
 					border: '1px solid gray',
@@ -29,7 +31,7 @@ function AdminMenu(props) {
 						paddingLeft: '20px',
 					}}
 				>
-					<NavLink to={'/admin'} className='NavLink'>
+					<NavLink to={'/'} className='NavLink'>
 						<span className='logo_span' style={{cursor: 'pointer'}}>
 							<img className='headerLogo' alt='' src={mlogo} />
 							<b
@@ -49,13 +51,18 @@ function AdminMenu(props) {
 				{/* 메뉴 */}
 				<ul>
 					<li>
-						<NavLink to={'/'} className='NavLink'>
-							메인 페이지
+						<NavLink to={'/admin'} className='NavLink'>
+							관리자 메인화면
 						</NavLink>
 					</li>
 					<li>
 						<NavLink to={'/admin/member'} className='NavLink'>
-							회원 관리
+							게스트 관리
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to={'/admin/host'} className='NavLink'>
+							호스트 관리
 						</NavLink>
 					</li>
 					<li>
@@ -63,10 +70,31 @@ function AdminMenu(props) {
 							공간 관리
 						</NavLink>
 					</li>
-					<li>신고 관리</li>
-					<li>공지 사항</li>
-					<li>기획전 관리</li>
-					<li>팝업 관리</li>
+					<li>
+						<NavLink to={'/admin/report'} className='NavLink'>
+							신고 관리
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to={'/admin/notice'} className='NavLink'>
+							공지사항 관리
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to={'/admin/theme'} className='NavLink'>
+							기획전 관리
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to={'/admin/popup'} className='NavLink'>
+							팝업 관리
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to={'/admin/banner'} className='NavLink'>
+							배너 관리
+						</NavLink>
+					</li>
 				</ul>
 			</div>
 		</div>

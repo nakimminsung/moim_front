@@ -7,9 +7,12 @@ function SpaceManagement(props) {
 			<div
 				className='spaceSearch'
 				style={{
-					width: '1000px',
-					border: '1px solid gray',
+					width: '100%',
+					// border: '1px solid gray',
+					border: 'none',
 					borderRadius: '10px',
+					backgroundColor: 'white',
+					boxShadow: '0px 2px 2px 1px rgba(0 0 0 / 10%)',
 				}}
 			>
 				<SearchRounded
@@ -25,12 +28,13 @@ function SpaceManagement(props) {
 					type={'text'}
 					className='seacrhContainer'
 					style={{
-						width: '800px',
+						width: '90%',
 						height: '60px',
 						marginTop: '3px',
 						outline: 'none',
 						border: 'none',
-						backgroundColor: 'rgba(240, 242, 245)',
+						// backgroundColor: 'rgba(240, 242, 245)',
+						backgroundColor: 'white',
 					}}
 					placeholder='공간 이름 혹은 호스트명을 입력해주세요'
 				/>

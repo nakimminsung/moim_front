@@ -8,7 +8,7 @@ import GrainIcon from '@material-ui/icons/Grain';
 import './AdminLayout.css';
 
 import {makeStyles, Typography} from '@material-ui/core';
-import AdminMenu from './AdminMenu';
+import AdminMenu from '../admin/AdminMenu';
 
 function AdminLayout(props) {
 	const useStyles = makeStyles((theme) => ({
@@ -35,21 +35,36 @@ function AdminLayout(props) {
 				display: 'flex',
 				justifyContent: 'start',
 				backgroundColor: 'rgba(240, 242, 245)',
-				height: '100%',
+				height: '100vh',
 			}}
 		>
-			<AdminMenu />
+			{/* 좌측 Admin Menu 호출 */}
+			<div
+				style={{
+					width: '17%',
+					// minWidth: '300px',
+				}}
+			>
+				<AdminMenu />
+			</div>
+
 			{/* Breadcrumbs 상단 경로 */}
-			<div style={{marginTop: '20px'}}>
+			<div style={{marginTop: '20px', width: '70%'}}>
 				<div
 					style={{
-						width: '1000px',
-						border: '0.5px solid gray',
+						width: '100%',
+						// border: '0.5px solid gray',
+						// border: '1.5px solid #704de4',
+						border: 'none',
 						borderRadius: '10px',
 						height: '80px',
 						paddingLeft: '10px',
 						paddingTop: '10px',
 						marginBottom: '20px',
+
+						backgroundColor: 'white',
+						// boxShadow: '3px 3px 3px rgba(0 0 0 / 10%)',
+						boxShadow: '0px 2px 2px 1px rgba(0 0 0 / 10%)',
 					}}
 				>
 					<Breadcrumbs aria-label='breadcrumb'>

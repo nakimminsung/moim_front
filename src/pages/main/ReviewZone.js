@@ -29,7 +29,12 @@ function ReviewZone(props) {
 			</h6>
 
 			{/* 리스트 전체 div */}
-			<div style={{display: 'flex', justifyContent: 'space-around'}}>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'space-around',
+				}}
+			>
 				{review &&
 					review.map((data, idx) => (
 						<div
