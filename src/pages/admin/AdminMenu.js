@@ -28,12 +28,12 @@ function AdminMenu(props) {
 					className='logo'
 					style={{
 						borderRadius: '10px',
-						paddingLeft: '20px',
+						paddingLeft: '30px',
 					}}
 				>
 					<NavLink to={'/'} className='NavLink'>
 						<span className='logo_span' style={{cursor: 'pointer'}}>
-							<img className='headerLogo' alt='' src={mlogo} />
+							{/* <img className='headerLogo' alt='' src={mlogo} /> */}
 							<b
 								style={{
 									fontSize: '40px',

@@ -1,6 +1,6 @@
-* {
-	/* background-color: rgba(240, 242, 245); */
-}
+/* * {
+	background-color: rgba(240, 242, 245);
+} */
 
 ul {
 	list-style: none;
@@ -20,4 +20,64 @@ li {
 
 .NavLink:hover {
 	color: lightgray;
+}
+
+/* 게스트 회원 관리 */
+.memberTable table {
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+}
+
+.memberTable th {
+	border-bottom: 2px solid gray;
+	border-left: 0.5px solid gray;
+	height: 40px;
+
+	text-align: center;
+
+	background-color: rgba(0, 0, 0);
+	opacity: 0.6;
+	color: lightgray;
+}
+
+.memberTable td {
+	border-bottom: 0.5px solid gray;
+	border-left: 0.5px solid gray;
+	height: 40px;
+
+	text-align: center;
+}
+
+/* 호스트 회원 관리 */
+.hostTable table {
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+}
+
+.hostTable th {
+	border-bottom: 2px solid gray;
+	border-left: 0.5px solid gray;
+	height: 40px;
+
+	text-align: center;
+
+	background-color: rgba(0, 0, 0);
+	opacity: 0.6;
+	color: lightgray;
+}
+
+.hostTable td {
+	border-bottom: 0.5px solid gray;
+	border-left: 0.5px solid gray;
+	height: 40px;
+
+	text-align: center;
 }

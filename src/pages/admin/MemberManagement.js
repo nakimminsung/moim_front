@@ -55,55 +55,51 @@ function MemberManagement(props) {
 					style={{
 						width: '90%',
 						height: '60px',
-						marginTop: '3px',
+
 						outline: 'none',
 						border: 'none',
 						// backgroundColor: 'rgba(240, 242, 245)',
 						backgroundColor: 'white',
 					}}
-					placeholder='회원의 이름 또는 이메일을 입력해주세요'
+					placeholder='게스트의 이름 또는 이메일을 입력해주세요'
 				/>
 			</div>
 			<div
 				className='memberList'
 				style={{marginTop: '20px', width: '100%'}}
 			>
-				<table className='table table-bordered'>
-					<thead style={{textAlign: 'center'}}>
-						<tr>
-							<th>번호</th>
-							<th>이메일</th>
-							<th>회원명</th>
-							<th>회원가입일</th>
-							<th>정보수정일</th>
-							<th>기타</th>
-						</tr>
-					</thead>
-					<tbody>
-						{/* 카테고리 img + 카테고리 name 을 묶은 div 반복 구간 */}
-						{memberList &&
-							memberList.map((row, idx) => (
-								<tr key={idx}>
-									<td style={{textAlign: 'center'}}>
-										{idx + 1}
-									</td>
-									<td>{row.email}</td>
-									<td style={{textAlign: 'center'}}>
-										{row.nickname}
-									</td>
-									<td style={{textAlign: 'center'}}>
-										{row.created_at}
-									</td>
-									<td style={{textAlign: 'center'}}>
-										{row.updated_at}
-									</td>
-									<td style={{textAlign: 'center'}}>공란</td>
-								</tr>
-							))}
-					</tbody>
-				</table>
-
-				<div style={{height: '1000px'}}>테스트</div>
+				<br />
+				<p>
+					<b>총 게스트 회원 : </b>
+				</p>
+				<div className='memberTable'>
+					<table>
+						<thead style={{textAlign: 'center'}}>
+							<tr>
+								<th>번호</th>
+								<th>이메일</th>
+								<th>회원명</th>
+								<th>회원가입일</th>
+								<th>정보수정일</th>
+								<th>기타</th>
+							</tr>
+						</thead>
+						<tbody>
+							{/* 카테고리 img + 카테고리 name 을 묶은 div 반복 구간 */}
+							{memberList &&
+								memberList.map((row, idx) => (
+									<tr key={idx}>
+										<td>{idx + 1}</td>
+										<td>{row.email}</td>
+										<td>{row.nickname}</td>
+										<td>{row.created_at}</td>
+										<td>{row.updated_at}</td>
+										<td>공란</td>
+									</tr>
+								))}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	);

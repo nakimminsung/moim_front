@@ -35,7 +35,8 @@ function AdminLayout(props) {
 				display: 'flex',
 				justifyContent: 'start',
 				backgroundColor: 'rgba(240, 242, 245)',
-				height: '100vh',
+				minHeight: '100vh',
+				height: 'auto',
 			}}
 		>
 			{/* 좌측 Admin Menu 호출 */}
@@ -49,10 +50,10 @@ function AdminLayout(props) {
 			</div>
 
 			{/* Breadcrumbs 상단 경로 */}
-			<div style={{marginTop: '20px', width: '70%'}}>
+			<div style={{marginTop: '20px', width: '80%'}}>
 				<div
 					style={{
-						width: '100%',
+						width: '80%',
 						// border: '0.5px solid gray',
 						// border: '1.5px solid #704de4',
 						border: 'none',
@@ -65,13 +66,16 @@ function AdminLayout(props) {
 						backgroundColor: 'white',
 						// boxShadow: '3px 3px 3px rgba(0 0 0 / 10%)',
 						boxShadow: '0px 2px 2px 1px rgba(0 0 0 / 10%)',
+
+						position: 'fixed',
+						opacity: '0.9',
 					}}
 				>
 					<Breadcrumbs aria-label='breadcrumb'>
 						<Link
 							color='inherit'
-							href='/'
-							onClick={handleClick}
+							href='/admin'
+							// onClick={handleClick}
 							className={classes.link}
 						>
 							<HomeIcon className={classes.icon} />
@@ -101,7 +105,9 @@ function AdminLayout(props) {
 				</div>
 
 				{/* 하위 컴포넌트 호출 */}
-				<AdminRouter />
+				<div style={{marginTop: '100px'}}>
+					<AdminRouter />
+				</div>
 			</div>
 		</div>
 	);

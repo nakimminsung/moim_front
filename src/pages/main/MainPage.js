@@ -30,15 +30,16 @@ function Mainpage(props) {
 					<li>
 						<NavLink to={'/like'}>찜한 공간</NavLink>
 					</li>
-					{/* 임시버튼 */}
 					<li>
 						<NavLink to={'/booking/detail'}>예약페이지</NavLink>
 					</li>
+
+					{/* 임시버튼 */}
 					<li>
-						<NavLink to={'/login'}>로그인</NavLink>
+						<NavLink to={'/'}>임시 버튼</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/mypage'}>마이페이지</NavLink>
+						<NavLink to={'/'}>임시 버튼</NavLink>
 					</li>
 					<li>
 						<NavLink to={'/'}>임시 버튼</NavLink>
