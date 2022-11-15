@@ -7,14 +7,16 @@ import {
 	TextField,
 } from '@material-ui/core';
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, {useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
 
 function SpaceAddForm3(props) {
 	localStorage.url = 'http://localhost:9000';
+	const {num} = useParams();
 	const navi = useNavigate();
 
-	const num = 20; // 테스트용 번호 나중에 값 받아서 진행 num = roomNum
+	// const num = props.res.num; // 테스트용 번호 나중에 값 받아서 진행 num = roomNum
+	console.log({num});
 	const timeArr = Array.from(Array(25), (v, i) => i + 0);
 	const [stime, setStime] = useState('0');
 	const [etime, setEtime] = useState('24');
