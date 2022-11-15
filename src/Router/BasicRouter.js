@@ -8,8 +8,6 @@ import Detail from '../pages/roomsdetail/Detail';
 import MainTheme from '../pages/main/Theme';
 import Theme from '../pages/theme/Theme';
 import AdminMain from '../pages/admin/AdminMain';
-import Header from '../pages/layout/Header';
-import Footer from '../pages/layout/Footer';
 import BookingDetail from '../pages/booking/BookingDetail';
 import BookingList from '../pages/booking/BookingList';
 import BookingMain from '../pages/booking/BookingMain';
@@ -36,7 +34,7 @@ function BasicRouter() {
 				<Route path='main_theme' element={<MainTheme />} />
 				{/* 기획전 페이지 */}
 				<Route path='theme'>
-					<Route path=':num' element={<Theme />} />
+					<Route path=':themeNum' element={<Theme />} />
 				</Route>
 				{/* 호스트 */}
 				<Route path='host'>
@@ -46,10 +44,12 @@ function BasicRouter() {
 					<Route path='addform3/:num' element={<SpaceAddForm3 />} />
 				</Route>
 				{/* 호스트 끝 */}
+
 				{/* 어드민_관리자 */}
-				<Route path='admin'>
+				{/* <Route path='admin'>
 					<Route path='' element={<AdminMain />} />
-				</Route>
+				</Route> */}
+
 				{/* 예약페이지 */}
 				<Route path='/booking'>
 					<Route path='main' element={<BookingMain />} />

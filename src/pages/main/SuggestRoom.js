@@ -25,8 +25,6 @@ function SuggestRoom(props) {
 		getRoomList();
 	}, []);
 
-	axios.get();
-
 	return (
 		<div className='themeArea' style={{textAlign: 'center'}}>
 			<h3>
@@ -38,7 +36,7 @@ function SuggestRoom(props) {
 			<div
 				style={{
 					display: 'flex',
-					justifyContent: 'start',
+					justifyContent: 'space-between',
 					flexWrap: 'wrap',
 				}}
 			>
@@ -48,20 +46,18 @@ function SuggestRoom(props) {
 							style={{
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '340px',
+								width: '350px',
 								cursor: 'pointer',
-								// marginLeft: '22px',
-								// marginRight: '22px',
+
 								marginBottom: '30px',
-								marginLeft: '17px',
-								marginRight: '17px',
 							}}
+							key={idx}
 						>
 							<img
 								alt=''
 								src={data.thumbnailImage}
 								style={{
-									width: '339px',
+									width: '100%',
 									height: '250px',
 									borderRadius: '5px',
 								}}

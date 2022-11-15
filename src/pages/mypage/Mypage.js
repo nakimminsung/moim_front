@@ -5,10 +5,10 @@ import axios from 'axios';
 import {useParams} from 'react-router';
 
 function Mypage(props) {
-	// if (localStorage.getItem("token") === null) {
-	//   alert("로그인 해주세요.");
-	//   document.location.href = "/";
-	// }
+	if (localStorage.getItem('token') === null) {
+		alert('로그인 해주세요.');
+		document.location.href = '/';
+	}
 
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
@@ -43,7 +43,7 @@ function Mypage(props) {
 	useEffect(() => {
 		async function fetchData() {
 			const response = await axios.get(
-				'https://localhost:9000/member/modify',
+				'http://localhost:9000/member/modify',
 				{
 					headers: {
 						Authorization:
@@ -80,7 +80,7 @@ function Mypage(props) {
 					document.location.href = '/login';
 				} else {
 					response = await axios.patch(
-						'https://localhost:9000/member/modify/' +
+						'http://localhost:9000/member/modify/' +
 							jwt_decode(localStorage.getItem('token')).idx,
 						body,
 						{
@@ -111,7 +111,7 @@ function Mypage(props) {
 			let response = '';
 
 			response = await axios.patch(
-				'https://localhost:9000/member/delete/' +
+				'http://localhost:9000/member/delete/' +
 					jwt_decode(localStorage.getItem('token')).idx,
 				body,
 				{

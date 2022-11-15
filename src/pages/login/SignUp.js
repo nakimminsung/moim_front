@@ -10,14 +10,10 @@ function SignUp() {
         <HeadBannerGroup />
         <LoginSectionRoot>
           <LoginHeadLogo>
-            <h1>
-              <a>{/* <IconLogo /> */}</a>
-            </h1>
+            <h2>
+              회원가입
+            </h2>
           </LoginHeadLogo>
-          <LoginHeadText>
-            <NeedLogin></NeedLogin>
-            <CouponImg src="https://image.idus.com/static/signup/web_benefit_signup.png" />
-          </LoginHeadText>
           <LoginSection>
             <LoginTitle>정말 간단한 회원가입하기</LoginTitle>
             <SignupStep className="wrap">
@@ -29,13 +25,12 @@ function SignUp() {
             </SignupStep>
             <LoginSns className="wrap">
               <Item>
-                {/* <Kakaotalk href="https://backend.alittlevanilla.kro.kr/oauth2/authorization/kakao"> */}
                 <Kakaotalk href="http://localhost:9000/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect">
                   <SpIcon className="Kakaotalk" />
                   "카카오톡으로 가입하기"
                 </Kakaotalk>
               </Item>
-              {emailVisible ? (
+              {/* {emailVisible ? (
                 <></>
               ) : (
                 <Item>
@@ -47,35 +42,35 @@ function SignUp() {
                     다른 방법으로 가입하기
                   </More>
                 </Item>
-              )}
+              )} */}
 
-              <Hidden className={emailVisible ? "" : "HiddenTag"}>
-                <Item>
-                  <Naver href="http://localhost:9000/oauth2/authorization/naver?redirect_uri=http://localhost:3000/oauth/redirect">
-                    <SpIcon className="SpNaver" />
-                    네이버로 가입하기
-                  </Naver>
-                </Item>
-                <Item>
-                  <Facebook href="http://localhost:9000/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect">
-                    <SpIcon className="Facebook" />
-                    페이스북으로 가입하기
-                  </Facebook>
-                </Item>
-                <Item>
-                  <Twitter href="http://localhost:9000/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
-                    <SpIcon className="Twitter" />
-                    구글 가입하기
-                  </Twitter>
-                </Item>
+              {/* <Hidden className={emailVisible ? "" : "HiddenTag"}> */}
+              <Item>
+                <Naver href="http://localhost:9000/oauth2/authorization/naver?redirect_uri=http://localhost:3000/oauth/redirect">
+                  <SpIcon className="SpNaver" />
+                  네이버로 가입하기
+                </Naver>
+              </Item>
+              <Item>
+                <Facebook href="http://localhost:9000/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect">
+                  <SpIcon className="Facebook" />
+                  페이스북으로 가입하기
+                </Facebook>
+              </Item>
+              <Item>
+                <Twitter href="http://localhost:9000/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
+                  <SpIcon className="Twitter" />
+                  구글 가입하기
+                </Twitter>
+              </Item>
 
-                <Item>
-                  <Email href="/signupemail">이메일로 가입하기</Email>
-                </Item>
-              </Hidden>
+              <Item>
+                <Email href="/signupemail">이메일로 가입하기</Email>
+              </Item>
+              {/* </Hidden> */}
               <AdditionTxt>
-                이미 가입하셨다면
-                <a href="/login">바로 로그인하기</a>
+                이미 회원이신가요? &nbsp;
+                <a href="/login">로그인</a>
               </AdditionTxt>
             </LoginSns>
           </LoginSection>
@@ -84,10 +79,11 @@ function SignUp() {
     </>
   );
 }
-const AdditionTxt = styled.button`
+const AdditionTxt = styled.div`
   margin-top: 30px;
   color: #666;
   font-size: 14px;
+  text-decoration:none;
   a {
     text-decoration: underline;
   }
@@ -96,11 +92,11 @@ const Email = styled.a``;
 const Twitter = styled.a``;
 const Facebook = styled.a``;
 const Naver = styled.a``;
-const Hidden = styled.div`
-  &.HiddenTag {
-    display: none !important; */
-  }
-`;
+// const Hidden = styled.div`
+//   &.HiddenTag {
+//     display: none !important; */
+//   }
+// `;
 const More = styled.button``;
 const Kakaotalk = styled.a``;
 const Item = styled.div``;
@@ -126,6 +122,7 @@ const LoginSns = styled.div`
         -webkit-border-radius: 2px;
         border-radius: 2px;
         min-height: 44px;
+        text-decoration:none;
       }
 
       ${Email} {

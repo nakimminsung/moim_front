@@ -34,14 +34,13 @@ function Layout(props) {
 	return (
 		<div className='layout'>
 			<Header />
-
 			<main>
 				<div className='layContent'>
 					{props.children}
 					{/* 우측 하단 고정부 */}
 					<div
 						style={{
-							width: '180px',
+							width: '220px',
 							height: '80px',
 							padding: '10px 10px 10px 10px',
 
@@ -53,7 +52,7 @@ function Layout(props) {
 							backgroundColor: 'rgba(0, 0, 0)',
 							borderRadius: '10px',
 							display: 'flex',
-							justifyContent: 'center',
+							justifyContent: 'space-around',
 
 							zIndex: '1',
 						}}
@@ -118,7 +117,6 @@ function Layout(props) {
 					<BasicRouter />
 				</div>
 			</main>
-
 			<Footer />
 		</div>
 	);
