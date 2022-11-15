@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -58,9 +58,9 @@ function BasicRouter() {
 				<Route path='signupEmail' element={<SignUpEmail />} />
 				<Route path='mypage' element={<Mypage />} />
 
-				{/* 테마별 방 페이지 */}
+				{/* 카테고리별 방 페이지 */}
 				<Route path='categoryroomList'>
-					<Route path=':num' element={<CategoryRoom />} />
+					<Route path=':categoryNum' element={<CategoryRoom />} />
 				</Route>
 
 				<Route

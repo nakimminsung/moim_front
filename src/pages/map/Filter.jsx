@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Checkbox from '@mui/material/Checkbox';
+import axios from 'axios';
 
 function valuetext(value) {
 	return `${value}°C`;
@@ -12,11 +13,19 @@ function valuetext(value) {
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function Filter(props) {
+	const [data, setData] = useState([]);
 	const [value, setValue] = useState([0, 100000000]);
-
+	const selectFacility = () => {
+		let url = localStorage.url + '/facility/select';
+		axios.get(url).then((res) => setData(res.data));
+	};
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
+	useEffect(() => {
+		selectFacility();
+	}, []);
+
 	return (
 		<Wrapper>
 			<InnerWrapper>
@@ -28,13 +37,34 @@ function Filter(props) {
 					</Typography>
 				</PayTitleWrapper>
 				<PayButtonWrapper>
-					<PayButton variant='secondary'>바로결제</PayButton>
-					<PayButton variant='secondary'>승인결제</PayButton>
+					<div class='pay-btn'>
+						<input
+							id='radio-1'
+							type='radio'
+							name='pay'
+							value='now'
+						/>
+						<label for='radio-1'>바로 결제</label>
+					</div>
+					<div class='pay-btn'>
+						<input
+							id='radio-2'
+							type='radio'
+							name='pay'
+							value='fix'
+						/>
+						<label for='radio-2'>승인 결제</label>
+					</div>
 				</PayButtonWrapper>
 			</InnerWrapper>
 			<InnerWrapper>
 				<Title>가격</Title>
-				<Box sx={{ width: '100%' }}>
+				<Box
+					sx={{
+						width: '93%',
+						margin: '10px',
+					}}
+				>
 					<Slider
 						getAriaLabel={() => 'Temperature range'}
 						value={value}
@@ -50,18 +80,20 @@ function Filter(props) {
 			<InnerWrapper>
 				<Title>퍼실리티</Title>
 				<Option>
-					{list.map((item, i) => (
-						<Button
-							variant='secondary'
-							style={{
-								backgroundColor: 'lightgray',
-								marginRight: '10px',
-								marginBottom: '10px',
-							}}
-						>
-							버튼
-						</Button>
-					))}
+					{data &&
+						data.map((item, i) => (
+							<div class='facility-btn'>
+								<input
+									id={`facility-${item.num}`}
+									type='checkbox'
+									name='facility'
+									value={item.num}
+								/>
+								<label for={`facility-${item.num}`}>
+									{item.fname}
+								</label>
+							</div>
+						))}
 				</Option>
 			</InnerWrapper>
 			<ButtonWrapper>
@@ -79,67 +111,63 @@ const list = [
 ];
 
 const Wrapper = styled(Box)`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
-	width: 350px;
-	height: 600px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+   width: 350px;
+   height: 600px;
 `;
 const InnerWrapper = styled(Box)`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   padding: 20px;
 `;
 const PayTitleWrapper = styled(Box)`
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 10px;
-	align-items: center;
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 10px;
+   align-items: center;
 `;
 const Title = styled(Typography)`
-	font-size: 20px;
-	margin-bottom: 10px;
+   font-size: 20px;
+   margin-bottom: 10px;
 `;
 const PayButtonWrapper = styled(Box)`
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-`;
-const PayButton = styled(Button)`
-	background-color: lightgray;
-	width: 49%;
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
 `;
 const Option = styled(Box)`
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	overflow: auto;
-	max-height: 300px;
+   width: 100%;
+   display: flex;
+   flex-wrap: wrap;
+   overflow: auto;
+   max-height: 300px;
 `;
 const ButtonWrapper = styled(Box)`
-	position: relative;
-	bottom: 0;
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
+   position: relative;
+   bottom: 0;
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
 `;
 const CancelButton = styled(Button)`
-	background-color: #f0f0f0;
-	width: 30%;
-	border-radius: 0;
-	height: 60px;
-	font-size: 20px;
+   background-color: #f0f0f0;
+   width: 30%;
+   border-radius: 0;
+   height: 60px;
+   font-size: 20px;
 `;
 const SubmitButton = styled(Button)`
-	background-color: #9b4de3;
-	width: 70%;
-	border-radius: 0;
-	height: 60px;
-	font-size: 20px;
-	color: yellow;
-	:hover {
-		color: #9b4de3;
-	}
+   background-color: #9b4de3;
+   width: 70%;
+   border-radius: 0;
+   height: 60px;
+   font-size: 20px;
+   color: yellow;
+   :hover {
+      color: #9b4de3;
+   }
 `;

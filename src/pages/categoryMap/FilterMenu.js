@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -21,11 +21,8 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { Card } from '@material-ui/core';
 import TuneIcon from '@mui/icons-material/Tune';
-import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import Menu from '@mui/material/Menu';
 import Filter from './Filter';
-import FilterContent from './FilterContent';
-import { useNavigate, useParams } from 'react-router-dom';
 
 const CustomTabs = (props) => (
     <React.Fragment>
@@ -34,10 +31,7 @@ const CustomTabs = (props) => (
     </React.Fragment>
 );
 
-function Filtering(props) {
-    const navi = useNavigate();
-    // {num}은 router의 :num의 이름과 같아야 한다.
-    const { categoryNum } = useParams();
+function FilterMenu(props) {
     const [value, setValue] = useState(dayjs(new Date()).locale('ko'));
     const {
         roomName,
@@ -49,7 +43,6 @@ function Filtering(props) {
         sort,
         setSort,
     } = props;
-
 
     // 공간 정렬
     const handleChange = (e) => {
@@ -82,6 +75,7 @@ function Filtering(props) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
 
     return (
         <Wrapper>
@@ -253,41 +247,17 @@ function Filtering(props) {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <TuneIcon
-                            style={{ color: '#9b4de3', fontSize: '15px;' }}
+                            style={{ color: '#9b4de3', fontSize: '25px;' }}
                         />
                         <Typography
                             style={{
                                 marginLeft: '10px',
-                                fontSize: '15px',
+                                fontSize: '20px',
                                 color: '#9b4de3',
                                 fontWeight: '1000',
                             }}
                         >
                             필터
-                        </Typography>
-                    </FilterButton>
-
-                    <FilterButton
-                        onClick={() => {
-                            navi('/map/category/' + categoryNum);
-                        }}
-                        id='basic-button'
-                        aria-controls={open ? 'basic-menu' : undefined}
-                        aria-haspopup='true'
-                        aria-expanded={open ? 'true' : undefined}
-                    >
-                        <MapOutlinedIcon
-                            style={{ color: '#9b4de3', fontSize: '15px;' }}
-                        />
-                        <Typography
-                            style={{
-                                marginLeft: '10px',
-                                fontSize: '15px',
-                                color: '#9b4de3',
-                                fontWeight: '1000',
-                            }}
-                        >
-                            지도
                         </Typography>
                     </FilterButton>
                     <Menu
@@ -299,7 +269,7 @@ function Filtering(props) {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <FilterContent />
+                        <Filter />
                     </Menu>
                 </div>
             </Middle>
@@ -307,12 +277,12 @@ function Filtering(props) {
     );
 }
 
-export default Filtering;
+export default FilterMenu;
 
 const FilterButton = styled(Button)`
 	border: 2px solid #9b4de3;
-	width: 90px;
-	height: 40px;
+	width: 130px;
+	height: 55px;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
@@ -321,8 +291,6 @@ const FilterButton = styled(Button)`
 	font-weight: 1000;
 	background-color: #fff;
 	border-radius: 30px;
-    margin-right:15px;
-    padding-right:7px;
 `;
 const Wrapper = styled(Box)`
 	display: flex;

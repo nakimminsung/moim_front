@@ -7,13 +7,13 @@ import styled from 'styled-components';
 import Card from './Card';
 
 function List(props) {
-    const { num } = useParams();
+    const { categoryNum } = useParams();
     const [data, setData] = useState([]);
     const [sort, setSort] = useState('readCount desc');
 
     const getRoomList = () => {
-        let url = localStorage.url + '/categoryroomList?num=' +
-            num +
+        let url = localStorage.url + '/categoryroomList?categoryNum=' +
+            categoryNum +
             '&sort=' +
             sort;
         console.log(url);
@@ -34,7 +34,6 @@ function List(props) {
     useEffect(() => {
         getRoomList();
     }, []);
-
 
     return (
         <ListWrapper>
