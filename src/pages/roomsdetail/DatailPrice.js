@@ -90,6 +90,18 @@ function DatailPrice(props) {
 					<span>온라인 결제를 진행하세요.</span>
 				</span>
 			</div>
+			<div style={{paddingLeft: '20px'}}>
+				<label style={{cursor: 'pointer'}}>
+					<input type={'radio'} checked />
+					<b> 공간 예약 </b>{' '}
+					<span>
+						<b style={{color: '#704de4'}}>
+							₩{roomData.weekAmPrice}
+						</b>
+						<span style={{fontSize: '12px'}}>/시간</span>
+					</span>
+				</label>
+			</div>
 			<hr />
 			<div className='detailPriceInfo'>
 				<div className='detailPriceImg'>
@@ -101,61 +113,49 @@ function DatailPrice(props) {
 				</div>
 				<br />
 				<div>
-					<ul style={{listStyle: 'inside'}}>
-						<li style={{borderTop: '1px solid #ebebeb'}}>
-							<span>공간유형 : </span>
-							<span>{category[0]}</span>
-						</li>
-						<li style={{borderTop: '1px solid #ebebeb'}}>
-							<span>예약시간 : </span>
-							<span>최소 1시간</span>
-						</li>
-						<li
-							style={{
-								borderTop: '1px solid #ebebeb',
-								borderBottom: '1px solid #ebebeb',
-							}}
-						>
-							<span>수용인원 : </span>
-							<span>최대 {roomData.headcount}명</span>
-						</li>
-						<li
-							style={{
-								borderTop: '1px solid #ebebeb',
-								borderBottom: '1px solid #ebebeb',
-							}}
-						>
-							<span>부가서비스</span>
-							<div className='facilityItem'>
-								{facility &&
-									facility.map((item, idx) => (
-										<div
-											key={idx}
+					<div>
+						<span>공간유형 : </span>
+						<span>{category[0]}</span>
+					</div>
+					<div>
+						<span>예약시간 : </span>
+						<span>최소 1시간</span>
+					</div>
+					<div>
+						<span>수용인원 : </span>
+						<span>최대 {roomData.headcount}명</span>
+					</div>
+					<div>
+						<span>부가서비스</span>
+						<div className='facilityItem'>
+							{facility &&
+								facility.map((item, idx) => (
+									<div
+										key={idx}
+										style={{
+											textAlign: 'center',
+											width: '33%',
+										}}
+									>
+										<img
+											alt=''
+											src={item.imageUrl}
+											width='30'
+											height={30}
+										/>
+										&nbsp;&nbsp;
+										<p
 											style={{
-												textAlign: 'center',
-												width: '33%',
+												fontSize: '12px',
+												marginRight: '17px',
 											}}
 										>
-											<img
-												alt=''
-												src={item.imageUrl}
-												width='30'
-												height={30}
-											/>
-											&nbsp;&nbsp;
-											<p
-												style={{
-													fontSize: '12px',
-													marginRight: '17px',
-												}}
-											>
-												{item.fname}
-											</p>
-										</div>
-									))}
-							</div>
-						</li>
-					</ul>
+											{item.fname}
+										</p>
+									</div>
+								))}
+						</div>
+					</div>
 				</div>
 
 				<DeatilBooking />
