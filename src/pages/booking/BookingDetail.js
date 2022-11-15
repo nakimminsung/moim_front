@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import './booking.css';
 import BookingModal from './BookingModal';
@@ -10,6 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import queryString from 'query-string';
 
 function BookingDetail() {
 	const [roomData, setRoomData] = useState('');
@@ -20,13 +21,18 @@ function BookingDetail() {
 	const [phone, setPhone] = useState('');
 	const [email, setEmail] = useState('');
 	const [purpose, setPurpose] = useState('');
+
 	// 요청사항 (textarea)
 	const contentRef = useRef('');
 	//const bookingTime
 
 	const navi = useNavigate();
 	//const { num } = useParams();
-	const num = 1;
+	//const num = 1;
+	const {search} = useLocation();
+	const {num, date, head, stime, etime} = queryString.parse(search);
+
+	//console.log(num + ',' + date + ',' + head);
 	const url = `http://localhost:9000/room/detail?num=${num}`;
 	const cUrl = `http://localhost:9000/room/category?num=${num}`;
 	const fUrl = `http://localhost:9000/room/facility?num=${num}`;
@@ -36,7 +42,7 @@ function BookingDetail() {
 	let userNum = 1;
 	let roomNum = num;
 	let bookingTime = '10';
-	let headCount = 50;
+	let headCount = head;
 
 	const selectRoomData = () => {
 		axios.get(url).then((res) => {
@@ -423,15 +429,19 @@ function BookingDetail() {
 							</div>
 							<div className='bdPrice'>
 								<div>
-									<p>예약날짜&nbsp;&nbsp;2022-11-25</p>
-									<p>예약시간&nbsp;&nbsp;11시~16시, 5시간</p>
+									<p>예약날짜&nbsp;&nbsp;{date}</p>
+									<p>
+										예약시간&nbsp;&nbsp;{stime}시~
+										{Number(etime) + 1}시,
+										{Number(etime) - Number(stime) + 1}시간
+									</p>
 									<p
 										style={{
 											display: 'flex',
 											borderBottom: '3px solid #704de4',
 										}}
 									>
-										예약인원&nbsp;&nbsp;2명
+										예약인원&nbsp;&nbsp;{head}명
 									</p>
 									<div
 										style={{

@@ -37,12 +37,14 @@ function DatailPrice(props) {
 				<span
 					style={{
 						float: 'right',
-						fontSize: '15px',
 					}}
 				>
 					<span>
-						<SmsOutlined />
+						<SmsOutlined
+							style={{marginBottom: '5px', marginRight: '-2px'}}
+						/>
 					</span>
+					&nbsp;&nbsp;
 					<span
 						onClick={clickedToggle}
 						toggle={btnLike}
@@ -51,28 +53,25 @@ function DatailPrice(props) {
 						}}
 					>
 						{btnLike ? (
-							<FavoriteIcon style={{marginBottom: '3px'}} />
+							<FavoriteIcon style={{marginBottom: '6px'}} />
 						) : (
-							<FavoriteBorderIcon />
+							<FavoriteBorderIcon style={{marginBottom: '6px'}} />
 						)}
 					</span>
-					<span>
-						<img
-							alt=''
-							src='https://github.com/MoiM-Project/data/blob/main/icon/black.png?raw=true'
-							style={{
-								width: '23px',
-								height: '23px',
-							}}
-						/>
+					&nbsp;
+					<span
+						class='material-symbols-outlined'
+						style={{fontSize: 'xx-large'}}
+					>
+						e911_emergency
 					</span>
 				</span>
 			</div>
 			<div
 				style={{
 					textAlign: 'center',
-					paddingTop: '30px',
-					paddingBottom: '20px',
+					paddingTop: '40px',
+					paddingBottom: '30px',
 				}}
 			>
 				{roomData.payment === '바로결제' ? (

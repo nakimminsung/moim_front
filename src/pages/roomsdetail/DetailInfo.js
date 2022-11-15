@@ -37,7 +37,7 @@ function DetailInfo(props) {
 		<div>
 			<br />
 			<div
-				className='input-group'
+				className='input-group detail-memu'
 				style={{width: '100%', position: 'sticky', top: '60px'}}
 			>
 				<Link
@@ -114,7 +114,7 @@ function DetailInfo(props) {
 					이용후기
 				</Link>
 			</div>
-			<div id='1' style={{width: '100%', marginTop: '70px'}}>
+			<div id='1' style={{width: '100%', marginTop: '40px'}}>
 				<b style={{borderBottom: '2px solid #ffd014'}}>공간소개</b>
 				<br />
 				<br />

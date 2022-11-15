@@ -48,7 +48,7 @@ function Detail(props) {
 
 	return (
 		<div className='detailContainer' style={{width: '100%'}}>
-			<div className='detailItem' style={{width: '100%'}}>
+			<div className='detailHeader' style={{width: '100%'}}>
 				<h2>
 					<b>{roomData.name}</b>
 				</h2>
@@ -61,36 +61,38 @@ function Detail(props) {
 					))}
 			</div>
 			<br />
-			<div className='sliderBanner' style={{width: '600px'}}>
-				<Slider {...settings}>
-					{img &&
-						img.map((row, idx) => (
-							<div>
-								<img
-									alt=''
-									src={row}
-									style={{
-										width: '100%',
-										height: '350px',
-										zIndex: '1',
-									}}
-								/>
-							</div>
-						))}
-				</Slider>
+			<div className='detailItem'>
+				<div className='sliderBanner'>
+					<Slider {...settings}>
+						{img &&
+							img.map((row, idx) => (
+								<div>
+									<img
+										alt=''
+										src={row}
+										style={{
+											width: '100%',
+											height: '430px',
+											zIndex: '1',
+										}}
+									/>
+								</div>
+							))}
+					</Slider>
 
-				<br />
-				<br />
+					<br />
+					<br />
 
-				<DetailInfo />
+					<DetailInfo />
+				</div>
 			</div>
 			<div
-				className='detailItem'
+				className='detailItem2'
 				style={{
 					position: 'sticky',
 					top: '70px',
 					height: '2000px',
-					width: '335px',
+					width: '100%',
 				}}
 			>
 				<DatailPrice />

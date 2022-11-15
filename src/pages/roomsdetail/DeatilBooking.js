@@ -92,34 +92,21 @@ function DeatilBooking(props) {
 			selectEtime = selectTime2;
 		}
 
+		//금액 계산
 		var price = 0;
-		for (var i = selectStime; i < selectEtime; i++) {
-			//console.log(i);
-			let p = '';
+		for (var i = selectStime; i <= selectEtime; i++) {
+			console.log('a' + i);
 
-			//주말
+			//주말 오전 오후 가격
 			if (selectDay.getDay() === 0 || selectDay.getDay() === 6) {
-				if (selectEtime > 5 && selectEtime <= 18) {
-					p = roomData.holiAmPrice;
-					price = price + p;
+				if (i >= 6 && i <= 18) {
+					price += roomData.holiAmPrice;
 				} else {
-					p = roomData.holiPmPrice;
-					price = price + p;
-				}
-				if (selectStime > 5 && selectStime <= 18) {
-					p = roomData.holiAmPrice;
-					price = price + p;
-				} else {
-					p = roomData.holiPmPrice;
-					price = price + p;
+					price += roomData.holiPmPrice;
 				}
 			} else {
-				if (
-					selectEtime > 5 &&
-					selectEtime <= 18 &&
-					selectStime > 5 &&
-					selectStime <= 18
-				) {
+				//평일 오전 오후 가격
+				if (i >= 6 && i <= 18) {
 					price += roomData.weekAmPrice;
 				} else {
 					price += roomData.weekPmPrice;
@@ -210,7 +197,12 @@ function DeatilBooking(props) {
 			>
 				<div>
 					<b>시간 선택</b>{' '}
-					<span>
+					<span
+						style={{
+							display:
+								selectTime1 && selectTime2 ? 'inline' : 'none',
+						}}
+					>
 						{selectTime1 > selectTime2 ? selectTime2 : selectTime1}
 						시~
 						{selectTime1 < selectTime2
@@ -312,6 +304,34 @@ function DeatilBooking(props) {
 							<span className='changeInwon' onClick={plusHandler}>
 								<AddIcon />
 							</span>
+						</div>
+						<div>
+							{totalPrice}
+							<button
+								onClick={() => {
+									const stime =
+										selectTime1 > selectTime2
+											? selectTime2
+											: selectTime1;
+									const etime =
+										selectTime1 > selectTime2
+											? selectTime1
+											: selectTime2;
+									window.location.href =
+										'/booking/detail?num=' +
+										num +
+										'&date=' +
+										moment(selectDay).format('YYYY-MM-DD') +
+										'&stime=' +
+										stime +
+										'&etime=' +
+										etime +
+										'&head=' +
+										inwon;
+								}}
+							>
+								바로 예약하기
+							</button>
 						</div>
 					</div>
 				</div>
