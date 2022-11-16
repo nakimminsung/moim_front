@@ -7,8 +7,18 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import agreementData from './agreementData';
 import InfoIcon from '@mui/icons-material/Info';
+import {makeStyles} from '@material-ui/core/styles';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+const useStyles = makeStyles({
+	root: {
+		width: '100%',
+	},
+});
 
 function BdOtherInfo(props) {
+	const classes = useStyles(); // accordion
 	const [hostInfo, setHostInfo] = useState([]);
 	const [precaution, setPrecaution] = useState([]);
 	const [agreement, setAgreement] = useState(agreementData);
@@ -100,26 +110,28 @@ function BdOtherInfo(props) {
 			>
 				<h4>호스트 정보</h4>
 			</div>
-			<p style={{marginTop: '10px'}}>
-				대표자명
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				{hostInfo.companyName}
-			</p>
-			<p>
-				소재지
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				{hostInfo.address}
-			</p>
-			<p>
-				사업자번호
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				{hostInfo.businessNumber}
-			</p>
-			<p>
-				연락처
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				{hostInfo.phone}&nbsp;&nbsp;&nbsp;&nbsp;{hostInfo.email}
-			</p>
+			<div className='bdHostInfo'>
+				<p>
+					대표자명
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					{hostInfo.companyName}
+				</p>
+				<p>
+					소재지
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					{hostInfo.address}
+				</p>
+				<p>
+					사업자번호
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					{hostInfo.businessNumber}
+				</p>
+				<p>
+					연락처
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					{hostInfo.phone}&nbsp;&nbsp;&nbsp;&nbsp;{hostInfo.email}
+				</p>
+			</div>
 			<div
 				style={{
 					display: 'flex',
@@ -129,12 +141,14 @@ function BdOtherInfo(props) {
 			>
 				<h4>예약시 주의사항</h4>
 			</div>
-			{precaution &&
-				precaution.map((item, idx) => (
-					<p style={{marginTop: '10px'}} key={idx}>
-						{idx + 1}.&nbsp;&nbsp;{item}
-					</p>
-				))}
+			<div className='bdPreInfo'>
+				{precaution &&
+					precaution.map((item, idx) => (
+						<p key={idx}>
+							{idx + 1}.&nbsp;&nbsp;{item}
+						</p>
+					))}
+			</div>
 			<div
 				style={{
 					display: 'flex',
@@ -143,65 +157,83 @@ function BdOtherInfo(props) {
 				}}
 			>
 				<h4>서비스 동의</h4>
-				<input
-					type='checkbox'
-					id='all-check'
+				<FormControlLabel
+					aria-label='Acknowledge'
+					onClick={(event) => event.stopPropagation()}
+					onFocus={(event) => event.stopPropagation()}
+					control={<Checkbox />}
+					className='chk_box'
+					checked={allCheck}
+					onChange={allBtnEvent}
 					style={{
 						marginLeft: 'auto',
 						color: 'red',
 					}}
-					checked={allCheck}
-					onChange={allBtnEvent}
 				/>
-				&nbsp;
-				<label for='all-check'>전체동의</label>
+				<label for='all-check' style={{marginTop: '8px'}}>
+					전체동의
+				</label>
 			</div>
 
-			<div>
+			<div className={classes.root}>
 				<Accordion>
 					<AccordionSummary
-						aria-controls='panel1a-content'
-						id='panel1a-header'
+						expandIcon={<ExpandMoreIcon />}
+						aria-label='Expand'
+						aria-controls='additional-actions2-content'
+						id='additional-actions2-header'
 					>
-						<Typography>
-							<input
-								type='checkbox'
-								id='check1'
-								className='chk_box'
-								checked={agreeCheck1}
-								onChange={BtnEvent1}
-							/>
-							&nbsp;위 공간의 예약조건 확인 및 결제진행 동의
-							<span style={{color: 'red'}}>&nbsp;(필수)</span>
-						</Typography>
+						<FormControlLabel
+							aria-label='Acknowledge'
+							onClick={(event) => event.stopPropagation()}
+							onFocus={(event) => event.stopPropagation()}
+							control={<Checkbox />}
+							checked={agreeCheck1}
+							onChange={BtnEvent1}
+							label='위 공간의 예약조건 확인 및 결제진행 동의'
+						/>
+						<span style={{color: 'red', marginTop: '7px'}}>
+							&nbsp;(필수)
+						</span>
 					</AccordionSummary>
 				</Accordion>
 				{agreement.map((item, idx) => (
 					<Accordion key={idx}>
 						<AccordionSummary
 							expandIcon={<ExpandMoreIcon />}
-							aria-controls='panel2a-content'
-							id='panel2a-header'
+							aria-label='Expand'
+							aria-controls='additional-actions2-content'
+							id='additional-actions2-header'
 						>
 							{item.id === 1 ? (
-								<input
-									type='checkbox'
+								<FormControlLabel
+									aria-label='Acknowledge'
+									onClick={(event) => event.stopPropagation()}
+									onFocus={(event) => event.stopPropagation()}
+									control={<Checkbox />}
 									id='check2'
 									className='chk_box'
 									checked={agreeCheck2}
 									onChange={BtnEvent2}
+									label={item.title}
 								/>
 							) : (
-								<input
-									type='checkbox'
+								<FormControlLabel
+									aria-label='Acknowledge'
+									onClick={(event) => event.stopPropagation()}
+									onFocus={(event) => event.stopPropagation()}
+									control={<Checkbox />}
 									id='check3'
 									className='chk_box'
 									checked={agreeCheck3}
 									onChange={BtnEvent3}
+									label={item.title}
 								/>
 							)}
-							&nbsp;{item.title}
-							<span style={{color: 'red'}}>&nbsp;(필수)</span>
+
+							<span style={{color: 'red', marginTop: '7px'}}>
+								&nbsp;(필수)
+							</span>
 							<Typography></Typography>
 						</AccordionSummary>
 						<AccordionDetails>

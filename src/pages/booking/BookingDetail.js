@@ -32,7 +32,7 @@ function BookingDetail() {
 	// iamport
 	const {IMP} = window;
 	// 옵션 수량 버튼
-	const [count, setCount] = useState([]);
+	const [optionPrice, setOptionPrice] = useState('');
 
 	const navi = useNavigate();
 	//const { num } = useParams();
@@ -41,14 +41,13 @@ function BookingDetail() {
 	const cUrl = `http://localhost:9000/room/category?num=${num}`;
 	const fUrl = `http://localhost:9000/room/facility?num=${num}`;
 	const oUrl = `http://localhost:9000/room/option?num=${num}`;
-	let totalPrice = roomData.weekAmPrice;
+	let roomPrice = roomData.weekAmPrice;
+	let totalPrice = roomPrice + optionPrice;
 	let bookingStatus = bs;
 	let userNum = 1;
 	let roomNum = num;
 	let bookingTime = '10';
 	let headCount = 50;
-
-	//let hostNum = roomData.hostNum;
 
 	const selectRoomData = () => {
 		axios.get(url).then((res) => {
@@ -74,6 +73,8 @@ function BookingDetail() {
 		count: 0,
 		roomNum: num,
 		roptionNum: 0,
+		name: '',
+		price: 0,
 	};
 
 	// 옵션 insert할 배열
@@ -81,22 +82,23 @@ function BookingDetail() {
 
 	const selectOptionData = () => {
 		axios.get(oUrl).then((res) => {
-			// console.log(res.data);
+			console.log(res.data);
 			setOptionList(res.data);
 			//setCount(count);
-			let c = [];
+
 			let options = [];
 
 			for (let i = 0; i < res.data.length; i++) {
-				c[i] = 0;
 				options[i] = {
 					...initialState,
 					roptionNum: res.data[i].ronum,
+					name: res.data[i].oname,
+					price: res.data[i].price,
 				};
 				//optionInsertList[i]=initialState;
 			}
 			setOptionInsertList(options);
-			setCount(c);
+
 			//console.log('count: ' + count);
 		});
 	};
@@ -150,22 +152,21 @@ function BookingDetail() {
 	const onOptionSend = () => {
 		let insertUrl = 'http://localhost:9000/bookingDetailOption/insert';
 		console.log(optionInsertList);
-		if (optionInsertList.count !== 0) {
-			axios({
-				url: insertUrl,
-				method: 'post',
-				data: {optionInsertList},
-			}).then((res) => {});
-		}
+
+		axios({
+			url: insertUrl,
+			method: 'post',
+			data: {optionInsertList},
+		}).then((res) => {});
 	};
 
 	// 옵션 수량 버튼
 	const onIncrease = (idx) => {
 		let options = [...optionInsertList];
 		options[idx].count += 1;
-
-		// console.log(optionInsertList);
+		console.log(optionInsertList);
 		setOptionInsertList(options);
+		totalOptionSum(options);
 	};
 
 	const onDecrease = (idx) => {
@@ -178,7 +179,19 @@ function BookingDetail() {
 		}
 
 		setOptionInsertList(options);
-		console.log('idx: ' + idx);
+		totalOptionSum(options);
+		//	console.log('idx: ' + idx);
+	};
+
+	// 옵션 가격 계산
+	const totalOptionSum = (optionInsertList) => {
+		let total = 0;
+		Object.keys(optionInsertList).map((item) => {
+			total +=
+				optionInsertList[item].price * optionInsertList[item].count;
+		});
+		setOptionPrice(total);
+		console.log(total);
 	};
 
 	// 결제
@@ -441,7 +454,7 @@ function BookingDetail() {
 																	].count
 																}
 																style={{
-																	width: '300px',
+																	width: '250px',
 																	height: '36px',
 																	textAlign:
 																		'center',
@@ -473,40 +486,39 @@ function BookingDetail() {
 								)}
 							</div>
 
+							<div
+								style={{
+									display: 'flex',
+									borderBottom: '3px solid #704de4',
+									marginTop: '30px',
+								}}
+							>
+								<h4>예약자정보</h4>
+								<p
+									style={{
+										marginLeft: 'auto',
+										color: 'red',
+									}}
+								>
+									*필수입력
+								</p>
+							</div>
+
 							<div className='bdUserInfo'>
 								<div
 									style={{
 										display: 'flex',
-										borderBottom: '3px solid #704de4',
-										marginTop: '30px',
-									}}
-								>
-									<h4>예약자정보</h4>
-									<p
-										style={{
-											marginLeft: 'auto',
-											color: 'red',
-										}}
-									>
-										*필수입력
-									</p>
-								</div>
-
-								<div
-									style={{
-										display: 'flex',
 										marginBottom: '15px',
-										marginTop: '15px',
 									}}
 								>
-									<h6 style={{marginTop: '8px'}}>
+									<h6>
 										예약자&nbsp;
 										<span style={{color: 'red'}}>*</span>
 									</h6>
 									<input
 										type='text'
 										style={{
-											width: '88%',
+											width: '85%',
 											height: '40px',
 											marginLeft: '30px',
 										}}
@@ -530,7 +542,7 @@ function BookingDetail() {
 									<input
 										type='text'
 										style={{
-											width: '88%',
+											width: '85%',
 											height: '40px',
 											marginLeft: '30px',
 										}}
@@ -554,7 +566,7 @@ function BookingDetail() {
 									<input
 										type='email'
 										style={{
-											width: '88%',
+											width: '85%',
 											height: '40px',
 											marginLeft: '30px',
 										}}
@@ -575,9 +587,9 @@ function BookingDetail() {
 									<input
 										type='text'
 										style={{
-											width: '88%',
+											width: '85%',
 											height: '40px',
-											marginLeft: '30px',
+											marginLeft: '28px',
 										}}
 										value={purpose}
 										onChange={(e) =>
@@ -595,9 +607,9 @@ function BookingDetail() {
 									<textarea
 										ref={contentRef}
 										style={{
-											width: '88%',
+											width: '85%',
 											height: '100px',
-											marginLeft: '25px',
+											marginLeft: '28px',
 										}}
 										className='form-control'
 									></textarea>
@@ -622,16 +634,77 @@ function BookingDetail() {
 							</div>
 							<div className='bdPrice'>
 								<div>
-									<p>예약날짜&nbsp;&nbsp;2022-11-25</p>
-									<p>예약시간&nbsp;&nbsp;11시~16시, 5시간</p>
+									<p>
+										예약날짜&nbsp;&nbsp;<b>2022-11-25</b>
+									</p>
+									<div style={{display: 'flex'}}>
+										<p>
+											예약시간&nbsp;&nbsp;
+											<b>11시~16시, 5시간</b>&nbsp;&nbsp;
+										</p>
+										<p
+											style={{
+												marginLeft: 'auto',
+												color: '#704de4',
+											}}
+										>
+											<b>₩{roomPrice}</b>
+										</p>
+									</div>
+
+									<div style={{display: 'flex'}}>
+										{optionInsertList.some(
+											(elem) => elem.count > 0,
+										) ? (
+											<>추가옵션&nbsp;&nbsp;</>
+										) : (
+											<></>
+										)}
+										{optionInsertList.map((item, idx) =>
+											item.count > 0 ? (
+												<>
+													<p
+														key={idx}
+														style={{
+															display:
+																'inline-block',
+														}}
+													>
+														<b>
+															{item.name}
+															{item.count}
+															개&nbsp;&nbsp;
+														</b>
+													</p>
+												</>
+											) : (
+												<></>
+											),
+										)}
+										{optionInsertList.some(
+											(elem) => elem.count > 0,
+										) ? (
+											<p
+												style={{
+													marginLeft: 'auto',
+													color: '#704de4',
+												}}
+											>
+												<b>₩{optionPrice}</b>
+											</p>
+										) : (
+											<></>
+										)}
+									</div>
 									<p
 										style={{
 											display: 'flex',
 											borderBottom: '3px solid #704de4',
 										}}
 									>
-										예약인원&nbsp;&nbsp;2명
+										예약인원&nbsp;&nbsp;<b>2명</b>
 									</p>
+
 									<div
 										style={{
 											display: 'flex',
