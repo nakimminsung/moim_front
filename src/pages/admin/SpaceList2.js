@@ -1,20 +1,20 @@
-import {Favorite, Person, Sms} from '@material-ui/icons';
-import RoomIcon from '@material-ui/icons/Room';
-import axios from 'axios';
 import React, {useEffect, useState} from 'react';
+import {Favorite, Person, Sms} from '@material-ui/icons';
+import axios from 'axios';
+import RoomIcon from '@material-ui/icons/Room';
 
-function SuggestRoom(props) {
-	const [roomList, setRoomList] = useState('');
+function SpaceList2(props) {
+	const [spaceList, setSpaceList] = useState('');
 
-	const getRoomList = () => {
-		let url = localStorage.url + '/roomList';
+	const getSpaceList = () => {
+		let url = localStorage.url + '/spaceList'; //메인페이지에서 사용한 roomList와 동일
 
 		axios.get(url).then((res) => {
 			// console.log(res.data);
 
 			var x = res.data;
 
-			setRoomList(x);
+			setSpaceList(x);
 
 			// console.log(x.length);
 		});
@@ -22,34 +22,32 @@ function SuggestRoom(props) {
 
 	useEffect(() => {
 		//방 리스트
-		getRoomList();
+		getSpaceList();
 	}, []);
-
 	return (
-		<div className='themeArea' style={{textAlign: 'center'}}>
-			<h3>
-				<b>오늘의 추천 공간</b>
-			</h3>
-			<h6 style={{color: 'gray'}}>뜨기 전에 먼저 예약하세요!</h6>
-			<br />
-
+		<div>
 			<div
+				className='spaceList'
 				style={{
+					marginTop: '20px',
+					width: '100%',
 					display: 'flex',
 					justifyContent: 'space-between',
 					flexWrap: 'wrap',
 				}}
 			>
-				{roomList &&
-					roomList.map((data, idx) => (
+				{spaceList &&
+					spaceList.map((data, idx) => (
 						<div
 							style={{
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '350px',
+								width: '430px',
 								cursor: 'pointer',
 
 								marginBottom: '30px',
+								backgroundColor: 'white',
+								boxShadow: '0px 2px 2px 1px rgba(0 0 0 / 10%)',
 							}}
 							key={idx}
 						>
@@ -58,7 +56,7 @@ function SuggestRoom(props) {
 								src={data.thumbnailImage}
 								style={{
 									width: '100%',
-									height: '250px',
+									height: '300px',
 									borderRadius: '5px',
 								}}
 							/>
@@ -109,4 +107,4 @@ function SuggestRoom(props) {
 	);
 }
 
-export default SuggestRoom;
+export default SpaceList2;

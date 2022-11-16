@@ -18,6 +18,7 @@ import SignUp from '../pages/login/SignUp';
 import SignUpEmail from '../pages/login/SignUpEmail';
 import Mypage from '../pages/mypage/Mypage';
 import CategoryRoom from '../pages/categoryroom/CategoryRoom';
+import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
 
 function BasicRouter() {
 	return (
@@ -41,12 +42,15 @@ function BasicRouter() {
 					<Route path='slist' element={<SpaceList />} />
 					<Route path='addform' element={<SpaceAddForm />} />
 					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
+					<Route path='addform3/:num' element={<SpaceAddForm3 />} />
 				</Route>
 				{/* 호스트 끝 */}
+
 				{/* 어드민_관리자 */}
-				<Route path='admin'>
+				{/* <Route path='admin'>
 					<Route path='' element={<AdminMain />} />
-				</Route>
+				</Route> */}
+
 				{/* 예약페이지 */}
 				<Route path='/booking'>
 					<Route path='main' element={<BookingMain />} />
