@@ -12,7 +12,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import InfoIcon from '@mui/icons-material/Info';
 import BdOtherInfo from './BdOtherInfo';
 import defaultImg from './img/404.png';
-import styled from 'styled-components';
+import IconButton from '@mui/material/IconButton';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 function BookingDetail() {
 	const [roomData, setRoomData] = useState('');
@@ -68,15 +69,33 @@ function BookingDetail() {
 		});
 	};
 
+	// 옵션 초기값
+	const initialState = {
+		count: 0,
+		roomNum: num,
+		roptionNum: 0,
+	};
+
+	// 옵션 insert할 배열
+	const [optionInsertList, setOptionInsertList] = useState([]);
+
 	const selectOptionData = () => {
 		axios.get(oUrl).then((res) => {
-			//console.log(res.data);
+			// console.log(res.data);
 			setOptionList(res.data);
 			//setCount(count);
 			let c = [];
+			let options = [];
+
 			for (let i = 0; i < res.data.length; i++) {
 				c[i] = 0;
+				options[i] = {
+					...initialState,
+					roptionNum: res.data[i].ronum,
+				};
+				//optionInsertList[i]=initialState;
 			}
+			setOptionInsertList(options);
 			setCount(c);
 			//console.log('count: ' + count);
 		});
@@ -128,19 +147,37 @@ function BookingDetail() {
 			});
 	};
 
+	const onOptionSend = () => {
+		let insertUrl = 'http://localhost:9000/bookingDetailOption/insert';
+		console.log(optionInsertList);
+		if (optionInsertList.count !== 0) {
+			axios({
+				url: insertUrl,
+				method: 'post',
+				data: {optionInsertList},
+			}).then((res) => {});
+		}
+	};
+
 	// 옵션 수량 버튼
 	const onIncrease = (idx) => {
-		let countArray = [...count];
-		countArray[idx] += 1;
-		setCount(countArray);
-		// console.log(idx);
-		console.log('idx: ' + idx);
+		let options = [...optionInsertList];
+		options[idx].count += 1;
+
+		// console.log(optionInsertList);
+		setOptionInsertList(options);
 	};
 
 	const onDecrease = (idx) => {
-		let countArray = [...count];
-		countArray[idx] -= 1;
-		setCount(countArray);
+		let options = [...optionInsertList];
+
+		if (options[idx].count > 0) {
+			options[idx].count -= 1;
+		} else {
+			options[idx].count = 0;
+		}
+
+		setOptionInsertList(options);
 		console.log('idx: ' + idx);
 	};
 
@@ -338,6 +375,19 @@ function BookingDetail() {
 									}}
 								>
 									<h4>추가옵션선택</h4>
+									<IconButton
+										color='primary'
+										style={{
+											color: '#704de4',
+											marginLeft: 'auto',
+										}}
+										aria-label='add to shopping cart'
+										onClick={() => {
+											onOptionSend();
+										}}
+									>
+										<AddShoppingCartIcon />
+									</IconButton>
 								</div>
 								{optionList.map((item, idx) =>
 									item.oname == null ? (
@@ -352,11 +402,15 @@ function BookingDetail() {
 													<img
 														alt=''
 														src={item.oimageUrl}
-														width='100'
-														height={100}
+														width='110'
+														height={110}
 														onError={onErrorImg}
 													/>
-													<div>
+													<div
+														style={{
+															marginLeft: '50px',
+														}}
+													>
 														<h5>{item.oname}</h5>
 														<p>
 															{item.price} / 수량
@@ -382,10 +436,12 @@ function BookingDetail() {
 															<input
 																type='text'
 																value={
-																	count[idx]
+																	optionInsertList[
+																		idx
+																	].count
 																}
 																style={{
-																	width: '100px',
+																	width: '300px',
 																	height: '36px',
 																	textAlign:
 																		'center',
@@ -588,7 +644,7 @@ function BookingDetail() {
 												marginLeft: 'auto',
 											}}
 										>
-											{roomData.weekAmPrice}
+											{totalPrice}
 										</h4>
 									</div>
 								</div>
