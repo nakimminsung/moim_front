@@ -2,7 +2,6 @@ import {TextField} from '@material-ui/core';
 import axios from 'axios';
 import React, {useState} from 'react';
 import DaumPostcode from 'react-daum-postcode';
-import {styled} from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -11,8 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
 // import {Button} from '@mui/material';
+
 import {useNavigate} from 'react-router-dom';
+import {fontSize} from '@mui/system';
 
 //다이얼로그에 필요한 코드들
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -140,16 +142,49 @@ function SpaceAddForm(props) {
 	return (
 		<div>
 			<form onSubmit={onSubmitEvent}>
-				<div className='input-group'>
-					<h3>공간 정보를 입력해주세요.</h3>
-					<b>* 필수 입력</b>
+				<div
+					className='input-group'
+					style={{
+						position: 'relative',
+						width: '100%',
+						borderBottom: '3px solid #704de4',
+						borderBottomWidth: '4px',
+						fontSize: '16px',
+						lineHeight: '20px',
+						paddingBottom: '26px',
+					}}
+				>
+					<h3
+						style={{
+							fontSize: '26px',
+							lineHeight: '26px',
+							fontWeight: '400',
+						}}
+					>
+						공간 정보를 입력해주세요.
+					</h3>
+					<span
+						style={{
+							verticalAlign: 'top',
+							position: 'absolute',
+							color: '#656565',
+							right: '0',
+							lineHeight: '14px',
+							fontSize: '16px',
+							top: '1px',
+						}}
+					>
+						<span style={{verticalAlign: 'top', color: '#ff3a48'}}>
+							<span>*</span> 필수입력
+						</span>
+					</span>
 				</div>
-				<div className='roomName'>
+				<RoomName>
 					<h3>공간명</h3>
 					<TextField
 						id='outlined-full-width'
 						style={{margin: 8}}
-						placeholder='공간명 입력'
+						placeholder='고유 업체명을 입력해주세요. (예시) 비트캠프 701호 강습실'
 						fullWidth
 						required
 						margin='normal'
@@ -161,7 +196,7 @@ function SpaceAddForm(props) {
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 					/>
-				</div>
+				</RoomName>
 				<div className='oneInfo'>
 					<h3>공간 한 줄 소개</h3>
 					<TextField
@@ -312,3 +347,23 @@ function SpaceAddForm(props) {
 }
 
 export default SpaceAddForm;
+
+const RoomName = styled.div`
+	--main-color: #1a8fff;
+	--text-color: #777;
+	--text-color-light: #ccc;
+	--border-color-highlight: #704de4;
+	--border-color: #e0e0e0;
+	--bg-color: #f6f6f6;
+	--neutral-color: #fff;
+	color: #333;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font: inherit;
+	vertical-align: middle;
+	-webkit-box-sizing: border-box;
+	-webkit-text-size-adjust: 100%;
+	position: relative;
+	margin-top: 40px;
+`;

@@ -88,8 +88,20 @@ function SpaceAddForm3(props) {
 		let holiAmPrice = weekAmPriceRef.current.value;
 		let holiPmPrice = weekAmPriceRef.current.value;
 
-		console.log('headcount=' + headcount);
-		console.log('num=' + num);
+		// console.log('headcount=' + headcount);
+		// console.log('num=' + num);
+		// console.log('stime=' + stime);
+		// console.log('etime=' + etime);
+		// console.log('holiday=' + holiday);
+		// console.log('floor=' + floor);
+		// console.log('parking=' + parking);
+		// console.log('elevator=' + elevator);
+		// console.log('payment=' + payment);
+		// console.log('weekAmPrice=' + weekAmPrice);
+		// console.log('weekPmPrice=' + weekPmPrice);
+		// console.log('holiPmPrice=' + holiPmPrice);
+		// console.log('holiPmPrice=' + holiPmPrice);
+
 		axios
 			.post(insertUpdateUrl, {
 				num,
@@ -382,7 +394,7 @@ function SpaceAddForm3(props) {
 					<Button variant='contained' color='primary' type='submit'>
 						저장
 					</Button>
-					{/* <Button
+					<Button
 						variant='contained'
 						color='secondary'
 						type='button'
@@ -391,7 +403,7 @@ function SpaceAddForm3(props) {
 						}}
 					>
 						취소
-					</Button> */}
+					</Button>
 				</div>
 			</form>
 		</div>

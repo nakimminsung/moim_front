@@ -4,7 +4,6 @@ import axios from 'axios';
 
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import './SpaceAddForm2.css';
 import SpaceImages from './SpaceImages';
 import SpaceInfo from './SpaceInfo';
 import SpaceOption from './SpaceOption';

@@ -15,16 +15,16 @@ export default function Toggle({
 	checked,
 	setChecked,
 }) {
-	const toggleEvent = () => {
-		if (checked === 1) {
-			console.log('11번입니다');
-			console.log(num);
-			console.log('checked1=' + checked);
-		} else {
-			console.log('0번입니다');
-			console.log('checked0=' + checked);
-		}
-	};
+	// const toggleEvent = () => {
+	// 	if (checked === 1) {
+	// 		console.log('11번입니다');
+	// 		console.log(num);
+	// 		console.log('checked1=' + checked);
+	// 	} else {
+	// 		console.log('0번입니다');
+	// 		console.log('checked0=' + checked);
+	// 	}
+	// };
 	return (
 		<Wrapper>
 			<CheckBox
