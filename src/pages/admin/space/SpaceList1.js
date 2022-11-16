@@ -1,22 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {Favorite, Person, Sms} from '@material-ui/icons';
+import {Person} from '@material-ui/icons';
 import axios from 'axios';
 import RoomIcon from '@material-ui/icons/Room';
 
-function SpaceList2(props) {
+function SpaceList1(props) {
 	const [spaceList, setSpaceList] = useState('');
+	const [searchWord, setSearchWord] = useState('');
+	const [sort, setSort] = useState('and approvalStatus=1');
 
 	const getSpaceList = () => {
-		let url = localStorage.url + '/spaceList'; //메인페이지에서 사용한 roomList와 동일
+		let url =
+			localStorage.url +
+			'/admin/spaceList?searchWord=' +
+			searchWord +
+			'&sort=' +
+			sort;
+
+		console.log(url);
 
 		axios.get(url).then((res) => {
-			// console.log(res.data);
-
-			var x = res.data;
-
-			setSpaceList(x);
-
-			// console.log(x.length);
+			setSpaceList(res.data);
 		});
 	};
 
@@ -24,6 +27,7 @@ function SpaceList2(props) {
 		//방 리스트
 		getSpaceList();
 	}, []);
+
 	return (
 		<div>
 			<div
@@ -42,7 +46,7 @@ function SpaceList2(props) {
 							style={{
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '430px',
+								width: '300px',
 								cursor: 'pointer',
 
 								marginBottom: '30px',
@@ -56,7 +60,7 @@ function SpaceList2(props) {
 								src={data.thumbnailImage}
 								style={{
 									width: '100%',
-									height: '300px',
+									height: '200px',
 									borderRadius: '5px',
 								}}
 							/>
@@ -72,7 +76,7 @@ function SpaceList2(props) {
 											marginBottom: '5px',
 										}}
 									/>
-									{data.address.split(' ')[1]}
+									{/* {data.address.split(' ')[1]} */}
 								</span>
 								<br />
 								<span>room tag list</span>
@@ -88,16 +92,13 @@ function SpaceList2(props) {
 											'ko-KR',
 										)}
 									</b>
-									&nbsp;원/시간
+									&nbsp;원 / 시간
 								</span>
 								&emsp;&emsp;
 								<span>
 									<Person style={{fontSize: '20px'}} /> 최대{' '}
-									{data.headcount}인{' '}
-									<Sms style={{fontSize: '20px'}} /> 0{' '}
-									<Favorite style={{fontSize: '20px'}} /> 0
+									{data.headcount}인
 								</span>
-								<br />
 								<br />
 							</div>
 						</div>
@@ -107,4 +108,4 @@ function SpaceList2(props) {
 	);
 }
 
-export default SpaceList2;
+export default SpaceList1;

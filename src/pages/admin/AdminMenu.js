@@ -49,7 +49,7 @@ function AdminMenu(props) {
 				<hr />
 
 				{/* 메뉴 */}
-				<ul>
+				<ul className='adminMenu'>
 					<li>
 						<NavLink to={'/admin'} className='NavLink'>
 							관리자 메인화면

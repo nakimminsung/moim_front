@@ -7,7 +7,8 @@ import MemberManagement from '../pages/admin/MemberManagement';
 import NoticeManagement from '../pages/admin/NoticeManagement';
 import PopUpManagement from '../pages/admin/PopUpManagement';
 import ReportManagement from '../pages/admin/ReportManagement';
-import SpaceManagement from '../pages/admin/SpaceManagement';
+import SpaceManagement from '../pages/admin/space/SpaceManagement';
+
 import ThemeManagement from '../pages/admin/ThemeManagement';
 
 function AdminRouter() {
@@ -20,7 +21,6 @@ function AdminRouter() {
 				<Route path='host' element={<HostManagement />} />
 
 				<Route path='space' element={<SpaceManagement />} />
-				<Route path='space/:num' element={<SpaceManagement />} />
 
 				<Route path='report' element={<ReportManagement />} />
 				<Route path='notice' element={<NoticeManagement />} />

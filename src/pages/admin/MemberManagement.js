@@ -1,31 +1,7 @@
 import {SearchRounded} from '@material-ui/icons';
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import MemberList from './MemberList';
 
 function MemberManagement(props) {
-	const [memberList, setMemberList] = useState('');
-
-	const getMemberList = () => {
-		let url = localStorage.url + '/admin/memberList';
-
-		// console.log(url);
-
-		axios.get(url).then((res) => {
-			// console.log(res.data);
-
-			var x = res.data;
-
-			setMemberList(x);
-
-			// console.log(x.length);
-		});
-	};
-
-	useEffect(() => {
-		//멤버 리스트 가져오기
-		getMemberList();
-	}, []);
-
 	return (
 		<div>
 			{/* 검색 */}
@@ -48,6 +24,9 @@ function MemberManagement(props) {
 						cursor: 'pointer',
 						color: 'gray',
 					}}
+					onClick={() => {
+						// 온클릭
+					}}
 				/>
 				<input
 					type={'text'}
@@ -62,44 +41,13 @@ function MemberManagement(props) {
 						backgroundColor: 'white',
 					}}
 					placeholder='게스트의 이름 또는 이메일을 입력해주세요'
+					// value={search}
+					// onChange={onChangeSearch}
 				/>
 			</div>
-			<div
-				className='memberList'
-				style={{marginTop: '20px', width: '100%'}}
-			>
-				<br />
-				<p>
-					<b>총 게스트 회원 : </b>
-				</p>
-				<div className='memberTable'>
-					<table>
-						<thead style={{textAlign: 'center'}}>
-							<tr>
-								<th>번호</th>
-								<th>이메일</th>
-								<th>회원명</th>
-								<th>회원가입일</th>
-								<th>정보수정일</th>
-								<th>기타</th>
-							</tr>
-						</thead>
-						<tbody>
-							{/* 카테고리 img + 카테고리 name 을 묶은 div 반복 구간 */}
-							{memberList &&
-								memberList.map((row, idx) => (
-									<tr key={idx}>
-										<td>{idx + 1}</td>
-										<td>{row.email}</td>
-										<td>{row.nickname}</td>
-										<td>{row.created_at}</td>
-										<td>{row.updated_at}</td>
-										<td>공란</td>
-									</tr>
-								))}
-						</tbody>
-					</table>
-				</div>
+			<div>
+				{/* 게스트 정보 가져오기 */}
+				<MemberList />
 			</div>
 		</div>
 	);

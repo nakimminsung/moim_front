@@ -3,7 +3,7 @@ import {Favorite, Person, Sms} from '@material-ui/icons';
 import axios from 'axios';
 import RoomIcon from '@material-ui/icons/Room';
 
-function SpaceList1(props) {
+function SpaceList2(props) {
 	const [spaceList, setSpaceList] = useState('');
 
 	const getSpaceList = () => {
@@ -32,6 +32,7 @@ function SpaceList1(props) {
 					marginTop: '20px',
 					width: '100%',
 					display: 'flex',
+
 					justifyContent: 'space-between',
 					flexWrap: 'wrap',
 				}}
@@ -42,25 +43,33 @@ function SpaceList1(props) {
 							style={{
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '430px',
+								width: '49%',
 								cursor: 'pointer',
 
-								marginBottom: '30px',
+								marginBottom: '15px',
 								backgroundColor: 'white',
 								boxShadow: '0px 2px 2px 1px rgba(0 0 0 / 10%)',
+
+								display: 'flex',
+								padding: '10px 10px 10px',
 							}}
 							key={idx}
 						>
-							<img
-								alt=''
-								src={data.thumbnailImage}
-								style={{
-									width: '100%',
-									height: '300px',
-									borderRadius: '5px',
-								}}
-							/>
-							<br />
+							{/* 방 이미지 */}
+							<div>
+								<img
+									alt=''
+									src={data.thumbnailImage}
+									style={{
+										width: '250px',
+										height: '200px',
+										borderRadius: '5px',
+										marginRight: '20px',
+									}}
+								/>
+							</div>
+
+							{/* 방 정보 */}
 							<div style={{color: 'gray'}}>
 								<h5>
 									<b style={{color: 'black'}}>{data.name}</b>
@@ -94,8 +103,6 @@ function SpaceList1(props) {
 								<span>
 									<Person style={{fontSize: '20px'}} /> 최대{' '}
 									{data.headcount}인{' '}
-									<Sms style={{fontSize: '20px'}} /> 0{' '}
-									<Favorite style={{fontSize: '20px'}} /> 0
 								</span>
 								<br />
 								<br />
@@ -107,4 +114,4 @@ function SpaceList1(props) {
 	);
 }
 
-export default SpaceList1;
+export default SpaceList2;
