@@ -286,10 +286,12 @@ const CardWrapper = styled(Typography)`
 	@media (max-width: 1920px) {
 		width: 33%;
 		padding: 5px;
+        margin-bottom:40px;
 	}
 	@media (max-width: 1680px) {
-		width: 33.3%;
-		padding: 5px;
+		width: 33%;
+		padding: 7px;
+        margin-bottom:30px;
 	}
 	@media (max-width: 1000px) {
 		width: 50%;

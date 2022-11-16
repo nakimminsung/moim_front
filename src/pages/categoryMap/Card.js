@@ -248,9 +248,9 @@ const NextButton = styled(Button)`
 	color: white;
 `;
 const PayInfo = styled(Typography)`
-	width: 60px;
-	height: 60px;
-	padding-left: 17px;
+	width: 70px;
+	height: 70px;
+	padding-left: 18px;
 	padding-right: 13px;
 	display: flex;
 	justify-content: center;
@@ -262,6 +262,7 @@ const PayInfo = styled(Typography)`
 	opacity: 0.9;
 	z-index: 10;
 	font-weight: 1000;
+    word-spacing:normal;
 `;
 const Address = styled(Typography)`
 	display: flex;

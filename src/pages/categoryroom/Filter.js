@@ -39,6 +39,7 @@ function Filtering(props) {
     // {num}은 router의 :num의 이름과 같아야 한다.
     const { categoryNum } = useParams();
     const [value, setValue] = useState(dayjs(new Date()).locale('ko'));
+    // 부모 컴포넌트의 변수 받기
     const {
         roomName,
         setRoomName,
@@ -46,15 +47,15 @@ function Filtering(props) {
         setAddress,
         headCount,
         setHeadCount,
-        sort,
-        setSort,
+        // sort,
+        // setSort,
     } = props;
 
 
-    // 공간 정렬
-    const handleChange = (e) => {
-        setSort(e.target.value);
-    };
+    // // 공간 정렬
+    // const handleChange = (e) => {
+    //     setSort(e.target.value);
+    // };
 
     // 달력 테마
     const theme = createTheme(
@@ -125,7 +126,7 @@ function Filtering(props) {
                 <Box
                     sx={{
                         minWidth: 120,
-                        width: '20%',
+                        width: '30%',
                         marginRight: '20px',
                         backgroundColor: '#fff',
                         borderRadius: '5px',
@@ -151,7 +152,7 @@ function Filtering(props) {
                 <Box
                     sx={{
                         minWidth: 120,
-                        width: '20%',
+                        width: '10%',
                         marginRight: '20px',
                         backgroundColor: '#fff',
                         borderRadius: '5px',
@@ -211,37 +212,11 @@ function Filtering(props) {
                         </Stack>
                     </LocalizationProvider>
                 </ThemeProvider>
-                <Box
-                    style={{
-                        marginLeft: '20px',
-                    }}
-                >
-                    <FormControl
-                        style={{
-                            m: 1,
-                            minWidth: 140,
-                        }}
-                    >
-                        <Select
-                            labelId='demo-select-small'
-                            id='demo-select-small'
-                            value={sort}
-                            onChange={handleChange}
-                        >
-                            <MenuItem value={'readCount desc'}>인기순</MenuItem>
-                            <MenuItem value={'weekAmPrice asc'}>
-                                낮은 가격순
-                            </MenuItem>
-                            <MenuItem value={'weekAmPrice desc'}>
-                                높은 가격순
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
                 <div
                     style={{
                         display: 'flex',
-                        width: '25%',
+                        width: '30%',
+                        marginLeft: '20px',
                         justifyContent: 'flex-end',
                     }}
                 >
@@ -311,7 +286,7 @@ export default Filtering;
 
 const FilterButton = styled(Button)`
 	border: 2px solid #9b4de3;
-	width: 90px;
+	width: 100px;
 	height: 40px;
 	cursor: pointer;
 	display: flex;
@@ -346,6 +321,7 @@ const Middle = styled(Box)`
 	align-items: center;
 	justify-content: flex-start;
 	padding-left: 10px;
+	padding-right: 5px;
 	@media (max-width: 1920px) {
 		width: 80.8%;
 	}

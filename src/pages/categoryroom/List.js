@@ -7,66 +7,54 @@ import styled from 'styled-components';
 import Card from './Card';
 
 function List(props) {
-    const { categoryNum } = useParams();
+    const { roomData } = props;
     const [data, setData] = useState([]);
-    const [sort, setSort] = useState('readCount desc');
+    const {
+        sort,
+        setSort,
+    } = props;
 
-    const getRoomList = () => {
-        let url = localStorage.url + '/categoryroomList?categoryNum=' +
-            categoryNum +
-            '&sort=' +
-            sort;
-        console.log(url);
-        axios.get(url).then((res) =>
-            setData(res.data)
-        );
+
+    const handleChange = (e) => {
+        setSort(e.target.value);
     };
 
-    const optionChange = (e) => {
-        setSort(e.target.value);
-    }
-
-    useEffect(() => {
-        getRoomList();
-    }, [sort])
-
-
-    useEffect(() => {
-        getRoomList();
-    }, []);
-
     return (
-        <ListWrapper>
-            <SelectDiv>
-                <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
-                    <Select
-                        labelId='demo-select-small'
-                        id='demo-select-small'
-                        value={sort}
-                        onChange={optionChange}
-                    >
-                        <MenuItem value={'readCount desc'}>베스트 공간 순</MenuItem>
-                        <MenuItem value={'weekAmPrice asc'}>
-                            낮은 가격순
-                        </MenuItem>
-                        <MenuItem value={'weekAmPrice desc'}>
-                            높은 가격순
-                        </MenuItem>
-                    </Select>
-                </FormControl>
-            </SelectDiv>
+        <>
+            <ListWrapper>
+                <SelectDiv>
+                    <FormControl sx={{ m: 1, minWidth: 110 }} size='small'>
+                        <Select
+                            labelId='demo-select-small'
+                            id='demo-select-small'
+                            value={sort}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={'readCount desc'}>인기순</MenuItem>
+                            <MenuItem value={'weekAmPrice asc'}>
+                                낮은 가격순
+                            </MenuItem>
+                            <MenuItem value={'weekAmPrice desc'}>
+                                높은 가격순
+                            </MenuItem>
+                        </Select>
+                    </FormControl>
+                </SelectDiv>
+            </ListWrapper>
+            {/* <hr /> */}
             <RoomList>
-                {data &&
-                    data.map((item, i) => (
+                {roomData &&
+                    roomData.map((item, i) => (
                         <Card roomData={item} key={i} roomNum={item.num} />
                     ))}
             </RoomList>
-        </ListWrapper>
+        </>
     );
 }
 
 const ListWrapper = styled(Box)`
-	padding-bottom: 50px;
+	margin-bottom: -20px;
+	padding-Top: 20px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -77,6 +65,8 @@ const SelectDiv = styled(Box)`
 	justify-content: flex-end;
 	width: 100%;
 	margin: 20px 0;
+    margin-right:25px;
+    padding:5px;
 `;
 const RoomList = styled(Box)`
     margin-top:20px;
