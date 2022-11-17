@@ -293,7 +293,7 @@ function SpaceAddForm(props) {
 				</BootstrapDialog>
 				<div className='buttonEvent'>
 					<Button variant='contained' color='primary' type='submit'>
-						저장
+						다음
 					</Button>
 					<Button
 						variant='contained'
