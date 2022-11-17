@@ -29,14 +29,19 @@ function ReviewZone(props) {
 			</h6>
 
 			{/* 리스트 전체 div */}
-			<div style={{display: 'flex', justifyContent: 'space-around'}}>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'space-around',
+				}}
+			>
 				{review &&
 					review.map((data, idx) => (
 						<div
 							style={{
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '30%',
+								width: '350px',
 								cursor: 'pointer',
 								// marginLeft: '22px',
 								// marginRight: '22px',
@@ -68,6 +73,7 @@ function ReviewZone(props) {
 							<br />
 							<span>
 								<b>지상 3층 커먼스튜디오 2호점</b>
+								{/* roomNum 에 해당하는 roomName을 가져와야됨 */}
 							</span>
 							<br />
 							<span>3,500 원/시간</span>

@@ -1,0 +1,64 @@
+.overlayWrap {
+  position: relative;
+  top: -145px;
+  width: 300px;
+  height: 300px;
+  background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  line-height: 1.3;
+  z-index: 15;
+}
+
+.overlayArrow {
+  position: absolute;
+  left: 43%;
+  bottom: -6px;
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  transform: rotate(45deg);
+  z-index: 1;
+}
+
+.overlayImg {
+  width: 100%;
+  height: 50%;
+  border-radius: 8px 8px 0 0;
+  object-fit: cover;
+}
+
+.accommInfoWrap {
+  width: 100%;
+  height: 50%;
+  padding: 5px 10px;
+}
+
+.accommName {
+  width: 100%;
+  font-size: 15px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accommRegion {
+  color: #717171;
+  font-size: 12px;
+}
+
+.accommDesc {
+  width: 100%;
+  color: #717171;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accommPrice {
+  width: 100%;
+  color: #717171;
+  font-size: 12px;
+}
