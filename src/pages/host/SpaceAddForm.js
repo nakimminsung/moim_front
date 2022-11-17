@@ -1,6 +1,6 @@
 import {styled, TextField} from '@material-ui/core';
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -76,14 +76,15 @@ function SpaceAddForm(props) {
 
 		// 주소 선택 이벤트
 		selectAddress: (data) => {
-			console.dir(data);
-			console.log(`
-                주소: ${data.address},
-                우편번호: ${data.zonecode}
-            `);
+			// console.dir(data);
+			// console.log(`
+			//     주소: ${data.address},
+			//     우편번호: ${data.zonecode}
+			// `);
 			setAddress(
 				`${data.address} ${data.buildingName} (${data.zonecode})`,
 			);
+			// console.log(address);
 
 			setOpenPostcode(false);
 			setOpen(false);
@@ -121,6 +122,32 @@ function SpaceAddForm(props) {
 		});
 	};
 
+	// const [locationobj, setLocationObj] = useState('');
+	// //주소 받아오는 api
+	// useEffect(() => {
+	// 	axios
+	// 		.get(
+	// 			`https://dapi.kakao.com/v2/local/search/address.json?query=${address}`,
+	// 			{
+	// 				headers: {
+	// 					Authorization:
+	// 						'KakaoAK cd142f0e6c8ce52bda284be31c94617c',
+	// 				},
+	// 			},
+	// 		)
+	// 		.then((res) => {
+	// 			const location = res.data.documents[0];
+	// 			console.log(res.data);
+	// 			setLocationObj({
+	// 				si: location.address.region_1depth_name,
+	// 				gu: location.address.region_2depth_name,
+	// 				dong: location.address.region_3depth_name,
+	// 				locationX: location.address.x,
+	// 				locationY: location.address.y,
+	// 			});
+	// 		});
+	// }, []);
+
 	// 다음 페이지로 이동
 	const onSubmitEvent = (e) => {
 		console.log(oneIntroduction);
@@ -140,33 +167,6 @@ function SpaceAddForm(props) {
 				navi(`/host/addform2/${res.data}`);
 			});
 	};
-
-	// //주소 위도 경도 얻기
-	// Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
-	// Geocode.setLanguage('en');
-	// Geocode.setRegion('es');
-	// Geocode.enableDebug();
-
-	// const [geom, setGeom] = useState();
-
-	// const GoogleMap = async (currentAddr) => {
-	// 	return Geocode.fromAddress(currentAddr)
-	// 		.then((res) => {
-	// 			const {lat, lng} = res.results[0].geomety.location;
-	// 			console.log('lat=' + lat);
-	// 			console.log('lng=' + lng);
-	// 			return {lat, lng};
-	// 		})
-	// 		.catch((err) => console.log(err));
-	// };
-
-	// const handleButton = async (props) => {
-	// 	const currentAddr = document.getElementById('address').value;
-	// 	if (currentAddr) {
-	// 		const {lat, lng} = await GoogleMap(currentAddr);
-	// 		setGeom({lat: lat, lng: lng});
-	// 	}
-	// };
 
 	return (
 		<div>
