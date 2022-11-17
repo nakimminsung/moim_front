@@ -29,7 +29,7 @@ function BdOtherInfo(props) {
 	const [agreeCheck3, setAgreeCheck3] = useState(false);
 
 	const selectHostInfo = () => {
-		const url = `http://localhost:9000/host/list?num=${props.hostNum}`;
+		const url = `http://localhost:9000/host/info?num=${props.hostNum}`;
 		const pUrl = `http://localhost:9000/detailInfo?num=${props.roomNum}`;
 
 		axios.get(url).then((res) => {
