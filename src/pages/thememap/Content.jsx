@@ -1,5 +1,4 @@
 import React, {useEffect, useRef} from 'react';
-
 const {kakao} = window;
 
 const options = {
@@ -25,10 +24,21 @@ function Test(props) {
 			disableClickZoom: true, // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
 		});
 
+		let imageSrc =
+			'https://github.com/MoiM-Project/data/blob/main/map/maker_image2.gif?raw=true';
+		let imageSize = new kakao.maps.Size(194, 179);
+		let imageOption = {offset: new kakao.maps.Point(27, 69)};
+		let markerImage = new kakao.maps.MarkerImage(
+			imageSrc,
+			imageSize,
+			imageOption,
+		);
+
 		// 마커 생성
 		// let markers = down.positions.map((position, i) => {
 		let markers = roomData.map((position, i) => {
 			return new kakao.maps.Marker({
+				image: markerImage, // 마커이미지 설정
 				position: new kakao.maps.LatLng(
 					parseFloat(position.lat),
 					parseFloat(position.lng),

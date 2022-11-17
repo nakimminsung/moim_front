@@ -30,6 +30,7 @@ const Wrapper = styled(Typography)`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	height: 100%;
 `;
 
 const ThemeTitle = styled(Typography)`

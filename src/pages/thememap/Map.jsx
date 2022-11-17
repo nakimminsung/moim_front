@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import TopMenu from './TopMenu';
+import Menu from './Menu';
 import Title from './Title';
 import List from './/List';
 import Content from './Content';
@@ -15,6 +15,10 @@ function Map(props) {
 	const [roomName, setRoomName] = useState('');
 	const [headCount, setHeadCount] = useState('');
 	const [address, setAddress] = useState('');
+	const [payment, setPayment] = useState('');
+	const [sprice, setSprice] = useState(0);
+	const [eprice, setEprice] = useState(500000);
+	const [facility, setFacility] = useState([]);
 	const {themeNum} = useParams();
 
 	// 테마 데이터 select
@@ -35,23 +39,27 @@ function Map(props) {
 			'&address=' +
 			address +
 			'&name=' +
-			roomName;
+			roomName +
+			'&payment=' +
+			payment +
+			'&sprice=' +
+			sprice +
+			'&eprice=' +
+			eprice;
 		axios.get(url).then((res) => setRoomData(res.data));
-		console.log(roomData);
 	};
 
 	useEffect(() => {
 		selectTheme();
 		selectThemeRoomList();
-	}, [sort, roomName, address, headCount]);
+	}, [sort, roomName, address, headCount, payment, sprice, eprice]);
 
 	return (
 		<Wrapper>
 			<Top>
 				<Title themeData={themeData} />
 				<MenuDiv>
-					<TopMenu
-						roomName={roomName}
+					<Menu
 						setRoomName={setRoomName}
 						address={address}
 						setAddress={setAddress}
@@ -60,6 +68,13 @@ function Map(props) {
 						roomData={roomData}
 						sort={sort}
 						setSort={setSort}
+						payment={payment}
+						setPayment={setPayment}
+						sprice={sprice}
+						eprice={eprice}
+						setSprice={setSprice}
+						setEprice={setEprice}
+						setFacility={setFacility}
 					/>
 				</MenuDiv>
 			</Top>
@@ -88,6 +103,12 @@ const Top = styled(Box)`
 	flex-direction: column;
 	width: 100%;
 	background-color: #fff;
+	@media (max-width: 1000px) {
+		height: 24vh;
+	}
+	@media (max-width: 900px) {
+		height: 24vh;
+	}
 `;
 const MenuDiv = styled(Box)`
 	padding: 10px;
@@ -97,6 +118,12 @@ const Bottom = styled(Box)`
 	justify-content: space-between;
 	height: 100%;
 	padding-top: 16vh;
+	@media (max-width: 1000px) {
+		padding-top: 24vh;
+	}
+	@media (max-width: 900px) {
+		padding-top: 24vh;
+	}
 `;
 const ListDiv = styled(Box)`
 	@media (max-width: 1920px) {
@@ -105,8 +132,13 @@ const ListDiv = styled(Box)`
 	@media (max-width: 1680px) {
 		width: 25%;
 	}
-	@media (max-width: 767px) {
-		width: 45%;
+	@media (max-width: 1000px) {
+		width: 40%;
+		height: 76vh;
+	}
+	@media (max-width: 900px) {
+		width: 40%;
+		height: 76vh;
 	}
 	height: 84vh;
 `;
@@ -117,8 +149,13 @@ const ContentDiv = styled(Box)`
 	@media (max-width: 1680px) {
 		width: 75%;
 	}
-	@media (max-width: 767px) {
-		width: 55%;
+	@media (max-width: 1000px) {
+		width: 60%;
+		height: 76vh;
+	}
+	@media (max-width: 900px) {
+		width: 60%;
+		height: 76vh;
 	}
 	height: 84vh;
 	position: fixed;

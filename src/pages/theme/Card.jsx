@@ -67,18 +67,17 @@ function RoomCard(props) {
 			<Card>
 				<CardActionArea>
 					<Box>
-						<AutoPlaySwipeableViews
+						<CardAction
 							axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
 							index={activeStep}
 							onChangeIndex={handleStepChange}
 							enableMouseEvents
-							className='img'
 						>
 							{imageData &&
 								imageData.map((step, index) => (
 									<ImageDiv key={step.label}>
 										{Math.abs(activeStep - index) <= 2 ? (
-											<Box
+											<ImageBox
 												component='img'
 												sx={{
 													height: '100%',
@@ -88,7 +87,6 @@ function RoomCard(props) {
 													overflow: 'hidden',
 													width: '100%',
 												}}
-												className='scale'
 												id='image'
 												src={step.rimageUrl}
 												alt={step.label}
@@ -102,7 +100,7 @@ function RoomCard(props) {
 										) : null}
 									</ImageDiv>
 								))}
-						</AutoPlaySwipeableViews>
+						</CardAction>
 						<ImageButtonDiv
 							style={{
 								display:
@@ -295,5 +293,25 @@ const CardWrapper = styled(Typography)`
 	@media (max-width: 900px) {
 		width: 100%;
 		padding-bottom: 5px;
+	}
+`;
+const CardAction = styled(AutoPlaySwipeableViews)`
+	width: 100%;
+	height: 200px;
+	overflow: hidden;
+`;
+const ImageBox = styled(Box)`
+	transform: scale(1);
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
+	:hover {
+		transform: scale(1.1);
+		-webkit-transform: scale(1.1);
+		-moz-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		-o-transform: scale(1.1);
 	}
 `;

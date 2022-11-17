@@ -1,13 +1,13 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import Login from '../pages/login/Login';
-import Map from '../pages/map/Map';
+import Map from '../pages/thememap/Map';
+import ThemeContainer from '../containers/ThemeContainer';
 
 function NoneRouter() {
 	return (
 		<>
 			<Routes>
-				<Route path=':themeNum' element={<Map />} />
+				<Route path=':themeNum' element={<ThemeContainer />} />
 			</Routes>
 		</>
 	);
