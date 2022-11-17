@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import './booking.css';
 import Button from '@material-ui/core/Button';
@@ -24,7 +24,7 @@ function BookingDetail() {
 	const [phone, setPhone] = useState('');
 	const [email, setEmail] = useState('');
 	const [purpose, setPurpose] = useState('');
-	const [bs, setBs] = useState('');
+	const [bookingStatus, setBookingStatus] = useState('');
 	const [hostNum, setHostNum] = useState('');
 	// 요청사항 (textarea)
 	const contentRef = useRef('');
@@ -35,17 +35,21 @@ function BookingDetail() {
 	const [optionPrice, setOptionPrice] = useState('');
 
 	const navi = useNavigate();
-	//const { num } = useParams();
-	const num = 1;
+	//const {num} = useParams();
+	//	const num = 1;
 	const url = `http://localhost:9000/room/detail?num=${num}`;
 	const cUrl = `http://localhost:9000/room/category?num=${num}`;
 	const fUrl = `http://localhost:9000/room/facility?num=${num}`;
 	const oUrl = `http://localhost:9000/room/option?num=${num}`;
+	const imgUrl = 'http://localhost:9000/image/';
+
 	let roomPrice = roomData.weekAmPrice;
 	let totalPrice = roomPrice + optionPrice;
-	let bookingStatus = bs;
+	//let bookingStatus = bs;
 	let userNum = 1;
-	let roomNum = num;
+	const {search} = useLocation();
+	const {num, date, head, stime, etime} = queryString.parse(search);
+
 	let bookingTime = '10';
 	let headCount = 50;
 
@@ -82,9 +86,7 @@ function BookingDetail() {
 
 	const selectOptionData = () => {
 		axios.get(oUrl).then((res) => {
-			console.log(res.data);
 			setOptionList(res.data);
-			//setCount(count);
 
 			let options = [];
 
@@ -95,11 +97,8 @@ function BookingDetail() {
 					name: res.data[i].oname,
 					price: res.data[i].price,
 				};
-				//optionInsertList[i]=initialState;
 			}
 			setOptionInsertList(options);
-
-			//console.log('count: ' + count);
 		});
 	};
 
@@ -137,7 +136,7 @@ function BookingDetail() {
 				request,
 				totalPrice,
 				bookingStatus,
-				roomNum,
+				num,
 				userNum,
 			})
 			.then((res) => {
@@ -205,7 +204,7 @@ function BookingDetail() {
 				pay_method: 'card', //지불 방법
 				merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
 				name: roomData.name, //결제창에 노출될 상품명
-				amount: 13700, //금액
+				amount: totalPrice, //금액
 				buyer_email: 'testiamport@naver.com',
 				buyer_name: '홍길동',
 				buyer_tel: '01012341234',
@@ -283,8 +282,7 @@ function BookingDetail() {
 								<div className='bdSpaceInfo'>
 									<img
 										alt=''
-										// src={require(`./img/404.png`)}
-										src={roomData.thumbnailImage}
+										src={imgUrl + roomData.thumbnailImage}
 										width='200'
 										height={200}
 									/>
@@ -837,7 +835,7 @@ function BookingDetail() {
 										{roomData.payment === '바로결제' ? (
 											<Button
 												onClick={() => {
-													setBs('5');
+													setBookingStatus('5');
 													payment();
 													handleClose();
 												}}
@@ -850,7 +848,7 @@ function BookingDetail() {
 										) : (
 											<Button
 												onClick={() => {
-													setBs('2');
+													setBookingStatus('2');
 													onSend();
 													handleClose();
 												}}
