@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {Button, Typography} from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Checkbox from '@mui/material/Checkbox';
@@ -10,7 +10,7 @@ function valuetext(value) {
 	return `${value}°C`;
 }
 
-const label = {inputProps: {'aria-label': 'Checkbox demo'}};
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function Filter(props) {
 	const [data, setData] = useState([]);
@@ -71,7 +71,7 @@ function Filter(props) {
 						onChange={handleChange}
 						valueLabelDisplay='auto'
 						getAriaValueText={valuetext}
-						style={{color: '#9b4de3'}}
+						style={{ color: '#9b4de3' }}
 						step={10000}
 						max={1000000}
 					/>
@@ -80,19 +80,20 @@ function Filter(props) {
 			<InnerWrapper>
 				<Title>퍼실리티</Title>
 				<Option>
-					{data.map((item, i) => (
-						<div class='facility-btn'>
-							<input
-								id={`facility-${item.num}`}
-								type='checkbox'
-								name='facility'
-								value={item.num}
-							/>
-							<label for={`facility-${item.num}`}>
-								{item.fname}
-							</label>
-						</div>
-					))}
+					{data &&
+						data.map((item, i) => (
+							<div class='facility-btn'>
+								<input
+									id={`facility-${item.num}`}
+									type='checkbox'
+									name='facility'
+									value={item.num}
+								/>
+								<label for={`facility-${item.num}`}>
+									{item.fname}
+								</label>
+							</div>
+						))}
 				</Option>
 			</InnerWrapper>
 			<ButtonWrapper>
@@ -110,63 +111,63 @@ const list = [
 ];
 
 const Wrapper = styled(Box)`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
-	width: 350px;
-	height: 600px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+   width: 350px;
+   height: 600px;
 `;
 const InnerWrapper = styled(Box)`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   padding: 20px;
 `;
 const PayTitleWrapper = styled(Box)`
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 10px;
-	align-items: center;
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 10px;
+   align-items: center;
 `;
 const Title = styled(Typography)`
-	font-size: 20px;
-	margin-bottom: 10px;
+   font-size: 20px;
+   margin-bottom: 10px;
 `;
 const PayButtonWrapper = styled(Box)`
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
 `;
 const Option = styled(Box)`
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	overflow: auto;
-	max-height: 300px;
+   width: 100%;
+   display: flex;
+   flex-wrap: wrap;
+   overflow: auto;
+   max-height: 300px;
 `;
 const ButtonWrapper = styled(Box)`
-	position: relative;
-	bottom: 0;
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
+   position: relative;
+   bottom: 0;
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
 `;
 const CancelButton = styled(Button)`
-	background-color: #f0f0f0;
-	width: 30%;
-	border-radius: 0;
-	height: 60px;
-	font-size: 20px;
+   background-color: #f0f0f0;
+   width: 30%;
+   border-radius: 0;
+   height: 60px;
+   font-size: 20px;
 `;
 const SubmitButton = styled(Button)`
-	background-color: #9b4de3;
-	width: 70%;
-	border-radius: 0;
-	height: 60px;
-	font-size: 20px;
-	color: yellow;
-	:hover {
-		color: #9b4de3;
-	}
+   background-color: #9b4de3;
+   width: 70%;
+   border-radius: 0;
+   height: 60px;
+   font-size: 20px;
+   color: yellow;
+   :hover {
+      color: #9b4de3;
+   }
 `;
