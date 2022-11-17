@@ -1,6 +1,6 @@
 import {styled, TextField} from '@material-ui/core';
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -17,6 +17,7 @@ import styled1 from 'styled-components';
 // import {Button} from '@mui/material';
 
 import {useNavigate} from 'react-router-dom';
+import {set} from 'date-fns';
 
 //다이얼로그에 필요한 코드들
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -76,14 +77,12 @@ function SpaceAddForm(props) {
 
 		// 주소 선택 이벤트
 		selectAddress: (data) => {
-			console.dir(data);
-			console.log(`
-                주소: ${data.address},
-                우편번호: ${data.zonecode}
-            `);
-			setAddress(
-				`${data.address} ${data.buildingName} (${data.zonecode})`,
-			);
+			// console.dir(data);
+			// console.log(`
+			//     주소: ${data.address},
+			//     우편번호: ${data.zonecode}
+			// `);
+			setAddress(`${data.address} ${data.buildingName}`);
 
 			setOpenPostcode(false);
 			setOpen(false);
@@ -125,8 +124,8 @@ function SpaceAddForm(props) {
 	const onSubmitEvent = (e) => {
 		console.log(oneIntroduction);
 		e.preventDefault();
-
 		let insertUrl = localStorage.url + '/host/insert';
+
 		axios
 			.post(insertUrl, {
 				name,
@@ -134,6 +133,9 @@ function SpaceAddForm(props) {
 				address2,
 				oneIntroduction,
 				fullIntroduction,
+				lat,
+				lng,
+				// locationobj,
 			})
 			.then((res) => {
 				setNum(res.data);
@@ -141,36 +143,42 @@ function SpaceAddForm(props) {
 			});
 	};
 
-	// //주소 위도 경도 얻기
-	// Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
-	// Geocode.setLanguage('en');
-	// Geocode.setRegion('es');
-	// Geocode.enableDebug();
+	const [lat, setLat] = useState('');
+	const [lng, setLng] = useState('');
 
-	// const [geom, setGeom] = useState();
-
-	// const GoogleMap = async (currentAddr) => {
-	// 	return Geocode.fromAddress(currentAddr)
-	// 		.then((res) => {
-	// 			const {lat, lng} = res.results[0].geomety.location;
-	// 			console.log('lat=' + lat);
-	// 			console.log('lng=' + lng);
-	// 			return {lat, lng};
-	// 		})
-	// 		.catch((err) => console.log(err));
-	// };
-
-	// const handleButton = async (props) => {
-	// 	const currentAddr = document.getElementById('address').value;
-	// 	if (currentAddr) {
-	// 		const {lat, lng} = await GoogleMap(currentAddr);
-	// 		setGeom({lat: lat, lng: lng});
-	// 	}
-	// };
+	// console.log(locationobj);
+	// console.log('lat: ' + lat);
+	// console.log('lng: ' + lng);
+	//주소 받아오는 api
+	useEffect(() => {
+		axios
+			.get(
+				`https://dapi.kakao.com/v2/local/search/address.json?query=${address}`,
+				{
+					headers: {
+						Authorization:
+							'KakaoAK cd142f0e6c8ce52bda284be31c94617c',
+					},
+				},
+			)
+			.then((res) => {
+				// const location = res.data.documents[0];
+				// console.log(res.data);
+				// console.log('ddd: ' + res.data.documents[0].address.x);
+				// setLocationObj({
+				// 	// si: location.address.region_1depth_name,
+				// 	// gu: location.address.region_2depth_name,
+				// 	// dong: location.address.region_3depth_name,
+				// 	locationX: location.address.x,
+				// 	locationY: location.address.y,
+				// });
+				setLat(res.data.documents[0].address.x);
+				setLng(res.data.documents[0].address.y);
+			});
+	}, [address]);
 
 	return (
 		<div>
-			{/* <button onClick={handleButton}>위도경도</button> */}
 			<form onSubmit={onSubmitEvent}>
 				<div>
 					<div
