@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@material-ui/core/Button';
 import styled1 from 'styled-components';
 
+// import Geocode from 'react-geocode';
+
 // import {Button} from '@mui/material';
 
 import {useNavigate} from 'react-router-dom';
@@ -139,8 +141,36 @@ function SpaceAddForm(props) {
 			});
 	};
 
+	// //주소 위도 경도 얻기
+	// Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
+	// Geocode.setLanguage('en');
+	// Geocode.setRegion('es');
+	// Geocode.enableDebug();
+
+	// const [geom, setGeom] = useState();
+
+	// const GoogleMap = async (currentAddr) => {
+	// 	return Geocode.fromAddress(currentAddr)
+	// 		.then((res) => {
+	// 			const {lat, lng} = res.results[0].geomety.location;
+	// 			console.log('lat=' + lat);
+	// 			console.log('lng=' + lng);
+	// 			return {lat, lng};
+	// 		})
+	// 		.catch((err) => console.log(err));
+	// };
+
+	// const handleButton = async (props) => {
+	// 	const currentAddr = document.getElementById('address').value;
+	// 	if (currentAddr) {
+	// 		const {lat, lng} = await GoogleMap(currentAddr);
+	// 		setGeom({lat: lat, lng: lng});
+	// 	}
+	// };
+
 	return (
 		<div>
+			{/* <button onClick={handleButton}>위도경도</button> */}
 			<form onSubmit={onSubmitEvent}>
 				<div>
 					<div
