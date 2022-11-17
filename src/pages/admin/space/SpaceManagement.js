@@ -90,16 +90,17 @@ function SpaceManagement(props) {
 						backgroundColor: 'white',
 					}}
 					placeholder='공간 이름 혹은 호스트명을 입력해주세요'
-					// value={searchWord}
 					ref={input}
+					// value={searchWord}
 					// onChange={(e) => {
 					// 	// setSearchWord(e.target.value);
 					// }}
 					onKeyPress={handleOnKeyPress}
 				/>
 			</div>
-			{/* 리스트 컴포넌트 선택 */}
+
 			<br />
+
 			<div style={{display: 'flex', justifyContent: 'space-between'}}>
 				{/* count 갯수 + 필터 */}
 				<div style={{marginLeft: '10px', paddingTop: '5px'}}>
@@ -113,6 +114,8 @@ function SpaceManagement(props) {
 						<b>검색된 상품이 없습니다.</b>
 					)}
 				</div>
+
+				{/* 리스트 컴포넌트 선택 */}
 				<div>
 					<DashboardIcon
 						style={{

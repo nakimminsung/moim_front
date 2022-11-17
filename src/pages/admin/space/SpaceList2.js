@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Person} from '@material-ui/icons';
 import axios from 'axios';
 import RoomIcon from '@material-ui/icons/Room';
@@ -27,6 +27,7 @@ function SpaceList2(props) {
 		//방 리스트
 		getSpaceList();
 	}, [sort, searchWord]);
+
 	return (
 		<div>
 			<div
