@@ -1,18 +1,19 @@
 /*Detail css */
 .detailContainer {
-	margin-left: auto;
-	margin-right: auto;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 10px 60px;
+	grid-template-columns: 65% 30%;
+	grid-gap: 0px 60px;
 }
 
-.detailItem:nth-child(1) {
-	grid-column: 1/2;
+.detailHeader {
+	grid-column: span 2;
 }
-.detailItem:nth-child(2) {
-	grid-column: 2/3;
-	margin-left: 30px;
+
+.detailItem {
+	grid-column: 1;
+}
+.detailItem2 {
+	grid-column: 2;
 	height: 400px;
 }
 .tagRoom {
@@ -48,8 +49,13 @@
 }
 
 /*DetailInfo css */
+.input-group.detail-memu {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
 .detailMenu {
-	width: 16.8%;
+	width: 16.7%;
 	background-color: #f5f5f5;
 	border-top: 2px solid gray !important;
 	text-align: center;
@@ -71,6 +77,10 @@
 	line-height: 50px;
 	height: 50px;
 }
+.smallTime.color {
+	background-color: #704de4;
+}
+
 .mainFigure {
 	display: flex;
 	margin-top: 40px;
@@ -98,4 +108,112 @@
 .smallContent {
 	font-size: 14px;
 	color: gray;
+}
+.detailPriceInfo {
+	border: 1px solid #704de4;
+}
+
+.facilityItem {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 25px;
+}
+.spaceInfo {
+	border-bottom: 1px solid lightgray;
+	padding: 5px 5px;
+}
+
+.call {
+	width: 40%;
+	border: 1px solid #f0f0f0;
+	background-color: #f0f0f0;
+	height: 50px;
+}
+.booking {
+	width: 60%;
+	border: 1px solid #704de4;
+	background-color: #704de4;
+	height: 50px;
+	color: #ffd014;
+}
+
+/* 달력 css*/
+.react-calendar__month-view__weekdays abbr {
+	text-decoration: none;
+}
+
+.react-calendar__month-view__days__day:nth-child(7n) {
+	color: blue;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+	color: #1010104d !important;
+}
+.react-calendar__tile--active {
+	background-color: #704de4 !important;
+}
+.react-calendar__tile--now {
+	background-color: #ffd014 !important;
+}
+/* 시간 설정*/
+.smallTime {
+	width: auto;
+	height: 40px;
+	border: 1px solid #ffc000;
+	text-align: center;
+	font-size: 10px;
+	line-height: 40px;
+	color: #cc8c28;
+	background-color: #ffd014;
+}
+
+/*인원 수*/
+.detailInwon {
+	display: flex;
+	margin-top: 20px;
+	justify-content: center;
+}
+.changeInwon {
+	width: 40px;
+	height: 40px;
+	border: 1px solid lightgray;
+	text-align: center;
+	line-height: 40px;
+	background-color: #f5f5f5;
+	color: #a0a0a0;
+}
+.detailInputInwon {
+	width: 130px;
+	border: 1px solid lightgray;
+	text-align: center;
+	line-height: 40px;
+	height: 40px;
+}
+input::-webkit-inner-spin-button {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+.MuiSvgIcon-root {
+	vertical-align: sub;
+}
+
+.detailTotalPrice {
+	font-size: 20px;
+	color: #704de4;
+	text-align: right;
+
+	padding-bottom: 32px;
+	border-top: 2px solid #ccc;
+}
+.detailBox {
+	width: 15px;
+	height: 15px;
+	float: left;
+	margin-top: 6px;
+}
+.detailTimeInfo {
+	color: red;
+	font-size: 12px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
