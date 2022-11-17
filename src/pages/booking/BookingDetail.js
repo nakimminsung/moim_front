@@ -1,57 +1,59 @@
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
-import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import './booking.css';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import InfoIcon from '@mui/icons-material/Info';
 import BdOtherInfo from './BdOtherInfo';
 import defaultImg from './img/404.png';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import queryString from 'query-string';
+import jwt_decode from 'jwt-decode';
+import BdPayment from './BdPayment';
+import BDTop from './BDTop';
 
 function BookingDetail() {
 	const [roomData, setRoomData] = useState('');
-	const [categoryList, setCategoryList] = useState([]);
-	const [facilityList, setFacilityList] = useState([]);
 	const [optionList, setOptionList] = useState([]);
 	const [name, setName] = useState('');
 	const [phone, setPhone] = useState('');
 	const [email, setEmail] = useState('');
 	const [purpose, setPurpose] = useState('');
-	const [bookingStatus, setBookingStatus] = useState('');
 	const [hostNum, setHostNum] = useState('');
+	const [price, setPrice] = useState(0);
 	// 요청사항 (textarea)
 	const contentRef = useRef('');
-	//const bookingTime
+
 	// iamport
 	const {IMP} = window;
 	// 옵션 수량 버튼
 	const [optionPrice, setOptionPrice] = useState('');
 
+	// 상세페이지 값들
+	const {search} = useLocation();
+	const {num, date, head, stime, etime} = queryString.parse(search);
+
 	const navi = useNavigate();
-	//const {num} = useParams();
-	//	const num = 1;
+
+	//url
 	const url = `http://localhost:9000/room/detail?num=${num}`;
 	const cUrl = `http://localhost:9000/room/category?num=${num}`;
 	const fUrl = `http://localhost:9000/room/facility?num=${num}`;
 	const oUrl = `http://localhost:9000/room/option?num=${num}`;
 	const imgUrl = 'http://localhost:9000/image/';
 
-	let roomPrice = roomData.weekAmPrice;
-	let totalPrice = roomPrice + optionPrice;
-	//let bookingStatus = bs;
-	let userNum = 1;
-	const {search} = useLocation();
-	const {num, date, head, stime, etime} = queryString.parse(search);
+	let totalPrice = price + optionPrice;
 
-	let bookingTime = '10';
-	let headCount = 50;
+	let userNum = jwt_decode(localStorage.getItem('token')).idx;
+	// 시간 계산
+	let time = new Array();
+	for (let i = stime; i <= etime; i++) {
+		time.push(i);
+	}
+	let bookingTime = time.join(',');
+	let headCount = head;
+	let bookingDate = date;
+	let roomNum = num;
 
 	const selectRoomData = () => {
 		axios.get(url).then((res) => {
@@ -60,16 +62,29 @@ function BookingDetail() {
 		});
 	};
 
-	const selectCategoryData = () => {
-		axios.get(cUrl).then((res) => {
-			setCategoryList(res.data);
-		});
-	};
+	// 총 가격 계산
+	const priceSum = () => {
+		let price = 0;
+		let bookingDate = new Date(date);
 
-	const selectFacilityData = () => {
-		axios.get(fUrl).then((res) => {
-			setFacilityList(res.data);
-		});
+		for (let i = Number(stime); i <= Number(etime); i++) {
+			//주말 오전 오후 가격
+			if (bookingDate.getDay() === 0 || bookingDate.getDay() === 6) {
+				if (i >= 6 && i <= 18) {
+					price += roomData.holiAmPrice;
+				} else {
+					price += roomData.holiPmPrice;
+				}
+			} else {
+				//평일 오전 오후 가격
+				if (i >= 6 && i <= 18) {
+					price += roomData.weekAmPrice;
+				} else {
+					price += roomData.weekPmPrice;
+				}
+			}
+		}
+		setPrice(price);
 	};
 
 	// 옵션 초기값
@@ -105,28 +120,15 @@ function BookingDetail() {
 	const onErrorImg = (e) => {
 		e.target.src = defaultImg;
 	};
-	// 모달
-	const [open, setOpen] = React.useState(false);
 
-	const handleClickOpen = () => {
-		if (name && phone && email !== '') {
-			setOpen(true);
-		} else {
-			alert('필수 정보를 입력해주세요');
-		}
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-	};
-
-	const onSend = () => {
+	const onSend = (bookingStatus) => {
 		// 요청사항
 		let request = contentRef.current.value;
 		let insertUrl = 'http://localhost:9000/bookingDetail/insert';
 
 		axios
 			.post(insertUrl, {
+				bookingDate,
 				bookingTime,
 				headCount,
 				name,
@@ -136,7 +138,7 @@ function BookingDetail() {
 				request,
 				totalPrice,
 				bookingStatus,
-				num,
+				roomNum,
 				userNum,
 			})
 			.then((res) => {
@@ -150,7 +152,6 @@ function BookingDetail() {
 
 	const onOptionSend = () => {
 		let insertUrl = 'http://localhost:9000/bookingDetailOption/insert';
-		console.log(optionInsertList);
 
 		axios({
 			url: insertUrl,
@@ -163,7 +164,6 @@ function BookingDetail() {
 	const onIncrease = (idx) => {
 		let options = [...optionInsertList];
 		options[idx].count += 1;
-		console.log(optionInsertList);
 		setOptionInsertList(options);
 		totalOptionSum(options);
 	};
@@ -179,7 +179,6 @@ function BookingDetail() {
 
 		setOptionInsertList(options);
 		totalOptionSum(options);
-		//	console.log('idx: ' + idx);
 	};
 
 	// 옵션 가격 계산
@@ -190,11 +189,10 @@ function BookingDetail() {
 				optionInsertList[item].price * optionInsertList[item].count;
 		});
 		setOptionPrice(total);
-		console.log(total);
 	};
+	console.log(jwt_decode(localStorage.getItem('token')).email);
 
 	// 결제
-	//버튼 클릭하면 실행
 	function payment(data) {
 		IMP.init('imp30007238'); //아임포트 관리자 콘솔에 서 확인한 '가맹점 식별코드' 입력
 		IMP.request_pay(
@@ -205,9 +203,8 @@ function BookingDetail() {
 				merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
 				name: roomData.name, //결제창에 노출될 상품명
 				amount: totalPrice, //금액
-				buyer_email: 'testiamport@naver.com',
-				buyer_name: '홍길동',
-				buyer_tel: '01012341234',
+				buyer_email: jwt_decode(localStorage.getItem('token')).email,
+				buyer_name: jwt_decode(localStorage.getItem('token')).nickname,
 			},
 			function (rsp) {
 				// callback
@@ -218,7 +215,7 @@ function BookingDetail() {
 							' / merchant_uid(orderKey) : ' +
 							rsp.merchant_uid,
 					);
-					onSend();
+					onSend(5);
 				} else {
 					alert(
 						'실패 : 코드(' +
@@ -234,8 +231,6 @@ function BookingDetail() {
 
 	useEffect(() => {
 		selectRoomData();
-		selectCategoryData();
-		selectFacilityData();
 		selectOptionData();
 	}, []);
 
@@ -252,6 +247,10 @@ function BookingDetail() {
 		}
 	}, [phone]);
 
+	useEffect(() => {
+		priceSum();
+	}, [roomData, price]);
+
 	return (
 		<>
 			<form>
@@ -261,145 +260,47 @@ function BookingDetail() {
 					</div>
 					<div className='bdContainer'>
 						<div className='dbItem'>
-							<div className='bdSpace'>
-								<div
-									style={{
-										display: 'flex',
-										borderBottom: '3px solid #704de4',
-									}}
-								>
-									<h4>예약공간</h4>
-									<h4
-										style={{
-											marginLeft: 'auto',
-											color: '#704de4',
-										}}
-									>
-										₩{roomData.weekAmPrice}
-									</h4>
-								</div>
-
-								<div className='bdSpaceInfo'>
-									<img
-										alt=''
-										src={imgUrl + roomData.thumbnailImage}
-										width='200'
-										height={200}
-									/>
-									<div
-										style={{
-											marginTop: '30px',
-											marginLeft: '20px',
-										}}
-									>
-										<h3>{roomData.name}</h3>
-										<h6>{roomData.fullIntroduction}</h6>
-									</div>
-								</div>
-								<hr />
-								<span
-									style={{
-										marginLeft: '30px',
-										marginRight: '50px',
-									}}
-								>
-									<CheckOutlinedIcon />
-									&nbsp; 공간유형
-								</span>
-								{categoryList.map((item, idx) => (
-									<span key={idx}>{item.cname} </span>
-								))}
-								<p style={{marginLeft: '30px'}}>
-									<CheckOutlinedIcon />
-									&nbsp; 예약가능인원&nbsp;&nbsp;&nbsp;&nbsp;
-									최대&nbsp;
-									{roomData.headcount}명
-								</p>
-
-								<div
-									style={{
-										display: 'flex',
-										flexWrap: 'wrap',
-										marginLeft: '30px',
-									}}
-								>
-									{facilityList.map((item, idx) => (
-										<>
-											<div
-												style={{display: 'flex'}}
-												key={idx}
-											>
-												<img
-													alt=''
-													src={item.imageUrl}
-													width='30'
-													height={30}
-												/>
-												&nbsp;&nbsp;
-												<p>{item.fname}</p>
-											</div>
-											&nbsp;&nbsp;&nbsp;
-										</>
-									))}
-								</div>
-							</div>
-
-							<div className='bdInfo'>
-								<div
-									style={{
-										display: 'flex',
-										borderBottom: '3px solid #704de4',
-										marginTop: '30px',
-									}}
-								>
-									<h4>예약정보</h4>
-								</div>
-								<div
-									style={{
-										display: 'flex',
-										marginLeft: '30px',
-										marginTop: '10px',
-									}}
-								>
-									<p>예약날짜</p>
-									<p style={{marginLeft: 'auto'}}>
-										2022-11-08
-									</p>
-								</div>
-								<div
-									style={{
-										display: 'flex',
-										marginLeft: '30px',
-									}}
-								>
-									<p>예약인원</p>
-									<p style={{marginLeft: 'auto'}}>2명</p>
-								</div>
-							</div>
+							<BDTop
+								price={price}
+								roomData={roomData}
+								date={date}
+								head={head}
+								num={num}
+							/>
 
 							<div className='bdOption'>
-								<div
-									style={{
-										display: 'flex',
-										borderBottom: '3px solid #704de4',
-										marginTop: '30px',
-									}}
-								>
-									<h4>추가옵션선택</h4>
-									<IconButton
-										color='primary'
-										style={{
-											color: '#704de4',
-											marginLeft: 'auto',
-										}}
-										aria-label='add to shopping cart'
-										onClick={() => {
-											onOptionSend();
-										}}
-									>
-										<AddShoppingCartIcon />
-									</IconButton>
-								</div>
+								{optionList.some(
+									(elem) => elem.ronum !== '',
+								) ? (
+									<>
+										<div
+											style={{
+												display: 'flex',
+												borderBottom:
+													'3px solid #704de4',
+												marginTop: '30px',
+											}}
+										>
+											<h4>추가옵션선택</h4>
+											<IconButton
+												color='primary'
+												style={{
+													color: '#704de4',
+													marginLeft: 'auto',
+												}}
+												aria-label='add to shopping cart'
+												onClick={() => {
+													onOptionSend();
+												}}
+											>
+												<AddShoppingCartIcon />
+											</IconButton>
+										</div>
+									</>
+								) : (
+									<></>
+								)}
+
 								{optionList.map((item, idx) =>
 									item.oname == null ? (
 										<></>
@@ -483,7 +384,6 @@ function BookingDetail() {
 									),
 								)}
 							</div>
-
 							<div
 								style={{
 									display: 'flex',
@@ -501,7 +401,6 @@ function BookingDetail() {
 									*필수입력
 								</p>
 							</div>
-
 							<div className='bdUserInfo'>
 								<div
 									style={{
@@ -613,255 +512,30 @@ function BookingDetail() {
 									></textarea>
 								</div>
 							</div>
-
 							<div className='otherInfo'>
 								<BdOtherInfo
 									hostNum={hostNum}
-									roomNum={roomNum}
+									roomNum={num} // roomNum
 								/>
 							</div>
 						</div>
 						<div className='dbItem'>
-							<div
-								style={{
-									display: 'flex',
-									borderBottom: '3px solid #704de4',
-								}}
-							>
-								<h4>결제 예정금액</h4>
-							</div>
-							<div className='bdPrice'>
-								<div>
-									<p>
-										예약날짜&nbsp;&nbsp;<b>2022-11-25</b>
-									</p>
-									<div style={{display: 'flex'}}>
-										<p>
-											예약시간&nbsp;&nbsp;
-											<b>11시~16시, 5시간</b>&nbsp;&nbsp;
-										</p>
-										<p
-											style={{
-												marginLeft: 'auto',
-												color: '#704de4',
-											}}
-										>
-											<b>₩{roomPrice}</b>
-										</p>
-									</div>
-
-									<div style={{display: 'flex'}}>
-										{optionInsertList.some(
-											(elem) => elem.count > 0,
-										) ? (
-											<>추가옵션&nbsp;&nbsp;</>
-										) : (
-											<></>
-										)}
-										{optionInsertList.map((item, idx) =>
-											item.count > 0 ? (
-												<>
-													<p
-														key={idx}
-														style={{
-															display:
-																'inline-block',
-														}}
-													>
-														<b>
-															{item.name}
-															{item.count}
-															개&nbsp;&nbsp;
-														</b>
-													</p>
-												</>
-											) : (
-												<></>
-											),
-										)}
-										{optionInsertList.some(
-											(elem) => elem.count > 0,
-										) ? (
-											<p
-												style={{
-													marginLeft: 'auto',
-													color: '#704de4',
-												}}
-											>
-												<b>₩{optionPrice}</b>
-											</p>
-										) : (
-											<></>
-										)}
-									</div>
-									<p
-										style={{
-											display: 'flex',
-											borderBottom: '3px solid #704de4',
-										}}
-									>
-										예약인원&nbsp;&nbsp;<b>2명</b>
-									</p>
-
-									<div
-										style={{
-											display: 'flex',
-											color: '#704de4',
-										}}
-									>
-										<h4>₩</h4>
-										<h4
-											style={{
-												marginLeft: 'auto',
-											}}
-										>
-											{totalPrice}
-										</h4>
-									</div>
-								</div>
-								{
-									<Button
-										class='bookingBtn'
-										type='button'
-										id='btn_submit'
-										variant='outlined'
-										onClick={handleClickOpen}
-									>
-										예약신청하기
-									</Button>
-								}
-
-								{/* 모달 */}
-								<Dialog
-									open={open}
-									onClose={handleClose}
-									aria-labelledby='alert-dialog-title'
-									aria-describedby='alert-dialog-description'
-								>
-									<DialogTitle
-										id='alert-dialog-title'
-										style={{
-											borderBottom: '3px solid #704de4',
-											marginBotton: '40px',
-										}}
-									>
-										{roomData.payment === '바로결제' ? (
-											<h4
-												style={{
-													marginBottom: '10px',
-													marginTop: '10px',
-													textAlign: 'center',
-												}}
-											>
-												결제하시겠습니까?
-											</h4>
-										) : (
-											<h4
-												style={{
-													marginBottom: '10px',
-													marginTop: '10px',
-													textAlign: 'center',
-												}}
-											>
-												예약 내용을 확인해주세요
-											</h4>
-										)}
-									</DialogTitle>
-									<DialogContent>
-										<DialogContentText id='alert-dialog-description'>
-											<span
-												style={{
-													marginTop: '5px',
-													marginRight: '40px',
-												}}
-											>
-												예약공간
-											</span>
-											<span style={{float: 'right'}}>
-												{roomData.name}
-											</span>
-											<hr />
-											<span>예약날짜</span>
-											<span style={{float: 'right'}}>
-												2022-11-25
-											</span>
-											<hr />
-											<span>예약시간</span>
-											<span style={{float: 'right'}}>
-												11시~16시, 5시간
-											</span>
-											<hr />
-											<span>예약인원</span>
-											<span style={{float: 'right'}}>
-												2명
-											</span>
-											<hr />
-											<span>결제예정금액</span>
-											<span
-												style={{
-													float: 'right',
-													color: '#704de4',
-												}}
-											>
-												₩60000
-											</span>
-											<hr />
-											{roomData.payment === '바로결제' ? (
-												<>
-													<InfoIcon
-														style={{color: 'red'}}
-													/>
-													&nbsp;&nbsp;
-													<span
-														style={{color: 'red'}}
-													>
-														결제전에, 환불기준과
-														예약내용을 반드시
-														확인해주세요!
-													</span>
-												</>
-											) : (
-												<></>
-											)}
-										</DialogContentText>
-									</DialogContent>
-									<DialogActions>
-										<Button
-											onClick={handleClose}
-											color='primary'
-										>
-											닫기
-										</Button>
-										{roomData.payment === '바로결제' ? (
-											<Button
-												onClick={() => {
-													setBookingStatus('5');
-													payment();
-													handleClose();
-												}}
-												color='primary'
-												autoFocus
-												type='button'
-											>
-												결제하기
-											</Button>
-										) : (
-											<Button
-												onClick={() => {
-													setBookingStatus('2');
-													onSend();
-													handleClose();
-												}}
-												color='primary'
-												autoFocus
-												type='button'
-											>
-												예약신청
-											</Button>
-										)}
-									</DialogActions>
-								</Dialog>
-							</div>
+							<BdPayment
+								name={name}
+								phone={phone}
+								email={email}
+								date={date}
+								stime={stime}
+								etime={etime}
+								price={price}
+								optionInsertList={optionInsertList}
+								optionPrice={optionPrice}
+								head={head}
+								totalPrice={totalPrice}
+								roomData={roomData}
+								payment={payment}
+								onSend={onSend}
+							/>
 						</div>
 					</div>
 				</div>

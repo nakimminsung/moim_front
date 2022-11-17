@@ -10,6 +10,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import {makeStyles} from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import './booking.css';
 
 const useStyles = makeStyles({
 	root: {
