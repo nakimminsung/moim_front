@@ -1,12 +1,11 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {Link} from 'react-scroll';
 import DetailReview from './DetailReview';
 
 function DetailInfo(props) {
 	const {num} = useParams();
-	const navi = useNavigate();
 	const [roomData, setRoomData] = useState('');
 	const [holiday, setHoliday] = useState('');
 	const [roomInfo, setRoomInfo] = useState('');
@@ -38,7 +37,7 @@ function DetailInfo(props) {
 		<div>
 			<br />
 			<div
-				className='input-group'
+				className='input-group detail-memu'
 				style={{width: '100%', position: 'sticky', top: '60px'}}
 			>
 				<Link
@@ -115,7 +114,7 @@ function DetailInfo(props) {
 					이용후기
 				</Link>
 			</div>
-			<div id='1' style={{width: '100%', marginTop: '70px'}}>
+			<div id='1' style={{width: '100%', marginTop: '40px'}}>
 				<b style={{borderBottom: '2px solid #ffd014'}}>공간소개</b>
 				<br />
 				<br />
@@ -142,7 +141,9 @@ function DetailInfo(props) {
 				</span>
 				<span
 					style={{
+						fontFamily: 'normal',
 						color: '#656565',
+						fontSize: '15px',
 					}}
 				>
 					<span style={{color: 'black'}}>휴무일: </span>

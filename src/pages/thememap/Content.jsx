@@ -96,6 +96,25 @@ function Test(props) {
 
 export default Test;
 
+var positions = [
+	{
+		content: '<div>카카오</div>',
+		latlng: new kakao.maps.LatLng(33.450705, 126.570677),
+	},
+	{
+		content: '<div>생태연못</div>',
+		latlng: new kakao.maps.LatLng(33.450936, 126.569477),
+	},
+	{
+		content: '<div>텃밭</div>',
+		latlng: new kakao.maps.LatLng(33.450879, 126.56994),
+	},
+	{
+		content: '<div>근린공원</div>',
+		latlng: new kakao.maps.LatLng(33.451393, 126.570738),
+	},
+];
+
 const down = {
 	positions: [
 		{
