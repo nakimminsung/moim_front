@@ -8,6 +8,7 @@ import Slider from 'react-slick';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import CallIcon from '@material-ui/icons/Call';
 
 function DeatilBooking(props) {
 	const [selectDay, setSelectDay] = useState('');
@@ -17,9 +18,11 @@ function DeatilBooking(props) {
 	const [showCalendar, setShowCalendar] = useState(false);
 	const [showTime, setShowTime] = useState(false);
 	const [inwon, setInwon] = useState(1);
+	const [sc, setSc] = useState([]);
 	const [selectTime1, setSelectTime1] = useState('');
 	const [selectTime2, setSelectTime2] = useState('');
 	const [totalPrice, setTotalPrice] = useState(0);
+	const token = localStorage.getItem('token');
 
 	//룸관련 데이터 출력
 	const onSelectData = () => {
@@ -116,6 +119,7 @@ function DeatilBooking(props) {
 		setTotalPrice(price);
 		console.log(totalPrice);
 	};
+
 	//Slick Setting(사진 넘기기)
 	var settings = {
 		dots: false, //하단 점
@@ -140,10 +144,23 @@ function DeatilBooking(props) {
 
 	return (
 		<div>
-			<div>
-				<b>예약선택</b>
-				<br />
-				<label style={{cursor: 'pointer'}}>
+			<div
+				style={{
+					padding: '14px',
+				}}
+			>
+				<div
+					style={{
+						borderBottom: '1px solid lightgray',
+						paddingBottom: '10px',
+						paddingTop: '10px',
+						borderTop: '2px solid #704de4',
+					}}
+				>
+					<b>예약선택</b>
+				</div>
+
+				<label style={{cursor: 'pointer', padding: '10px 10px'}}>
 					<input
 						type={'radio'}
 						onClick={() => {
@@ -153,13 +170,32 @@ function DeatilBooking(props) {
 					시간단위예약
 				</label>
 			</div>
-			<br />
-			<div style={{display: showCalendar ? 'block' : 'none'}}>
-				<b>날짜 선택</b>
-				<span style={{float: 'right'}}>
-					{' '}
-					{moment(selectDay).format('YYYY-MM-DD')}
-				</span>
+
+			<div
+				style={{
+					display: showCalendar ? 'block' : 'none',
+					padding: '14px',
+				}}
+			>
+				<div
+					style={{
+						marginBottom: '10px',
+						borderBottom: '2px solid #704de4',
+						paddingBottom: '10px',
+					}}
+				>
+					<b>날짜 선택</b>
+					<b
+						style={{
+							display: showTime ? 'block' : 'none',
+							float: 'right',
+							color: '#704de4',
+						}}
+					>
+						{moment(selectDay).format('YYYY-MM-DD')}
+					</b>
+				</div>
+				{/* 캘린더 */}
 				<Calendar
 					onChange={changeDay}
 					showNeighboringMonth={true} //이전 달 날짜 없애기
@@ -176,7 +212,7 @@ function DeatilBooking(props) {
 								month: 'numeric',
 							})
 							.replace(/.$/, '')
-					} //달력 년원 숫자만
+					} //달력 년월 숫자만
 					next2Label={null} //>>없애기
 					prev2Label={null} //<<없애기
 					tileDisabled={(
@@ -187,39 +223,87 @@ function DeatilBooking(props) {
 						) : null
 					}
 				/>
+				<div
+					style={{
+						marginTop: '5px',
+						display: 'flex',
+						justifyContent: 'space-evenly',
+					}}
+				>
+					<div style={{}}>
+						<div
+							className='detailBox'
+							style={{
+								backgroundColor: '#f0f0f0',
+							}}
+						></div>
+						&nbsp;
+						<span style={{fontSize: '12px'}}>예약불가</span>
+					</div>
+					<div>
+						<div
+							className='detailBox'
+							style={{
+								backgroundColor: '#ffd014',
+							}}
+						></div>
+						&nbsp;
+						<span style={{fontSize: '12px'}}>오늘</span>
+					</div>
+					<div>
+						<div
+							className='detailBox'
+							style={{
+								backgroundColor: '#704de4 ',
+							}}
+						></div>
+						&nbsp;
+						<span style={{fontSize: '12px'}}>선택</span>
+					</div>
+				</div>
 			</div>
 			<br />
 			<div
 				className='time'
 				style={{
 					display: showTime ? 'block' : 'none',
+					padding: '14px',
 				}}
 			>
-				<div>
+				<div
+					style={{
+						marginBottom: '10px',
+						borderBottom: '2px solid #704de4',
+						paddingBottom: '10px',
+					}}
+				>
 					<b>시간 선택</b>{' '}
-					<span
+					<div
 						style={{
 							display:
 								selectTime1 && selectTime2 ? 'inline' : 'none',
+							float: 'right',
+							color: '#704de4',
 						}}
 					>
-						{selectTime1 > selectTime2 ? selectTime2 : selectTime1}
-						시~
-						{selectTime1 < selectTime2
-							? Number(selectTime2) + 1
-							: Number(selectTime1) + 1}
-						시
-					</span>
+						<b>
+							{selectTime1 > selectTime2
+								? selectTime2
+								: selectTime1}
+							시~
+							{selectTime1 < selectTime2
+								? Number(selectTime2) + 1
+								: Number(selectTime1) + 1}
+							시
+						</b>
+					</div>
 				</div>
 				<div>
-					<Slider
-						{...settings}
-						style={{maxWidth: '70vw', margin: 'auto'}}
-					>
+					<Slider {...settings}>
 						{businessHour &&
 							businessHour.map((item, idx) => (
 								<div>
-									<p>{idx}</p>
+									<span>{idx}</span>
 									<div
 										className='smallTime'
 										onClick={selectTime}
@@ -229,43 +313,63 @@ function DeatilBooking(props) {
 											? selectDay.getDay() === 0 ||
 											  selectDay.getDay() === 6
 												? idx <= 18 && idx > 5
-													? roomData.holiAmPrice
-															.toString()
-															.replace(
-																/\B(?=(\d{3})+(?!\d))/g,
-																',',
-															)
-													: roomData.holiPmPrice
-															.toString()
-															.replace(
-																/\B(?=(\d{3})+(?!\d))/g,
-																',',
-															)
+													? roomData.holiAmPrice.toLocaleString(
+															'ko-KR',
+													  )
+													: roomData.holiPmPrice.toLocaleString(
+															'ko-KR',
+													  )
 												: idx <= 18 && idx > 5
-												? roomData.weekAmPrice
-														.toString()
-														.replace(
-															/\B(?=(\d{3})+(?!\d))/g,
-															',',
-														)
-												: roomData.weekPmPrice
-														.toString()
-														.replace(
-															/\B(?=(\d{3})+(?!\d))/g,
-															',',
-														)
+												? roomData.weekAmPrice.toLocaleString(
+														'ko-KR',
+												  )
+												: roomData.weekPmPrice.toLocaleString(
+														'ko-KR',
+												  )
 											: ''}
 									</div>
 								</div>
 							))}
 					</Slider>
-					<div>예약불가 가능 선택</div>
 					<div
 						style={{
-							color: 'red',
-							fontSize: '12px',
+							marginTop: '5px',
+							display: 'flex',
+							justifyContent: 'space-evenly',
 						}}
 					>
+						<div style={{}}>
+							<div
+								className='detailBox'
+								style={{
+									backgroundColor: '#f0f0f0',
+								}}
+							></div>
+							&nbsp;
+							<span style={{fontSize: '12px'}}>예약불가</span>
+						</div>
+						<div>
+							<div
+								className='detailBox'
+								style={{
+									backgroundColor: '#ffd014',
+								}}
+							></div>
+							&nbsp;
+							<span style={{fontSize: '12px'}}>가능</span>
+						</div>
+						<div>
+							<div
+								className='detailBox'
+								style={{
+									backgroundColor: '#704de4 ',
+								}}
+							></div>
+							&nbsp;
+							<span style={{fontSize: '12px'}}>선택</span>
+						</div>
+					</div>
+					<div className='detailTimeInfo'>
 						<span>
 							<ErrorOutlineIcon style={{fontSize: 'small'}} />
 							예약 도중 이탈하시는 경우(결제 오류 및 취소 등),
@@ -275,66 +379,131 @@ function DeatilBooking(props) {
 					</div>
 					<br />
 					<div>
-						<div style={{borderBottom: '2px solid #704de4'}}>
-							<b>총 예약인원 (최대 {roomData.headcount}명)</b>
-						</div>
-
 						<div
-							style={{width: '100%', padding: '10px 45px'}}
-							className='input-group'
+							style={{
+								borderBottom: '2px solid #704de4',
+								paddingBottom: '10px',
+							}}
 						>
-							<span
-								className='changeInwon'
-								onClick={minusHandler}
-							>
-								<RemoveIcon />
-							</span>
-
-							<span
+							<b>총 예약인원 (최대 {roomData.headcount}명)</b>
+							<div
 								style={{
-									width: '130px',
-									border: '1px solid lightgray',
-									textAlign: 'center',
-									lineHeight: '40px',
-									height: '40px',
+									float: 'right',
+									color: '#704de4',
 								}}
 							>
-								{inwon}
-							</span>
-							<span className='changeInwon' onClick={plusHandler}>
+								<b>{inwon}명</b>
+							</div>
+						</div>
+
+						<div className='detailInwon'>
+							<div className='changeInwon' onClick={minusHandler}>
+								<RemoveIcon />
+							</div>
+
+							<input
+								type={'text'}
+								className='detailInputInwon'
+								value={inwon}
+								onChange={(e) => {
+									if (e.target.value > roomData.headcount) {
+										alert(
+											'최대 인원은 ' +
+												roomData.headcount +
+												'명입니다',
+										);
+									} else {
+										setInwon(
+											Number(
+												e.target.value.replace(
+													/[^0-9]/g,
+													'',
+												),
+											),
+										);
+									}
+								}}
+							/>
+							<div className='changeInwon' onClick={plusHandler}>
 								<AddIcon />
+							</div>
+						</div>
+						<div
+							className='detailTimeInfo'
+							style={{marginBottom: '30px'}}
+						>
+							<span>
+								<ErrorOutlineIcon style={{fontSize: 'small'}} />
+								최대 인원까지 선택 가능하며 인원 변경은 사이트
+								내에서는 어려우니 호스트에게 문의해주시기
+								바랍니다
 							</span>
 						</div>
+						<br />
 						<div>
-							{totalPrice}
-							<button
-								onClick={() => {
-									const stime =
-										selectTime1 > selectTime2
-											? selectTime2
-											: selectTime1;
-									const etime =
-										selectTime1 > selectTime2
-											? selectTime1
-											: selectTime2;
-									window.location.href =
-										'/booking/detail?num=' +
-										num +
-										'&date=' +
-										moment(selectDay).format('YYYY-MM-DD') +
-										'&stime=' +
-										stime +
-										'&etime=' +
-										etime +
-										'&head=' +
-										inwon;
-								}}
-							>
-								바로 예약하기
-							</button>
+							<div className='detailTotalPrice'>
+								<br />
+								<b
+									style={{
+										color: 'black',
+										float: 'left',
+										fontSize: '20px',
+									}}
+								>
+									공간사용료
+								</b>
+								<b>₩{totalPrice.toLocaleString('ko-KR')}</b>
+							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div
+				className='input-group'
+				style={{
+					width: '100%',
+					display: 'flex',
+					justifyContent: 'space-between',
+				}}
+			>
+				<button className='call'>
+					<CallIcon />
+					전화
+				</button>
+				<button
+					className='booking'
+					onClick={() => {
+						const stime =
+							selectTime1 > selectTime2
+								? selectTime2
+								: selectTime1;
+						const etime =
+							selectTime1 > selectTime2
+								? selectTime1
+								: selectTime2;
+						if (token) {
+							if (stime !== '' || etime !== '') {
+								window.location.href =
+									'/booking/detail?num=' +
+									num +
+									'&date=' +
+									moment(selectDay).format('YYYY-MM-DD') +
+									'&stime=' +
+									stime +
+									'&etime=' +
+									etime +
+									'&head=' +
+									inwon;
+							} else {
+								alert('시간 선택해주시기 바랍니다');
+							}
+						} else {
+							alert('로그인 해주시기 바랍니다');
+						}
+					}}
+				>
+					예약하기
+				</button>
 			</div>
 		</div>
 	);

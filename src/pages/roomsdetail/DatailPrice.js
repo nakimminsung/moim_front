@@ -5,6 +5,8 @@ import {SmsOutlined} from '@material-ui/icons';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import DeatilBooking from './DeatilBooking';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import CallIcon from '@material-ui/icons/Call';
 function DatailPrice(props) {
 	const [btnLike, setBtnLike] = useState(false);
 	const {num} = useParams();
@@ -31,7 +33,7 @@ function DatailPrice(props) {
 		setBtnLike((prev) => !prev);
 	};
 	return (
-		<div className='priceBanner' style={{width: '100%'}}>
+		<div className='priceBanner'>
 			<div className='priceEvent'>
 				<b style={{fontSize: '13px'}}>세부공간 선택 </b>
 				<span
@@ -70,8 +72,8 @@ function DatailPrice(props) {
 			<div
 				style={{
 					textAlign: 'center',
-					paddingTop: '40px',
-					paddingBottom: '30px',
+					paddingTop: '30px',
+					paddingBottom: '20px',
 				}}
 			>
 				{roomData.payment === '바로결제' ? (
@@ -94,71 +96,85 @@ function DatailPrice(props) {
 				<label style={{cursor: 'pointer'}}>
 					<input type={'radio'} checked />
 					<b> 공간 예약 </b>{' '}
-					<span>
-						<b style={{color: '#704de4'}}>
-							₩{roomData.weekAmPrice}
-						</b>
-						<span style={{fontSize: '12px'}}>/시간</span>
-					</span>
 				</label>
+				<span style={{float: 'right', paddingRight: '20px'}}>
+					<b style={{color: '#704de4'}}>
+						₩{Number(roomData.weekAmPrice).toLocaleString('ko-KR')}
+					</b>
+					<span style={{fontSize: '12px'}}>/시간</span>
+				</span>
 			</div>
 			<hr />
-			<div className='detailPriceInfo'>
-				<div className='detailPriceImg'>
-					<img
-						alt=''
-						src={roomData.thumbnailImage}
-						style={{height: '180px', width: '100%'}}
-					/>
-				</div>
-				<br />
-				<div>
-					<div>
-						<span>공간유형 : </span>
-						<span>{category[0]}</span>
+			<div>
+				<div className='detailPriceInfo'>
+					<div className='detailPriceImg' style={{padding: '14px'}}>
+						<img
+							alt=''
+							src={roomData.thumbnailImage}
+							style={{height: '200px', width: '100%'}}
+						/>
 					</div>
-					<div>
-						<span>예약시간 : </span>
-						<span>최소 1시간</span>
-					</div>
-					<div>
-						<span>수용인원 : </span>
-						<span>최대 {roomData.headcount}명</span>
-					</div>
-					<div>
-						<span>부가서비스</span>
-						<div className='facilityItem'>
-							{facility &&
-								facility.map((item, idx) => (
-									<div
-										key={idx}
-										style={{
-											textAlign: 'center',
-											width: '33%',
-										}}
-									>
-										<img
-											alt=''
-											src={item.imageUrl}
-											width='30'
-											height={30}
-										/>
-										&nbsp;&nbsp;
-										<p
+
+					<div style={{padding: '14px'}}>
+						<div className='spaceInfo'>
+							<span>
+								<ArrowRightIcon />
+								공간유형 :{' '}
+							</span>
+							<span>{category[0]}</span>
+						</div>
+						<div className='spaceInfo'>
+							<span>
+								<ArrowRightIcon />
+								예약시간 :{' '}
+							</span>
+							<span>최소 1시간</span>
+						</div>
+						<div className='spaceInfo'>
+							<span>
+								<ArrowRightIcon />
+								수용인원 :{' '}
+							</span>
+							<span>최대 {roomData.headcount}명</span>
+						</div>
+						<div style={{padding: '5px '}}>
+							<span>
+								<ArrowRightIcon />
+								부가서비스
+							</span>
+							<div className='facilityItem'>
+								{facility &&
+									facility.map((item, idx) => (
+										<div
+											key={idx}
 											style={{
-												fontSize: '12px',
-												marginRight: '17px',
+												textAlign: 'center',
+												width: '25%',
 											}}
 										>
-											{item.fname}
-										</p>
-									</div>
-								))}
+											<img
+												alt=''
+												src={item.imageUrl}
+												width='35'
+												height={35}
+											/>
+											&nbsp;&nbsp;
+											<p
+												style={{
+													fontSize: '12px',
+													marginLeft: '-8px',
+												}}
+											>
+												{item.fname}
+											</p>
+										</div>
+									))}
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<DeatilBooking />
+					<DeatilBooking />
+				</div>
 			</div>
 		</div>
 	);

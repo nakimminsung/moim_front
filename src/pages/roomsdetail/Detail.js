@@ -93,8 +93,6 @@ function Detail(props) {
 					top: '70px',
 					height: '2000px',
 					width: '100%',
-					overflowY: 'scroll',
-					overflowX: 'hidden',
 				}}
 			>
 				<DatailPrice />
