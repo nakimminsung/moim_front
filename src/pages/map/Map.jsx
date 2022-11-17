@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import TopMenu from './TopMenu';
 import Title from './Title';
-import List from './/List';
+import List from './List';
 import Content from './Content';
 import styled from '@emotion/styled/macro';
-import {Box} from '@mui/material';
-import {useParams} from 'react-router-dom';
+import { Box } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function Map(props) {
@@ -15,7 +15,7 @@ function Map(props) {
 	const [roomName, setRoomName] = useState('');
 	const [headCount, setHeadCount] = useState('');
 	const [address, setAddress] = useState('');
-	const {themeNum} = useParams();
+	const { themeNum } = useParams();
 
 	// 테마 데이터 select
 	const selectTheme = () => {
