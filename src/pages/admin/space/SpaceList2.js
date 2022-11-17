@@ -1,29 +1,32 @@
 import React, {useEffect, useState} from 'react';
-import {Favorite, Person, Sms} from '@material-ui/icons';
+import {Person} from '@material-ui/icons';
 import axios from 'axios';
 import RoomIcon from '@material-ui/icons/Room';
 
 function SpaceList2(props) {
-	const [spaceList, setSpaceList] = useState('');
+	const {sort, searchWord} = props;
+	const {spaceList, setSpaceList} = props;
 
 	const getSpaceList = () => {
-		let url = localStorage.url + '/spaceList'; //메인페이지에서 사용한 roomList와 동일
+		let url =
+			localStorage.url +
+			'/admin/spaceList?searchWord=' +
+			searchWord +
+			'&sort=' +
+			sort;
+
+		console.log(searchWord);
+		console.log(url);
 
 		axios.get(url).then((res) => {
-			// console.log(res.data);
-
-			var x = res.data;
-
-			setSpaceList(x);
-
-			// console.log(x.length);
+			setSpaceList(res.data);
 		});
 	};
 
 	useEffect(() => {
 		//방 리스트
 		getSpaceList();
-	}, []);
+	}, [sort, searchWord]);
 	return (
 		<div>
 			<div
@@ -81,7 +84,7 @@ function SpaceList2(props) {
 											marginBottom: '5px',
 										}}
 									/>
-									{data.address.split(' ')[1]}
+									{/* {data.address.split(' ')[1]} */}
 								</span>
 								<br />
 								<span>room tag list</span>

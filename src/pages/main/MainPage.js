@@ -19,7 +19,7 @@ function Mainpage(props) {
 					style={{display: 'flex', justifyContent: 'center'}}
 				>
 					<li>
-						<NavLink to={'/admin'}>관리자🐹</NavLink>
+						<NavLink to={'/admin'}>🐹 관리자 🐹</NavLink>
 					</li>
 					<li>
 						<NavLink to={'/host/slist'}>호스트 페이지</NavLink>

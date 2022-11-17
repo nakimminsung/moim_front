@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Person} from '@material-ui/icons';
 import axios from 'axios';
 import RoomIcon from '@material-ui/icons/Room';
 
 function SpaceList1(props) {
-	const [spaceList, setSpaceList] = useState('');
-	const [searchWord, setSearchWord] = useState('');
-	const [sort, setSort] = useState('and approvalStatus=1');
+	const {sort, searchWord} = props;
+	const {spaceList, setSpaceList} = props;
 
 	const getSpaceList = () => {
 		let url =
@@ -16,6 +15,7 @@ function SpaceList1(props) {
 			'&sort=' +
 			sort;
 
+		console.log(searchWord);
 		console.log(url);
 
 		axios.get(url).then((res) => {
@@ -26,17 +26,17 @@ function SpaceList1(props) {
 	useEffect(() => {
 		//방 리스트
 		getSpaceList();
-	}, []);
+	}, [sort, searchWord]);
 
 	return (
 		<div>
 			<div
 				className='spaceList'
 				style={{
-					marginTop: '20px',
+					marginTop: '10px',
 					width: '100%',
 					display: 'flex',
-					justifyContent: 'space-between',
+					justifyContent: 'flex-start',
 					flexWrap: 'wrap',
 				}}
 			>
@@ -46,12 +46,17 @@ function SpaceList1(props) {
 							style={{
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '300px',
+								// width: '300px',
+								// marginRight: '2%',
 								cursor: 'pointer',
 
 								marginBottom: '30px',
 								backgroundColor: 'white',
 								boxShadow: '0px 2px 2px 1px rgba(0 0 0 / 10%)',
+
+								width: '23%',
+								// height: '100%',
+								margin: '1%',
 							}}
 							key={idx}
 						>
@@ -61,6 +66,7 @@ function SpaceList1(props) {
 								style={{
 									width: '100%',
 									height: '200px',
+									// height: '70%',
 									borderRadius: '5px',
 								}}
 							/>

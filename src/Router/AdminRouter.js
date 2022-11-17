@@ -19,9 +19,7 @@ function AdminRouter() {
 				<Route path='' element={<AdminMain />} />
 				<Route path='member' element={<MemberManagement />} />
 				<Route path='host' element={<HostManagement />} />
-
 				<Route path='space' element={<SpaceManagement />} />
-
 				<Route path='report' element={<ReportManagement />} />
 				<Route path='notice' element={<NoticeManagement />} />
 				<Route path='theme' element={<ThemeManagement />} />
