@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -9,9 +9,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import DetailInfo from './DetailInfo';
 import DatailPrice from './DatailPrice';
-function Detail() {
+function Detail(props) {
 	const {num} = useParams();
-	const navi = useNavigate();
 	const [roomData, setRoomData] = useState(''); //룸정보
 	const [tag, setTag] = useState(''); //태그
 	const [img, setImg] = useState(''); //방이미지
@@ -27,8 +26,8 @@ function Detail() {
 	};
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
 		onSelectData(num);
+		window.scrollTo(0, 0);
 	}, []);
 
 	//Slick Setting(사진 넘기기)
@@ -48,11 +47,8 @@ function Detail() {
 	};
 
 	return (
-		<div
-			className='detailContainer'
-			style={{paddingLeft: '8%', paddingTop: '2%'}}
-		>
-			<div className='detailItem'>
+		<div className='detailContainer' style={{width: '100%'}}>
+			<div className='detailHeader' style={{width: '100%'}}>
 				<h2>
 					<b>{roomData.name}</b>
 				</h2>
@@ -65,36 +61,38 @@ function Detail() {
 					))}
 			</div>
 			<br />
-			<div className='sliderBanner'>
-				<Slider {...settings} style={{width: '600px'}}>
-					{img &&
-						img.map((row, idx) => (
-							<div>
-								<img
-									alt=''
-									src={row}
-									style={{
-										width: '600px',
-										height: '350px',
-										zIndex: '1',
-									}}
-								/>
-							</div>
-						))}
-				</Slider>
+			<div className='detailItem'>
+				<div className='sliderBanner'>
+					<Slider {...settings}>
+						{img &&
+							img.map((row, idx) => (
+								<div>
+									<img
+										alt=''
+										src={row}
+										style={{
+											width: '100%',
+											height: '430px',
+											zIndex: '1',
+										}}
+									/>
+								</div>
+							))}
+					</Slider>
 
-				<br />
-				<br />
+					<br />
+					<br />
 
-				<DetailInfo />
+					<DetailInfo />
+				</div>
 			</div>
 			<div
-				className='detailItem'
+				className='detailItem2'
 				style={{
 					position: 'sticky',
 					top: '70px',
-					height: '1000px',
-					width: '80%',
+					height: '2000px',
+					width: '100%',
 				}}
 			>
 				<DatailPrice />
