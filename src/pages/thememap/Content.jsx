@@ -16,17 +16,28 @@ function Test(props) {
 	const mapStart = () => {
 		//지도 생성 및 객체 리턴
 		let map = new kakao.maps.Map(container.current, options);
+
+		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+		// 지도 확대 축소를 제어할 수 있는 줌 컨트롤을 생성합니다
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
 		// 클러스터러 객체 생성 및 지도에 넣기
 		let clusterer = new kakao.maps.MarkerClusterer({
 			map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
 			averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-			minLevel: 10, // 클러스터 할 최소 지도 레벨
+			minLevel: 2, // 클러스터 할 최소 지도 레벨
 			disableClickZoom: true, // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
 		});
 
+		// marker image setting
 		let imageSrc =
-			'https://github.com/MoiM-Project/data/blob/main/map/maker_image2.gif?raw=true';
-		let imageSize = new kakao.maps.Size(194, 179);
+			'https://img.icons8.com/office/40/000000/place-marker--v2.png';
+		let imageSize = new kakao.maps.Size(40, 40);
 		let imageOption = {offset: new kakao.maps.Point(27, 69)};
 		let markerImage = new kakao.maps.MarkerImage(
 			imageSrc,
@@ -35,20 +46,21 @@ function Test(props) {
 		);
 
 		// 마커 생성
-		// let markers = down.positions.map((position, i) => {
-		let markers = roomData.map((position, i) => {
-			return new kakao.maps.Marker({
+		let markers = down.positions.map((position, i) => {
+			// let markers = roomData.map((position, i) => {
+			let marker = new kakao.maps.Marker({
 				image: markerImage, // 마커이미지 설정
 				position: new kakao.maps.LatLng(
 					parseFloat(position.lat),
 					parseFloat(position.lng),
 				),
 			});
+			return marker;
 		});
 		// 클러스터러에 마커들을 추가합니다
 		clusterer.addMarkers(markers);
 
-		// 이벤트리스너
+		// 클러스터러 클릭 이벤트
 		kakao.maps.event.addListener(
 			clusterer,
 			'clusterclick',
@@ -70,7 +82,12 @@ function Test(props) {
 		<>
 			<div
 				className='map'
-				style={{width: '100%', height: '85vh'}}
+				style={{
+					width: '100%',
+					height: '85vh',
+					marginTop: '10px',
+					marginRight: '10px',
+				}}
 				ref={container}
 			></div>
 		</>

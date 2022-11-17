@@ -7,6 +7,7 @@ import styled from '@emotion/styled/macro';
 import {Box} from '@mui/material';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
+import Test from './Test';
 
 function Map(props) {
 	const [themeData, setThemeData] = useState('');
@@ -84,6 +85,7 @@ function Map(props) {
 				</ListDiv>
 				<ContentDiv>
 					<Content roomData={roomData} />
+					{/* <Test roomData={roomData} /> */}
 				</ContentDiv>
 			</Bottom>
 		</Wrapper>

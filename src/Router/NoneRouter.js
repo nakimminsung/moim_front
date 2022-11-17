@@ -2,7 +2,7 @@ import React from 'react';
 import ThemeContainer from '../containers/ThemeContainer';
 import {Route, Routes} from 'react-router-dom';
 import CategoryMap from '../pages/categoryMap/CategoryMap';
-import Map from '../pages/map/Map';
+import Map from '../pages/thememap/Map';
 
 function NoneRouter() {
 	return (
