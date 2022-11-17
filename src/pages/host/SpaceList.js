@@ -1,5 +1,5 @@
 import {Box, Button} from '@material-ui/core';
-import {Checkbox} from '@mui/material';
+import {Checkbox, Pagination} from '@mui/material';
 import {padding} from '@mui/system';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
@@ -14,6 +14,26 @@ function SpaceList(props) {
 	const [checked, setChecked] = useState(0);
 
 	const [spacelist, setSpacelist] = useState([]);
+
+	//페이징 처리 부분
+
+	// const [posts, setPosts] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [postsPerPage, setPostsPerPage] = useState(3);
+
+	useEffect(() => {
+		let listUrl = localStorage.url + '/host/list';
+		const fetchData = async () => {
+			setLoading(true);
+			const response = axios.get(listUrl);
+			setSpacelist((await response).data);
+			setLoading(false);
+		};
+		fetchData();
+	}, []);
+
+	console.log(spacelist);
 
 	const list = () => {
 		let listUrl = localStorage.url + '/host/list';
@@ -74,6 +94,7 @@ function SpaceList(props) {
 			<br />
 			<br />
 			<div className='spacelist'>
+				{loading && <div> loading...</div>}
 				{spacelist.map((r, i) => (
 					<BoxSpace key={i}>
 						<Inner>
@@ -171,6 +192,7 @@ function SpaceList(props) {
 						</Inner>
 					</BoxSpace>
 				))}
+				{/* <PaginList /> */}
 			</div>
 		</RoomList>
 	);
