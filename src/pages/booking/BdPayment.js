@@ -23,6 +23,7 @@ function BdPayment({
 	roomData,
 	payment,
 	onSend,
+	roomOption,
 }) {
 	// 모달
 	const [open, setOpen] = React.useState(false);
@@ -254,7 +255,7 @@ function BdPayment({
 						) : (
 							<Button
 								onClick={() => {
-									onSend(2);
+									onSend(2, roomOption);
 									handleClose();
 								}}
 								color='primary'

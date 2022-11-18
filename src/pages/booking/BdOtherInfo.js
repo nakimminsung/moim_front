@@ -255,7 +255,12 @@ function BdOtherInfo(props) {
 					</Accordion>
 				))}
 				<InfoIcon style={{color: 'red', fontSize: 'small'}} />
-				<span style={{color: 'red', fontSize: 'small'}}>
+				<span
+					style={{
+						color: 'red',
+						fontSize: 'small',
+					}}
+				>
 					서비스 이용약관 동의는 필수입니다.
 				</span>
 			</div>

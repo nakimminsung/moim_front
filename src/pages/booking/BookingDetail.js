@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
-import {useLocation, useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import './booking.css';
 import Button from '@material-ui/core/Button';
 import BdOtherInfo from './BdOtherInfo';
@@ -37,10 +37,7 @@ function BookingDetail() {
 
 	//url
 	const url = `http://localhost:9000/room/detail?num=${num}`;
-	const cUrl = `http://localhost:9000/room/category?num=${num}`;
-	const fUrl = `http://localhost:9000/room/facility?num=${num}`;
 	const oUrl = `http://localhost:9000/room/option?num=${num}`;
-	const imgUrl = 'http://localhost:9000/image/';
 
 	let totalPrice = price + optionPrice;
 
@@ -92,7 +89,7 @@ function BookingDetail() {
 		count: 0,
 		roomNum: num,
 		roptionNum: 0,
-		name: '',
+		name: ``,
 		price: 0,
 	};
 
@@ -121,7 +118,22 @@ function BookingDetail() {
 		e.target.src = defaultImg;
 	};
 
-	const onSend = (bookingStatus) => {
+	let options = new Array();
+
+	for (let i = 0; i < optionInsertList.length; i++) {
+		console.log(optionInsertList[i].count);
+		if (optionInsertList[i].count > 0) {
+			let string = ``;
+			string = `${optionInsertList[i].name} ${optionInsertList[i].count}`;
+
+			options.push(string);
+		}
+	}
+	let roomOption = options.join(',');
+	console.log(roomOption);
+
+	const onSend = (bookingStatus, roomOption) => {
+		console.log('ㄴㄴ' + roomOption);
 		// 요청사항
 		let request = contentRef.current.value;
 		let insertUrl = 'http://localhost:9000/bookingDetail/insert';
@@ -140,6 +152,7 @@ function BookingDetail() {
 				bookingStatus,
 				roomNum,
 				userNum,
+				roomOption,
 			})
 			.then((res) => {
 				setName('');
@@ -190,7 +203,6 @@ function BookingDetail() {
 		});
 		setOptionPrice(total);
 	};
-	console.log(jwt_decode(localStorage.getItem('token')).email);
 
 	// 결제
 	function payment(data) {
@@ -215,7 +227,7 @@ function BookingDetail() {
 							' / merchant_uid(orderKey) : ' +
 							rsp.merchant_uid,
 					);
-					onSend(5);
+					onSend(5, roomOption);
 				} else {
 					alert(
 						'실패 : 코드(' +
@@ -535,6 +547,7 @@ function BookingDetail() {
 								roomData={roomData}
 								payment={payment}
 								onSend={onSend}
+								roomOption={roomOption}
 							/>
 						</div>
 					</div>
