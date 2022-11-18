@@ -1,5 +1,6 @@
 import {Button, TextField} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
+import styled from 'styled-components';
 
 function SpaceTag(props) {
 	const {roomNum, onchange1, onchange2} = props;
@@ -8,8 +9,7 @@ function SpaceTag(props) {
 
 	return (
 		<div>
-			<h3>공간 태그</h3>
-			<div>
+			<div className='input-group'>
 				<TextField
 					id='tag'
 					style={{margin: 8, width: '800px'}}
@@ -21,12 +21,37 @@ function SpaceTag(props) {
 					size='small'
 					onKeyUp={onchange2}
 				/>
-				<Button variant='contained' color='primary' onClick={onchange1}>
-					추가
-				</Button>
+				<BtnBox>
+					<BtnLabel>
+						<div onClick={onchange1}>추가</div>
+					</BtnLabel>
+				</BtnBox>
 			</div>
 		</div>
 	);
 }
 
 export default SpaceTag;
+const BtnBox = styled.div`
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-left: 10px;
+	overflow: hidden;
+	width: 154px;
+	line-height: 50px;
+`;
+
+const BtnLabel = styled.label`
+	cursor: pointer;
+	display: block;
+	background-color: #704de4;
+	border: 0;
+	color: #fff;
+	text-align: center;
+	border-radius: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	line-height: 50px;
+`;
