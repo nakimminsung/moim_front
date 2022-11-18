@@ -19,7 +19,7 @@ import { Box, Typography } from '@mui/material';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-function Cards(props) {
+function RoomCard(props) {
     const [tagData, setTagData] = useState([]);
     const [imageData, setImageData] = useState([]);
     const [reviewCount, setReviewCount] = useState('');
@@ -62,25 +62,22 @@ function Cards(props) {
         setActiveStep(step);
     };
 
-    // 
-
     return (
         <CardWrapper>
             <Card>
                 <CardActionArea>
                     <Box>
-                        <AutoPlaySwipeableViews
+                        <CardAction
                             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                             index={activeStep}
                             onChangeIndex={handleStepChange}
                             enableMouseEvents
-                            className='img'
                         >
                             {imageData &&
                                 imageData.map((step, index) => (
                                     <ImageDiv key={step.label}>
                                         {Math.abs(activeStep - index) <= 2 ? (
-                                            <Box
+                                            <ImageBox
                                                 component='img'
                                                 sx={{
                                                     height: '100%',
@@ -90,7 +87,6 @@ function Cards(props) {
                                                     overflow: 'hidden',
                                                     width: '100%',
                                                 }}
-                                                className='scale'
                                                 id='image'
                                                 src={step.rimageUrl}
                                                 alt={step.label}
@@ -104,7 +100,7 @@ function Cards(props) {
                                         ) : null}
                                     </ImageDiv>
                                 ))}
-                        </AutoPlaySwipeableViews>
+                        </CardAction>
                         <ImageButtonDiv
                             style={{
                                 display:
@@ -196,7 +192,7 @@ function Cards(props) {
     );
 }
 
-export default Cards;
+export default RoomCard;
 
 const ImageDiv = styled(Box)`
 	overflow: hidden;
@@ -284,14 +280,12 @@ const LikeCount = styled(Typography)`
 `;
 const CardWrapper = styled(Typography)`
 	@media (max-width: 1920px) {
-		width: 33%;
+		width:33%;
 		padding: 5px;
-        margin-bottom:40px;
 	}
 	@media (max-width: 1680px) {
-		width: 33%;
-		padding: 7px;
-        margin-bottom:30px;
+		width: 33.3%;
+		padding: 5px;
 	}
 	@media (max-width: 1000px) {
 		width: 50%;
@@ -300,5 +294,25 @@ const CardWrapper = styled(Typography)`
 	@media (max-width: 900px) {
 		width: 100%;
 		padding-bottom: 5px;
+	}
+`;
+const CardAction = styled(AutoPlaySwipeableViews)`
+	width: 100%;
+	height: 200px;
+	overflow: hidden;
+`;
+const ImageBox = styled(Box)`
+	transform: scale(1);
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
+	:hover {
+		transform: scale(1.1);
+		-webkit-transform: scale(1.1);
+		-moz-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		-o-transform: scale(1.1);
 	}
 `;

@@ -49,6 +49,11 @@ function Filtering(props) {
         setHeadCount,
         // sort,
         // setSort,
+        setPayment,
+        setSprice,
+        setEprice,
+        setSearch,
+        setFacility,
     } = props;
 
 
@@ -274,7 +279,15 @@ function Filtering(props) {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <FilterContent />
+                        <FilterContent
+                            setPayment={setPayment}
+                            setSprice={setSprice}
+                            setEprice={setEprice}
+                            setFacility={setFacility}
+                            setAnchorEl={setAnchorEl}
+                            setRoomName={setRoomName}
+                            setSearch={setSearch}
+                        />
                     </Menu>
                 </div>
             </Middle>
