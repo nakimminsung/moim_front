@@ -75,6 +75,8 @@ function MemberManagement(props) {
 				/>
 			</div>
 
+			<br />
+
 			<div style={{display: 'flex', justifyContent: 'space-between'}}>
 				{/* 검색 여부에 따른 삼항 연산자 */}
 				<div style={{marginLeft: '10px', paddingTop: '5px'}}>
@@ -82,7 +84,7 @@ function MemberManagement(props) {
 						//검색단어 있으면서, 결과가 있을때
 						memberList.length !== 0 ? (
 							<b>
-								{{searchWord}.searchWord} (으)로 검색된 회원 :{' '}
+								"{{searchWord}.searchWord}" (으)로 검색된 회원 :{' '}
 								{memberList.length} 개
 							</b>
 						) : (
