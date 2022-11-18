@@ -17,7 +17,6 @@ import styled1 from 'styled-components';
 // import {Button} from '@mui/material';
 
 import {useNavigate} from 'react-router-dom';
-import {set} from 'date-fns';
 
 //다이얼로그에 필요한 코드들
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -172,8 +171,8 @@ function SpaceAddForm(props) {
 				// 	locationX: location.address.x,
 				// 	locationY: location.address.y,
 				// });
-				setLat(res.data.documents[0].address.x);
-				setLng(res.data.documents[0].address.y);
+				setLng(res.data.documents[0].address.x);
+				setLat(res.data.documents[0].address.y);
 			});
 	}, [address]);
 

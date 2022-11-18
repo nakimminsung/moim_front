@@ -1,11 +1,12 @@
 import {Box, Button} from '@material-ui/core';
 import {Checkbox} from '@mui/material';
-import {padding} from '@mui/system';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import Toggle from './Toggle';
+import {data} from 'autoprefixer';
+import Pagenation from './Pagenation';
 
 function SpaceList(props) {
 	localStorage.url = 'http://localhost:9000';
@@ -13,16 +14,34 @@ function SpaceList(props) {
 	let imageUrl = localStorage.url + '/image/';
 	const [checked, setChecked] = useState(0);
 
+	// 페이징 처리
 	const [spacelist, setSpacelist] = useState([]);
+	const [limit, setLimit] = useState(3);
+	const [page, setPage] = useState(1);
+	const offset = (page - 1) * limit;
 
-	const list = () => {
+	useEffect(() => {
 		let listUrl = localStorage.url + '/host/list';
-		console.log(listUrl);
-		axios.get(listUrl).then((res) => {
-			setSpacelist(res.data);
-			// console.log(11);
-		});
-	};
+		// console.log(listUrl);
+		fetch(listUrl)
+			.then((res) => res.json())
+			.then((data) => setSpacelist(data));
+		// console.log(checked);
+	}, [checked]);
+
+	// console.log(spacelist);
+
+	// const list = () => {
+	// 	let listUrl = localStorage.url + '/host/list';
+	// 	console.log(listUrl);
+	// 	axios.get(listUrl).then((res) => {
+	// 		setSpacelist(res.data);
+	// 	});
+	// };
+	// useEffect(() => {
+	// 	// setChecked(checked);
+	// 	console.log(checked);
+	// }, [checked]);
 
 	const updateStaus = (idx, checked) => {
 		let statusUrl =
@@ -35,11 +54,6 @@ function SpaceList(props) {
 		// console.log('checked' + checked);
 		axios.patch(statusUrl).then((res) => {});
 	};
-
-	useEffect(() => {
-		// console.log(useEffect);
-		list();
-	}, [checked]);
 
 	const navi = useNavigate();
 
@@ -74,7 +88,7 @@ function SpaceList(props) {
 			<br />
 			<br />
 			<div className='spacelist'>
-				{spacelist.map((r, i) => (
+				{spacelist.slice(offset, offset + limit).map((r, i) => (
 					<BoxSpace key={i}>
 						<Inner>
 							<div>
@@ -171,6 +185,33 @@ function SpaceList(props) {
 						</Inner>
 					</BoxSpace>
 				))}
+			</div>
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+
+			<div>
+				<Pagenation
+					total={spacelist.length}
+					limit={limit}
+					page={page}
+					setPage={setPage}
+				/>
 			</div>
 		</RoomList>
 	);
