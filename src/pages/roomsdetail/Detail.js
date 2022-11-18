@@ -89,7 +89,6 @@ function Detail(props) {
 			<div
 				className='detailItem2'
 				style={{
-					position: 'sticky',
 					top: '70px',
 					height: '2000px',
 					width: '100%',

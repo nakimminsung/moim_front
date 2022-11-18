@@ -170,7 +170,7 @@ function BdOtherInfo(props) {
 						color: 'red',
 					}}
 				/>
-				<label for='all-check' style={{marginTop: '8px'}}>
+				<label htmlFor='all-check' style={{marginTop: '8px'}}>
 					전체동의
 				</label>
 			</div>

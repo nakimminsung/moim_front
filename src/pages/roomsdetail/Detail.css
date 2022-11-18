@@ -164,8 +164,19 @@
 	line-height: 40px;
 	color: #cc8c28;
 	background-color: #ffd014;
+	cursor: pointer;
 }
-
+.smallTimecolor {
+	background-color: #704de4;
+	width: auto;
+	height: 40px;
+	border: 1px solid #5940ac;
+	text-align: center;
+	font-size: 10px;
+	line-height: 40px;
+	color: #fff;
+	cursor: pointer;
+}
 /*인원 수*/
 .detailInwon {
 	display: flex;
@@ -180,9 +191,10 @@
 	line-height: 40px;
 	background-color: #f5f5f5;
 	color: #a0a0a0;
+	cursor: pointer;
 }
 .detailInputInwon {
-	width: 130px;
+	width: 150;
 	border: 1px solid lightgray;
 	text-align: center;
 	line-height: 40px;

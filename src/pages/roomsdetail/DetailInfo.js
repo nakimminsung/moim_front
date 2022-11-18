@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {Link} from 'react-scroll';
-import DetailReview from './DetailReview';
+import DetailQna from './DetailQna';
 
 function DetailInfo(props) {
 	const {num} = useParams();
@@ -258,7 +258,7 @@ function DetailInfo(props) {
 					marginTop: '120px',
 				}}
 			>
-				<b style={{borderBottom: '2px solid #ffd014'}} id='4'>
+				<b style={{borderBottom: '2px solid #ffd014'}} id='34'>
 					환불규정 안내
 				</b>
 				<br />
@@ -310,7 +310,7 @@ function DetailInfo(props) {
 					<span>환불 불가</span>
 				</span>
 			</div>
-			<DetailReview />
+			<DetailQna />
 		</div>
 	);
 }

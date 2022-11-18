@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import './booking.css';
 import Button from '@material-ui/core/Button';
@@ -14,6 +14,7 @@ import BdOtherInfo from './BdOtherInfo';
 import defaultImg from './img/404.png';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import queryString from 'query-string';
 
 function BookingDetail() {
 	const [roomData, setRoomData] = useState('');
@@ -24,8 +25,9 @@ function BookingDetail() {
 	const [phone, setPhone] = useState('');
 	const [email, setEmail] = useState('');
 	const [purpose, setPurpose] = useState('');
-	const [bs, setBs] = useState('');
+	const [bookingStatus, setBookingStatus] = useState('');
 	const [hostNum, setHostNum] = useState('');
+	const [totalPrice, setTotalPrice] = useState('');
 	// 요청사항 (textarea)
 	const contentRef = useRef('');
 	//const bookingTime
@@ -34,20 +36,24 @@ function BookingDetail() {
 	// 옵션 수량 버튼
 	const [optionPrice, setOptionPrice] = useState('');
 
+	// 상세페이지 값들
+	const {search} = useLocation();
+	const {num, date, head, stime, etime} = queryString.parse(search);
+
 	const navi = useNavigate();
-	//const { num } = useParams();
-	const num = 1;
+
 	const url = `http://localhost:9000/room/detail?num=${num}`;
 	const cUrl = `http://localhost:9000/room/category?num=${num}`;
 	const fUrl = `http://localhost:9000/room/facility?num=${num}`;
 	const oUrl = `http://localhost:9000/room/option?num=${num}`;
+	const imgUrl = 'http://localhost:9000/image/';
+
 	let roomPrice = roomData.weekAmPrice;
-	let totalPrice = roomPrice + optionPrice;
-	let bookingStatus = bs;
+	//let totalPrice = roomPrice + optionPrice;
+	//let bookingStatus = bs;
 	let userNum = 1;
-	let roomNum = num;
 	let bookingTime = '10';
-	let headCount = 50;
+	let headCount = head;
 
 	const selectRoomData = () => {
 		axios.get(url).then((res) => {
@@ -68,6 +74,39 @@ function BookingDetail() {
 		});
 	};
 
+	// 총 가격 계산
+	const priceSum = () => {
+		let price = 0;
+		let bookingDate = new Date(date);
+		console.log('bb' + bookingDate);
+		console.log('stime' + Number(stime));
+		console.log(typeof Number(stime));
+		console.log(typeof Number(etime));
+
+		console.log('ss' + bookingDate.getDay());
+		console.log(typeof bookingDate.getDay());
+
+		for (let i = Number(stime); i <= Number(etime); i++) {
+			//주말 오전 오후 가격
+			if (bookingDate.getDay() === 0 || bookingDate.getDay() === 6) {
+				if (i >= 6 && i <= 18) {
+					price += roomData.holiAmPrice;
+				} else {
+					price += roomData.holiPmPrice;
+				}
+			} else {
+				//평일 오전 오후 가격
+				if (i >= 6 && i <= 18) {
+					price += roomData.weekAmPrice;
+				} else {
+					price += roomData.weekPmPrice;
+				}
+			}
+		}
+		console.log('price' + price);
+		setTotalPrice(price);
+	};
+
 	// 옵션 초기값
 	const initialState = {
 		count: 0,
@@ -82,9 +121,7 @@ function BookingDetail() {
 
 	const selectOptionData = () => {
 		axios.get(oUrl).then((res) => {
-			console.log(res.data);
 			setOptionList(res.data);
-			//setCount(count);
 
 			let options = [];
 
@@ -95,11 +132,8 @@ function BookingDetail() {
 					name: res.data[i].oname,
 					price: res.data[i].price,
 				};
-				//optionInsertList[i]=initialState;
 			}
 			setOptionInsertList(options);
-
-			//console.log('count: ' + count);
 		});
 	};
 
@@ -137,7 +171,7 @@ function BookingDetail() {
 				request,
 				totalPrice,
 				bookingStatus,
-				roomNum,
+				num, // roomNum
 				userNum,
 			})
 			.then((res) => {
@@ -180,7 +214,6 @@ function BookingDetail() {
 
 		setOptionInsertList(options);
 		totalOptionSum(options);
-		//	console.log('idx: ' + idx);
 	};
 
 	// 옵션 가격 계산
@@ -205,7 +238,7 @@ function BookingDetail() {
 				pay_method: 'card', //지불 방법
 				merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
 				name: roomData.name, //결제창에 노출될 상품명
-				amount: 13700, //금액
+				amount: totalPrice, //금액
 				buyer_email: 'testiamport@naver.com',
 				buyer_name: '홍길동',
 				buyer_tel: '01012341234',
@@ -253,6 +286,10 @@ function BookingDetail() {
 		}
 	}, [phone]);
 
+	useEffect(() => {
+		priceSum();
+	}, [totalPrice]);
+
 	return (
 		<>
 			<form>
@@ -283,8 +320,7 @@ function BookingDetail() {
 								<div className='bdSpaceInfo'>
 									<img
 										alt=''
-										// src={require(`./img/404.png`)}
-										src={roomData.thumbnailImage}
+										src={imgUrl + roomData.thumbnailImage}
 										width='200'
 										height={200}
 									/>
@@ -364,9 +400,7 @@ function BookingDetail() {
 									}}
 								>
 									<p>예약날짜</p>
-									<p style={{marginLeft: 'auto'}}>
-										2022-11-08
-									</p>
+									<p style={{marginLeft: 'auto'}}>{date}</p>
 								</div>
 								<div
 									style={{
@@ -375,7 +409,7 @@ function BookingDetail() {
 									}}
 								>
 									<p>예약인원</p>
-									<p style={{marginLeft: 'auto'}}>2명</p>
+									<p style={{marginLeft: 'auto'}}>{head}명</p>
 								</div>
 							</div>
 
@@ -619,7 +653,7 @@ function BookingDetail() {
 							<div className='otherInfo'>
 								<BdOtherInfo
 									hostNum={hostNum}
-									roomNum={roomNum}
+									roomNum={num} // roomNum
 								/>
 							</div>
 						</div>
@@ -635,12 +669,16 @@ function BookingDetail() {
 							<div className='bdPrice'>
 								<div>
 									<p>
-										예약날짜&nbsp;&nbsp;<b>2022-11-25</b>
+										예약날짜&nbsp;&nbsp;<b>{date}</b>
 									</p>
 									<div style={{display: 'flex'}}>
 										<p>
 											예약시간&nbsp;&nbsp;
-											<b>11시~16시, 5시간</b>&nbsp;&nbsp;
+											<b>
+												{stime}시~{Number(etime) + 1}시,{' '}
+												{Number(etime) + 1 - stime}시간
+											</b>
+											&nbsp;&nbsp;
 										</p>
 										<p
 											style={{
@@ -805,7 +843,7 @@ function BookingDetail() {
 													color: '#704de4',
 												}}
 											>
-												₩60000
+												₩{totalPrice}
 											</span>
 											<hr />
 											{roomData.payment === '바로결제' ? (
@@ -837,7 +875,7 @@ function BookingDetail() {
 										{roomData.payment === '바로결제' ? (
 											<Button
 												onClick={() => {
-													setBs('5');
+													setBookingStatus('5');
 													payment();
 													handleClose();
 												}}
@@ -850,7 +888,7 @@ function BookingDetail() {
 										) : (
 											<Button
 												onClick={() => {
-													setBs('2');
+													setBookingStatus('2');
 													onSend();
 													handleClose();
 												}}

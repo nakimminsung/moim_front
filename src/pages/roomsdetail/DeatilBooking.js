@@ -18,7 +18,6 @@ function DeatilBooking(props) {
 	const [showCalendar, setShowCalendar] = useState(false);
 	const [showTime, setShowTime] = useState(false);
 	const [inwon, setInwon] = useState(1);
-	const [sc, setSc] = useState([]);
 	const [selectTime1, setSelectTime1] = useState('');
 	const [selectTime2, setSelectTime2] = useState('');
 	const [totalPrice, setTotalPrice] = useState(0);
@@ -37,10 +36,11 @@ function DeatilBooking(props) {
 	//시간 배열
 	const onTime = (stime, etime) => {
 		let times = [];
-		for (var i = stime; i <= etime; i++) {
+		for (let i = Number(stime); i <= Number(etime); i++) {
 			times.push(i);
 		}
 		setBusinessHour(times);
+		console.log(times);
 	};
 
 	//날짜 선택 시
@@ -70,19 +70,22 @@ function DeatilBooking(props) {
 	};
 	//시간 선택
 	const selectTime = (e) => {
-		e.preventDefault();
-
 		if (selectTime1 !== '' && selectTime2 !== '') {
 			setSelectTime2('');
-			setSelectTime1(e.target.dataset.hour);
+			setSelectTime1(Number(e.target.dataset.hour));
 		} else if (selectTime1 !== '') {
-			setSelectTime2(e.target.dataset.hour);
+			setSelectTime2(Number(e.target.dataset.hour));
 		} else {
-			setSelectTime1(e.target.dataset.hour);
+			setSelectTime1(Number(e.target.dataset.hour));
 		}
 	};
-	const calculatePay = () => {
+	const calculatePay = (e) => {
 		if (selectTime1 === '' || selectTime2 === '') {
+			for (let s = roomData.stime; s <= roomData.etime; s++) {
+				document
+					.getElementById('smallTime' + s)
+					.classList.remove('smallTimecolor');
+			}
 			return;
 		}
 		let selectStime = '';
@@ -96,9 +99,13 @@ function DeatilBooking(props) {
 		}
 
 		//금액 계산
-		var price = 0;
-		for (var i = selectStime; i <= selectEtime; i++) {
-			console.log('a' + i);
+		let price = 0;
+		for (let i = selectStime; i <= selectEtime; i++) {
+			//console.log('a' + i)
+			if (selectStime !== '' || selectEtime !== '') {
+				document.getElementById('smallTime' + i).className +=
+					' smallTimecolor';
+			}
 
 			//주말 오전 오후 가격
 			if (selectDay.getDay() === 0 || selectDay.getDay() === 6) {
@@ -117,11 +124,10 @@ function DeatilBooking(props) {
 			}
 		}
 		setTotalPrice(price);
-		console.log(totalPrice);
 	};
 
 	//Slick Setting(사진 넘기기)
-	var settings = {
+	let settings = {
 		dots: false, //하단 점
 		infinite: false, //무한 반복 옵션
 		speed: 500, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
@@ -303,11 +309,12 @@ function DeatilBooking(props) {
 						{businessHour &&
 							businessHour.map((item, idx) => (
 								<div>
-									<span>{idx}</span>
+									<span>{item}</span>
 									<div
 										className='smallTime'
 										onClick={selectTime}
 										data-hour={item}
+										id={'smallTime' + item}
 									>
 										{selectDay
 											? selectDay.getDay() === 0 ||

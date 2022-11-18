@@ -1,13 +1,11 @@
 import React from 'react';
+import {useParams} from 'react-router-dom';
 
 function DetailReview(props) {
+	const {num} = useParams();
+
 	return (
 		<div>
-			<div id='5' style={{marginTop: '100px'}}>
-				<b style={{borderBottom: '2px solid #ffd014'}}>Q&A 개</b>
-				<br />
-				<br />
-			</div>
 			<div id='6' style={{marginTop: '100px'}}>
 				<b style={{borderBottom: '2px solid #ffd014'}}>
 					이용후기 개 • 평균평점 점
