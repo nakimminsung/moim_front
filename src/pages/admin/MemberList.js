@@ -1,37 +1,31 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
 function MemberList(props) {
-	const [memberList, setMemberList] = useState('');
+	const {memberList, setMemberList} = props;
+	const {sort, searchWord} = props;
 
 	const getMemberList = () => {
-		let url = localStorage.url + '/admin/memberList';
-
-		// console.log(url);
+		let url =
+			localStorage.url +
+			'/admin/memberList?searchWord=' +
+			searchWord +
+			'&sort=' +
+			sort;
 
 		axios.get(url).then((res) => {
-			// console.log(res.data);
-
-			var x = res.data;
-
-			setMemberList(x);
-
-			// console.log(x.length);
+			setMemberList(res.data);
 		});
 	};
 
 	useEffect(() => {
 		//멤버 리스트 가져오기
 		getMemberList();
-	}, []);
+	}, [sort, searchWord]);
 
 	return (
 		<div>
 			<div style={{marginTop: '20px', width: '100%'}}>
-				<br />
-				<p>
-					<b>총 게스트 회원 : </b>
-				</p>
 				<div className='memberTable'>
 					<table>
 						<thead style={{textAlign: 'center'}}>
@@ -45,8 +39,19 @@ function MemberList(props) {
 							</tr>
 						</thead>
 						<tbody>
-							{/* 카테고리 img + 카테고리 name 을 묶은 div 반복 구간 */}
-							{memberList &&
+							{memberList.length === 0 ? (
+								//데이터가 없을때
+								<tr>
+									<td
+										colSpan={6}
+										style={{textAlign: 'center'}}
+									>
+										<h5>등록된 회원이 없습니다</h5>
+									</td>
+								</tr>
+							) : (
+								//데이터가 있을때
+								// memberList &&
 								memberList.map((row, idx) => (
 									<tr key={idx}>
 										<td>{idx + 1}</td>
@@ -56,7 +61,8 @@ function MemberList(props) {
 										<td>{row.updated_at}</td>
 										<td>공란</td>
 									</tr>
-								))}
+								))
+							)}
 						</tbody>
 					</table>
 				</div>

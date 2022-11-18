@@ -1,8 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import mlogo from '../../asset/logo/m_logo_removebg.png';
-
 function AdminMenu(props) {
 	return (
 		<div>
@@ -29,6 +27,7 @@ function AdminMenu(props) {
 					style={{
 						borderRadius: '10px',
 						paddingLeft: '30px',
+						marginTop: '15px',
 					}}
 				>
 					<NavLink to={'/'} className='NavLink'>

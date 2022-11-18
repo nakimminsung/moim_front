@@ -2,10 +2,13 @@ import React, {useEffect} from 'react';
 import {Person} from '@material-ui/icons';
 import axios from 'axios';
 import RoomIcon from '@material-ui/icons/Room';
+import {useNavigate} from 'react-router-dom';
 
 function SpaceList2(props) {
 	const {sort, searchWord} = props;
 	const {spaceList, setSpaceList} = props;
+
+	const navi = useNavigate(); //공간 클릭 시 상세페이지로 이동
 
 	const getSpaceList = () => {
 		let url =
@@ -58,6 +61,9 @@ function SpaceList2(props) {
 								padding: '10px 10px 10px',
 							}}
 							key={idx}
+							onClick={() => {
+								navi('/detail/' + data.num);
+							}}
 						>
 							{/* 방 이미지 */}
 							<div>

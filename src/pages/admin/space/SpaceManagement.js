@@ -2,29 +2,23 @@ import {SearchRounded} from '@material-ui/icons';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ViewListIcon from '@material-ui/icons/ViewList';
 
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import SpaceList1 from './SpaceList1';
 import SpaceList2 from './SpaceList2';
 
 function SpaceManagement(props) {
-	// 검색 버튼클릭 시 searchWord에 저장되도록 Ref 사용
+	//useState 가 아닌 버튼 클릭 시 searchWord에 저장되도록 Ref 사용
 	const input = useRef(null);
 
-	// 최초에 전체 갯수에 대한 문구 지정
-	const [defaultCount, setDefaultCount] = useState('총 갯수는 ');
-
-	// 검색 결과 갯수에 대한 문구 지정 (비워두기)
-	const [searchCount, setSearchCount] = useState('');
-
-	//공간 목록 선언 (자식 컴포넌트에 props 로 넘김)
+	//공간 목록 선언 (하위에서 사용될 변수)
 	const [spaceList, setSpaceList] = useState('');
 
 	//최초 보여지는 테마 = 1번
 	const [show, setShow] = useState(1);
 
-	//하위 컴포넌트 (SpaceList1 , SpaceList2) 에 props 로 'searchWord', 'sort' 값 전달하기
-	const [sort, setSort] = useState('');
+	//하위 List 컴포넌트에 전달 될 sort 와 searchWord
+	const [sort, setSort] = useState('and approvalStatus=1');
 	const [searchWord, setSearchWord] = useState('');
 
 	//Select Option 에 따른 값 변경 (set Sort)
@@ -33,25 +27,18 @@ function SpaceManagement(props) {
 		setSort(e.target.value);
 	};
 
-	//돋보기(검색) 버튼 클릭 시 이벤트
-	const handleClick = (e) => {
-		//searchWord에 입력값 저장
-		setSearchWord(input.current.value);
-
-		// '총 갯수는 ' 문구 제거
-		setDefaultCount('');
-		setSearchCount(
-			'"' + {searchWord}.searchWord + '" (으)로 검색된 공간 : ',
-		);
-
-		console.log('managenent console = ' + {searchWord}.searchWord);
-	};
-
 	//input text 에 엔터키 적용시키기
 	const handleOnKeyPress = (e) => {
 		if (e.key === 'Enter') {
-			handleClick(); // Enter 입력이 되면 클릭 이벤트 실행
+			// Enter 입력이 되면
+			handleClick(); //검색 버튼 클릭 이벤트 실행
 		}
+	};
+
+	//검색 버튼 클릭 시 이벤트
+	const handleClick = (e) => {
+		//searchWord에 입력값 저장
+		setSearchWord(input.current.value);
 	};
 
 	return (
@@ -70,6 +57,7 @@ function SpaceManagement(props) {
 				<SearchRounded
 					style={{
 						fontSize: '30px',
+						marginBottom: '-5px',
 						marginLeft: '10px',
 						marginRight: '20px',
 						cursor: 'pointer',
@@ -93,7 +81,7 @@ function SpaceManagement(props) {
 					ref={input}
 					// value={searchWord}
 					// onChange={(e) => {
-					// 	// setSearchWord(e.target.value);
+					// setSearchWord(e.target.value);
 					// }}
 					onKeyPress={handleOnKeyPress}
 				/>
@@ -102,16 +90,26 @@ function SpaceManagement(props) {
 			<br />
 
 			<div style={{display: 'flex', justifyContent: 'space-between'}}>
-				{/* count 갯수 + 필터 */}
+				{/* 검색 여부에 따른 삼항 연산자 */}
 				<div style={{marginLeft: '10px', paddingTop: '5px'}}>
-					{spaceList.length !== 0 ? (
-						<b>
-							{defaultCount}
-							{searchCount}
-							{spaceList.length} 개
-						</b>
+					{searchWord !== '' ? (
+						//검색단어 있으면서, 결과가 있을때
+						spaceList.length !== 0 ? (
+							<b>
+								{{searchWord}.searchWord} (으)로 검색된 공간 :{' '}
+								{spaceList.length} 개
+							</b>
+						) : (
+							//검색단어 있으면서, 결과가 없을때
+							<b>검색된 '공간'이 없습니다.</b>
+						)
+					) : //삼항 연산자 중첩 시작
+					//검색단어 없으면서, 결과가 있을때
+					spaceList.length !== 0 ? (
+						<b>조회된 공간 : {spaceList.length} 개</b>
 					) : (
-						<b>검색된 상품이 없습니다.</b>
+						//검색단어 없으면서, 결과가 없을때
+						<b>등록된 '공간'이 없습니다.</b>
 					)}
 				</div>
 
@@ -133,6 +131,7 @@ function SpaceManagement(props) {
 							fontSize: '2em',
 							color: show === 2 ? 'black' : '#a0a0a0',
 							cursor: 'pointer',
+							marginBottom: '-3.5px',
 						}}
 						onClick={() => {
 							setShow(2);
@@ -146,7 +145,6 @@ function SpaceManagement(props) {
 							borderRadius: '5px',
 						}}
 						value={sort}
-						defaultValue={'and approvalStatus=1'}
 						onChange={handleChange}
 					>
 						<option value={'and approvalStatus=1'}>
