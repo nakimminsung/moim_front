@@ -1,23 +1,76 @@
-import {Button, Checkbox} from '@material-ui/core';
+import {Checkbox} from '@material-ui/core';
 import {CloseOutlined} from '@material-ui/icons';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
+import styled from 'styled-components';
 import SpaceImages from './SpaceImages';
 import SpaceInfo from './SpaceInfo';
 import SpaceOption from './SpaceOption';
 import SpaceTag from './SpaceTag';
 import SpaceWarning from './SpaceWarning';
-import styled from 'styled-components';
 
-function SpaceAddForm2(props) {
+function SpaceUpdateForm2(props) {
 	const {num} = useParams();
+	console.log(num);
 	const navi = useNavigate();
 	localStorage.url = 'http://localhost:9000';
 	let imageUrl = localStorage.url + '/image/';
 
 	//룸 넘버
 	const roomNum = num;
+
+	//룸 넘버에 해당하는 dto 가져오기
+	const onSelectData = () => {
+		let categoryUrl =
+			localStorage.url + '/host/category?roomNum=' + roomNum;
+		console.log(categoryUrl);
+		axios.get(categoryUrl).then((res) => {
+			setCategoryList(res.data);
+			console.log(res.data);
+		});
+
+		// let roomOptionUrl =
+		// 	localStorage.url + '/host/optionselect?roomNum=' + roomNum;
+		// console.log(roomOptionUrl);
+		// axios.get(roomOptionUrl).then((res) => {
+		// 	// setRoptionList(res.data);
+		// 	// console.log(res.data);
+		// });
+
+		// let imagesUrl = localStorage.url + '/host/images?roomNum=' + roomNum;
+		// console.log(imagesUrl);
+		// axios.get(imagesUrl).then((res) => {
+		// 	// setRoomImage(res.data);
+		// 	// console.log(res.data);
+		// });
+
+		// let tagUrl = localStorage.url + '/host/tag?roomNum=' + roomNum;
+		// console.log(tagUrl);
+		// axios.get(tagUrl).then((res) => {
+		// 	// setTag(res.data);
+		// 	// console.log(res.data);
+		// });
+
+		// let infoUrl = localStorage.url + '/host/information?roomNum=' + roomNum;
+		// console.log(infoUrl);
+		// axios.get(infoUrl).then((res) => {
+		// 	setInfo(res.data);
+		// 	console.log(res.data);
+		// });
+
+		// let preUrl = localStorage.url + '/host/precautions?roomNum=' + roomNum;
+		// console.log(preUrl);
+		// axios.get(preUrl).then((res) => {
+		// 	setInfo(res.data);
+		// 	console.log(res.data);
+		// });
+	};
+	//처음 시작 시 스프링으로부터 dto를 얻어야하므로 useEffect 에서 호출
+	useEffect(() => {
+		onSelectData();
+		console.log('호출');
+	}, []);
 
 	// 카테고리 체크박스 (체크된 카테고리의 번호를 담을 배열)
 	const [checkedArr, setCheckedArr] = useState([]);
@@ -65,7 +118,7 @@ function SpaceAddForm2(props) {
 
 	// 태그 담을 배열
 	const [tname, setTag] = useState([]);
-	console.log(tname);
+	// console.log(tname);
 	//태그 버튼 이벤트
 	const onchange1 = () => {
 		if (document.getElementById('tag').value.trim() == '') {
@@ -116,7 +169,7 @@ function SpaceAddForm2(props) {
 
 	// 주의사항 담을 배열
 	const [pcontent, setPrecautions] = useState([]);
-	console.log(pcontent);
+	// console.log(pcontent);
 	//주의사항 버튼 이벤트
 	const onchange5 = () => {
 		setPrecautions(
@@ -174,7 +227,7 @@ function SpaceAddForm2(props) {
 		e.preventDefault();
 		let oname = NameRef.current.value;
 		let price = PriceRef.current.value;
-		console.log(roptionList);
+		// console.log(roptionList);
 		setRoptionList(
 			roptionList.concat({
 				oname,
@@ -227,9 +280,9 @@ function SpaceAddForm2(props) {
 		console.log(optioninsertUrl);
 		// let oname = NameRef.current.value;
 		// let price = PriceRef.current.value;
-		console.log('roptionList' + roptionList);
-		console.log(roptionList);
-		console.log(roomNum);
+		// console.log('roptionList' + roptionList);
+		// console.log(roptionList);
+		// console.log(roomNum);
 		axios
 			.post(optioninsertUrl, {
 				roptionList,
@@ -265,7 +318,6 @@ function SpaceAddForm2(props) {
 				navi(`/host/addform3/${res.data}`);
 			});
 	};
-
 	return (
 		<div>
 			<form onSubmit={nextButton}>
@@ -321,64 +373,68 @@ function SpaceAddForm2(props) {
 						<div className='row'>
 							<table>
 								<tbody>
-									{maincategorylist &&
-										maincategorylist.map((mc, idx) => (
-											<tr>
-												<th
-													className='depth_1'
-													key={idx}
-												>
-													<span>{mc.mcname}</span>
-													<span className='pointer'></span>
-												</th>
-												{categorylist &&
-													categorylist.map((c, idx) =>
-														mc.num ===
-														c.mainCategoryNum ? (
-															<td
-																key={idx}
-																className='depth_2'
-															>
-																<label
-																	style={{
-																		cursor: 'pointer',
-																	}}
-																>
-																	<span>
-																		<Checkbox
-																			inputProps={{
-																				'aria-label':
-																					'uncontrolled-checkbox',
-																			}}
-																			name='space'
-																			onClick={(
-																				e,
-																			) =>
-																				handleSingleCheck(
-																					e
-																						.target
-																						.checked,
-																					c.num,
-																				)
-																			}
-																			checked={
-																				checkedArr.includes(
-																					c.num,
-																				)
-																					? true
-																					: false
-																			}
-																		/>
-																		{
-																			c.cname
+									<>
+										{maincategorylist &&
+											maincategorylist.map((mc, idx) => (
+												<tr>
+													<th
+														className='depth_1'
+														key={idx}
+													>
+														<span>{mc.mcname}</span>
+														<span className='pointer'></span>
+													</th>
+													{categorylist &&
+														categorylist.map(
+															(c, idx) =>
+																mc.num ===
+																c.mainCategoryNum ? (
+																	<td
+																		key={
+																			idx
 																		}
-																	</span>
-																</label>
-															</td>
-														) : null,
-													)}
-											</tr>
-										))}
+																		className='depth_2'
+																	>
+																		<label
+																			style={{
+																				cursor: 'pointer',
+																			}}
+																		>
+																			<span>
+																				<input
+																					name='space'
+																					type={
+																						'checkbox'
+																					}
+																					onClick={(
+																						e,
+																					) =>
+																						handleSingleCheck(
+																							e
+																								.target
+																								.checked,
+																							c.num,
+																						)
+																					}
+																					checked={
+																						checkedArr.includes(
+																							c.num,
+																						)
+																							? true
+																							: false
+																					}
+																				/>
+																				{
+																					c.cname
+																				}
+																			</span>
+																		</label>
+																	</td>
+																) : null,
+														)}
+												</tr>
+											))}
+									</>
 								</tbody>
 							</table>
 						</div>
@@ -614,7 +670,8 @@ function SpaceAddForm2(props) {
 	);
 }
 
-export default SpaceAddForm2;
+export default SpaceUpdateForm2;
+
 const ButtonEvent = styled.div`
 	margin: 0 auto 100px;
 	width: 1380;

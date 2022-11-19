@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -19,6 +19,9 @@ import SignUpEmail from '../pages/login/SignUpEmail';
 import Mypage from '../pages/mypage/Mypage';
 import CategoryRoom from '../pages/categoryroom/CategoryRoom';
 import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
+import SpaceUpdateForm from '../pages/host/SpaceUpdateForm';
+import SpaceUpdateForm2 from '../pages/host/SpaceUpdateForm2';
+import SpaceUpdateForm3 from '../pages/host/SpaceUpdateForm3';
 
 function BasicRouter() {
 	return (
@@ -43,6 +46,18 @@ function BasicRouter() {
 					<Route path='addform' element={<SpaceAddForm />} />
 					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
 					<Route path='addform3/:num' element={<SpaceAddForm3 />} />
+					<Route
+						path='updateform/:num'
+						element={<SpaceUpdateForm />}
+					/>
+					<Route
+						path='updateform2/:num'
+						element={<SpaceUpdateForm2 />}
+					/>
+					<Route
+						path='updateform3/:num'
+						element={<SpaceUpdateForm3 />}
+					/>
 				</Route>
 				{/* 호스트 끝 */}
 

@@ -44,9 +44,9 @@
 	/*========== Font Size ==========*/
 	--small: 0.813rem;
 }
-input {
+/* input {
 	all: unset;
-}
+} */
 body {
 	font-size: var(--normal);
 }

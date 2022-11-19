@@ -16,7 +16,7 @@ function SpaceList(props) {
 
 	// 페이징 처리
 	const [spacelist, setSpacelist] = useState([]);
-	const [limit, setLimit] = useState(3);
+	const [limit, setLimit] = useState(6);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * limit;
 
@@ -174,7 +174,13 @@ function SpaceList(props) {
 									className='btn_btnarea'
 									style={{width: '100%'}}
 								>
-									<SpaceModify>공간정보 수정</SpaceModify>
+									<SpaceModify
+										onClick={() =>
+											navi('/host/updateform/' + r.num)
+										}
+									>
+										공간정보 수정
+									</SpaceModify>
 									<SpaceDelete
 										onClick={() => deleteButton(r.num)}
 									>
