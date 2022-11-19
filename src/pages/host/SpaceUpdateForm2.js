@@ -23,7 +23,7 @@ function SpaceUpdateForm2(props) {
 	//룸 넘버에 해당하는 dto 가져오기
 	const onSelectData = () => {
 		let categoryUrl =
-			localStorage.url + '/host/category?roomNum=' + roomNum;
+			localStorage.url + '/host/categoryselect?roomNum=' + roomNum;
 		console.log(categoryUrl);
 		axios.get(categoryUrl).then((res) => {
 			setCategoryList(res.data);
@@ -38,28 +38,28 @@ function SpaceUpdateForm2(props) {
 		// 	// console.log(res.data);
 		// });
 
-		// let imagesUrl = localStorage.url + '/host/images?roomNum=' + roomNum;
+		// let imagesUrl = localStorage.url + '/host/imagesselect?roomNum=' + roomNum;
 		// console.log(imagesUrl);
 		// axios.get(imagesUrl).then((res) => {
 		// 	// setRoomImage(res.data);
 		// 	// console.log(res.data);
 		// });
 
-		// let tagUrl = localStorage.url + '/host/tag?roomNum=' + roomNum;
+		// let tagUrl = localStorage.url + '/host/tagselect?roomNum=' + roomNum;
 		// console.log(tagUrl);
 		// axios.get(tagUrl).then((res) => {
 		// 	// setTag(res.data);
 		// 	// console.log(res.data);
 		// });
 
-		// let infoUrl = localStorage.url + '/host/information?roomNum=' + roomNum;
+		// let infoUrl = localStorage.url + '/host/informationselect?roomNum=' + roomNum;
 		// console.log(infoUrl);
 		// axios.get(infoUrl).then((res) => {
 		// 	setInfo(res.data);
 		// 	console.log(res.data);
 		// });
 
-		// let preUrl = localStorage.url + '/host/precautions?roomNum=' + roomNum;
+		// let preUrl = localStorage.url + '/host/precautionsselect?roomNum=' + roomNum;
 		// console.log(preUrl);
 		// axios.get(preUrl).then((res) => {
 		// 	setInfo(res.data);
