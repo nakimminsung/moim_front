@@ -13,64 +13,12 @@ import SpaceWarning from './SpaceWarning';
 function SpaceUpdateForm2(props) {
 	const {num} = useParams();
 	console.log(num);
-	const navi = useNavigate();
-	localStorage.url = 'http://localhost:9000';
-	let imageUrl = localStorage.url + '/image/';
-
 	//룸 넘버
 	const roomNum = num;
 
-	//룸 넘버에 해당하는 dto 가져오기
-	const onSelectData = () => {
-		let categoryUrl =
-			localStorage.url + '/host/categoryselect?roomNum=' + roomNum;
-		console.log(categoryUrl);
-		axios.get(categoryUrl).then((res) => {
-			setCategoryList(res.data);
-			console.log(res.data);
-		});
-
-		// let roomOptionUrl =
-		// 	localStorage.url + '/host/optionselect?roomNum=' + roomNum;
-		// console.log(roomOptionUrl);
-		// axios.get(roomOptionUrl).then((res) => {
-		// 	// setRoptionList(res.data);
-		// 	// console.log(res.data);
-		// });
-
-		// let imagesUrl = localStorage.url + '/host/imagesselect?roomNum=' + roomNum;
-		// console.log(imagesUrl);
-		// axios.get(imagesUrl).then((res) => {
-		// 	// setRoomImage(res.data);
-		// 	// console.log(res.data);
-		// });
-
-		// let tagUrl = localStorage.url + '/host/tagselect?roomNum=' + roomNum;
-		// console.log(tagUrl);
-		// axios.get(tagUrl).then((res) => {
-		// 	// setTag(res.data);
-		// 	// console.log(res.data);
-		// });
-
-		// let infoUrl = localStorage.url + '/host/informationselect?roomNum=' + roomNum;
-		// console.log(infoUrl);
-		// axios.get(infoUrl).then((res) => {
-		// 	setInfo(res.data);
-		// 	console.log(res.data);
-		// });
-
-		// let preUrl = localStorage.url + '/host/precautionsselect?roomNum=' + roomNum;
-		// console.log(preUrl);
-		// axios.get(preUrl).then((res) => {
-		// 	setInfo(res.data);
-		// 	console.log(res.data);
-		// });
-	};
-	//처음 시작 시 스프링으로부터 dto를 얻어야하므로 useEffect 에서 호출
-	useEffect(() => {
-		onSelectData();
-		console.log('호출');
-	}, []);
+	const navi = useNavigate();
+	localStorage.url = 'http://localhost:9000';
+	let imageUrl = localStorage.url + '/image/';
 
 	// 카테고리 체크박스 (체크된 카테고리의 번호를 담을 배열)
 	const [checkedArr, setCheckedArr] = useState([]);
@@ -100,6 +48,29 @@ function SpaceUpdateForm2(props) {
 	};
 	useEffect(() => {
 		mclist();
+	}, []);
+
+	// 호출한 체크값 담을 배열
+	const [checkList, setCheckList] = useState([]);
+	console.log(checkList);
+	//룸 넘버에 해당하는 dto 가져오기
+	const onSelectData = () => {
+		let url = localStorage.url + '/host/updateform2?roomNum=' + roomNum;
+		axios.get(url).then((res) => {
+			setCheckList(res.data.categoryData);
+			setRoptionList(res.data.roptionData);
+			setRoomImage(res.data.imageData);
+			setTag(res.data.tagData);
+			setInfo(res.data.infoData);
+			setPrecautions(res.data.preData);
+		});
+	};
+
+	//처음 시작 시 스프링으로부터 dto를 얻어야하므로 useEffect 에서 호출
+	useEffect(() => {
+		onSelectData();
+		console.log(checkList);
+		console.log('호출');
 	}, []);
 
 	//카테고리 체크박스 이벤트
@@ -150,7 +121,7 @@ function SpaceUpdateForm2(props) {
 
 	// 인포 담을 배열
 	const [icontent, setInfo] = useState([]);
-	console.log(icontent);
+	// console.log(icontent);
 	//인포 버튼 이벤트
 	const onchange3 = () => {
 		setInfo(icontent.concat(document.getElementById('info').value.trim()));
@@ -264,25 +235,11 @@ function SpaceUpdateForm2(props) {
 		});
 	};
 
-	//취소 버튼 클릭 이벤트
-	const cancelButton = () => {
-		const cancelUrl = localStorage.url + '/host/cancel?num=' + num;
-		axios.delete(cancelUrl).then((res) => {
-			navi('/host/addform');
-		});
-	};
-
 	// 다음 버튼 클릭 이벤트
 	const nextButton = (e) => {
 		e.preventDefault();
 		//옵션 저장
 		let optioninsertUrl = localStorage.url + '/host/optioninsert';
-		console.log(optioninsertUrl);
-		// let oname = NameRef.current.value;
-		// let price = PriceRef.current.value;
-		// console.log('roptionList' + roptionList);
-		// console.log(roptionList);
-		// console.log(roomNum);
 		axios
 			.post(optioninsertUrl, {
 				roptionList,
@@ -454,72 +411,65 @@ function SpaceUpdateForm2(props) {
 						<div
 							className='previewimg'
 							style={{
+								display: 'flex',
 								border: '1px solid black',
 								backgroundColor: '#d3d3d3',
 								height: '200px',
 							}}
 						>
-							{rimageUrl == 0
-								? null
-								: rimageUrl &&
-								  rimageUrl.map((room, idx) => (
-										<>
-											{idx % 5 === 0 ? (
-												<div
-													style={{
-														position: 'relative',
-													}}
-												>
-													<img
-														alt=''
-														src={`${imageUrl}${room}`}
-														className='roomImge'
-														style={{
-															width: '170px',
-															height: '170px',
-															maxWidth: '170px',
-															maxHeight: '170px',
-															marginLeft: '5px',
-														}}
-													/>
+							{rimageUrl &&
+								rimageUrl.map((room, idx) => (
+									<>
+										<div
+											style={{
+												position: 'relative',
+											}}
+										>
+											<img
+												alt=''
+												src={`${imageUrl}${room.rimageUrl}`}
+												className='roomImge'
+												style={{
+													width: '170px',
+													height: '170px',
+													maxWidth: '170px',
+													maxHeight: '170px',
+													marginLeft: '5px',
+												}}
+											/>
 
-													<CloseOutlined
-														style={{
-															color: '#b2b2b2',
-															cursor: 'pointer',
-															width: '20px',
-															height: '20px',
-															border: '1px solid #e0e0e0',
-															backgroundColor:
-																'f6f6f6',
-															position:
-																'absolute',
-															zIndex: '1',
-														}}
-														onClick={() => {
-															const delUrl =
-																localStorage.url +
-																'/host/delphoto?idx=' +
-																idx;
-															axios
-																.get(delUrl)
-																.then((res) => {
-																	//DB는 삭제되지 않음
-																});
+											<CloseOutlined
+												style={{
+													color: '#b2b2b2',
+													cursor: 'pointer',
+													width: '20px',
+													height: '20px',
+													border: '1px solid #e0e0e0',
+													backgroundColor: 'f6f6f6',
+													position: 'absolute',
+													zIndex: '1',
+												}}
+												onClick={() => {
+													const delUrl =
+														localStorage.url +
+														'/host/delphoto?idx=' +
+														idx;
+													axios
+														.get(delUrl)
+														.then((res) => {
+															//DB는 삭제되지 않음
+														});
 
-															setRoomImage(
-																rimageUrl.filter(
-																	(a, i) =>
-																		i !==
-																		idx,
-																),
-															);
-														}}
-													/>
-												</div>
-											) : null}
-										</>
-								  ))}
+													setRoomImage(
+														rimageUrl.filter(
+															(a, i) => i !== idx,
+														),
+													);
+												}}
+											/>
+										</div>
+									</>
+								))}
 						</div>
 					</Space>
 					<br />
@@ -591,7 +541,7 @@ function SpaceUpdateForm2(props) {
 										backgroundColor: '#efefef',
 									}}
 								>
-									#{t}
+									#{t.tname}
 								</b>
 							))}
 						</div>
@@ -611,7 +561,7 @@ function SpaceUpdateForm2(props) {
 						<div>
 							{icontent.map((info, idx3) => (
 								<h5 key={idx3}>
-									<b>{info}</b>
+									<b>{info.icontent}</b>
 								</h5>
 							))}
 						</div>
@@ -631,7 +581,7 @@ function SpaceUpdateForm2(props) {
 						<div>
 							{pcontent.map((pre, idx4) => (
 								<h5 key={idx4}>
-									<b>{pre}</b>
+									<b>{pre.pcontent}</b>
 								</h5>
 							))}
 						</div>
@@ -650,7 +600,9 @@ function SpaceUpdateForm2(props) {
 								cursor: 'pointer',
 								backgroundColor: '#4d4d4d',
 							}}
-							onClick={cancelButton}
+							onClick={() => {
+								navi(-1);
+							}}
 						>
 							이전
 						</BtnWrap>

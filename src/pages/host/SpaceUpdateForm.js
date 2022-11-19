@@ -448,7 +448,7 @@ function SpaceUpdateForm(props) {
 								navi(-1);
 							}}
 						>
-							이전
+							취소
 						</BtnWrap>
 					</BtnEventWrap>
 					<BtnEventWrap>
