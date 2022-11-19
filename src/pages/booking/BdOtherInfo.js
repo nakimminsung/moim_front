@@ -34,12 +34,10 @@ function BdOtherInfo(props) {
 		const pUrl = `http://localhost:9000/detailInfo?num=${props.roomNum}`;
 
 		axios.get(url).then((res) => {
-			//console.log(res.data);
 			setHostInfo(res.data);
 		});
 
 		axios.get(pUrl).then((res) => {
-			//console.log(res.data.pre);
 			setPrecaution(res.data.pre);
 		});
 	};

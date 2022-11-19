@@ -6,6 +6,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import InfoIcon from '@mui/icons-material/Info';
 import Button from '@material-ui/core/Button';
+import {useNavigate} from 'react-router-dom';
 import './booking.css';
 
 function BdPayment({
@@ -24,9 +25,11 @@ function BdPayment({
 	payment,
 	onSend,
 	roomOption,
+	userNum,
 }) {
 	// 모달
 	const [open, setOpen] = React.useState(false);
+	const navigate = useNavigate();
 
 	const handleClickOpen = () => {
 		if (name && phone && email !== '') {
@@ -73,7 +76,6 @@ function BdPayment({
 							<b>₩{price.toLocaleString('ko-KR')}</b>
 						</p>
 					</div>
-
 					<div style={{display: 'flex'}}>
 						{optionInsertList.some((elem) => elem.count > 0) ? (
 							<>추가옵션&nbsp;&nbsp;</>
@@ -121,7 +123,6 @@ function BdPayment({
 					>
 						예약인원&nbsp;&nbsp;<b>{head}명</b>
 					</p>
-
 					<div
 						style={{
 							display: 'flex',
@@ -149,7 +150,6 @@ function BdPayment({
 						예약신청하기
 					</Button>
 				}
-
 				{/* 모달 */}
 				<Dialog
 					open={open}
@@ -244,6 +244,7 @@ function BdPayment({
 							<Button
 								onClick={() => {
 									payment();
+									//navigate(`../list/${userNum}`);
 									handleClose();
 								}}
 								color='primary'
@@ -255,7 +256,8 @@ function BdPayment({
 						) : (
 							<Button
 								onClick={() => {
-									onSend(2, roomOption);
+									onSend(1); // 승인대기 1번
+									//navigate(`../list/${userNum}`);
 									handleClose();
 								}}
 								color='primary'

@@ -5,8 +5,6 @@ import './booking.css';
 import Button from '@material-ui/core/Button';
 import BdOtherInfo from './BdOtherInfo';
 import defaultImg from './img/404.png';
-import IconButton from '@mui/material/IconButton';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import queryString from 'query-string';
 import jwt_decode from 'jwt-decode';
 import BdPayment from './BdPayment';
@@ -23,7 +21,7 @@ function BookingDetail() {
 	const [price, setPrice] = useState(0);
 	// 요청사항 (textarea)
 	const contentRef = useRef('');
-
+	const navigate = useNavigate();
 	// iamport
 	const {IMP} = window;
 	// 옵션 수량 버튼
@@ -121,7 +119,6 @@ function BookingDetail() {
 	let options = new Array();
 
 	for (let i = 0; i < optionInsertList.length; i++) {
-		console.log(optionInsertList[i].count);
 		if (optionInsertList[i].count > 0) {
 			let string = ``;
 			string = `${optionInsertList[i].name} ${optionInsertList[i].count}`;
@@ -130,12 +127,10 @@ function BookingDetail() {
 		}
 	}
 	let roomOption = options.join(',');
-	console.log(roomOption);
 
-	const onSend = (bookingStatus, roomOption) => {
-		console.log('ㄴㄴ' + roomOption);
+	const onSend = (bookingStatus) => {
 		// 요청사항
-		let request = contentRef.current.value;
+		// let request = contentRef.current.value;
 		let insertUrl = 'http://localhost:9000/bookingDetail/insert';
 
 		axios
@@ -147,7 +142,7 @@ function BookingDetail() {
 				phone,
 				email,
 				purpose,
-				request,
+				// request,
 				totalPrice,
 				bookingStatus,
 				roomNum,
@@ -155,22 +150,8 @@ function BookingDetail() {
 				roomOption,
 			})
 			.then((res) => {
-				setName('');
-				setPhone('');
-				setEmail('');
-				setPurpose('');
-				contentRef.current.value = '';
+				navigate(`../list/${userNum}`);
 			});
-	};
-
-	const onOptionSend = () => {
-		let insertUrl = 'http://localhost:9000/bookingDetailOption/insert';
-
-		axios({
-			url: insertUrl,
-			method: 'post',
-			data: {optionInsertList},
-		}).then((res) => {});
 	};
 
 	// 옵션 수량 버튼
@@ -227,7 +208,7 @@ function BookingDetail() {
 							' / merchant_uid(orderKey) : ' +
 							rsp.merchant_uid,
 					);
-					onSend(5, roomOption);
+					onSend(3, roomOption); //3: 예약확정
 				} else {
 					alert(
 						'실패 : 코드(' +
@@ -294,19 +275,6 @@ function BookingDetail() {
 											}}
 										>
 											<h4>추가옵션선택</h4>
-											<IconButton
-												color='primary'
-												style={{
-													color: '#704de4',
-													marginLeft: 'auto',
-												}}
-												aria-label='add to shopping cart'
-												onClick={() => {
-													onOptionSend();
-												}}
-											>
-												<AddShoppingCartIcon />
-											</IconButton>
 										</div>
 									</>
 								) : (
@@ -512,7 +480,7 @@ function BookingDetail() {
 										marginBottom: '15px',
 									}}
 								>
-									<h6 style={{marginTop: '8px'}}>요청사항</h6>
+									{/* <h6 style={{marginTop: '8px'}}>요청사항</h6>
 									<textarea
 										ref={contentRef}
 										style={{
@@ -521,7 +489,7 @@ function BookingDetail() {
 											marginLeft: '28px',
 										}}
 										className='form-control'
-									></textarea>
+									></textarea> */}
 								</div>
 							</div>
 							<div className='otherInfo'>
@@ -548,6 +516,7 @@ function BookingDetail() {
 								payment={payment}
 								onSend={onSend}
 								roomOption={roomOption}
+								userNum={userNum}
 							/>
 						</div>
 					</div>
