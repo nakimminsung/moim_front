@@ -1,16 +1,24 @@
 import {SearchRounded} from '@material-ui/icons';
-import {useRef, useState} from 'react';
-import MemberList from './MemberList';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ViewListIcon from '@material-ui/icons/ViewList';
 
-function MemberManagement(props) {
+import React, {useEffect, useRef, useState} from 'react';
+
+import SpaceList1 from './SpaceList1';
+import SpaceList2 from './SpaceList2';
+
+function SpaceManagement(props) {
 	//useState 가 아닌 버튼 클릭 시 searchWord에 저장되도록 Ref 사용
 	const input = useRef(null);
 
 	//공간 목록 선언 (하위에서 사용될 변수)
-	const [memberList, setMemberList] = useState('');
+	const [spaceList, setSpaceList] = useState('');
+
+	//최초 보여지는 테마 = 1번
+	const [show, setShow] = useState(1);
 
 	//하위 List 컴포넌트에 전달 될 sort 와 searchWord
-	const [sort, setSort] = useState('order by idx desc');
+	const [sort, setSort] = useState('and approvalStatus=1');
 	const [searchWord, setSearchWord] = useState('');
 
 	//Select Option 에 따른 값 변경 (set Sort)
@@ -35,9 +43,8 @@ function MemberManagement(props) {
 
 	return (
 		<div>
-			{/* 검색 */}
 			<div
-				className='memberSearch'
+				className='spaceSearch'
 				style={{
 					width: '100%',
 					// border: '1px solid gray',
@@ -50,6 +57,7 @@ function MemberManagement(props) {
 				<SearchRounded
 					style={{
 						fontSize: '30px',
+						marginBottom: '-5px',
 						marginLeft: '10px',
 						marginRight: '20px',
 						cursor: 'pointer',
@@ -59,7 +67,7 @@ function MemberManagement(props) {
 				/>
 				<input
 					type={'text'}
-					className='searchContainer'
+					className='seacrhContainer'
 					style={{
 						width: '90%',
 						height: '60px',
@@ -69,8 +77,12 @@ function MemberManagement(props) {
 						// backgroundColor: 'rgba(240, 242, 245)',
 						backgroundColor: 'white',
 					}}
-					placeholder='게스트의 이름 또는 이메일을 입력해주세요'
+					placeholder='공간 이름 혹은 호스트명을 입력해주세요'
 					ref={input}
+					// value={searchWord}
+					// onChange={(e) => {
+					// setSearchWord(e.target.value);
+					// }}
 					onKeyPress={handleOnKeyPress}
 				/>
 			</div>
@@ -82,25 +94,50 @@ function MemberManagement(props) {
 				<div style={{marginLeft: '10px', paddingTop: '5px'}}>
 					{searchWord !== '' ? (
 						//검색단어 있으면서, 결과가 있을때
-						memberList.length !== 0 ? (
+						spaceList.length !== 0 ? (
 							<b>
-								"{{searchWord}.searchWord}" (으)로 검색된 회원 :{' '}
-								{memberList.length} 개
+								{{searchWord}.searchWord} (으)로 검색된 공간 :{' '}
+								{spaceList.length} 개
 							</b>
 						) : (
 							//검색단어 있으면서, 결과가 없을때
-							<b>검색된 회원이 없습니다.</b>
+							<b>검색된 '공간'이 없습니다.</b>
 						)
 					) : //삼항 연산자 중첩 시작
 					//검색단어 없으면서, 결과가 있을때
-					memberList.length !== 0 ? (
-						<b>조회된 회원 : {memberList.length} 명</b>
+					spaceList.length !== 0 ? (
+						<b>조회된 공간 : {spaceList.length} 개</b>
 					) : (
 						//검색단어 없으면서, 결과가 없을때
-						<b>등록된 회원이 없습니다.</b>
+						<b>등록된 '공간'이 없습니다.</b>
 					)}
 				</div>
+
+				{/* 리스트 컴포넌트 선택 */}
 				<div>
+					<DashboardIcon
+						style={{
+							fontSize: '1.5em',
+							color: show === 1 ? 'black' : '#a0a0a0',
+							cursor: 'pointer',
+						}}
+						onClick={() => {
+							setShow(1);
+						}}
+					/>
+					&nbsp;
+					<ViewListIcon
+						style={{
+							fontSize: '2em',
+							color: show === 2 ? 'black' : '#a0a0a0',
+							cursor: 'pointer',
+							marginBottom: '-3.5px',
+						}}
+						onClick={() => {
+							setShow(2);
+						}}
+					/>
+					&emsp;
 					<select
 						style={{
 							width: '100px',
@@ -110,25 +147,42 @@ function MemberManagement(props) {
 						value={sort}
 						onChange={handleChange}
 					>
-						<option value={'order by idx desc'}>최신 가입순</option>
-						<option value={'and status = 0'}>활성 회원</option>
-						<option value={'and status = 1'}>정지 회원</option>
+						<option value={'and approvalStatus=1'}>
+							승인 완료
+						</option>
+						<option value={'and approvalStatus=0'}>
+							승인 대기
+						</option>
+						<option value={'order by r.num desc'}>최신순</option>
+						<option value={'order by readCount desc'}>
+							인기순
+						</option>
 					</select>
 				</div>
 			</div>
 
+			{/* 리스트 컴포넌트 호출 */}
 			<div>
-				{/* 게스트 정보 가져오기 */}
-				<MemberList
-					sort={sort}
-					setSort={setSort}
-					searchWord={searchWord}
-					memberList={memberList}
-					setMemberList={setMemberList}
-				/>
+				{show === 1 ? (
+					<SpaceList1
+						sort={sort}
+						setSort={setSort}
+						searchWord={searchWord}
+						spaceList={spaceList}
+						setSpaceList={setSpaceList}
+					/>
+				) : (
+					<SpaceList2
+						sort={sort}
+						setSort={setSort}
+						searchWord={searchWord}
+						spaceList={spaceList}
+						setSpaceList={setSpaceList}
+					/>
+				)}
 			</div>
 		</div>
 	);
 }
 
-export default MemberManagement;
+export default SpaceManagement;
