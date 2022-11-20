@@ -39,6 +39,7 @@ function SpaceManagement(props) {
 	const handleClick = (e) => {
 		//searchWord에 입력값 저장
 		setSearchWord(input.current.value);
+		console.log(searchWord);
 	};
 
 	return (
@@ -168,6 +169,7 @@ function SpaceManagement(props) {
 						sort={sort}
 						setSort={setSort}
 						searchWord={searchWord}
+						setSearchWord={setSearchWord}
 						spaceList={spaceList}
 						setSpaceList={setSpaceList}
 					/>
@@ -176,6 +178,7 @@ function SpaceManagement(props) {
 						sort={sort}
 						setSort={setSort}
 						searchWord={searchWord}
+						setSearchWord={setSearchWord}
 						spaceList={spaceList}
 						setSpaceList={setSpaceList}
 					/>

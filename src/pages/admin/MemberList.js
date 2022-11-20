@@ -33,9 +33,11 @@ function MemberList(props) {
 								<th style={{width: '5%'}}>번호</th>
 								<th style={{width: '30%'}}>이메일</th>
 								<th style={{width: '10%'}}>회원명</th>
-								<th>회원가입일</th>
-								<th>정보수정일</th>
-								<th style={{width: '10%'}}>기타</th>
+								<th style={{width: '10%'}}>회원 등급</th>
+								<th style={{width: '15%'}}>회원가입일</th>
+								<th style={{width: '10%'}}>활성 상태</th>
+								<th style={{width: ''}}>활성 여부</th>
+								<th style={{width: ''}}>비번 초기화</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -57,9 +59,25 @@ function MemberList(props) {
 										<td>{idx + 1}</td>
 										<td>{row.email}</td>
 										<td>{row.nickname}</td>
+										<td>{row.grade}</td>
 										<td>{row.created_at}</td>
-										<td>{row.updated_at}</td>
-										<td>공란</td>
+										<td>{row.status}</td>
+										<td>
+											<button
+												type='button'
+												className='btn btn-secondary'
+											>
+												상태 변경
+											</button>
+										</td>
+										<td>
+											<button
+												type='button'
+												className='btn btn-dark'
+											>
+												초기화
+											</button>
+										</td>
 									</tr>
 								))
 							)}

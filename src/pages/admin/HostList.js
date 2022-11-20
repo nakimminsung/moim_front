@@ -13,11 +13,10 @@ function HostList(props) {
 			'&sort=' +
 			sort;
 
-		console.log(url + '출력완료');
+		console.log(url);
 
 		axios.get(url).then((res) => {
-			// setHostList(res.data);
-			console.log(res.data);
+			setHostList(res.data);
 		});
 	};
 
@@ -42,8 +41,19 @@ function HostList(props) {
 							</tr>
 						</thead>
 						<tbody>
-							{/* 카테고리 img + 카테고리 name 을 묶은 div 반복 구간 */}
-							{hostList &&
+							{hostList.length === 0 ? (
+								//데이터가 없을때
+								<tr>
+									<td
+										colSpan={6}
+										style={{textAlign: 'center'}}
+									>
+										<h5>등록된 회원이 없습니다</h5>
+									</td>
+								</tr>
+							) : (
+								//데이터가 있을때
+								// memberList &&
 								hostList.map((row, idx) => (
 									<tr key={idx}>
 										<td>{idx + 1}</td>
@@ -53,7 +63,8 @@ function HostList(props) {
 										<td>{row.warningCount}</td>
 										<td>공란</td>
 									</tr>
-								))}
+								))
+							)}
 						</tbody>
 					</table>
 				</div>

@@ -85,12 +85,15 @@ function MemberManagement(props) {
 						//검색단어 있으면서, 결과가 있을때
 						memberList.length !== 0 ? (
 							<b>
-								"{{searchWord}.searchWord}" (으)로 검색된 회원 :{' '}
-								{memberList.length} 개
+								'{{searchWord}.searchWord}' (으)로 검색된 회원 :{' '}
+								{memberList.length} 명
 							</b>
 						) : (
 							//검색단어 있으면서, 결과가 없을때
-							<b>검색된 회원이 없습니다.</b>
+							<b>
+								'{{searchWord}.searchWord}' (으)로 검색된 회원이
+								없습니다.
+							</b>
 						)
 					) : //삼항 연산자 중첩 시작
 					//검색단어 없으면서, 결과가 있을때

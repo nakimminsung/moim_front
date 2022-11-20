@@ -10,7 +10,7 @@ function HostManagement(props) {
 	const [hostList, setHostList] = useState('');
 
 	//하위 List 컴포넌트에 전달 될 sort 와 searchWord
-	const [sort, setSort] = useState('order by idx desc');
+	const [sort, setSort] = useState('order by num desc');
 	const [searchWord, setSearchWord] = useState('');
 
 	//Select Option 에 따른 값 변경 (set Sort)
@@ -84,12 +84,15 @@ function HostManagement(props) {
 						//검색단어 있으면서, 결과가 있을때
 						hostList.length !== 0 ? (
 							<b>
-								"{{searchWord}.searchWord}" (으)로 검색된 회원 :{' '}
-								{hostList.length} 개
+								'{{searchWord}.searchWord}' (으)로 검색된 회원 :{' '}
+								{hostList.length} 명
 							</b>
 						) : (
 							//검색단어 있으면서, 결과가 없을때
-							<b>검색된 회원이 없습니다.</b>
+							<b>
+								'{{searchWord}.searchWord}' (으)로 검색된 회원이
+								없습니다.
+							</b>
 						)
 					) : //삼항 연산자 중첩 시작
 					//검색단어 없으면서, 결과가 있을때
@@ -110,7 +113,7 @@ function HostManagement(props) {
 						value={sort}
 						onChange={handleChange}
 					>
-						<option value={'order by idx desc'}>최신순</option>
+						<option value={'order by num desc'}>최신순</option>
 						<option value={'and status = 0'}>활성 회원</option>
 						<option value={'and status = 1'}>정지 회원</option>
 					</select>

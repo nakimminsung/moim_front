@@ -46,7 +46,8 @@ li {
 
 	background-color: rgba(0, 0, 0);
 	opacity: 0.6;
-	color: lightgray;
+	/* color: lightgray; */
+	color: white;
 }
 
 .memberTable td {
@@ -76,7 +77,8 @@ li {
 
 	background-color: rgba(0, 0, 0);
 	opacity: 0.6;
-	color: lightgray;
+	/* color: lightgray; */
+	color: white;
 }
 
 .hostTable td {

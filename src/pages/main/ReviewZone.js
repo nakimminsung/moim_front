@@ -31,21 +31,24 @@ function ReviewZone(props) {
 			{/* 리스트 전체 div */}
 			<div
 				style={{
+					width: '100%',
 					display: 'flex',
-					justifyContent: 'space-around',
+					justifyContent: 'space-between',
+					flexWrap: 'wrap',
 				}}
 			>
 				{review &&
 					review.map((data, idx) => (
 						<div
 							style={{
+								width: '24%',
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '350px',
+								// width: '350px',
 								cursor: 'pointer',
 								// marginLeft: '22px',
 								// marginRight: '22px',
-								marginBottom: '30px',
+								marginBottom: '20px',
 							}}
 							key={idx}
 						>
