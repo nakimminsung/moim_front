@@ -30,6 +30,9 @@ function Mainpage(props) {
 					<li>
 						<NavLink to={'/like'}>찜한 공간</NavLink>
 					</li>
+					<li>
+						<NavLink to={'/booking/list/47'}>리뷰리스트</NavLink>
+					</li>
 
 					{/* 임시버튼 */}
 					<li>
