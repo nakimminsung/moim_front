@@ -67,25 +67,6 @@ function Test(props) {
         selectTagList(roomNum);
     }, []);
 
-    // carousel
-    const theme = useTheme();
-    const [activeStep, setActiveStep] = useState(0);
-    const maxSteps = imageData.length;
-
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) =>
-            activeStep === maxSteps - 1 ? 0 : prevActiveStep + 1,
-        );
-    };
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) =>
-            activeStep === 0 ? maxSteps - 1 : prevActiveStep - 1,
-        );
-    };
-    const handleStepChange = (step) => {
-        setActiveStep(step);
-    };
-
 
     // 카카오맵 설정
     const location = useLocation()
@@ -110,6 +91,8 @@ function Test(props) {
                 price: info.holiAmPrice,
                 region: info.address,
                 desc: info.fullIntroduction,
+                num: info.num,
+                headcount: info.headcount,
             };
         });
         overlayInfos.forEach(el => {
@@ -117,22 +100,36 @@ function Test(props) {
                 map: mapRef.current,
                 position: new kakao.maps.LatLng(el.lat, el.lng),
                 title: el.title,
+                // image: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
             });
 
             let content =
                 '<div class="overlayWrap">' +
-                `    <img class="overlayImg" src=${el.img}/>` +
+                `    <a href="/detail/${el.num}">` +
+                `        <img class="overlayImg" src=${el.img}/>` +
+                `    </a>` +
                 '    <div class="accommInfoWrap">' +
                 `        <h1 class="accommName">${el.title}</h1>` +
+                `        <i class='fas fa-map-marker-alt' style='float:left; margin-right:5px'></i>` +
                 `        <p class="accommRegion">${el.region}</p>` +
                 `        <p class="accommDesc">${el.desc}</p>` +
-                `        <p class="accommPrice">${Number(
-                    el.price
-                ).toLocaleString()}</p>` +
-                '    </div>' +
-                '    <div class="overlayArrow">' +
-                '</div>';
 
+                `    <div class="priceWrap" style="">` +
+                `<div class="price">` +
+                `        <span class="accommPrice" style="width:90px">${Number(el.price).toLocaleString()}</span>` +
+                `        <span style="font-size:10px;">원/시간</span>` +
+                `</div>` +
+                `            <div class="iconWrap" style="">` +
+                `           <i class='fas fa-user-alt' style='font-size:20px;'></i>` +
+                `           ${el.headcount}` +
+                `           <i class='fas fa-comment-dots' style='font-size:20px'></i>` +
+                `           ${el.headcount}` +
+                `           <i class='fas fa-heart' style='font-size:20px'></i>` +
+                `           ${el.headcount}` +
+                '        </div>' +
+                '    </div>' +
+                '</div>' +
+                '</div>';
             let position = new kakao.maps.LatLng(el.lat, el.lng);
 
             let customOverlay = new kakao.maps.CustomOverlay({
@@ -144,11 +141,19 @@ function Test(props) {
                 customOverlay.setMap(mapRef.current);
             });
 
+            kakao.maps.event.addListener(mapRef.current, 'click', function () {
+                setTimeout(function () {
+                    customOverlay.setMap(null);
+                });
+            });
+
+            // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
             // kakao.maps.event.addListener(marker, 'mouseout', function () {
             //     setTimeout(function () {
             //         customOverlay.setMap();
             //     });
             // });
+
         });
     }, [roomData]);
 
@@ -164,108 +169,3 @@ function Test(props) {
 };
 
 export default Test;
-
-const ImageDiv = styled(Box)`
-	overflow: hidden;
-`;
-const ImageButtonDiv = styled(Box)``;
-const PrevButton = styled(Button)`
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	cursor: pointer;
-	height: 200px;
-	border: 0;
-	background: none;
-	color: white;
-`;
-const NextButton = styled(Button)`
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	cursor: pointer;
-	height: 200px;
-	border: 0px;
-	background: none;
-	color: white;
-`;
-const PayInfo = styled(Typography)`
-	width: 70px;
-	height: 70px;
-	padding-left: 18px;
-	padding-right: 13px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	top: 0;
-	right: 0;
-	border-radius: 1px;
-	opacity: 0.9;
-	z-index: 10;
-	font-weight: 1000;
-    word-spacing:normal;
-`;
-const Address = styled(Typography)`
-	display: flex;
-	align-items: center;
-	position: relative;
-	right: 5px;
-`;
-const TagDiv = styled(Box)`
-	margin-top: 10px;
-	min-height: 40px;
-`;
-const Tag = styled(Box)`
-	margin-right: 5px;
-	display: inline;
-`;
-const RoomInfoBottom = styled(Box)`
-	display: flex;
-	justify-content: space-between;
-	margin-top: 10px;
-`;
-const PriceDiv = styled(Box)`
-	display: flex;
-	align-items: flex-end;
-`;
-const Price = styled(Typography)`
-	font-size: 23px;
-	margin-right: 5px;
-	color: #9b4de3;
-	margin-bottom: -3px;
-`;
-const EtcInfoDiv = styled(Box)`
-	display: flex;
-`;
-const HeadCount = styled(Typography)`
-	margin-left: 5px;
-`;
-const ReviewCount = styled(Typography)`
-	margin-left: 5px;
-`;
-const LikeCount = styled(Typography)`
-	margin-left: 5px;
-`;
-const CardWrapper = styled(Typography)`
-	@media (max-width: 1920px) {
-		width: 33%;
-		padding: 5px;
-        margin-bottom:40px;
-	}
-	@media (max-width: 1680px) {
-		width: 33%;
-		padding: 7px;
-        margin-bottom:30px;
-	}
-	@media (max-width: 1000px) {
-		width: 50%;
-		padding: 5px;
-	}
-	@media (max-width: 900px) {
-		width: 100%;
-		padding-bottom: 5px;
-	}
-`;
