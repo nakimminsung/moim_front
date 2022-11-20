@@ -30,7 +30,6 @@ function RoomCard(props) {
     // room tag list select function
     const selectTagList = (num) => {
         let url = localStorage.url + '/tag/list?num=' + num;
-        console.log(url);
         axios.get(url).then((res) => {
             setTagData(res.data.tagData);
             setImageData(res.data.roomImageData);
@@ -250,7 +249,7 @@ const NextButton = styled(Button)`
 const PayInfo = styled(Typography)`
 	width: 70px;
 	height: 70px;
-	padding-left: 18px;
+	padding-left: 17px;
 	padding-right: 13px;
 	display: flex;
 	justify-content: center;

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Menu from './Menu';
 import Title from './Title';
-import List from './/List';
+import List from './List';
 import Content from './Content';
 import styled from '@emotion/styled/macro';
-import {Box} from '@mui/material';
-import {useParams} from 'react-router-dom';
+import { Box } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Test from './Test';
 
@@ -20,7 +20,7 @@ function Map(props) {
 	const [sprice, setSprice] = useState(0);
 	const [eprice, setEprice] = useState(500000);
 	const [facility, setFacility] = useState([]);
-	const {themeNum} = useParams();
+	const { themeNum } = useParams();
 
 	// 테마 데이터 select
 	const selectTheme = () => {

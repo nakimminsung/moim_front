@@ -37,16 +37,17 @@
 	--grey-background: #e5e5e5;
 	--purple: #9a30ae;
 	--blue-light: #588dff
-
-	/*========== Font Weights ==========*/
-	--bold: 700;
+		/*========== Font Weights ==========*/
+		--bold: 700;
 
 	/*========== Font Size ==========*/
 	--small: 0.813rem;
 }
-input {
-	all: unset;
-}
+
+/* input {
+	all: unset;  나김민성 매우쳐라!!
+} */
+
 body {
 	font-size: var(--normal);
 }

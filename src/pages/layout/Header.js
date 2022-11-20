@@ -1,13 +1,15 @@
-import { Menu, SearchRounded } from '@material-ui/icons';
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { CodeSharp, Menu, SearchRounded } from '@material-ui/icons';
+import React, { useEffect, useRef, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import mlogo from '../../asset/logo/m_logo.png';
 import jwt_decode from "jwt-decode";
 import './Header.css';
 
 function Header(props) {
-
+	const navi = useNavigate();
+	//useState 가 아닌 버튼 클릭 시 searchWord에 저장되도록 Ref 사용
+	const input = useRef(null);
 	const [loginCheck, setLoginCheck] = useState("");
 
 	const [isAppInstallHover, setIsAppInstallHover] = useState(false);
@@ -17,7 +19,7 @@ function Header(props) {
 	const [isTopHover, setIsTopHover] = useState(false);
 
 	const [email, setEmail] = useState("");
-
+	const [searchWord, setSearchWord] = useState('');
 	const goMypage = () => {
 		try {
 			if (localStorage.getItem("token") === null) {
@@ -38,6 +40,22 @@ function Header(props) {
 		} catch (e) {
 			console.log(e);
 		}
+	};
+
+	//input text 에 엔터키 적용시키기
+	const handleOnKeyPress = (e) => {
+		if (e.key === 'Enter') {
+			// Enter 입력이 되면
+			handleClick(); //검색 버튼 클릭 이벤트 실행
+		}
+	};
+
+	//검색 버튼 클릭 시 이벤트
+	const handleClick = (e) => {
+		//searchWord에 입력값 저장
+		setSearchWord(input.current.value);
+		// console.log(searchWord);
+		navi('/searchroom?searchWord=' + searchWord);
 	};
 
 	useEffect(() => {
@@ -87,11 +105,14 @@ function Header(props) {
 							cursor: 'pointer',
 							color: 'gray',
 						}}
+						onClick={handleClick}
 					/>
 					<input
 						type={'text'}
 						className='searchBox'
 						placeholder='지역, 공간유형, 공간명으로 찾아보세요'
+						ref={input}  // ref에 input 값
+						onKeyPress={handleOnKeyPress}
 					/>
 				</div>
 
