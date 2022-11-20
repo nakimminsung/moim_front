@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -54,9 +54,10 @@ function BasicRouter() {
 				{/* 예약페이지 */}
 				<Route path='/booking'>
 					<Route path='main' element={<BookingMain />} />
-					<Route path='list' element={<BookingList />} />
+					<Route path='list/:userNum' element={<BookingList />} />
 					<Route path='detail' element={<BookingDetail />} />
 				</Route>
+
 				<Route path='login' element={<Login />} />
 				<Route path='signup' element={<SignUp />} />
 				<Route path='signupEmail' element={<SignUpEmail />} />
