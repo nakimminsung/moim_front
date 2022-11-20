@@ -6,7 +6,7 @@ function MemberManagement(props) {
 	//useState 가 아닌 버튼 클릭 시 searchWord에 저장되도록 Ref 사용
 	const input = useRef(null);
 
-	//공간 목록 선언 (하위에서 사용될 변수)
+	//회원 목록 선언 (하위에서 사용될 변수)
 	const [memberList, setMemberList] = useState('');
 
 	//하위 List 컴포넌트에 전달 될 sort 와 searchWord
@@ -50,6 +50,7 @@ function MemberManagement(props) {
 				<SearchRounded
 					style={{
 						fontSize: '30px',
+						marginBottom: '-5px',
 						marginLeft: '10px',
 						marginRight: '20px',
 						cursor: 'pointer',
@@ -110,7 +111,7 @@ function MemberManagement(props) {
 						value={sort}
 						onChange={handleChange}
 					>
-						<option value={'order by idx desc'}>최신 가입순</option>
+						<option value={'order by idx desc'}>최신순</option>
 						<option value={'and status = 0'}>활성 회원</option>
 						<option value={'and status = 1'}>정지 회원</option>
 					</select>
