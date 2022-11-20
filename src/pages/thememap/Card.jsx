@@ -62,7 +62,7 @@ function RoomCard(props) {
 
 	useEffect(() => {
 		selectTagList(roomNum);
-	}, []);
+	}, [roomNum]);
 
 	// carousel
 	const theme = useTheme();

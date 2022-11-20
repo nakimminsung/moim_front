@@ -225,13 +225,13 @@ function TopMenu(props) {
 								value={sort}
 								onChange={handleChange}
 							>
-								<MenuItem value={'readCount desc'}>
+								<MenuItem value={'a.readCount desc'}>
 									인기순
 								</MenuItem>
-								<MenuItem value={'weekAmPrice asc'}>
+								<MenuItem value={'a.weekAmPrice asc'}>
 									낮은 가격순
 								</MenuItem>
-								<MenuItem value={'weekAmPrice desc'}>
+								<MenuItem value={'a.weekAmPrice desc'}>
 									높은 가격순
 								</MenuItem>
 							</Select>

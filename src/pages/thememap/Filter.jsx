@@ -33,7 +33,6 @@ function Filter(props) {
 		} else if (!checked) {
 			setFacilityList(facilityList.filter((el) => el !== item));
 		}
-		console.log(checked);
 	};
 	const handleFacilityChecked = (event) => {
 		setChecked(event.target.checked);
@@ -78,12 +77,10 @@ function Filter(props) {
 		setSprice(spriceRef.current);
 		setEprice(epriceRef.current);
 		setFacility(facilityList);
-		console.log(facilityList);
 	};
 	useEffect(() => {
 		selectFacility();
-		console.log(facilityList);
-	}, [facilityList]);
+	}, []);
 
 	return (
 		<Wrapper>
