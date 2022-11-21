@@ -58,7 +58,7 @@ function AdminLayout(props) {
 						// border: '1.5px solid #704de4',
 						border: 'none',
 						borderRadius: '10px',
-						height: '80px',
+						height: '100px',
 						paddingLeft: '10px',
 						paddingTop: '10px',
 						marginBottom: '20px',
@@ -105,7 +105,7 @@ function AdminLayout(props) {
 				</div>
 
 				{/* 하위 컴포넌트 호출 */}
-				<div style={{marginTop: '100px', width: '100%'}}>
+				<div style={{marginTop: '120px', width: '100%'}}>
 					<AdminRouter />
 				</div>
 			</div>

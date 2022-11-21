@@ -70,11 +70,6 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/report'} className='NavLink'>
-							신고 관리
-						</NavLink>
-					</li>
-					<li>
 						<NavLink to={'/admin/notice'} className='NavLink'>
 							공지사항 관리
 						</NavLink>
@@ -82,6 +77,11 @@ function AdminMenu(props) {
 					<li>
 						<NavLink to={'/admin/theme'} className='NavLink'>
 							기획전 관리
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to={'/admin/report'} className='NavLink'>
+							신고 관리
 						</NavLink>
 					</li>
 					<li>

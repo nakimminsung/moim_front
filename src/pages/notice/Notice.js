@@ -1,5 +1,6 @@
 import {SearchRounded} from '@material-ui/icons';
 import React from 'react';
+import NoticeList from './NoticeList';
 
 function Notice(props) {
 	return (
@@ -67,7 +68,7 @@ function Notice(props) {
 			<br />
 			<br />
 			<div className='noticeContent' style={{width: '100%'}}>
-				<table className='table table-striped' style={{width: '100%'}}>
+				{/* <table className='table table-striped' style={{width: '100%'}}>
 					<tbody>
 						<tr>
 							<th>공지사항</th>
@@ -77,7 +78,9 @@ function Notice(props) {
 							</td>
 						</tr>
 					</tbody>
-				</table>
+				</table> */}
+
+				<NoticeList />
 			</div>
 		</div>
 	);
