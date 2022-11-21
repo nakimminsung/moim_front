@@ -117,6 +117,20 @@ function MemberManagement(props) {
 						<option value={'order by idx desc'}>최신순</option>
 						<option value={'and status = 0'}>활성 회원</option>
 						<option value={'and status = 1'}>정지 회원</option>
+						<option
+							value={
+								'and password != "kakao" and password !="naver"'
+							}
+						>
+							일반 회원
+						</option>
+						<option
+							value={
+								'and password = "kakao" or password = "naver"'
+							}
+						>
+							소셜 회원
+						</option>
 					</select>
 				</div>
 			</div>

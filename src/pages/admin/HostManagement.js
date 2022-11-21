@@ -114,8 +114,8 @@ function HostManagement(props) {
 						onChange={handleChange}
 					>
 						<option value={'order by num desc'}>최신순</option>
-						<option value={'and status = 0'}>활성 회원</option>
-						<option value={'and status = 1'}>정지 회원</option>
+						<option value={'and active = 0'}>활성 회원</option>
+						<option value={'and active = 1'}>정지 회원</option>
 					</select>
 				</div>
 			</div>
