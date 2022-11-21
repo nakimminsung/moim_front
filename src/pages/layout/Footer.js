@@ -91,8 +91,8 @@ function footer(props) {
 									<a>개인정보처리방침</a>
 									&nbsp;|&nbsp;
 									<a>지식재산권보호센터</a>
-									&nbsp;|&nbsp;
-									<NavLink to={'/admin'}>admin</NavLink>
+									{/* &nbsp;|&nbsp;
+									<NavLink to={'/admin'}>admin</NavLink> */}
 								</span>
 								<img
 									alt=''

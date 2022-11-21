@@ -105,7 +105,7 @@ function AdminLayout(props) {
 				</div>
 
 				{/* 하위 컴포넌트 호출 */}
-				<div style={{marginTop: '100px'}}>
+				<div style={{marginTop: '100px', width: '100%'}}>
 					<AdminRouter />
 				</div>
 			</div>

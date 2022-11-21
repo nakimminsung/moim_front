@@ -1,29 +1,36 @@
-import React, {useEffect, useState} from 'react';
-import {Favorite, Person, Sms} from '@material-ui/icons';
+import React, {useEffect} from 'react';
+import {Person} from '@material-ui/icons';
 import axios from 'axios';
 import RoomIcon from '@material-ui/icons/Room';
+import {useNavigate} from 'react-router-dom';
 
 function SpaceList2(props) {
-	const [spaceList, setSpaceList] = useState('');
+	const {sort, searchWord} = props;
+	const {spaceList, setSpaceList} = props;
+
+	const navi = useNavigate(); //공간 클릭 시 상세페이지로 이동
 
 	const getSpaceList = () => {
-		let url = localStorage.url + '/spaceList'; //메인페이지에서 사용한 roomList와 동일
+		let url =
+			localStorage.url +
+			'/admin/spaceList?searchWord=' +
+			searchWord +
+			'&sort=' +
+			sort;
+
+		console.log(searchWord);
+		console.log(url);
 
 		axios.get(url).then((res) => {
-			// console.log(res.data);
-
-			var x = res.data;
-
-			setSpaceList(x);
-
-			// console.log(x.length);
+			setSpaceList(res.data);
 		});
 	};
 
 	useEffect(() => {
 		//방 리스트
 		getSpaceList();
-	}, []);
+	}, [sort, searchWord]);
+
 	return (
 		<div>
 			<div
@@ -32,6 +39,7 @@ function SpaceList2(props) {
 					marginTop: '20px',
 					width: '100%',
 					display: 'flex',
+
 					justifyContent: 'space-between',
 					flexWrap: 'wrap',
 				}}
@@ -42,25 +50,36 @@ function SpaceList2(props) {
 							style={{
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '430px',
+								width: '49%',
 								cursor: 'pointer',
 
-								marginBottom: '30px',
+								marginBottom: '15px',
 								backgroundColor: 'white',
 								boxShadow: '0px 2px 2px 1px rgba(0 0 0 / 10%)',
+
+								display: 'flex',
+								padding: '10px 10px 10px',
 							}}
 							key={idx}
+							onClick={() => {
+								navi('/detail/' + data.num);
+							}}
 						>
-							<img
-								alt=''
-								src={data.thumbnailImage}
-								style={{
-									width: '100%',
-									height: '300px',
-									borderRadius: '5px',
-								}}
-							/>
-							<br />
+							{/* 방 이미지 */}
+							<div>
+								<img
+									alt=''
+									src={data.thumbnailImage}
+									style={{
+										width: '250px',
+										height: '200px',
+										borderRadius: '5px',
+										marginRight: '20px',
+									}}
+								/>
+							</div>
+
+							{/* 방 정보 */}
 							<div style={{color: 'gray'}}>
 								<h5>
 									<b style={{color: 'black'}}>{data.name}</b>
@@ -72,7 +91,7 @@ function SpaceList2(props) {
 											marginBottom: '5px',
 										}}
 									/>
-									{data.address.split(' ')[1]}
+									{/* {data.address.split(' ')[1]} */}
 								</span>
 								<br />
 								<span>room tag list</span>
@@ -94,8 +113,6 @@ function SpaceList2(props) {
 								<span>
 									<Person style={{fontSize: '20px'}} /> 최대{' '}
 									{data.headcount}인{' '}
-									<Sms style={{fontSize: '20px'}} /> 0{' '}
-									<Favorite style={{fontSize: '20px'}} /> 0
 								</span>
 								<br />
 								<br />

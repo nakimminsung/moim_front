@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Menu from './Menu';
 import Title from './Title';
-import List from './/List';
+import List from './List';
 import Content from './Content';
 import styled from '@emotion/styled/macro';
 import {Box} from '@mui/material';
