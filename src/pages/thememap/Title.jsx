@@ -20,7 +20,6 @@ function Title(props) {
 		</Wrapper>
 	);
 }
-
 export default Title;
 
 const Wrapper = styled(Typography)`
@@ -32,8 +31,8 @@ const Wrapper = styled(Typography)`
 	align-items: center;
 	height: 100%;
 `;
-
-const ThemeTitle = styled(Typography)`
+const ThemeTitle = styled.span`
 	color: #ffff33;
 	font-size: 30px;
+	font-weight: 700;
 `;

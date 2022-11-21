@@ -18,7 +18,10 @@ function Map(props) {
 	const [payment, setPayment] = useState('');
 	const [sprice, setSprice] = useState('0');
 	const [eprice, setEprice] = useState('500000');
+	const [stime, setStime] = useState('0');
+	const [etime, setEtime] = useState('24');
 	const [facility, setFacility] = useState('');
+	const [holiday, setHoliday] = useState('');
 	const {themeNum} = useParams();
 
 	// 테마 데이터 select
@@ -32,6 +35,9 @@ function Map(props) {
 		let facilityCount = facility.length;
 		setSprice(sprice ? sprice : 0);
 		setEprice(eprice ? eprice : 500000);
+		setStime(stime ? stime : 0);
+		setEtime(etime ? etime : 24);
+		setHoliday(holiday ? holiday : 99);
 		let selectData = {
 			themeNum,
 			sort,
@@ -43,6 +49,9 @@ function Map(props) {
 			eprice,
 			facility,
 			facilityCount,
+			holiday,
+			stime,
+			etime,
 		};
 		console.log(selectUrl);
 		console.log(selectData);
@@ -52,7 +61,19 @@ function Map(props) {
 	useEffect(() => {
 		selectTheme();
 		selectThemeRoomList();
-	}, [sort, roomName, address, headCount, sprice, eprice, facility, payment]);
+	}, [
+		sort,
+		roomName,
+		address,
+		headCount,
+		sprice,
+		eprice,
+		facility,
+		payment,
+		holiday,
+		stime,
+		etime,
+	]);
 
 	return (
 		<Wrapper>
@@ -75,6 +96,9 @@ function Map(props) {
 						setSprice={setSprice}
 						setEprice={setEprice}
 						setFacility={setFacility}
+						setHoliday={setHoliday}
+						setStime={setStime}
+						setEtime={setEtime}
 					/>
 				</MenuDiv>
 			</Top>
