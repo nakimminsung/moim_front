@@ -1,7 +1,7 @@
-import {Favorite, Person, Sms} from '@material-ui/icons';
+import { Favorite, Person, Sms } from '@material-ui/icons';
 import RoomIcon from '@material-ui/icons/Room';
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 function SuggestRoom(props) {
 	const [roomList, setRoomList] = useState('');
@@ -26,11 +26,11 @@ function SuggestRoom(props) {
 	}, []);
 
 	return (
-		<div className='themeArea' style={{textAlign: 'center'}}>
+		<div className='themeArea' style={{ textAlign: 'center' }}>
 			<h3>
 				<b>오늘의 추천 공간</b>
 			</h3>
-			<h6 style={{color: 'gray'}}>뜨기 전에 먼저 예약하세요!</h6>
+			<h6 style={{ color: 'gray' }}>뜨기 전에 먼저 예약하세요!</h6>
 			<br />
 
 			<div
@@ -63,9 +63,9 @@ function SuggestRoom(props) {
 								}}
 							/>
 							<br />
-							<div style={{color: 'gray'}}>
+							<div style={{ color: 'gray' }}>
 								<h5>
-									<b style={{color: 'black'}}>{data.name}</b>
+									<b style={{ color: 'black' }}>{data.name}</b>
 								</h5>
 								<span>
 									<RoomIcon
@@ -74,7 +74,11 @@ function SuggestRoom(props) {
 											marginBottom: '5px',
 										}}
 									/>
+<<<<<<< HEAD
 									{/*{data.address.split(' ')[1]}*/}
+=======
+									{/* {data.address.split(' ')[1]} */}
+>>>>>>> 6605c25a8671e335bc9962c84c95c60a4890cb3f
 								</span>
 								<br />
 								<span>room tag list</span>
@@ -94,10 +98,10 @@ function SuggestRoom(props) {
 								</span>
 								&emsp;&emsp;
 								<span>
-									<Person style={{fontSize: '20px'}} /> 최대{' '}
+									<Person style={{ fontSize: '20px' }} /> 최대{' '}
 									{data.headcount}인{' '}
-									<Sms style={{fontSize: '20px'}} /> 0{' '}
-									<Favorite style={{fontSize: '20px'}} /> 0
+									<Sms style={{ fontSize: '20px' }} /> 0{' '}
+									<Favorite style={{ fontSize: '20px' }} /> 0
 								</span>
 								<br />
 								<br />
