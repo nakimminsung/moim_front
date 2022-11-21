@@ -21,6 +21,7 @@ function DeatilBooking(props) {
 	const [selectTime1, setSelectTime1] = useState('');
 	const [selectTime2, setSelectTime2] = useState('');
 	const [totalPrice, setTotalPrice] = useState(0);
+	const [bookingTimes, setBookingTimes] = useState([]);
 	const token = localStorage.getItem('token');
 
 	//룸관련 데이터 출력
@@ -36,6 +37,7 @@ function DeatilBooking(props) {
 	//시간 배열
 	const onTime = (stime, etime) => {
 		let times = [];
+
 		for (let i = Number(stime); i <= Number(etime); i++) {
 			times.push(i);
 		}
@@ -47,10 +49,6 @@ function DeatilBooking(props) {
 	const changeDay = (e) => {
 		setSelectDay(e);
 		setShowTime(true);
-		if (selectTime1 !== '' || selectTime2 !== '') {
-			setSelectTime1('');
-			setSelectTime2('');
-		}
 	};
 	//인원 감소
 	const minusHandler = (e) => {
@@ -70,22 +68,28 @@ function DeatilBooking(props) {
 	};
 	//시간 선택
 	const selectTime = (e) => {
+		for (let s = roomData.stime; s <= roomData.etime; s++) {
+			document
+				.getElementById('smallTime' + s)
+				.classList.remove('smallTimecolor');
+		}
 		if (selectTime1 !== '' && selectTime2 !== '') {
 			setSelectTime2('');
 			setSelectTime1(Number(e.target.dataset.hour));
+			document.getElementById(
+				'smallTime' + e.target.dataset.hour,
+			).className += ' smallTimecolor';
 		} else if (selectTime1 !== '') {
 			setSelectTime2(Number(e.target.dataset.hour));
 		} else {
 			setSelectTime1(Number(e.target.dataset.hour));
+			document.getElementById(
+				'smallTime' + e.target.dataset.hour,
+			).className += ' smallTimecolor';
 		}
 	};
 	const calculatePay = (e) => {
 		if (selectTime1 === '' || selectTime2 === '') {
-			for (let s = roomData.stime; s <= roomData.etime; s++) {
-				document
-					.getElementById('smallTime' + s)
-					.classList.remove('smallTimecolor');
-			}
 			return;
 		}
 		let selectStime = '';
@@ -101,8 +105,7 @@ function DeatilBooking(props) {
 		//금액 계산
 		let price = 0;
 		for (let i = selectStime; i <= selectEtime; i++) {
-			//console.log('a' + i)
-			if (selectStime !== '' || selectEtime !== '') {
+			if (selectStime !== '' && selectEtime !== '') {
 				document.getElementById('smallTime' + i).className +=
 					' smallTimecolor';
 			}
@@ -148,6 +151,53 @@ function DeatilBooking(props) {
 		calculatePay();
 	}, [selectTime1, selectTime2, totalPrice]);
 
+	useEffect(() => {
+		let bookingTimesUrl =
+			localStorage.url +
+			'/detailBookingTime?num=' +
+			num +
+			'&selectDay=' +
+			moment(selectDay).format('YYYY-MM-DD');
+
+		axios.get(bookingTimesUrl).then((res) => {
+			let arr = res.data.split(',');
+			setBookingTimes(arr);
+		});
+		if (selectTime1 != '' || selectTime2 != '') {
+			if (selectTime1 < selectTime2) {
+				for (let i = selectTime1; i <= selectTime2; i++) {
+					document
+						.getElementById('smallTime' + i)
+						.classList.remove('smallTimecolor');
+				}
+			} else {
+				for (let i = selectTime2; i <= selectTime1; i++) {
+					document
+						.getElementById('smallTime' + i)
+						.classList.remove('smallTimecolor');
+				}
+			}
+			setSelectTime1('');
+			setSelectTime2('');
+		}
+	}, [selectDay]);
+
+	//예약된 시간 막기
+	useEffect(() => {
+		console.log(bookingTimes);
+		for (let i = roomData.stime; i <= roomData.etime; i++) {
+			console.log(bookingTimes.includes(i));
+			if (bookingTimes.includes(String(i))) {
+				document.getElementById('smallTime' + i).className +=
+					' smallTimeblock';
+			} else {
+				document
+					.getElementById('smallTime' + i)
+					.classList.remove('smallTimeblock');
+			}
+		}
+	}, [bookingTimes]);
+
 	return (
 		<div>
 			<div
@@ -168,7 +218,7 @@ function DeatilBooking(props) {
 
 				<label style={{cursor: 'pointer', padding: '10px 10px'}}>
 					<input
-						type={'radio'}
+						type='radio'
 						onClick={() => {
 							setShowCalendar(true);
 						}}
@@ -283,11 +333,14 @@ function DeatilBooking(props) {
 						paddingBottom: '10px',
 					}}
 				>
-					<b>시간 선택</b>{' '}
+					<b>시간 선택</b>
 					<div
 						style={{
 							display:
-								selectTime1 && selectTime2 ? 'inline' : 'none',
+								(selectTime1 || selectTime1 === 0) &&
+								(selectTime2 || selectTime2 === 0)
+									? 'inline'
+									: 'none',
 							float: 'right',
 							color: '#704de4',
 						}}
@@ -349,7 +402,7 @@ function DeatilBooking(props) {
 							<div
 								className='detailBox'
 								style={{
-									backgroundColor: '#f0f0f0',
+									backgroundColor: 'rgb(236, 234, 234)',
 								}}
 							></div>
 							&nbsp;

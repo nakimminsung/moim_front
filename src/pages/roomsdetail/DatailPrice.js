@@ -52,6 +52,7 @@ function DatailPrice(props) {
 						toggle={btnLike}
 						style={{
 							color: btnLike ? '#704de4' : 'black',
+							cursor: 'pointer',
 						}}
 					>
 						{btnLike ? (

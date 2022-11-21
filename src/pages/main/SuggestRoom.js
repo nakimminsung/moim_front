@@ -74,7 +74,7 @@ function SuggestRoom(props) {
 											marginBottom: '5px',
 										}}
 									/>
-									{data.address.split(' ')[1]}
+									{/*{data.address.split(' ')[1]}*/}
 								</span>
 								<br />
 								<span>room tag list</span>

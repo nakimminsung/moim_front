@@ -38,7 +38,12 @@ function DetailInfo(props) {
 			<br />
 			<div
 				className='input-group detail-memu'
-				style={{width: '100%', position: 'sticky', top: '60px'}}
+				style={{
+					width: '100%',
+					position: 'sticky',
+					top: '60px',
+					zIndex: '1',
+				}}
 			>
 				<Link
 					to='1'

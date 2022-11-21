@@ -16,12 +16,15 @@
 	grid-column: 2;
 	height: 400px;
 }
+.detailBottom {
+	grid-column: span 2;
+}
 .tagRoom {
 	width: auto;
-	margin: 6px 6px 6px 0;
+	margin: 7px 7px 7px 0;
 	padding: 0 15px;
 	height: 29px;
-	font-size: 9px;
+	font-size: 12px;
 	line-height: 29px;
 	border-radius: 29px;
 	display: inline-block;
@@ -77,9 +80,6 @@
 	line-height: 50px;
 	height: 50px;
 }
-.smallTime.color {
-	background-color: #704de4;
-}
 
 .mainFigure {
 	display: flex;
@@ -109,6 +109,10 @@
 	font-size: 14px;
 	color: gray;
 }
+.smallTime.color {
+	background-color: #704de4;
+}
+
 .detailPriceInfo {
 	border: 1px solid #704de4;
 }
@@ -177,6 +181,13 @@
 	color: #fff;
 	cursor: pointer;
 }
+.smallTimeblock {
+	border: 1px solid #ccc;
+	font-size: 0;
+	pointer-events: none;
+	background-size: contain;
+	background-image: url(https://github.com/MoiM-Project/data/blob/main/icon/Screenshot%202022-11-21%20at%2002.07.22.JPG?raw=true);
+}
 /*인원 수*/
 .detailInwon {
 	display: flex;
@@ -228,4 +239,54 @@ input::-webkit-inner-spin-button {
 	font-size: 12px;
 	margin-top: 30px;
 	margin-bottom: 30px;
+}
+/*Qna*/
+.qnaContent {
+	font-family: normal;
+	color: #656565;
+	margin-bottom: 10px;
+}
+.qnaDay {
+	color: #b2b2b2;
+	font-size: 13px;
+}
+.qnaImg {
+	width: 80px;
+	height: 80px;
+	border-radius: 80px;
+}
+
+.qnabtn {
+	float: right;
+}
+.qnaInfo {
+	color: red;
+	font-size: 13px;
+}
+.reviewImg {
+	width: 170px;
+	height: 170px;
+	transform: scale(1);
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
+}
+.reviewImg:hover {
+	transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	-o-transform: scale(1.1);
+}
+.btnHost {
+	text-align: center;
+	width: 200px;
+	border: 1px solid #704de4;
+	height: 50px;
+	color: #704de4;
+	line-height: 50px;
+	background-color: white;
+	border-radius: 50px;
 }
