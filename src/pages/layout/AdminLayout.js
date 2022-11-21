@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AdminRouter from '../../Router/AdminRouter';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
@@ -11,6 +11,8 @@ import {makeStyles, Typography} from '@material-ui/core';
 import AdminMenu from '../admin/AdminMenu';
 
 function AdminLayout(props) {
+	const [topMenu, setTopMenu] = useState('');
+
 	const useStyles = makeStyles((theme) => ({
 		link: {
 			display: 'flex',
@@ -46,7 +48,7 @@ function AdminLayout(props) {
 					// minWidth: '300px',
 				}}
 			>
-				<AdminMenu />
+				<AdminMenu topMenu={topMenu} setTopMenu={setTopMenu} />
 			</div>
 
 			{/* Breadcrumbs 상단 경로 */}

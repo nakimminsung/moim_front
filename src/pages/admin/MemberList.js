@@ -1,11 +1,9 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
 function MemberList(props) {
 	const {memberList, setMemberList} = props;
 	const {sort, searchWord} = props;
-
-	const [userNum, setUserNum] = useState(0);
 
 	const getMemberList = () => {
 		let url =
@@ -16,7 +14,6 @@ function MemberList(props) {
 			sort;
 
 		console.log(url);
-		console.log(userNum);
 
 		axios.get(url).then((res) => {
 			setMemberList(res.data);

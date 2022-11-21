@@ -4,7 +4,7 @@ import NoticeListAdmin from './NoticeListAdmin';
 
 function NoticeManagement(props) {
 	const input = useRef(null);
-
+	const [noticeList, setNoticeList] = useState('');
 	const [searchWord, setSearchWord] = useState('');
 
 	//input text 에 엔터키 적용시키기
@@ -61,7 +61,37 @@ function NoticeManagement(props) {
 				/>
 			</div>
 
-			<NoticeListAdmin />
+			<br />
+			{/* 검색 여부에 따른 삼항 연산자 */}
+			<div style={{marginLeft: '10px', paddingTop: '5px'}}>
+				{searchWord !== '' ? (
+					//검색단어 있으면서, 결과가 있을때
+					noticeList.length !== 0 ? (
+						<b>
+							'{{searchWord}.searchWord}' (으)로 검색된 게시글 :{' '}
+							{noticeList.length} 개
+						</b>
+					) : (
+						//검색단어 있으면서, 결과가 없을때
+						<b>
+							'{{searchWord}.searchWord}' (으)로 검색된 게시글이
+							없습니다.
+						</b>
+					)
+				) : //삼항 연산자 중첩 시작
+				//검색단어 없으면서, 결과가 있을때
+				noticeList.length !== 0 ? (
+					<b>조회된 게시글 : {noticeList.length} 개</b>
+				) : (
+					//검색단어 없으면서, 결과가 없을때
+					<b>등록된 게시글이 없습니다.</b>
+				)}
+			</div>
+			<NoticeListAdmin
+				noticeList={noticeList}
+				setNoticeList={setNoticeList}
+				searchWord={searchWord}
+			/>
 		</div>
 	);
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 function AdminMenu(props) {
+	const {topMenu, setTopMenu} = props;
 	return (
 		<div>
 			{/* 좌측 메뉴 div */}
