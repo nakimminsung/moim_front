@@ -52,24 +52,28 @@ function SpaceUpdateForm2(props) {
 
 	// 호출한 체크값 담을 배열
 	const [checkList, setCheckList] = useState([]);
-	console.log(checkList);
+	const [callRoption, setCallRoption] = useState([]);
+	const [callRoomImage, setCallRoomImage] = useState([]);
+	const [callTag, setCallTag] = useState([]);
+	const [callInfo, setCallInfo] = useState([]);
+	const [callPre, setCallPre] = useState([]);
+
 	//룸 넘버에 해당하는 dto 가져오기
 	const onSelectData = () => {
 		let url = localStorage.url + '/host/updateform2?roomNum=' + roomNum;
 		axios.get(url).then((res) => {
 			setCheckList(res.data.categoryData);
-			setRoptionList(res.data.roptionData);
-			setRoomImage(res.data.imageData);
-			setTag(res.data.tagData);
-			setInfo(res.data.infoData);
-			setPrecautions(res.data.preData);
+			setCallRoption(res.data.roptionData);
+			setCallRoomImage(res.data.imageData);
+			setCallTag(res.data.tagData);
+			setCallInfo(res.data.infoData);
+			setCallPre(res.data.preData);
 		});
 	};
 
 	//처음 시작 시 스프링으로부터 dto를 얻어야하므로 useEffect 에서 호출
 	useEffect(() => {
 		onSelectData();
-		console.log(checkList);
 		console.log('호출');
 	}, []);
 
@@ -272,7 +276,7 @@ function SpaceUpdateForm2(props) {
 			})
 			.then((res) => {
 				console.log(res);
-				navi(`/host/addform3/${res.data}`);
+				navi(`/host/updateform3/${res.data}`);
 			});
 	};
 	return (
@@ -417,58 +421,104 @@ function SpaceUpdateForm2(props) {
 								height: '200px',
 							}}
 						>
+							{callRoomImage &&
+								callRoomImage.map((images, idx) => (
+									<div
+										style={{
+											position: 'relative',
+										}}
+									>
+										<img
+											alt=''
+											src={`${imageUrl}${images.rimageUrl}`}
+											className='roomImge'
+											style={{
+												width: '170px',
+												height: '170px',
+												maxWidth: '170px',
+												maxHeight: '170px',
+												marginLeft: '5px',
+											}}
+										/>
+
+										<CloseOutlined
+											style={{
+												color: '#b2b2b2',
+												cursor: 'pointer',
+												width: '20px',
+												height: '20px',
+												border: '1px solid #e0e0e0',
+												backgroundColor: 'f6f6f6',
+												position: 'absolute',
+												zIndex: '1',
+											}}
+											onClick={() => {
+												const imagesdelUrl =
+													localStorage.url +
+													'/host/imagesdel?num=' +
+													images.num;
+												axios
+													.delete(imagesdelUrl)
+													.then((res) => {
+														alert('삭제되었습니다');
+														window.location.replace(
+															`/host/updateform2/${roomNum}`,
+														);
+													});
+											}}
+										/>
+									</div>
+								))}
 							{rimageUrl &&
 								rimageUrl.map((room, idx) => (
-									<>
-										<div
+									<div
+										style={{
+											position: 'relative',
+										}}
+									>
+										<img
+											alt=''
+											src={`${imageUrl}${room.rimageUrl}`}
+											className='roomImge'
 											style={{
-												position: 'relative',
+												width: '170px',
+												height: '170px',
+												maxWidth: '170px',
+												maxHeight: '170px',
+												marginLeft: '5px',
 											}}
-										>
-											<img
-												alt=''
-												src={`${imageUrl}${room.rimageUrl}`}
-												className='roomImge'
-												style={{
-													width: '170px',
-													height: '170px',
-													maxWidth: '170px',
-													maxHeight: '170px',
-													marginLeft: '5px',
-												}}
-											/>
+										/>
 
-											<CloseOutlined
-												style={{
-													color: '#b2b2b2',
-													cursor: 'pointer',
-													width: '20px',
-													height: '20px',
-													border: '1px solid #e0e0e0',
-													backgroundColor: 'f6f6f6',
-													position: 'absolute',
-													zIndex: '1',
-												}}
-												onClick={() => {
-													const delUrl =
-														localStorage.url +
-														'/host/delphoto?idx=' +
-														idx;
-													axios
-														.get(delUrl)
-														.then((res) => {
-															//DB는 삭제되지 않음
-														});
+										<CloseOutlined
+											style={{
+												color: '#b2b2b2',
+												cursor: 'pointer',
+												width: '20px',
+												height: '20px',
+												border: '1px solid #e0e0e0',
+												backgroundColor: 'f6f6f6',
+												position: 'absolute',
+												zIndex: '1',
+											}}
+											onClick={() => {
+												const delUrl =
+													localStorage.url +
+													'/host/delphoto?idx=' +
+													idx;
+												axios
+													.get(delUrl)
+													.then((res) => {
+														//DB는 삭제되지 않음
+													});
 
-													setRoomImage(
-														rimageUrl.filter(
-															(a, i) => i !== idx,
-														),
-													);
-												}}
-											/>
-										</div>
-									</>
+												setRoomImage(
+													rimageUrl.filter(
+														(a, i) => i !== idx,
+													),
+												);
+											}}
+										/>
+									</div>
 								))}
 						</div>
 					</Space>
@@ -491,31 +541,92 @@ function SpaceUpdateForm2(props) {
 							oimageUrl={oimageUrl}
 						/>
 						<div>
-							{roptionList === 0
-								? null
-								: roptionList &&
-								  roptionList.map((rotion, idx) => (
-										<table>
-											<tbody>
-												<tr key={idx}>
-													<td>
-														<img
-															style={{
-																width: '150px',
-															}}
-															alt=''
-															src={
-																imageUrl +
-																rotion.oimageUrl
-															}
-														/>
-													</td>
-													<td>{rotion.oname}</td>
-													<td>{rotion.price}</td>
-												</tr>
-											</tbody>
-										</table>
-								  ))}
+							<table>
+								<tbody>
+									{callRoption &&
+										callRoption.map((rotion, idx) => (
+											<tr key={idx}>
+												<td>
+													<img
+														style={{
+															width: '150px',
+														}}
+														alt=''
+														src={
+															imageUrl +
+															rotion.oimageUrl
+														}
+													/>
+												</td>
+												<td>{rotion.oname}</td>
+												<td>{rotion.price}</td>
+												<td>
+													<CloseOutlined
+														style={{
+															cursor: 'pointer',
+														}}
+														onClick={() => {
+															const optiondelUrl =
+																localStorage.url +
+																'/host/roptindel?num=' +
+																rotion.num;
+															console.log(
+																optiondelUrl,
+															);
+															axios
+																.delete(
+																	optiondelUrl,
+																)
+																.then((res) => {
+																	alert(
+																		'삭제되었습니다',
+																	);
+																	window.location.replace(
+																		`/host/updateform2/${roomNum}`,
+																	);
+																});
+														}}
+													/>
+												</td>
+											</tr>
+										))}
+									{roptionList &&
+										roptionList.map((roption2, idx) => (
+											<tr key={idx}>
+												<td>
+													<img
+														style={{
+															width: '150px',
+														}}
+														alt=''
+														src={
+															imageUrl +
+															roption2.oimageUrl
+														}
+													/>
+												</td>
+												<td>{roption2.oname}</td>
+												<td>{roption2.price}</td>
+												<td>
+													<CloseOutlined
+														style={{
+															cursor: 'pointer',
+														}}
+														onClick={() => {
+															setRoptionList(
+																roptionList.filter(
+																	(a, i) =>
+																		i !==
+																		idx,
+																),
+															);
+														}}
+													/>
+												</td>
+											</tr>
+										))}
+								</tbody>
+							</table>
 						</div>
 					</Space>
 
@@ -533,17 +644,64 @@ function SpaceUpdateForm2(props) {
 							onchange2={onchange2}
 						/>
 						<div>
-							{tname.map((t, idx2) => (
-								<b
-									key={idx2}
-									style={{
-										border: '1px solid pink',
-										backgroundColor: '#efefef',
-									}}
-								>
-									#{t.tname}
-								</b>
-							))}
+							{callTag &&
+								callTag.map((t, idx2) => (
+									<b
+										key={idx2}
+										style={{
+											border: '1px solid pink',
+											backgroundColor: '#efefef',
+										}}
+									>
+										<span>
+											#{t.tname}
+											<CloseOutlined
+												style={{cursor: 'pointer'}}
+												onClick={() => {
+													const tagdelUrl =
+														localStorage.url +
+														'/host/updatedel?num=' +
+														t.num;
+													console.log(tagdelUrl);
+													axios
+														.delete(tagdelUrl)
+														.then((res) => {
+															alert(
+																'삭제되었습니다',
+															);
+															window.location.replace(
+																`/host/updateform2/${roomNum}`,
+															);
+														});
+												}}
+											/>
+										</span>
+									</b>
+								))}
+							{tname &&
+								tname.map((t1, idx) => (
+									<b
+										key={idx}
+										style={{
+											border: '1px solid pink',
+											backgroundColor: '#efefef',
+										}}
+									>
+										<span>
+											#{t1}
+											<CloseOutlined
+												style={{cursor: 'pointer'}}
+												onClick={() => {
+													setTag(
+														tname.filter(
+															(a, i) => i !== idx,
+														),
+													);
+												}}
+											/>
+										</span>
+									</b>
+								))}
 						</div>
 					</Space>
 					<br />
@@ -559,11 +717,46 @@ function SpaceUpdateForm2(props) {
 							onchange4={onchange4}
 						/>
 						<div>
-							{icontent.map((info, idx3) => (
-								<h5 key={idx3}>
-									<b>{info.icontent}</b>
-								</h5>
-							))}
+							{callInfo &&
+								callInfo.map((info, idx3) => (
+									<h5 key={idx3}>
+										<b>{info.icontent}</b>
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												const infodelUrl =
+													localStorage.url +
+													'/host/updatedel?num=' +
+													info.num;
+												console.log(infodelUrl);
+												axios
+													.delete(infodelUrl)
+													.then((res) => {
+														alert('삭제되었습니다');
+														window.location.replace(
+															`/host/updateform2/${roomNum}`,
+														);
+													});
+											}}
+										/>
+									</h5>
+								))}
+							{icontent &&
+								icontent.map((info1, idx) => (
+									<h5 key={idx}>
+										<b>{info1}</b>
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												setInfo(
+													icontent.filter(
+														(a, i) => i !== idx,
+													),
+												);
+											}}
+										/>
+									</h5>
+								))}
 						</div>
 					</Space>
 					<br />
@@ -579,11 +772,46 @@ function SpaceUpdateForm2(props) {
 							onchange6={onchange6}
 						/>
 						<div>
-							{pcontent.map((pre, idx4) => (
-								<h5 key={idx4}>
-									<b>{pre.pcontent}</b>
-								</h5>
-							))}
+							{callPre &&
+								callPre.map((pre, idx4) => (
+									<h5 key={idx4}>
+										<b>{pre.pcontent}</b>
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												const predelUrl =
+													localStorage.url +
+													'/host/updatedel?num=' +
+													pre.num;
+												console.log(predelUrl);
+												axios
+													.delete(predelUrl)
+													.then((res) => {
+														alert('삭제되었습니다');
+														window.location.replace(
+															`/host/updateform2/${roomNum}`,
+														);
+													});
+											}}
+										/>
+									</h5>
+								))}
+							{icontent &&
+								pcontent.map((pre1, idx) => (
+									<h5 key={idx}>
+										<b>{pre1}</b>
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												setPrecautions(
+													pcontent.filter(
+														(a, i) => i !== idx,
+													),
+												);
+											}}
+										/>
+									</h5>
+								))}
 						</div>
 					</Space>
 				</div>

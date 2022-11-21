@@ -485,31 +485,45 @@ function SpaceAddForm2(props) {
 							oimageUrl={oimageUrl}
 						/>
 						<div>
-							{roptionList === 0
-								? null
-								: roptionList &&
-								  roptionList.map((rotion, idx) => (
-										<table>
-											<tbody>
-												<tr key={idx}>
-													<td>
-														<img
-															style={{
-																width: '150px',
-															}}
-															alt=''
-															src={
-																imageUrl +
-																rotion.oimageUrl
-															}
-														/>
-													</td>
-													<td>{rotion.oname}</td>
-													<td>{rotion.price}</td>
-												</tr>
-											</tbody>
-										</table>
-								  ))}
+							{roptionList &&
+								roptionList.map((rotion, idx) => (
+									<table>
+										<tbody>
+											<tr key={idx}>
+												<td>
+													<img
+														style={{
+															width: '150px',
+														}}
+														alt=''
+														src={
+															imageUrl +
+															rotion.oimageUrl
+														}
+													/>
+												</td>
+												<td>{rotion.oname}</td>
+												<td>{rotion.price}</td>
+												<td>
+													<CloseOutlined
+														style={{
+															cursor: 'pointer',
+														}}
+														onClick={() => {
+															setRoptionList(
+																roptionList.filter(
+																	(a, i) =>
+																		i !==
+																		idx,
+																),
+															);
+														}}
+													/>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								))}
 						</div>
 					</Space>
 
@@ -535,7 +549,19 @@ function SpaceAddForm2(props) {
 										backgroundColor: '#efefef',
 									}}
 								>
-									#{t}
+									<span>
+										#{t}
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												setTag(
+													tname.filter(
+														(a, i) => i !== idx2,
+													),
+												);
+											}}
+										/>
+									</span>
 								</b>
 							))}
 						</div>
@@ -556,6 +582,16 @@ function SpaceAddForm2(props) {
 							{icontent.map((info, idx3) => (
 								<h5 key={idx3}>
 									<b>{info}</b>
+									<CloseOutlined
+										style={{cursor: 'pointer'}}
+										onClick={() => {
+											setInfo(
+												icontent.filter(
+													(a, i) => i !== idx3,
+												),
+											);
+										}}
+									/>
 								</h5>
 							))}
 						</div>
@@ -576,6 +612,16 @@ function SpaceAddForm2(props) {
 							{pcontent.map((pre, idx4) => (
 								<h5 key={idx4}>
 									<b>{pre}</b>
+									<CloseOutlined
+										style={{cursor: 'pointer'}}
+										onClick={() => {
+											setPrecautions(
+												pcontent.filter(
+													(a, i) => i !== idx4,
+												),
+											);
+										}}
+									/>
 								</h5>
 							))}
 						</div>

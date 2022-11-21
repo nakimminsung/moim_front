@@ -28,8 +28,8 @@ function SpaceUpdateForm3(props) {
 	const [holiAmPrice, setHoliAmPrice] = useState();
 	const [holiPmPrice, setHoliPmPrice] = useState();
 
-	const [elevator, setElevator] = useState([]);
-	const [payment, setPayment] = useState([]);
+	const [elevator, setElevator] = useState();
+	const [payment, setPayment] = useState();
 
 	// const floorRef = React.useRef('');
 	// const parkingRef = React.useRef('');
@@ -48,7 +48,9 @@ function SpaceUpdateForm3(props) {
 			setEtime(res.data.etime);
 			setHoliday(res.data.holiday);
 			setElevator(res.data.elevator);
+			console.log(elevator);
 			setPayment(res.data.payment);
+			// console.log(payment);
 			setFloor(res.data.floor);
 			setParking(res.data.parking);
 			setHeadCount(res.data.headcount);
@@ -56,26 +58,6 @@ function SpaceUpdateForm3(props) {
 			setWeekPmPrice(res.data.weekPmPrice);
 			setHoliAmPrice(res.data.holiAmPrice);
 			setHoliPmPrice(res.data.holiPmPrice);
-			// floorRef.current.value = res.data.floor;
-			// floorRef((floorRef.current.value = res.data.floor));
-			// console.log(floorRef.current.value);
-			// floorRef(res.data.floor);
-			// parkingRef(res.data.parking);
-			// HeadcountRef.current.value = res.data.headcount;
-			// HeadcountRef((HeadcountRef.current.value = res.data.headcount));
-			// console.log(HeadcountRef.current.value);
-			// weekAmPriceRef(res.data.weekAmPrice);
-			// weekAmPriceRef.current.value = res.data.weekAmPrice;
-			// console.log(weekAmPriceRef.current.value);
-			// weekAmPriceRef(
-			// 	(weekAmPriceRef.current.value = res.data.weekAmPrice),
-			// );
-			// console.log((weekAmPriceRef.current.value = res.data.weekAmPrice));
-			// weekPmPriceRef(res.data.weekPmPrice);
-			// holiAmPriceRef(res.data.holiAmPrice);
-			// holiPmPriceRef(res.data.holiPmPrice);
-			// console.log('수정전 Stime=' + stime);
-			// console.log('수정전 elevator=' + elevator);
 		});
 	};
 
@@ -487,7 +469,7 @@ function SpaceUpdateForm3(props) {
 								<input
 									// style={{display: 'none'}}
 									type={'radio'}
-									value={elevator}
+									value={'1'}
 									checked={elevator == '1'}
 									onChange={radioCheck}
 								/>
@@ -498,7 +480,7 @@ function SpaceUpdateForm3(props) {
 								<input
 									// style={{display: 'none'}}
 									type={'radio'}
-									value={elevator}
+									value={'0'}
 									checked={elevator == '0'}
 									onChange={radioCheck}
 								/>
@@ -599,7 +581,7 @@ function SpaceUpdateForm3(props) {
 							<input
 								// style={{display: 'none'}}
 								type={'radio'}
-								value={payment}
+								value={'바로결제'}
 								checked={payment == '바로결제'}
 								onChange={payCheck}
 							/>
@@ -610,7 +592,7 @@ function SpaceUpdateForm3(props) {
 							<input
 								// style={{display: 'none'}}
 								type={'radio'}
-								value={payment}
+								value={'승인결제'}
 								checked={payment == '승인결제'}
 								onChange={payCheck}
 							/>
