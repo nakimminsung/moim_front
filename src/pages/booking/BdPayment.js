@@ -6,7 +6,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import InfoIcon from '@mui/icons-material/Info';
 import Button from '@material-ui/core/Button';
-import {useNavigate} from 'react-router-dom';
 import './booking.css';
 
 function BdPayment({
@@ -29,7 +28,6 @@ function BdPayment({
 }) {
 	// 모달
 	const [open, setOpen] = React.useState(false);
-	const navigate = useNavigate();
 
 	const handleClickOpen = () => {
 		if (name && phone && email !== '') {

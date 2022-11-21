@@ -87,6 +87,14 @@ input {
 	gap: 20px;
 }
 
+.statusTag {
+	width: 55px;
+	height: 25px;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 /* pagination */
 .pagination {
 	display: flex;
@@ -143,4 +151,33 @@ ul.pagination li a.active {
 	width: 48px;
 	height: 30px;
 	color: #704de4;
+}
+
+/* 예약상세페이지 */
+.BKContainer {
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 1rem;
+	grid-template-colums: repeat(3, 1fr);
+}
+
+.BKItem:nth-child(1) {
+	grid-column: 1/3;
+	background-color: #704de4;
+}
+.BKItem:nth-child(2) {
+	grid-column: 3/5;
+	margin-left: 30px;
+	height: 400px;
+	position: sticky;
+	top: 100px;
+	height: 400px;
+	background-color: #ffd014;
+}
+
+.bkTop h1 {
+	z-index: 100;
+	color: white;
 }

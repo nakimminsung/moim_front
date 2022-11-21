@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -23,6 +23,7 @@ function BookingList() {
 	const url = `http://localhost:9000/bookingDetail/list?userNum=${userNum}&bookingStatus=${bookingStatus}&sort=${sort}`;
 	const imgUrl = 'http://localhost:9000/image/';
 	const token = localStorage.getItem('token');
+	const navigate = useNavigate();
 	//pagenation
 	const [page, setPage] = useState(1);
 	let items = 6;
@@ -54,6 +55,7 @@ function BookingList() {
 	let weekday = new Array();
 	for (let i = 0; i < bookingList.length; i++) {
 		let str = bookingList[i].bookingTime;
+		console.log('aa' + bookingList[i].num);
 		let arr = str.split(',');
 		// console.log('aa' + Array.isArray(arr));
 		// console.log(arr);
@@ -218,6 +220,81 @@ function BookingList() {
 															variant='body2'
 															color='text.secondary'
 														>
+															{Number(
+																item.bookingStatus,
+															) === 1 ? (
+																<div
+																	className='statusTag'
+																	style={{
+																		backgroundColor:
+																			'#EFB786',
+																		color: '#483948',
+																	}}
+																>
+																	<span>
+																		승인대기
+																	</span>
+																</div>
+															) : Number(
+																	item.bookingStatus,
+															  ) === 2 ? (
+																<div
+																	className='statusTag'
+																	style={{
+																		backgroundColor:
+																			'#EDE7F8',
+																		color: '#BB35AE',
+																	}}
+																>
+																	<span>
+																		결제대기
+																	</span>
+																</div>
+															) : Number(
+																	item.bookingStatus,
+															  ) === 3 ? (
+																<div
+																	className='statusTag'
+																	style={{
+																		backgroundColor:
+																			'#704de4',
+																		color: '#ffd014',
+																	}}
+																>
+																	<span>
+																		예약확정
+																	</span>
+																</div>
+															) : Number(
+																	item.bookingStatus,
+															  ) === 4 ? (
+																<div
+																	className='statusTag'
+																	style={{
+																		backgroundColor:
+																			'#E8EDE7',
+																		color: '#036280',
+																	}}
+																>
+																	<span>
+																		이용완료
+																	</span>
+																</div>
+															) : (
+																<div
+																	className='statusTag'
+																	style={{
+																		backgroundColor:
+																			'#E83100',
+																		color: 'white',
+																	}}
+																>
+																	<span>
+																		취소환불
+																	</span>
+																</div>
+															)}
+															<br />
 															<span>
 																{
 																	item.bookingDate
@@ -267,6 +344,11 @@ function BookingList() {
 													<Button
 														size='small'
 														color='primary'
+														onClick={() => {
+															navigate(
+																`../detail/${item.num}`,
+															);
+														}}
 													>
 														<span
 															style={{

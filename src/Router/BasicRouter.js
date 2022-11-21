@@ -55,7 +55,10 @@ function BasicRouter() {
 				<Route path='/booking'>
 					<Route path='main' element={<BookingMain />} />
 					<Route path='list/:userNum' element={<BookingList />} />
-					<Route path='detail' element={<BookingDetail />} />
+					<Route
+						path='detail/:bookingDetailNum'
+						element={<BookingDetail />}
+					/>
 				</Route>
 
 				<Route path='login' element={<Login />} />
