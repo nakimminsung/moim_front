@@ -53,8 +53,6 @@ function Map(props) {
 			stime,
 			etime,
 		};
-		console.log(selectUrl);
-		console.log(selectData);
 		axios.post(selectUrl, selectData).then((res) => setRoomData(res.data));
 	};
 

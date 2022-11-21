@@ -12,7 +12,17 @@ import {Box} from '@mui/material';
 function List(props) {
 	const {themeNum} = useParams();
 	const [data, setData] = useState([]);
-	const [sort, setSort] = useState('readCount desc');
+	const [sort, setSort] = useState('a.readCount desc');
+	const [roomName, setRoomName] = useState('');
+	const [headCount, setHeadCount] = useState(1);
+	const [address, setAddress] = useState('');
+	const [payment, setPayment] = useState('');
+	const [sprice, setSprice] = useState('0');
+	const [eprice, setEprice] = useState('500000');
+	const [stime, setStime] = useState('0');
+	const [etime, setEtime] = useState('24');
+	const [facility, setFacility] = useState('');
+	const [holiday, setHoliday] = useState('');
 
 	// theme의 space list select
 	const selectThemeRoomList = () => {
@@ -22,8 +32,28 @@ function List(props) {
 			themeNum +
 			'&sort=' +
 			sort;
-		console.log(url);
-		axios.get(url).then((res) => setData(res.data));
+		let facilityCount = facility.length;
+		setSprice(sprice ? sprice : 0);
+		setEprice(eprice ? eprice : 500000);
+		setStime(stime ? stime : 0);
+		setEtime(etime ? etime : 24);
+		setHoliday(holiday ? holiday : 99);
+		let selectData = {
+			themeNum,
+			sort,
+			headCount,
+			address,
+			roomName,
+			payment,
+			sprice,
+			eprice,
+			facility,
+			facilityCount,
+			holiday,
+			stime,
+			etime,
+		};
+		axios.post(url, selectData).then((res) => setData(res.data));
 	};
 	const handleChange = (e) => {
 		setSort(e.target.value);
@@ -43,11 +73,11 @@ function List(props) {
 						value={sort}
 						onChange={handleChange}
 					>
-						<MenuItem value={'readCount desc'}>인기순</MenuItem>
-						<MenuItem value={'weekAmPrice asc'}>
+						<MenuItem value={'a.readCount desc'}>인기순</MenuItem>
+						<MenuItem value={'a.weekAmPrice asc'}>
 							낮은 가격순
 						</MenuItem>
-						<MenuItem value={'weekAmPrice desc'}>
+						<MenuItem value={'a.weekAmPrice desc'}>
 							높은 가격순
 						</MenuItem>
 					</Select>
