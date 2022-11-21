@@ -19,6 +19,7 @@ import SignUpEmail from '../pages/login/SignUpEmail';
 import Mypage from '../pages/mypage/Mypage';
 import CategoryRoom from '../pages/categoryroom/CategoryRoom';
 import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
+import Search from '../pages/search/Search';
 import SpaceUpdateForm from '../pages/host/SpaceUpdateForm';
 import SpaceUpdateForm2 from '../pages/host/SpaceUpdateForm2';
 import SpaceUpdateForm3 from '../pages/host/SpaceUpdateForm3';
@@ -80,6 +81,11 @@ function BasicRouter() {
 				{/* 카테고리별 방 페이지 */}
 				<Route path='categoryroomList'>
 					<Route path=':categoryNum' element={<CategoryRoom />} />
+				</Route>
+
+				{/* 공간 통합검색 */}
+				<Route path='searchroom' element={<Search name={'React'} />}>
+					{/* <Route path=':searchWord' element={<Search />} /> */}
 				</Route>
 
 				<Route
