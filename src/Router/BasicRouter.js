@@ -56,9 +56,13 @@ function BasicRouter() {
 				{/* 예약페이지 */}
 				<Route path='/booking'>
 					<Route path='main' element={<BookingMain />} />
-					<Route path='list' element={<BookingList />} />
-					<Route path='detail' element={<BookingDetail />} />
+					<Route path='list/:userNum' element={<BookingList />} />
+					<Route
+						path='detail/:bookingDetailNum'
+						element={<BookingDetail />}
+					/>
 				</Route>
+
 				<Route path='login' element={<Login />} />
 				<Route path='signup' element={<SignUp />} />
 				<Route path='signupEmail' element={<SignUpEmail />} />

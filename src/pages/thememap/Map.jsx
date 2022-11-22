@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Menu from './Menu';
 import Title from './Title';
 import List from './List';
 import Content from './Content';
 import styled from '@emotion/styled/macro';
-import { Box } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import {Box} from '@mui/material';
+import {useParams} from 'react-router-dom';
 import axios from 'axios';
-import Test from './Test';
 
 function Map(props) {
 	const [themeData, setThemeData] = useState('');
 	const [roomData, setRoomData] = useState([]);
-	const [sort, setSort] = useState('readCount desc');
+	const [sort, setSort] = useState('a.readCount desc');
 	const [roomName, setRoomName] = useState('');
-	const [headCount, setHeadCount] = useState('');
+	const [headCount, setHeadCount] = useState(1);
 	const [address, setAddress] = useState('');
 	const [payment, setPayment] = useState('');
-	const [sprice, setSprice] = useState(0);
-	const [eprice, setEprice] = useState(500000);
-	const [facility, setFacility] = useState([]);
-	const { themeNum } = useParams();
+	const [sprice, setSprice] = useState('0');
+	const [eprice, setEprice] = useState('500000');
+	const [stime, setStime] = useState('0');
+	const [etime, setEtime] = useState('24');
+	const [facility, setFacility] = useState('');
+	const [holiday, setHoliday] = useState('');
+	const {themeNum} = useParams();
 
 	// 테마 데이터 select
 	const selectTheme = () => {
@@ -29,31 +31,47 @@ function Map(props) {
 	};
 	// 테마의 공간 리스트 select
 	const selectThemeRoomList = () => {
-		let url =
-			localStorage.url +
-			'/theme/list?themeNum=' +
-			themeNum +
-			'&sort=' +
-			sort +
-			'&headCount=' +
-			headCount +
-			'&address=' +
-			address +
-			'&name=' +
-			roomName +
-			'&payment=' +
-			payment +
-			'&sprice=' +
-			sprice +
-			'&eprice=' +
-			eprice;
-		axios.get(url).then((res) => setRoomData(res.data));
+		let selectUrl = localStorage.url + '/theme/list';
+		let facilityCount = facility.length;
+		setSprice(sprice ? sprice : 0);
+		setEprice(eprice ? eprice : 500000);
+		setStime(stime ? stime : 0);
+		setEtime(etime ? etime : 24);
+		setHoliday(holiday ? holiday : 99);
+		let selectData = {
+			themeNum,
+			sort,
+			headCount,
+			address,
+			roomName,
+			payment,
+			sprice,
+			eprice,
+			facility,
+			facilityCount,
+			holiday,
+			stime,
+			etime,
+		};
+		axios.post(selectUrl, selectData).then((res) => setRoomData(res.data));
 	};
 
 	useEffect(() => {
 		selectTheme();
 		selectThemeRoomList();
-	}, [sort, roomName, address, headCount, payment, sprice, eprice]);
+	}, [
+		sort,
+		roomName,
+		address,
+		headCount,
+		sprice,
+		eprice,
+		facility,
+		payment,
+		holiday,
+		stime,
+		etime,
+	]);
 
 	return (
 		<Wrapper>
@@ -76,6 +94,9 @@ function Map(props) {
 						setSprice={setSprice}
 						setEprice={setEprice}
 						setFacility={setFacility}
+						setHoliday={setHoliday}
+						setStime={setStime}
+						setEtime={setEtime}
 					/>
 				</MenuDiv>
 			</Top>
@@ -85,7 +106,6 @@ function Map(props) {
 				</ListDiv>
 				<ContentDiv>
 					<Content roomData={roomData} />
-					{/* <Test roomData={roomData} /> */}
 				</ContentDiv>
 			</Bottom>
 		</Wrapper>
