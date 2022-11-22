@@ -21,6 +21,7 @@ import CategoryRoom from '../pages/categoryroom/CategoryRoom';
 import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
 import HostTotalPlace from '../pages/roomsdetail/HostTotalPlace';
 import Search from '../pages/search/Search';
+import Notice from '../pages/notice/Notice';
 
 function BasicRouter() {
 	return (
@@ -58,9 +59,13 @@ function BasicRouter() {
 				{/* 예약페이지 */}
 				<Route path='/booking'>
 					<Route path='main' element={<BookingMain />} />
-					<Route path='list' element={<BookingList />} />
-					<Route path='detail' element={<BookingDetail />} />
+					<Route path='list/:userNum' element={<BookingList />} />
+					<Route
+						path='detail/:bookingDetailNum'
+						element={<BookingDetail />}
+					/>
 				</Route>
+
 				<Route path='login' element={<Login />} />
 				<Route path='signup' element={<SignUp />} />
 				<Route path='signupEmail' element={<SignUpEmail />} />
@@ -74,6 +79,11 @@ function BasicRouter() {
 				{/* 공간 통합검색 */}
 				<Route path='searchroom' element={<Search name={'React'} />}>
 					{/* <Route path=':searchWord' element={<Search />} /> */}
+				</Route>
+
+				{/* 공지사항 Notice */}
+				<Route path='notice'>
+					<Route path='' element={<Notice />} />
 				</Route>
 
 				<Route

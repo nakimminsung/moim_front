@@ -19,7 +19,7 @@ function Mainpage(props) {
 					style={{display: 'flex', justifyContent: 'center'}}
 				>
 					<li>
-						<NavLink to={'/admin'}>🐹관리자🐹</NavLink>
+						<NavLink to={'/admin'}>관리자🐹</NavLink>
 					</li>
 					<li>
 						<NavLink to={'/host/slist'}>호스트 페이지</NavLink>
@@ -31,7 +31,9 @@ function Mainpage(props) {
 						<NavLink to={'/like'}>찜한 공간</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/booking/detail'}>예약페이지</NavLink>
+						<NavLink to={'/booking/list/47'}>
+							예약내역리스트
+						</NavLink>
 					</li>
 
 					{/* 임시버튼 */}
@@ -42,7 +44,7 @@ function Mainpage(props) {
 						<NavLink to={'/'}>임시 버튼</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/'}>임시 버튼</NavLink>
+						<NavLink to={'/notice'}>공지사항🦆</NavLink>
 					</li>
 				</ul>
 			</div>

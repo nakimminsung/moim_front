@@ -544,7 +544,7 @@ function DeatilBooking(props) {
 						if (token) {
 							if (stime !== '' || etime !== '') {
 								window.location.href =
-									'/booking/detail?num=' +
+									'/booking/main?num=' +
 									num +
 									'&date=' +
 									moment(selectDay).format('YYYY-MM-DD') +

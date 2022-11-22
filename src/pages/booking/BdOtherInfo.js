@@ -10,6 +10,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import {makeStyles} from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import './booking.css';
 
 const useStyles = makeStyles({
 	root: {
@@ -33,12 +34,10 @@ function BdOtherInfo(props) {
 		const pUrl = `http://localhost:9000/detailInfo?num=${props.roomNum}`;
 
 		axios.get(url).then((res) => {
-			//console.log(res.data);
 			setHostInfo(res.data);
 		});
 
 		axios.get(pUrl).then((res) => {
-			//console.log(res.data.pre);
 			setPrecaution(res.data.pre);
 		});
 	};
@@ -254,7 +253,12 @@ function BdOtherInfo(props) {
 					</Accordion>
 				))}
 				<InfoIcon style={{color: 'red', fontSize: 'small'}} />
-				<span style={{color: 'red', fontSize: 'small'}}>
+				<span
+					style={{
+						color: 'red',
+						fontSize: 'small',
+					}}
+				>
 					서비스 이용약관 동의는 필수입니다.
 				</span>
 			</div>
