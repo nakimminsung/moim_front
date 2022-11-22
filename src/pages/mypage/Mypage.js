@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styled, { css } from 'styled-components';
+import React, {useState, useEffect, useRef} from 'react';
+import styled, {css} from 'styled-components';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
-import { useParams } from 'react-router';
+import {useParams} from 'react-router';
 
 function Mypage(props) {
-	if (localStorage.getItem("token") == null) {
-		alert("로그인 해주세요.");
-		document.location.href = "/";
+	if (localStorage.getItem('token') == null) {
+		alert('로그인 해주세요.');
+		document.location.href = '/';
 	}
 
 	const [name, setName] = useState('');
@@ -81,7 +81,7 @@ function Mypage(props) {
 				} else {
 					response = await axios.patch(
 						'http://localhost:9000/member/modify/' +
-						jwt_decode(localStorage.getItem('token')).idx,
+							jwt_decode(localStorage.getItem('token')).idx,
 						body,
 						{
 							headers: {
@@ -112,7 +112,7 @@ function Mypage(props) {
 
 			response = await axios.patch(
 				'http://localhost:9000/member/delete/' +
-				jwt_decode(localStorage.getItem('token')).idx,
+					jwt_decode(localStorage.getItem('token')).idx,
 				body,
 				{
 					headers: {

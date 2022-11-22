@@ -6,13 +6,15 @@ import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import DeatilBooking from './DeatilBooking';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import CallIcon from '@material-ui/icons/Call';
-function DatailPrice(props) {
-	const [btnLike, setBtnLike] = useState(false);
+import jwt_decode from 'jwt-decode';
+
+function DatailFunction(props) {
+	const [btnLike, setBtnLike] = useState('');
 	const {num} = useParams();
 	const [roomData, setRoomData] = useState('');
 	const [facility, setFacility] = useState([]);
 	const [category, setCategory] = useState('');
+	const token = localStorage.getItem('token');
 
 	//룸관련 데이터 출력
 	const onSelectData = () => {
@@ -24,13 +26,53 @@ function DatailPrice(props) {
 		});
 	};
 
+	//로그인시 찜목록 리스트 하트 체크(false=찜 존재(채워진 하트)/true=찜 없음(비워진 하트))
 	useEffect((e) => {
 		onSelectData(num);
+		if (token) {
+			let userNum = jwt_decode(localStorage.getItem('token')).idx;
+			let likeUrl =
+				localStorage.url +
+				'/detailLike?num=' +
+				num +
+				'&userNum=' +
+				userNum;
+
+			axios.get(likeUrl).then((res) => {
+				console.log('likenum' + res.data.num);
+				if (res.data.num != undefined) {
+					setBtnLike(false);
+				} else {
+					setBtnLike(true);
+				}
+			});
+		} else {
+			setBtnLike(true);
+		}
 	}, []);
 
 	//하트 누르기
 	const clickedToggle = () => {
-		setBtnLike((prev) => !prev);
+		if (token) {
+			setBtnLike((prev) => !prev);
+
+			if (btnLike) {
+				let insertLikeUrl = localStorage.url + '/detail/insertLike';
+				let userNum = jwt_decode(localStorage.getItem('token')).idx;
+
+				axios.post(insertLikeUrl, {userNum, num}).then((res) => {
+					alert('등록되었습니다');
+				});
+			} else {
+				let deleteLikeUrl = localStorage.url + '/detail/deleteLike';
+				let userNum = jwt_decode(localStorage.getItem('token')).idx;
+				axios.post(deleteLikeUrl, {userNum, num}).then((res) => {
+					alert('삭제되었습니다');
+				});
+			}
+		} else {
+			alert('로그인해주세요');
+		}
 	};
 	return (
 		<div className='priceBanner'>
@@ -51,10 +93,11 @@ function DatailPrice(props) {
 						onClick={clickedToggle}
 						toggle={btnLike}
 						style={{
-							color: btnLike ? '#704de4' : 'black',
+							color: btnLike === false ? '#704de4' : 'black',
+							cursor: 'pointer',
 						}}
 					>
-						{btnLike ? (
+						{btnLike === false ? (
 							<FavoriteIcon style={{marginBottom: '6px'}} />
 						) : (
 							<FavoriteBorderIcon style={{marginBottom: '6px'}} />
@@ -180,4 +223,4 @@ function DatailPrice(props) {
 	);
 }
 
-export default DatailPrice;
+export default DatailFunction;

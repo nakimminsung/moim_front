@@ -34,10 +34,11 @@
 	--small: 0.813rem;
 }
 
+
 /* /* input {
 	all: unset;  나김민성 매우쳐라!!
 } */
- */
+
 body {
 	font-size: var(--normal);
 }
