@@ -20,9 +20,9 @@ export default function MyMenu() {
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);
 	};
-	const profileImage = jwt_decode(
-		localStorage.getItem('token'),
-	).profile_image;
+	// const profileImage = jwt_decode(
+	// 	localStorage.getItem('token'),
+	// ).profile_image;
 
 	const handleClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -90,7 +90,10 @@ export default function MyMenu() {
 					<Avatar
 						className='loginAvatar'
 						alt='Remy Sharp'
-						src={profileImage}
+						src={
+							jwt_decode(localStorage.getItem('token'))
+								.profile_image
+						}
 					/>
 				) : (
 					<AccountCircleIcon className='noneIcon' />
