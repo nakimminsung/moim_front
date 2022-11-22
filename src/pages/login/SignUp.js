@@ -52,13 +52,13 @@ function SignUp() {
                 </Naver>
               </Item>
               <Item>
-                <Facebook href="http://localhost:9000/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect">
+                <Facebook href="http://localhost:9000/oauth2/authorization/facebook?redirect_uri=http://localhost:3000/oauth2/redirect">
                   <SpIcon className="Facebook" />
                   페이스북으로 가입하기
                 </Facebook>
               </Item>
               <Item>
-                <Twitter href="http://localhost:9000/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
+                <Twitter href="http://localhost:9000/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth2/redirect">
                   <SpIcon className="Twitter" />
                   구글 가입하기
                 </Twitter>
