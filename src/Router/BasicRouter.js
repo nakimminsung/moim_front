@@ -20,6 +20,7 @@ import Mypage from '../pages/mypage/Mypage';
 import CategoryRoom from '../pages/categoryroom/CategoryRoom';
 import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
 import Search from '../pages/search/Search';
+import Notice from '../pages/notice/Notice';
 
 function BasicRouter() {
 	return (
@@ -73,8 +74,13 @@ function BasicRouter() {
 				</Route>
 
 				{/* 공간 통합검색 */}
-				<Route path='searchroom' element={<Search name={"React"} />}>
+				<Route path='searchroom' element={<Search name={'React'} />}>
 					{/* <Route path=':searchWord' element={<Search />} /> */}
+				</Route>
+
+				{/* 공지사항 Notice */}
+				<Route path='notice'>
+					<Route path='' element={<Notice />} />
 				</Route>
 
 				<Route
