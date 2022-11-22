@@ -20,6 +20,9 @@ export default function MyMenu() {
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);
 	};
+	const profileImage = jwt_decode(
+		localStorage.getItem('token'),
+	).profile_image;
 
 	const handleClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -87,7 +90,7 @@ export default function MyMenu() {
 					<Avatar
 						className='loginAvatar'
 						alt='Remy Sharp'
-						src='https://github.com/MoiM-Project/data/blob/main/review/KakaoTalk_20221107_181600198_02.jpg?raw=true'
+						src={profileImage}
 					/>
 				) : (
 					<AccountCircleIcon className='noneIcon' />
