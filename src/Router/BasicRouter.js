@@ -23,6 +23,7 @@ import Search from '../pages/search/Search';
 import SpaceUpdateForm from '../pages/host/SpaceUpdateForm';
 import SpaceUpdateForm2 from '../pages/host/SpaceUpdateForm2';
 import SpaceUpdateForm3 from '../pages/host/SpaceUpdateForm3';
+import SpaceBookingList from '../pages/host/SpaceBookingList';
 
 function BasicRouter() {
 	return (
@@ -59,6 +60,7 @@ function BasicRouter() {
 						path='updateform3/:num'
 						element={<SpaceUpdateForm3 />}
 					/>
+					<Route path='bookinglist' element={<SpaceBookingList />} />
 				</Route>
 				{/* 호스트 끝 */}
 
