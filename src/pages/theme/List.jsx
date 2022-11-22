@@ -10,34 +10,34 @@ import styled from '@emotion/styled/macro';
 import {Box} from '@mui/material';
 
 function List(props) {
-	const {themeNum} = useParams();
+	const headCount = 1,
+		roomName = '',
+		address = '',
+		payment = '',
+		facility = '';
 	const [data, setData] = useState([]);
 	const [sort, setSort] = useState('a.readCount desc');
-	const [roomName, setRoomName] = useState('');
-	const [headCount, setHeadCount] = useState(1);
-	const [address, setAddress] = useState('');
-	const [payment, setPayment] = useState('');
 	const [sprice, setSprice] = useState('0');
 	const [eprice, setEprice] = useState('500000');
 	const [stime, setStime] = useState('0');
 	const [etime, setEtime] = useState('24');
-	const [facility, setFacility] = useState('');
 	const [holiday, setHoliday] = useState('');
+	const {themeNum} = useParams();
 
 	// theme의 space list select
 	const selectThemeRoomList = () => {
-		let url =
-			localStorage.url +
-			'/theme/list?themeNum=' +
-			themeNum +
-			'&sort=' +
-			sort;
 		let facilityCount = facility.length;
 		setSprice(sprice ? sprice : 0);
 		setEprice(eprice ? eprice : 500000);
 		setStime(stime ? stime : 0);
 		setEtime(etime ? etime : 24);
 		setHoliday(holiday ? holiday : 99);
+		let url =
+			localStorage.url +
+			'/theme/list?themeNum=' +
+			themeNum +
+			'&sort=' +
+			sort;
 		let selectData = {
 			themeNum,
 			sort,

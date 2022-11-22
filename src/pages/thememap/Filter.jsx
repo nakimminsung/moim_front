@@ -7,6 +7,7 @@ import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios';
 import TuneIcon from '@mui/icons-material/Tune';
 import Menu from '@mui/material/Menu';
+import {marks} from './data/PriceMark';
 
 function Filter(props) {
 	const {setPayment, setSprice, setEprice, setFacility} = props;
@@ -70,7 +71,6 @@ function Filter(props) {
 		spriceRef.current = 0;
 		epriceRef.current = 500000;
 		// 편의시설
-		setFacilityList([]);
 	};
 	// 필터 적용하기 버튼 이벤트
 	const filterRun = () => {
@@ -315,39 +315,3 @@ const FilterButton = styled.button`
 	border-radius: 30px;
 	margin-left: auto;
 `;
-
-const marks = [
-	{
-		value: 0,
-	},
-	{
-		value: 50000,
-	},
-	{
-		value: 100000,
-	},
-	{
-		value: 150000,
-	},
-	{
-		value: 200000,
-	},
-	{
-		value: 250000,
-	},
-	{
-		value: 300000,
-	},
-	{
-		value: 350000,
-	},
-	{
-		value: 400000,
-	},
-	{
-		value: 450000,
-	},
-	{
-		value: 500000,
-	},
-];
