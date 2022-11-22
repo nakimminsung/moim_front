@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AdminRouter from '../../Router/AdminRouter';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
@@ -11,6 +11,8 @@ import {makeStyles, Typography} from '@material-ui/core';
 import AdminMenu from '../admin/AdminMenu';
 
 function AdminLayout(props) {
+	const [topMenu, setTopMenu] = useState('');
+
 	const useStyles = makeStyles((theme) => ({
 		link: {
 			display: 'flex',
@@ -46,7 +48,7 @@ function AdminLayout(props) {
 					// minWidth: '300px',
 				}}
 			>
-				<AdminMenu />
+				<AdminMenu topMenu={topMenu} setTopMenu={setTopMenu} />
 			</div>
 
 			{/* Breadcrumbs 상단 경로 */}
@@ -58,7 +60,7 @@ function AdminLayout(props) {
 						// border: '1.5px solid #704de4',
 						border: 'none',
 						borderRadius: '10px',
-						height: '80px',
+						height: '100px',
 						paddingLeft: '10px',
 						paddingTop: '10px',
 						marginBottom: '20px',
@@ -81,15 +83,7 @@ function AdminLayout(props) {
 							<HomeIcon className={classes.icon} />
 							Admin Main
 						</Link>
-						<Link
-							color='inherit'
-							href='/admin/member'
-							onClick={handleClick}
-							className={classes.link}
-						>
-							<WhatshotIcon className={classes.icon} />
-							회원 관리
-						</Link>
+
 						<Typography
 							color='textPrimary'
 							className={classes.link}
@@ -98,14 +92,14 @@ function AdminLayout(props) {
 							게스트 회원
 						</Typography>
 					</Breadcrumbs>
-					<span>
+					<h4>
 						<GrainIcon className={classes.icon} />
-						게스트 회원
-					</span>
+						게스트 관리
+					</h4>
 				</div>
 
 				{/* 하위 컴포넌트 호출 */}
-				<div style={{marginTop: '100px', width: '100%'}}>
+				<div style={{marginTop: '120px', width: '100%'}}>
 					<AdminRouter />
 				</div>
 			</div>
