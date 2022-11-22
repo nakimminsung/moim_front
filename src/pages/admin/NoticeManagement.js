@@ -13,10 +13,9 @@ import {FormControl} from '@material-ui/core';
 
 import {makeStyles} from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 
 import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import axios from 'axios';
 
 function NoticeManagement(props) {
 	const input = useRef(null);
@@ -37,7 +36,7 @@ function NoticeManagement(props) {
 		setSearchWord(input.current.value);
 	};
 
-	//modal dialogue 관련
+	//modal dialogue : OPEN / CLOSE
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -48,7 +47,7 @@ function NoticeManagement(props) {
 		setOpen(false);
 	};
 
-	//modal 내부의 select 관련
+	//modal 내부의 select style 관련
 	const useStyles = makeStyles((theme) => ({
 		formControl: {
 			margin: theme.spacing(1),
@@ -60,17 +59,44 @@ function NoticeManagement(props) {
 	}));
 
 	const classes = useStyles();
-	const [state, setState] = React.useState({
-		age: '',
-		name: 'hai',
-	});
 
-	const handleChange = (event) => {
-		const name = event.target.name;
-		setState({
-			...state,
-			[name]: event.target.value,
-		});
+	const [noticeType, setNoticeType] = useState('');
+	const [noticeTitle, setNoticeTitle] = useState('');
+	const [noticeContent, setNoticeContent] = useState('');
+	const [uploadFile, setUploadFile] = useState('');
+
+	//modal 내부의 select 변경 이벤트
+	const handleChange = (e) => {
+		console.log(e.target.value);
+	};
+
+	const noticeTypeHandler = (e) => {
+		e.preventDefault();
+		setNoticeType(e.target.value);
+	};
+
+	//modal submit
+	const submitHandler = (e) => {
+		console.log();
+
+		e.preventDefault();
+		// state에 저장한 값을 가져옵니다.
+		console.log(noticeTitle);
+		console.log(noticeContent);
+		console.log(uploadFile);
+
+		let body = {
+			noticeTitle: noticeTitle,
+			noticeContent: noticeContent,
+			uploadFile: uploadFile,
+		};
+
+		let url = localStorage.url + '/admin/noticeInsert';
+
+		axios.post(url, body).then((res) => console.log(res)); //url로 body 데이터를 보낸다
+
+		//modal 화면 close
+		// setOpen(false);
 	};
 
 	return (
@@ -154,53 +180,78 @@ function NoticeManagement(props) {
 				>
 					작성하기
 				</button>
-				<Dialog open={open} onClose={handleClose}>
-					<DialogTitle>공지사항 등록</DialogTitle>
-					<DialogContent>
-						<DialogContentText>
-							'유형'을 선택한 후 제목과 내용을 작성해주시기
-							바랍니다.
-							<br /> 작성이 완료되면 '완료' 버튼을 눌러 마무리하실
-							수 있습니다.
-						</DialogContentText>
 
-						<FormControl className={classes.formControl}>
-							<InputLabel htmlFor='age-native-simple'>
-								유형
-							</InputLabel>
-							<Select
-								native
-								value={state.age}
-								onChange={handleChange}
-								inputProps={{
-									name: 'age',
-									id: 'age-native-simple',
-								}}
+				{/* Dialogue Modal 화면 : 공지사항 작성 폼 */}
+
+				<form onSubmit={submitHandler}>
+					<Dialog open={open} onClose={handleClose}>
+						<DialogTitle>공지사항 등록</DialogTitle>
+						<DialogContent>
+							<DialogContentText style={{width: '600px'}}>
+								'유형'을 선택한 후 제목과 내용을 작성해주시기
+								바랍니다.
+								<br /> 작성이 완료되면 '완료' 버튼을 눌러
+								게시글을 등록할 수 있습니다.
+							</DialogContentText>
+
+							<FormControl
+								className={classes.formControl}
+								style={{marginLeft: '-0px'}}
 							>
-								<option aria-label='None' value='' />
-								<option value={'이벤트'}>이벤트</option>
-								<option value={'공지사항'}>공지사항</option>
-							</Select>
-						</FormControl>
+								<InputLabel htmlFor='age-native-simple'>
+									유형 선택
+								</InputLabel>
+								<Select native onChange={handleChange}>
+									<option aria-label='None' value='' />
+									<option value={'이벤트'}>이벤트</option>
+									<option value={'공지사항'}>공지사항</option>
+								</Select>
+							</FormControl>
 
-						<TextField
-							autoFocus
-							margin='dense'
-							id='name'
-							label='제목을 입력해주세요'
-							type='text'
-							fullWidth
-							variant='standard'
-						/>
-						<textarea className='form-control' />
-						<input type={'file'} className='form-control' />
-					</DialogContent>
-					<DialogActions>
+							<TextField
+								// autoFocus
+								margin='dense'
+								id='title'
+								label='제목을 입력해주세요'
+								type='text'
+								fullWidth
+								variant='standard'
+							/>
+							<br />
+							<br />
+							<textarea
+								className='form-control'
+								placeholder='내용을 입력해주시기 바랍니다.'
+								style={{height: '300px'}}
+							/>
+							<br />
+							<input type={'file'} className='form-control' />
+						</DialogContent>
+						<DialogActions>
+							<button
+								type='button'
+								className='btn btn-outline-danger'
+								onClick={handleClose}
+							>
+								취소
+							</button>
+							<button
+								type='submit'
+								className='btn btn-secondary'
+								onClick={submitHandler}
+							>
+								저장
+							</button>
+							{/* 
 						<Button onClick={handleClose}>취소</Button>
-						<Button onClick={handleClose}>저장</Button>
-					</DialogActions>
-				</Dialog>
+						<Button onClick={handleSubmit}>저장</Button>
+						 */}
+						</DialogActions>
+					</Dialog>
+				</form>
 			</div>
+
+			{/* 하위 컴포넌트 : 공지사항 리스트 가져오기 */}
 			<NoticeListAdmin
 				noticeList={noticeList}
 				setNoticeList={setNoticeList}
