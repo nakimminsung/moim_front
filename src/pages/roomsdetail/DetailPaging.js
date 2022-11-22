@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function DetailQnaPage({total, limit, page, setPage}) {
+function DetailPaging({total, limit, page, setPage}) {
 	const numPage = Math.ceil(total / limit);
 	return (
 		<div>
@@ -36,7 +36,7 @@ function DetailQnaPage({total, limit, page, setPage}) {
 	);
 }
 
-export default DetailQnaPage;
+export default DetailPaging;
 const Nav = styled.nav`
 	display: flex;
 	justify-content: center;

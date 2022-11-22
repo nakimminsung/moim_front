@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import Pagenation from './DetailQnaPage';
+import Pagenation from './DetailPaging';
 import Rating from '@material-ui/lab/Rating';
 import {FormControlLabel, Switch} from '@material-ui/core';
 import DetailHost from './DetailHost';
