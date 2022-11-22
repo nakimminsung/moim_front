@@ -12,6 +12,7 @@ import Card from './Card';
 function HostList(props) {
 	const {hostNum} = useParams();
 	const [hostInfo, setHostInfo] = useState([]);
+	const [hostName, setHostName] = useState('');
 	const [sort, setSort] = useState('readCount desc');
 
 	// theme의 space list select
@@ -25,6 +26,7 @@ function HostList(props) {
 		console.log(url);
 		axios.get(url).then((res) => setHostInfo(res.data));
 	};
+
 	const handleChange = (e) => {
 		setSort(e.target.value);
 	};
@@ -35,6 +37,17 @@ function HostList(props) {
 
 	return (
 		<ListWrapper>
+			<div style={{marginTop: '100px'}}>
+				<b
+					style={{
+						borderBottom: '2px solid #ffd014',
+						fontSize: '30px',
+						paddingBottom: '5px',
+					}}
+				>
+					호스트 공간
+				</b>
+			</div>
 			<SelectDiv>
 				<FormControl sx={{m: 1, minWidth: 120}} size='small'>
 					<Select

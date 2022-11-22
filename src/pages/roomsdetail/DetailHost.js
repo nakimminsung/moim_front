@@ -24,15 +24,23 @@ function DetailHost(props) {
 
 	return (
 		<div style={{marginBottom: '50px'}}>
-			<div style={{marginTop: '50px'}}>
-				<b style={{borderBottom: '2px solid #ffd014'}}>호스트 공간</b>
+			<div style={{marginTop: '100px'}}>
+				<b
+					style={{
+						borderBottom: '2px solid #ffd014',
+						fontSize: '18px',
+						paddingBottom: '5px',
+					}}
+				>
+					호스트 공간
+				</b>
 			</div>
 			<div>
 				<div>
 					<table
 						className='table '
 						style={{
-							marginTop: '30px',
+							marginTop: '20px',
 							borderTop: '1.2px solid #dee2e6',
 							height: '150px',
 						}}
@@ -58,7 +66,16 @@ function DetailHost(props) {
 									}}
 								>
 									<div style={{paddingLeft: '30px'}}>
-										<div>host</div>
+										<div>
+											<b
+												style={{
+													color: '#704de4',
+													fontSize: '13px',
+												}}
+											>
+												HOST
+											</b>
+										</div>
 										<b
 											style={{
 												fontSize: '17px',

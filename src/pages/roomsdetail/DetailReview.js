@@ -53,8 +53,18 @@ function DetailReview(props) {
 		<div>
 			<div id='6' style={{marginTop: '100px'}}>
 				<div>
-					<b style={{borderBottom: '2px solid #ffd014'}}>
-						이용후기 {reviewCount}개 • 평균평점 {reviewAvg}점
+					<b
+						style={{
+							borderBottom: '2px solid #ffd014',
+							fontSize: '18px',
+							paddingBottom: '5px',
+						}}
+					>
+						이용후기{' '}
+						<b style={{color: 'rgb(112, 77, 228)'}}>
+							({reviewCount}개)
+						</b>{' '}
+						{/* 평균평점 {reviewAvg}점 */}
 					</b>
 					<span style={{float: 'right'}}>
 						<FormControlLabel

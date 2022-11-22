@@ -78,7 +78,13 @@ function DetailQna(props) {
 	return (
 		<div>
 			<div id='5' style={{marginTop: '100px'}}>
-				<b style={{borderBottom: '2px solid #ffd014'}}>
+				<b
+					style={{
+						borderBottom: '2px solid #ffd014',
+						fontSize: '18px',
+						paddingBottom: '5px',
+					}}
+				>
 					Q&A <span style={{color: '#704de4'}}>({qna.length}개)</span>
 				</b>
 				<span className='qnabtn'>
