@@ -2,6 +2,7 @@
 	background-color: rgba(240, 242, 245);
 } */
 
+/* admin menu 어드민 메뉴 */
 ul {
 	list-style: none;
 	/* padding-left: 0px; */
@@ -11,6 +12,10 @@ ul {
 li {
 	cursor: pointer;
 	margin-bottom: 10px;
+}
+
+.adminMenu li {
+	margin-bottom: 30px;
 }
 
 .NavLink {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -19,6 +19,7 @@ import SignUpEmail from '../pages/login/SignUpEmail';
 import Mypage from '../pages/mypage/Mypage';
 import CategoryRoom from '../pages/categoryroom/CategoryRoom';
 import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
+import Search from '../pages/search/Search';
 
 function BasicRouter() {
 	return (
@@ -54,9 +55,13 @@ function BasicRouter() {
 				{/* 예약페이지 */}
 				<Route path='/booking'>
 					<Route path='main' element={<BookingMain />} />
-					<Route path='list' element={<BookingList />} />
-					<Route path='detail' element={<BookingDetail />} />
+					<Route path='list/:userNum' element={<BookingList />} />
+					<Route
+						path='detail/:bookingDetailNum'
+						element={<BookingDetail />}
+					/>
 				</Route>
+
 				<Route path='login' element={<Login />} />
 				<Route path='signup' element={<SignUp />} />
 				<Route path='signupEmail' element={<SignUpEmail />} />
@@ -65,6 +70,11 @@ function BasicRouter() {
 				{/* 카테고리별 방 페이지 */}
 				<Route path='categoryroomList'>
 					<Route path=':categoryNum' element={<CategoryRoom />} />
+				</Route>
+
+				{/* 공간 통합검색 */}
+				<Route path='searchroom' element={<Search name={"React"} />}>
+					{/* <Route path=':searchWord' element={<Search />} /> */}
 				</Route>
 
 				<Route

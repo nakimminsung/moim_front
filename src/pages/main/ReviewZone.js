@@ -9,7 +9,7 @@ function ReviewZone(props) {
 
 		axios.get(url).then((res) => {
 			var s = res.data;
-			console.log(s);
+			// console.log(s);
 			setReview(s);
 		});
 	};
@@ -47,6 +47,7 @@ function ReviewZone(props) {
 								// marginRight: '22px',
 								marginBottom: '30px',
 							}}
+							key={idx}
 						>
 							<img
 								alt=''

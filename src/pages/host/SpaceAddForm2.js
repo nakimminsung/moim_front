@@ -1,15 +1,14 @@
 import {Button, Checkbox} from '@material-ui/core';
 import {CloseOutlined} from '@material-ui/icons';
 import axios from 'axios';
-
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import './SpaceAddForm2.css';
 import SpaceImages from './SpaceImages';
 import SpaceInfo from './SpaceInfo';
 import SpaceOption from './SpaceOption';
 import SpaceTag from './SpaceTag';
 import SpaceWarning from './SpaceWarning';
+import styled from 'styled-components';
 
 function SpaceAddForm2(props) {
 	const {num} = useParams();
@@ -69,15 +68,31 @@ function SpaceAddForm2(props) {
 	console.log(tname);
 	//태그 버튼 이벤트
 	const onchange1 = () => {
-		setTag(tname.concat(document.getElementById('tag').value));
+		if (document.getElementById('tag').value.trim() == '') {
+			return;
+		}
+		setTag(
+			tname.concat(
+				document.getElementById('tag').value.replace(/(\s*)/g, ''),
+			),
+		);
 		document.getElementById('tag').value = '';
 	};
 	//태그 엔터 이벤트
 	const onchange2 = (e) => {
 		if (e.key === 'Enter') {
-			setTag(tname.concat(document.getElementById('tag').value));
+			if (document.getElementById('tag').value.trim() == '') {
+				return;
+			}
+			setTag(
+				tname.concat(
+					document.getElementById('tag').value.replace(/(\s*)/g, ''),
+				),
+			);
 			document.getElementById('tag').value = '';
 		}
+
+		e.preventDefault();
 	};
 
 	// 인포 담을 배열
@@ -85,14 +100,17 @@ function SpaceAddForm2(props) {
 	console.log(icontent);
 	//인포 버튼 이벤트
 	const onchange3 = () => {
-		setInfo(icontent.concat(document.getElementById('info').value));
+		setInfo(icontent.concat(document.getElementById('info').value.trim()));
 		document.getElementById('info').value = '';
 	};
 	//인포 엔터 이벤트
 	const onchange4 = (e) => {
 		if (e.key === 'Enter') {
-			setInfo(icontent.concat(document.getElementById('info').value));
+			setInfo(
+				icontent.concat(document.getElementById('info').value.trim()),
+			);
 			document.getElementById('info').value = '';
+			e.preventDefault();
 		}
 	};
 
@@ -102,7 +120,9 @@ function SpaceAddForm2(props) {
 	//주의사항 버튼 이벤트
 	const onchange5 = () => {
 		setPrecautions(
-			pcontent.concat(document.getElementById('precautions').value),
+			pcontent.concat(
+				document.getElementById('precautions').value.trim(),
+			),
 		);
 		document.getElementById('precautions').value = '';
 	};
@@ -110,9 +130,12 @@ function SpaceAddForm2(props) {
 	const onchange6 = (e) => {
 		if (e.key === 'Enter') {
 			setPrecautions(
-				pcontent.concat(document.getElementById('precautions').value),
+				pcontent.concat(
+					document.getElementById('precautions').value.trim(),
+				),
 			);
 			document.getElementById('precautions').value = '';
+			e.preventDefault();
 		}
 	};
 
@@ -246,236 +269,381 @@ function SpaceAddForm2(props) {
 
 	return (
 		<div>
-			{/* ---------------사진--------------- */}
-			<div>
-				<SpaceImages
-					roomNum={roomNum}
-					photoUploadEvent2={photoUploadEvent2}
-				/>
-				<div
-					style={{
-						border: '1px solid black',
-						backgroundColor: '#d3d3d3',
-						height: '200px',
-					}}
-				>
-					{rimageUrl &&
-						rimageUrl.map((room, idx) => (
-							<figure key={idx} style={{float: 'left'}}>
-								<img
-									alt=''
-									src={`${imageUrl}${room}`}
-									className='roomImge'
-									style={{maxWidth: '100px'}}
-								/>
-								<figcaption>
-									<CloseOutlined
-										style={{cursor: 'pointer'}}
-										onClick={() => {
-											const delUrl =
-												localStorage.url +
-												'/host/delphoto?idx=' +
-												idx;
-											axios.get(delUrl).then((res) => {
-												//DB는 삭제되지 않음
-											});
-
-											setRoomImage(
-												rimageUrl.filter(
-													(a, i) => i !== idx,
-												),
-											);
-										}}
-									/>
-								</figcaption>
-							</figure>
-						))}
-				</div>
-			</div>
-			<br />
-			<br />
-			{/* ---------------옵션--------------- */}
-			<div>
-				<SpaceOption
-					roomNum={roomNum}
-					photoUploadEvent3={photoUploadEvent3}
-					optionButton={optionButton}
-					NameRef={NameRef}
-					PriceRef={PriceRef}
-					oimageUrl={oimageUrl}
-				/>
-				<div>
-					{roptionList === 0
-						? null
-						: roptionList &&
-						  roptionList.map((rotion, idx) => (
-								<table>
-									<tbody>
-										<tr key={idx}>
-											<td>
-												<img
-													style={{
-														width: '150px',
-													}}
-													alt=''
-													src={
-														imageUrl +
-														rotion.oimageUrl
-													}
-												/>
-											</td>
-											<td>{rotion.oname}</td>
-											<td>{rotion.price}</td>
-										</tr>
-									</tbody>
-								</table>
-						  ))}
-				</div>
-			</div>
-
-			<br />
-			<br />
 			<form onSubmit={nextButton}>
-				{/* ---------------유형--------------- */}
 				<div>
-					<table>
-						<tbody>
-							{maincategorylist &&
-								maincategorylist.map((mc, idx) => (
-									<tr>
-										<th className='depth_1' key={idx}>
-											<span>{mc.mcname}</span>
-											<span className='pointer'></span>
-										</th>
-										{categorylist &&
-											categorylist.map((c, idx) =>
-												mc.num === c.mainCategoryNum ? (
-													<td
-														key={idx}
-														className='depth_2'
-													>
-														<label
-															style={{
-																cursor: 'pointer',
-															}}
-														>
-															<span>
-																<Checkbox
-																	inputProps={{
-																		'aria-label':
-																			'uncontrolled-checkbox',
-																	}}
-																	name='space'
-																	onClick={(
-																		e,
-																	) =>
-																		handleSingleCheck(
-																			e
-																				.target
-																				.checked,
-																			c.num,
-																		)
-																	}
-																	checked={
-																		checkedArr.includes(
-																			c.num,
-																		)
-																			? true
-																			: false
-																	}
-																/>
-																{c.cname}
-															</span>
-														</label>
-													</td>
-												) : null,
-											)}
-									</tr>
-								))}
-						</tbody>
-					</table>
-				</div>
-				<br />
-				<br />
-				{/* ---------------태그--------------- */}
-				<div>
-					<SpaceTag
-						roomNum={roomNum}
-						onchange1={onchange1}
-						onchange2={onchange2}
-					/>
-					<div>
-						{tname.map((t, idx2) => (
-							<b
-								key={idx2}
-								style={{
-									border: '1px solid pink',
-									backgroundColor: '#efefef',
-								}}
-							>
-								{t}
-							</b>
-						))}
-					</div>
-				</div>
-				<br />
-				<br />
-				{/* ---------------인포--------------- */}
-				<div className='info'>
-					<SpaceInfo
-						roomNum={roomNum}
-						onchange3={onchange3}
-						onchange4={onchange4}
-					/>
-					<div>
-						{icontent.map((info, idx3) => (
-							<h5 key={idx3}>
-								<b>{info}</b>
-							</h5>
-						))}
-					</div>
-				</div>
-				<br />
-				<br />
-				{/* --------------주의사항--------------- */}
-				<div className='warning'>
-					<SpaceWarning
-						roomNum={roomNum}
-						onchange5={onchange5}
-						onchange6={onchange6}
-					/>
-					<div>
-						{pcontent.map((pre, idx4) => (
-							<h5 key={idx4}>
-								<b>{pre}</b>
-							</h5>
-						))}
-					</div>
-				</div>
-
-				{/* --------------다음 버튼 이벤트--------------- */}
-				<div>
-					<div className='buttonEvent'>
-						<Button
-							variant='contained'
-							color='primary'
-							type='submit'
+					<div
+						className='input-group'
+						style={{
+							position: 'relative',
+							width: '100%',
+							borderBottom: '3px solid #704de4',
+							borderBottomWidth: '4px',
+							fontSize: '16px',
+							lineHeight: '20px',
+							paddingBottom: '26px',
+						}}
+					>
+						<h3
+							style={{
+								fontSize: '26px',
+								lineHeight: '26px',
+								fontWeight: '400',
+							}}
 						>
-							다음
-						</Button>
-						<Button
-							variant='contained'
-							color='secondary'
-							type='button'
+							공간 정보를 입력해주세요.
+						</h3>
+						<span
+							style={{
+								verticalAlign: 'top',
+								position: 'absolute',
+								color: '#656565',
+								right: '0',
+								lineHeight: '14px',
+								fontSize: '16px',
+								top: '1px',
+							}}
+						>
+							<span
+								style={{verticalAlign: 'top', color: '#ff3a48'}}
+							>
+								<IcoRequired>*</IcoRequired> 필수입력
+							</span>
+						</span>
+					</div>
+					{/* ---------------유형--------------- */}
+
+					<Space>
+						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+							공간유형
+						</span>
+						<IcoRequired>*</IcoRequired>
+						<br />
+						<br />
+						<div className='row'>
+							<table>
+								<tbody>
+									{maincategorylist &&
+										maincategorylist.map((mc, idx) => (
+											<tr>
+												<th
+													className='depth_1'
+													key={idx}
+												>
+													<span>{mc.mcname}</span>
+													<span className='pointer'></span>
+												</th>
+												{categorylist &&
+													categorylist.map((c, idx) =>
+														mc.num ===
+														c.mainCategoryNum ? (
+															<td
+																key={idx}
+																className='depth_2'
+															>
+																<label
+																	style={{
+																		cursor: 'pointer',
+																	}}
+																>
+																	<span>
+																		<Checkbox
+																			inputProps={{
+																				'aria-label':
+																					'uncontrolled-checkbox',
+																			}}
+																			name='space'
+																			onClick={(
+																				e,
+																			) =>
+																				handleSingleCheck(
+																					e
+																						.target
+																						.checked,
+																					c.num,
+																				)
+																			}
+																			checked={
+																				checkedArr.includes(
+																					c.num,
+																				)
+																					? true
+																					: false
+																			}
+																		/>
+																		{
+																			c.cname
+																		}
+																	</span>
+																</label>
+															</td>
+														) : null,
+													)}
+											</tr>
+										))}
+								</tbody>
+							</table>
+						</div>
+					</Space>
+					<br />
+					<br />
+					{/* ---------------사진--------------- */}
+					<Space>
+						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+							방에 대한 사진을 등록해주세요
+						</span>
+						<IcoRequired>*</IcoRequired>
+						<SpaceImages
+							roomNum={roomNum}
+							photoUploadEvent2={photoUploadEvent2}
+						/>
+						<div
+							className='previewimg'
+							style={{
+								border: '1px solid black',
+								backgroundColor: '#d3d3d3',
+								height: '200px',
+							}}
+						>
+							{rimageUrl == 0
+								? null
+								: rimageUrl &&
+								  rimageUrl.map((room, idx) => (
+										<>
+											{idx % 5 === 0 ? (
+												<div
+													style={{
+														position: 'relative',
+													}}
+												>
+													<img
+														alt=''
+														src={`${imageUrl}${room}`}
+														className='roomImge'
+														style={{
+															width: '170px',
+															height: '170px',
+															maxWidth: '170px',
+															maxHeight: '170px',
+															marginLeft: '5px',
+														}}
+													/>
+
+													<CloseOutlined
+														style={{
+															color: '#b2b2b2',
+															cursor: 'pointer',
+															width: '20px',
+															height: '20px',
+															border: '1px solid #e0e0e0',
+															backgroundColor:
+																'f6f6f6',
+															position:
+																'absolute',
+															zIndex: '1',
+														}}
+														onClick={() => {
+															const delUrl =
+																localStorage.url +
+																'/host/delphoto?idx=' +
+																idx;
+															axios
+																.get(delUrl)
+																.then((res) => {
+																	//DB는 삭제되지 않음
+																});
+
+															setRoomImage(
+																rimageUrl.filter(
+																	(a, i) =>
+																		i !==
+																		idx,
+																),
+															);
+														}}
+													/>
+												</div>
+											) : null}
+										</>
+								  ))}
+						</div>
+					</Space>
+					<br />
+					<br />
+					{/* ---------------옵션--------------- */}
+					<Space>
+						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+							옵션 선택
+						</span>
+						<IcoRequired>
+							*<span>파일 선택시 입력창</span>
+						</IcoRequired>
+						<SpaceOption
+							roomNum={roomNum}
+							photoUploadEvent3={photoUploadEvent3}
+							optionButton={optionButton}
+							NameRef={NameRef}
+							PriceRef={PriceRef}
+							oimageUrl={oimageUrl}
+						/>
+						<div>
+							{roptionList === 0
+								? null
+								: roptionList &&
+								  roptionList.map((rotion, idx) => (
+										<table>
+											<tbody>
+												<tr key={idx}>
+													<td>
+														<img
+															style={{
+																width: '150px',
+															}}
+															alt=''
+															src={
+																imageUrl +
+																rotion.oimageUrl
+															}
+														/>
+													</td>
+													<td>{rotion.oname}</td>
+													<td>{rotion.price}</td>
+												</tr>
+											</tbody>
+										</table>
+								  ))}
+						</div>
+					</Space>
+
+					<br />
+					<br />
+
+					{/* ---------------태그--------------- */}
+					<Space>
+						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+							공간 태그
+						</span>
+						<SpaceTag
+							roomNum={roomNum}
+							onchange1={onchange1}
+							onchange2={onchange2}
+						/>
+						<div>
+							{tname.map((t, idx2) => (
+								<b
+									key={idx2}
+									style={{
+										border: '1px solid pink',
+										backgroundColor: '#efefef',
+									}}
+								>
+									#{t}
+								</b>
+							))}
+						</div>
+					</Space>
+					<br />
+					<br />
+					{/* ---------------인포--------------- */}
+					<Space className='info'>
+						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+							시설 안내
+						</span>
+						<SpaceInfo
+							roomNum={roomNum}
+							onchange3={onchange3}
+							onchange4={onchange4}
+						/>
+						<div>
+							{icontent.map((info, idx3) => (
+								<h5 key={idx3}>
+									<b>{info}</b>
+								</h5>
+							))}
+						</div>
+					</Space>
+					<br />
+					<br />
+					{/* --------------주의사항--------------- */}
+					<Space className='warning'>
+						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+							주의 사항
+						</span>
+						<SpaceWarning
+							roomNum={roomNum}
+							onchange5={onchange5}
+							onchange6={onchange6}
+						/>
+						<div>
+							{pcontent.map((pre, idx4) => (
+								<h5 key={idx4}>
+									<b>{pre}</b>
+								</h5>
+							))}
+						</div>
+					</Space>
+				</div>
+				{/* --------------다음 버튼 이벤트--------------- */}
+
+				<br />
+				<br />
+				<br />
+				<ButtonEvent>
+					<BtnEventWrap>
+						<BtnWrap
+							typy='button'
+							style={{
+								cursor: 'pointer',
+								backgroundColor: '#4d4d4d',
+							}}
 							onClick={cancelButton}
 						>
 							이전
-						</Button>
-					</div>
-				</div>
+						</BtnWrap>
+					</BtnEventWrap>
+					<BtnEventWrap>
+						<BtnWrap
+							type='submit'
+							style={{backgroundColor: '#ff3a48'}}
+							onClick={nextButton}
+						>
+							다음
+						</BtnWrap>
+					</BtnEventWrap>
+				</ButtonEvent>
 			</form>
 		</div>
 	);
 }
 
 export default SpaceAddForm2;
+const ButtonEvent = styled.div`
+	margin: 0 auto 100px;
+	width: 1380;
+`;
+
+const BtnWrap = styled.span`
+	display: block;
+	width: 100%;
+	border-radius: 4px;
+	font-size: 20px;
+	line-height: 60px;
+	color: #fff;
+	text-align: center;
+`;
+
+const BtnEventWrap = styled.span`
+	width: 50%;
+	float: left;
+	padding-right: 10px;
+`;
+
+const IcoRequired = styled.span`
+	vertical-align: top;
+	color: #ff3a48;
+	font-size: 20px;
+`;
+
+const Space = styled.div`
+	position: relative;
+	margin-top: 40px;
+`;

@@ -4,7 +4,7 @@ import './MapLayout.css';
 
 function NoneLayout(props) {
 	return (
-		<div>
+		<div clsssName='wrapper'>
 			<main>
 				<div>
 					<NoneRouter />
