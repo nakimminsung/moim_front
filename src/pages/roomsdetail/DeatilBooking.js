@@ -18,10 +18,10 @@ function DeatilBooking(props) {
 	const [showCalendar, setShowCalendar] = useState(false);
 	const [showTime, setShowTime] = useState(false);
 	const [inwon, setInwon] = useState(1);
-	const [sc, setSc] = useState([]);
 	const [selectTime1, setSelectTime1] = useState('');
 	const [selectTime2, setSelectTime2] = useState('');
 	const [totalPrice, setTotalPrice] = useState(0);
+	const [bookingTimes, setBookingTimes] = useState([]);
 	const token = localStorage.getItem('token');
 
 	//룸관련 데이터 출력
@@ -37,20 +37,18 @@ function DeatilBooking(props) {
 	//시간 배열
 	const onTime = (stime, etime) => {
 		let times = [];
-		for (var i = stime; i <= etime; i++) {
+
+		for (let i = Number(stime); i <= Number(etime); i++) {
 			times.push(i);
 		}
 		setBusinessHour(times);
+		console.log(times);
 	};
 
 	//날짜 선택 시
 	const changeDay = (e) => {
 		setSelectDay(e);
 		setShowTime(true);
-		if (selectTime1 !== '' || selectTime2 !== '') {
-			setSelectTime1('');
-			setSelectTime2('');
-		}
 	};
 	//인원 감소
 	const minusHandler = (e) => {
@@ -70,18 +68,27 @@ function DeatilBooking(props) {
 	};
 	//시간 선택
 	const selectTime = (e) => {
-		e.preventDefault();
-
+		for (let s = roomData.stime; s <= roomData.etime; s++) {
+			document
+				.getElementById('smallTime' + s)
+				.classList.remove('smallTimecolor');
+		}
 		if (selectTime1 !== '' && selectTime2 !== '') {
 			setSelectTime2('');
-			setSelectTime1(e.target.dataset.hour);
+			setSelectTime1(Number(e.target.dataset.hour));
+			document.getElementById(
+				'smallTime' + e.target.dataset.hour,
+			).className += ' smallTimecolor';
 		} else if (selectTime1 !== '') {
-			setSelectTime2(e.target.dataset.hour);
+			setSelectTime2(Number(e.target.dataset.hour));
 		} else {
-			setSelectTime1(e.target.dataset.hour);
+			setSelectTime1(Number(e.target.dataset.hour));
+			document.getElementById(
+				'smallTime' + e.target.dataset.hour,
+			).className += ' smallTimecolor';
 		}
 	};
-	const calculatePay = () => {
+	const calculatePay = (e) => {
 		if (selectTime1 === '' || selectTime2 === '') {
 			return;
 		}
@@ -96,9 +103,12 @@ function DeatilBooking(props) {
 		}
 
 		//금액 계산
-		var price = 0;
-		for (var i = selectStime; i <= selectEtime; i++) {
-			console.log('a' + i);
+		let price = 0;
+		for (let i = selectStime; i <= selectEtime; i++) {
+			if (selectStime !== '' && selectEtime !== '') {
+				document.getElementById('smallTime' + i).className +=
+					' smallTimecolor';
+			}
 
 			//주말 오전 오후 가격
 			if (selectDay.getDay() === 0 || selectDay.getDay() === 6) {
@@ -117,11 +127,10 @@ function DeatilBooking(props) {
 			}
 		}
 		setTotalPrice(price);
-		console.log(totalPrice);
 	};
 
 	//Slick Setting(사진 넘기기)
-	var settings = {
+	let settings = {
 		dots: false, //하단 점
 		infinite: false, //무한 반복 옵션
 		speed: 500, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
@@ -141,6 +150,53 @@ function DeatilBooking(props) {
 	useEffect(() => {
 		calculatePay();
 	}, [selectTime1, selectTime2, totalPrice]);
+
+	useEffect(() => {
+		let bookingTimesUrl =
+			localStorage.url +
+			'/detailBookingTime?num=' +
+			num +
+			'&selectDay=' +
+			moment(selectDay).format('YYYY-MM-DD');
+
+		axios.get(bookingTimesUrl).then((res) => {
+			let arr = res.data.split(',');
+			setBookingTimes(arr);
+		});
+		if (selectTime1 != '' || selectTime2 != '') {
+			if (selectTime1 < selectTime2) {
+				for (let i = selectTime1; i <= selectTime2; i++) {
+					document
+						.getElementById('smallTime' + i)
+						.classList.remove('smallTimecolor');
+				}
+			} else {
+				for (let i = selectTime2; i <= selectTime1; i++) {
+					document
+						.getElementById('smallTime' + i)
+						.classList.remove('smallTimecolor');
+				}
+			}
+			setSelectTime1('');
+			setSelectTime2('');
+		}
+	}, [selectDay]);
+
+	//예약된 시간 막기
+	useEffect(() => {
+		console.log(bookingTimes);
+		for (let i = roomData.stime; i <= roomData.etime; i++) {
+			console.log(bookingTimes.includes(i));
+			if (bookingTimes.includes(String(i))) {
+				document.getElementById('smallTime' + i).className +=
+					' smallTimeblock';
+			} else {
+				document
+					.getElementById('smallTime' + i)
+					.classList.remove('smallTimeblock');
+			}
+		}
+	}, [bookingTimes]);
 
 	return (
 		<div>
@@ -162,7 +218,7 @@ function DeatilBooking(props) {
 
 				<label style={{cursor: 'pointer', padding: '10px 10px'}}>
 					<input
-						type={'radio'}
+						type='radio'
 						onClick={() => {
 							setShowCalendar(true);
 						}}
@@ -277,11 +333,14 @@ function DeatilBooking(props) {
 						paddingBottom: '10px',
 					}}
 				>
-					<b>시간 선택</b>{' '}
+					<b>시간 선택</b>
 					<div
 						style={{
 							display:
-								selectTime1 && selectTime2 ? 'inline' : 'none',
+								(selectTime1 || selectTime1 === 0) &&
+								(selectTime2 || selectTime2 === 0)
+									? 'inline'
+									: 'none',
 							float: 'right',
 							color: '#704de4',
 						}}
@@ -303,11 +362,12 @@ function DeatilBooking(props) {
 						{businessHour &&
 							businessHour.map((item, idx) => (
 								<div>
-									<span>{idx}</span>
+									<span>{item}</span>
 									<div
 										className='smallTime'
 										onClick={selectTime}
 										data-hour={item}
+										id={'smallTime' + item}
 									>
 										{selectDay
 											? selectDay.getDay() === 0 ||
@@ -342,7 +402,7 @@ function DeatilBooking(props) {
 							<div
 								className='detailBox'
 								style={{
-									backgroundColor: '#f0f0f0',
+									backgroundColor: 'rgb(236, 234, 234)',
 								}}
 							></div>
 							&nbsp;
@@ -484,7 +544,7 @@ function DeatilBooking(props) {
 						if (token) {
 							if (stime !== '' || etime !== '') {
 								window.location.href =
-									'/booking/detail?num=' +
+									'/booking/main?num=' +
 									num +
 									'&date=' +
 									moment(selectDay).format('YYYY-MM-DD') +

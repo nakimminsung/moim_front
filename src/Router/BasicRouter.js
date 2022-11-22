@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -19,7 +19,9 @@ import SignUpEmail from '../pages/login/SignUpEmail';
 import Mypage from '../pages/mypage/Mypage';
 import CategoryRoom from '../pages/categoryroom/CategoryRoom';
 import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
+import HostTotalPlace from '../pages/roomsdetail/HostTotalPlace';
 import Search from '../pages/search/Search';
+import Notice from '../pages/notice/Notice';
 
 function BasicRouter() {
 	return (
@@ -32,6 +34,8 @@ function BasicRouter() {
 				<Route path='like' element={<Like />} />
 				{/* 공간 상세페이지 */}
 				<Route path='detail/:num' element={<Detail />} />
+				{/* 공간 호스트 공간 페이지 */}
+				<Route path='hostPlace/:hostNum' element={<HostTotalPlace />} />
 				{/* 메인페이지 theme component */}
 				<Route path='main_theme' element={<MainTheme />} />
 				{/* 기획전 페이지 */}
@@ -53,11 +57,15 @@ function BasicRouter() {
 				</Route> */}
 
 				{/* 예약페이지 */}
-				<Route path='/booking'>
+				<Route path='booking'>
 					<Route path='main' element={<BookingMain />} />
-					<Route path='list' element={<BookingList />} />
-					<Route path='detail' element={<BookingDetail />} />
+					<Route path='list/:userNum' element={<BookingList />} />
+					<Route
+						path='detail/:bookingDetailNum'
+						element={<BookingDetail />}
+					/>
 				</Route>
+
 				<Route path='login' element={<Login />} />
 				<Route path='signup' element={<SignUp />} />
 				<Route path='signupEmail' element={<SignUpEmail />} />
@@ -69,8 +77,13 @@ function BasicRouter() {
 				</Route>
 
 				{/* 공간 통합검색 */}
-				<Route path='searchroom' element={<Search name={"React"} />}>
+				<Route path='searchroom' element={<Search name={'React'} />}>
 					{/* <Route path=':searchWord' element={<Search />} /> */}
+				</Route>
+
+				{/* 공지사항 Notice */}
+				<Route path='notice'>
+					<Route path='' element={<Notice />} />
 				</Route>
 
 				<Route
