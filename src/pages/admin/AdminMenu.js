@@ -59,7 +59,7 @@ function AdminMenu(props) {
 								setTopMenu(e.target.value);
 								console.log(topMenu);
 							}}
-							value='admin'
+							// value='admin'
 						>
 							관리자 메인화면
 						</NavLink>

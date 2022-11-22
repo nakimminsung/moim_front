@@ -1,6 +1,22 @@
 import {SearchRounded} from '@material-ui/icons';
 import React, {useRef, useState} from 'react';
 import NoticeListAdmin from './NoticeListAdmin';
+//dialogue 관련
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import {FormControl} from '@material-ui/core';
+
+import {makeStyles} from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+
+import Select from '@material-ui/core/Select';
+import NativeSelect from '@material-ui/core/NativeSelect';
 
 function NoticeManagement(props) {
 	const input = useRef(null);
@@ -20,6 +36,43 @@ function NoticeManagement(props) {
 		//searchWord에 입력값 저장
 		setSearchWord(input.current.value);
 	};
+
+	//modal dialogue 관련
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	//modal 내부의 select 관련
+	const useStyles = makeStyles((theme) => ({
+		formControl: {
+			margin: theme.spacing(1),
+			minWidth: 120,
+		},
+		selectEmpty: {
+			marginTop: theme.spacing(2),
+		},
+	}));
+
+	const classes = useStyles();
+	const [state, setState] = React.useState({
+		age: '',
+		name: 'hai',
+	});
+
+	const handleChange = (event) => {
+		const name = event.target.name;
+		setState({
+			...state,
+			[name]: event.target.value,
+		});
+	};
+
 	return (
 		<div>
 			<div
@@ -94,9 +147,59 @@ function NoticeManagement(props) {
 					<b>등록된 게시글이 없습니다.</b>
 				)}
 
-				<button type='button' className='btn btn-secondary'>
-					등록
+				<button
+					type='button'
+					className='btn btn-secondary'
+					onClick={handleClickOpen}
+				>
+					작성하기
 				</button>
+				<Dialog open={open} onClose={handleClose}>
+					<DialogTitle>공지사항 등록</DialogTitle>
+					<DialogContent>
+						<DialogContentText>
+							'유형'을 선택한 후 제목과 내용을 작성해주시기
+							바랍니다.
+							<br /> 작성이 완료되면 '완료' 버튼을 눌러 마무리하실
+							수 있습니다.
+						</DialogContentText>
+
+						<FormControl className={classes.formControl}>
+							<InputLabel htmlFor='age-native-simple'>
+								유형
+							</InputLabel>
+							<Select
+								native
+								value={state.age}
+								onChange={handleChange}
+								inputProps={{
+									name: 'age',
+									id: 'age-native-simple',
+								}}
+							>
+								<option aria-label='None' value='' />
+								<option value={'이벤트'}>이벤트</option>
+								<option value={'공지사항'}>공지사항</option>
+							</Select>
+						</FormControl>
+
+						<TextField
+							autoFocus
+							margin='dense'
+							id='name'
+							label='제목을 입력해주세요'
+							type='text'
+							fullWidth
+							variant='standard'
+						/>
+						<textarea className='form-control' />
+						<input type={'file'} className='form-control' />
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={handleClose}>취소</Button>
+						<Button onClick={handleClose}>저장</Button>
+					</DialogActions>
+				</Dialog>
 			</div>
 			<NoticeListAdmin
 				noticeList={noticeList}
