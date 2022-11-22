@@ -39,7 +39,7 @@ function Mypage(props) {
 	};
 
 	const token = jwt_decode(localStorage.getItem('token'));
-
+	console.log(jwt_decode(localStorage.getItem('token')).idx);
 	useEffect(() => {
 		async function fetchData() {
 			const response = await axios.get(

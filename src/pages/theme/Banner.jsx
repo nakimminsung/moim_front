@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import RoomIcon from '@mui/icons-material/Room';
-import './Banner.css';
 import styled from '@emotion/styled/macro';
 import {Box, Typography} from '@mui/material';
 
