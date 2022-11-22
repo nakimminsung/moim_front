@@ -5,7 +5,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import {useNavigate} from 'react-router-dom';
 
 function SpaceList1(props) {
-	const {sort, searchWord} = props;
+	const {sort, searchWord, setSearchWord} = props;
 	const {spaceList, setSpaceList} = props;
 
 	const navi = useNavigate(); //공간 클릭 시 상세페이지로 이동
@@ -81,16 +81,6 @@ function SpaceList1(props) {
 								<h5>
 									<b style={{color: 'black'}}>{data.name}</b>
 								</h5>
-								<span>
-									<RoomIcon
-										style={{
-											fontSize: '20px',
-											marginBottom: '5px',
-										}}
-									/>
-									{/* {data.address.split(' ')[1]} */}
-								</span>
-								<br />
 								<span>room tag list</span>
 								<br />
 								<span>

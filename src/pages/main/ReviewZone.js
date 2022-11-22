@@ -1,3 +1,4 @@
+import {Rating} from '@mui/material';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 
@@ -27,25 +28,29 @@ function ReviewZone(props) {
 			<h6 style={{color: 'gray'}}>
 				이용자들의 생생한 후기를 만나보세요!
 			</h6>
+			<br />
 
 			{/* 리스트 전체 div */}
 			<div
 				style={{
+					width: '100%',
 					display: 'flex',
-					justifyContent: 'space-around',
+					justifyContent: 'space-between',
+					flexWrap: 'wrap',
 				}}
 			>
 				{review &&
 					review.map((data, idx) => (
 						<div
 							style={{
+								width: '24%',
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '350px',
+								// width: '350px',
 								cursor: 'pointer',
 								// marginLeft: '22px',
 								// marginRight: '22px',
-								marginBottom: '30px',
+								marginBottom: '20px',
 							}}
 							key={idx}
 						>
@@ -54,7 +59,8 @@ function ReviewZone(props) {
 								src={data.reviewImageUrl}
 								style={{
 									width: '100%',
-									height: '300px',
+									minHeight: '200px',
+									maxHeight: '250px',
 									borderRadius: '5px',
 								}}
 							/>
@@ -79,9 +85,16 @@ function ReviewZone(props) {
 							<br />
 							<span>3,500 원/시간</span>
 							<br />
-							<span style={{color: '#6f42c1'}}>
-								★x{data.rating}
-							</span>
+
+							<Rating
+								name='half-rating-read'
+								style={{
+									color: '#704de4',
+								}}
+								value={data.rating}
+								precision={1}
+								readOnly
+							/>
 							<br />
 							<span>{data.content}</span>
 						</div>

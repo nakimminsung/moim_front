@@ -2,6 +2,8 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 function AdminMenu(props) {
+	const {topMenu, setTopMenu} = props;
+
 	return (
 		<div>
 			{/* 좌측 메뉴 div */}
@@ -50,7 +52,15 @@ function AdminMenu(props) {
 				{/* 메뉴 */}
 				<ul className='adminMenu'>
 					<li>
-						<NavLink to={'/admin'} className='NavLink'>
+						<NavLink
+							to={'/admin'}
+							className='NavLink'
+							onClick={(e) => {
+								setTopMenu(e.target.value);
+								console.log(topMenu);
+							}}
+							value='admin'
+						>
 							관리자 메인화면
 						</NavLink>
 					</li>
@@ -70,11 +80,6 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/report'} className='NavLink'>
-							신고 관리
-						</NavLink>
-					</li>
-					<li>
 						<NavLink to={'/admin/notice'} className='NavLink'>
 							공지사항 관리
 						</NavLink>
@@ -82,6 +87,11 @@ function AdminMenu(props) {
 					<li>
 						<NavLink to={'/admin/theme'} className='NavLink'>
 							기획전 관리
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to={'/admin/report'} className='NavLink'>
+							신고 관리
 						</NavLink>
 					</li>
 					<li>

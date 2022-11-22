@@ -5,7 +5,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import {useNavigate} from 'react-router-dom';
 
 function SpaceList2(props) {
-	const {sort, searchWord} = props;
+	const {sort, searchWord, setSearchWord} = props;
 	const {spaceList, setSpaceList} = props;
 
 	const navi = useNavigate(); //공간 클릭 시 상세페이지로 이동
