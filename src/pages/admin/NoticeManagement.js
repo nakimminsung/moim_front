@@ -63,7 +63,14 @@ function NoticeManagement(props) {
 
 			<br />
 			{/* 검색 여부에 따른 삼항 연산자 */}
-			<div style={{marginLeft: '10px', paddingTop: '5px'}}>
+			<div
+				style={{
+					marginLeft: '10px',
+					paddingTop: '5px',
+					display: 'flex',
+					justifyContent: 'space-between',
+				}}
+			>
 				{searchWord !== '' ? (
 					//검색단어 있으면서, 결과가 있을때
 					noticeList.length !== 0 ? (
@@ -86,6 +93,10 @@ function NoticeManagement(props) {
 					//검색단어 없으면서, 결과가 없을때
 					<b>등록된 게시글이 없습니다.</b>
 				)}
+
+				<button type='button' className='btn btn-secondary'>
+					등록
+				</button>
 			</div>
 			<NoticeListAdmin
 				noticeList={noticeList}

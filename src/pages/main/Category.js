@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 function Category(props) {
 	const [category, setCategory] = useState('');
 	const navi = useNavigate();
@@ -27,8 +27,8 @@ function Category(props) {
 	}, []);
 
 	return (
-		<div className='categoryBox' style={{ textAlign: 'center' }}>
-			<h2 style={{ marginBottom: '50px', fontWeight: 'bold' }}>
+		<div className='categoryBox' style={{textAlign: 'center'}}>
+			<h2 style={{marginBottom: '50px', fontWeight: 'bold'}}>
 				어떤 공간을 찾고있나요?
 			</h2>
 
@@ -38,8 +38,10 @@ function Category(props) {
 				style={{
 					display: 'flex',
 					justifyContent: 'space-between', //정렬
-					gap: '40px 2.5%', //다음 행(세로) 과의 간격 px, 같은 행의 다음 열 과의 간격 %
+					gap: '40px 1%', //다음 행(세로) 과의 간격 px, 같은 행의 다음 열 과의 간격 %
 					flexWrap: 'wrap', //줄넘김
+
+					width: '100%',
 				}}
 			>
 				{/* 카테고리 img + 카테고리 name 을 묶은 div 반복 구간 */}
@@ -48,7 +50,7 @@ function Category(props) {
 						<div
 							className='categoryCardInfo'
 							key={row.num}
-							style={{ cursor: 'pointer', width: '80px' }}
+							style={{cursor: 'pointer', width: '9%'}}
 							onClick={() => {
 								navi('/categoryroomList/' + row.num);
 							}}
