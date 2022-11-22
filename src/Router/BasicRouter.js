@@ -19,6 +19,7 @@ import SignUpEmail from '../pages/login/SignUpEmail';
 import Mypage from '../pages/mypage/Mypage';
 import CategoryRoom from '../pages/categoryroom/CategoryRoom';
 import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
+import HostTotalPlace from '../pages/roomsdetail/HostTotalPlace';
 import Search from '../pages/search/Search';
 import Notice from '../pages/notice/Notice';
 
@@ -33,6 +34,8 @@ function BasicRouter() {
 				<Route path='like' element={<Like />} />
 				{/* 공간 상세페이지 */}
 				<Route path='detail/:num' element={<Detail />} />
+				{/* 공간 호스트 공간 페이지 */}
+				<Route path='hostPlace/:hostNum' element={<HostTotalPlace />} />
 				{/* 메인페이지 theme component */}
 				<Route path='main_theme' element={<MainTheme />} />
 				{/* 기획전 페이지 */}
