@@ -38,6 +38,8 @@ function SuggestRoom(props) {
 					display: 'flex',
 					justifyContent: 'space-between',
 					flexWrap: 'wrap',
+
+					width: '100%',
 				}}
 			>
 				{roomList &&
@@ -46,10 +48,10 @@ function SuggestRoom(props) {
 							style={{
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '350px',
+								// width: '350px',
+								width: '32%',
 								cursor: 'pointer',
-
-								marginBottom: '30px',
+								// marginBottom: '30px',
 							}}
 							key={idx}
 						>
@@ -67,16 +69,6 @@ function SuggestRoom(props) {
 								<h5>
 									<b style={{color: 'black'}}>{data.name}</b>
 								</h5>
-								<span>
-									<RoomIcon
-										style={{
-											fontSize: '20px',
-											marginBottom: '5px',
-										}}
-									/>
-									{/*{data.address.split(' ')[1]}*/}
-								</span>
-								<br />
 								<span>room tag list</span>
 								<br />
 								<span>
