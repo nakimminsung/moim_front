@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {useEffect} from 'react';
+import {Link} from 'react-router-dom';
 
 function NoticeListAdmin(props) {
 	const {noticeList, setNoticeList, searchWord} = props;
@@ -24,6 +25,7 @@ function NoticeListAdmin(props) {
 			<table className='table table-bordered' style={{width: '100%'}}>
 				<thead>
 					<tr style={{textAlign: 'center'}}>
+						<th style={{width: '5%'}}>번호</th>
 						<th style={{width: '10%'}}>유형</th>
 						<th>제목</th>
 						<th style={{width: '15%'}}>작성일자</th>
@@ -42,8 +44,22 @@ function NoticeListAdmin(props) {
 						noticeList &&
 						noticeList.map((row, idx) => (
 							<tr style={{verticalAlign: 'middle'}} key={idx}>
+								<td>{idx + 1}</td>
 								<td>{row.type}</td>
-								<td>{row.title}</td>
+								<td>
+									{/* <Link to={'/notice'}>{row.title}</Link> */}
+									<span
+										style={{
+											textDecoration: 'underLine',
+											cursor: 'pointer',
+										}}
+										onClick={() =>
+											window.open('/notice', '_blank')
+										}
+									>
+										{row.title}
+									</span>
+								</td>
 								<td>{row.writeday}</td>
 								<td>
 									<button

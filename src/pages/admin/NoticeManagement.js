@@ -1,8 +1,8 @@
 import {SearchRounded} from '@material-ui/icons';
 import React, {useRef, useState} from 'react';
 import NoticeListAdmin from './NoticeListAdmin';
+
 //dialogue 관련
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -45,6 +45,11 @@ function NoticeManagement(props) {
 
 	const handleClose = () => {
 		setOpen(false);
+
+		//값 비워주기
+		setNoticeType('');
+		setNoticeTitle('');
+		setNoticeContent('');
 	};
 
 	//modal 내부의 select style 관련
@@ -66,37 +71,74 @@ function NoticeManagement(props) {
 	const [uploadFile, setUploadFile] = useState('');
 
 	//modal 내부의 select 변경 이벤트
-	const handleChange = (e) => {
-		console.log(e.target.value);
-	};
-
 	const noticeTypeHandler = (e) => {
 		e.preventDefault();
 		setNoticeType(e.target.value);
+		// console.log('noticeType' + e.target.value);
 	};
 
-	//modal submit
-	const submitHandler = (e) => {
-		console.log();
-
+	const noticeTitleHandler = (e) => {
 		e.preventDefault();
-		// state에 저장한 값을 가져옵니다.
-		console.log(noticeTitle);
-		console.log(noticeContent);
-		console.log(uploadFile);
+		setNoticeTitle(e.target.value);
+		// console.log('noticeTitle' + e.target.value);
+	};
 
-		let body = {
-			noticeTitle: noticeTitle,
-			noticeContent: noticeContent,
-			uploadFile: uploadFile,
-		};
+	const noticeContentHandler = (e) => {
+		e.preventDefault();
+		setNoticeContent(e.target.value);
+		// console.log('noticeContent' + e.target.value);
+	};
 
+	const uploadFileHandler = (e) => {
+		e.preventDefault();
+		setUploadFile(e.target.files[0]);
+		// console.log('uploadFile' + e.target.files[0]);
+	};
+
+	//modal submit 이벤트
+	const submitHandler = (e) => {
+		e.preventDefault();
+
+		// BackEnd로 보낼 url
 		let url = localStorage.url + '/admin/noticeInsert';
 
-		axios.post(url, body).then((res) => console.log(res)); //url로 body 데이터를 보낸다
+		// state에 저장한 값을 가져옵니다.
+		// let body = {
+		// 	noticeType: noticeType,
+		// 	noticeTitle: noticeTitle,
+		// 	noticeContent: noticeContent,
+		// 	uploadFile: uploadFile,
+		// };
+		const formData = new FormData();
+		formData.append('noticeType', noticeType);
+		formData.append('noticeTitle', noticeTitle);
+		formData.append('noticeContent', noticeContent);
+		formData.append('uploadFile', uploadFile);
 
-		//modal 화면 close
-		// setOpen(false);
+		// axios.post(url, body).then((res) => console.log(res));
+		//url로 body 데이터를 보낸다
+
+		axios({
+			method: 'post',
+			url: url, //BackEnd로 보낼 url
+			data: formData,
+			headers: {'Content-Type': 'multipart/form-data'},
+		}).then((res) => {
+			console.log('res.data=' + res.data);
+			alert('등록이 완료되었습니다.');
+
+			//성공하고 비워주기
+			setNoticeType('');
+			setNoticeTitle('');
+			setNoticeContent('');
+			setUploadFile([]);
+
+			//성공하고 화면 리로드
+			window.location.reload();
+		});
+
+		//성공하고 modal 창 닫기
+		setOpen(false);
 	};
 
 	return (
@@ -121,6 +163,7 @@ function NoticeManagement(props) {
 						cursor: 'pointer',
 						color: 'gray',
 					}}
+					onClick={handleClick}
 				/>
 				<input
 					type={'text'}
@@ -175,14 +218,15 @@ function NoticeManagement(props) {
 
 				<button
 					type='button'
-					className='btn btn-secondary'
+					className='btn btn-dark'
 					onClick={handleClickOpen}
 				>
 					작성하기
 				</button>
+			</div>
 
-				{/* Dialogue Modal 화면 : 공지사항 작성 폼 */}
-
+			{/* Dialogue Modal 화면 : 공지사항 작성 폼 */}
+			<div>
 				<form onSubmit={submitHandler}>
 					<Dialog open={open} onClose={handleClose}>
 						<DialogTitle>공지사항 등록</DialogTitle>
@@ -201,7 +245,11 @@ function NoticeManagement(props) {
 								<InputLabel htmlFor='age-native-simple'>
 									유형 선택
 								</InputLabel>
-								<Select native onChange={handleChange}>
+								<Select
+									native
+									onChange={noticeTypeHandler}
+									value={noticeType}
+								>
 									<option aria-label='None' value='' />
 									<option value={'이벤트'}>이벤트</option>
 									<option value={'공지사항'}>공지사항</option>
@@ -216,6 +264,8 @@ function NoticeManagement(props) {
 								type='text'
 								fullWidth
 								variant='standard'
+								onChange={noticeTitleHandler}
+								value={noticeTitle}
 							/>
 							<br />
 							<br />
@@ -223,21 +273,28 @@ function NoticeManagement(props) {
 								className='form-control'
 								placeholder='내용을 입력해주시기 바랍니다.'
 								style={{height: '300px'}}
+								onChange={noticeContentHandler}
+								value={noticeContent}
 							/>
 							<br />
-							<input type={'file'} className='form-control' />
+							<input
+								type={'file'}
+								className='form-control'
+								onChange={uploadFileHandler}
+							/>
 						</DialogContent>
-						<DialogActions>
+						<DialogActions style={{marginRight: '15px'}}>
 							<button
 								type='button'
-								className='btn btn-outline-danger'
+								className='btn btn-outline-secondary'
 								onClick={handleClose}
 							>
 								취소
 							</button>
+							&nbsp;&nbsp;
 							<button
 								type='submit'
-								className='btn btn-secondary'
+								className='btn btn-dark'
 								onClick={submitHandler}
 							>
 								저장
