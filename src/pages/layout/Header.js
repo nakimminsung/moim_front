@@ -21,10 +21,7 @@ function Header(props) {
 	//검색 버튼 클릭 시 이벤트
 	const handleClick = (e) => {
 		//searchWord에 입력값 저장
-		// console.log(input.current.value);
-		//setSearchWord(input.current.value);
 		const searchWord = input.current.value;
-		console.log(searchWord);
 		navi('/searchroom?searchWord=' + searchWord);
 	};
 
@@ -81,7 +78,7 @@ const InnerWrapper = styled.div`
 	}
 	@media (max-width: 1000px) {
 		width: 100%;
-		max-width: 800px;
+		max-width: 900px;
 	}
 	@media (max-width: 900px) {
 		width: 100%;
