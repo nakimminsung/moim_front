@@ -8,7 +8,8 @@ import './Detail.css';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import DetailInfo from './DetailInfo';
-import DatailPrice from './DatailPrice';
+import DatailFunction from './DatailFunction';
+import DetailSm from './DetailSm';
 function Detail(props) {
 	const {num} = useParams();
 	const [roomData, setRoomData] = useState(''); //룸정보
@@ -89,13 +90,15 @@ function Detail(props) {
 			<div
 				className='detailItem2'
 				style={{
-					position: 'sticky',
 					top: '70px',
 					height: '2000px',
 					width: '100%',
 				}}
 			>
-				<DatailPrice />
+				<DatailFunction />
+			</div>
+			<div className='detailBottom'>
+				<DetailSm />
 			</div>
 		</div>
 	);

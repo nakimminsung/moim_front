@@ -1,7 +1,7 @@
-import { Favorite, Person, Sms } from '@material-ui/icons';
+import {Favorite, Person, Sms} from '@material-ui/icons';
 import RoomIcon from '@material-ui/icons/Room';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 function SuggestRoom(props) {
 	const [roomList, setRoomList] = useState('');
@@ -26,11 +26,11 @@ function SuggestRoom(props) {
 	}, []);
 
 	return (
-		<div className='themeArea' style={{ textAlign: 'center' }}>
+		<div className='themeArea' style={{textAlign: 'center'}}>
 			<h3>
 				<b>오늘의 추천 공간</b>
 			</h3>
-			<h6 style={{ color: 'gray' }}>뜨기 전에 먼저 예약하세요!</h6>
+			<h6 style={{color: 'gray'}}>뜨기 전에 먼저 예약하세요!</h6>
 			<br />
 
 			<div
@@ -38,6 +38,8 @@ function SuggestRoom(props) {
 					display: 'flex',
 					justifyContent: 'space-between',
 					flexWrap: 'wrap',
+
+					width: '100%',
 				}}
 			>
 				{roomList &&
@@ -46,10 +48,10 @@ function SuggestRoom(props) {
 							style={{
 								border: '1px solid lightgray',
 								borderRadius: '5px',
-								width: '350px',
+								// width: '350px',
+								width: '32%',
 								cursor: 'pointer',
-
-								marginBottom: '30px',
+								// marginBottom: '30px',
 							}}
 							key={idx}
 						>
@@ -63,20 +65,10 @@ function SuggestRoom(props) {
 								}}
 							/>
 							<br />
-							<div style={{ color: 'gray' }}>
+							<div style={{color: 'gray'}}>
 								<h5>
-									<b style={{ color: 'black' }}>{data.name}</b>
+									<b style={{color: 'black'}}>{data.name}</b>
 								</h5>
-								<span>
-									<RoomIcon
-										style={{
-											fontSize: '20px',
-											marginBottom: '5px',
-										}}
-									/>
-									{/* {data.address.split(' ')[1]} */}
-								</span>
-								<br />
 								<span>room tag list</span>
 								<br />
 								<span>
@@ -94,10 +86,10 @@ function SuggestRoom(props) {
 								</span>
 								&emsp;&emsp;
 								<span>
-									<Person style={{ fontSize: '20px' }} /> 최대{' '}
+									<Person style={{fontSize: '20px'}} /> 최대{' '}
 									{data.headcount}인{' '}
-									<Sms style={{ fontSize: '20px' }} /> 0{' '}
-									<Favorite style={{ fontSize: '20px' }} /> 0
+									<Sms style={{fontSize: '20px'}} /> 0{' '}
+									<Favorite style={{fontSize: '20px'}} /> 0
 								</span>
 								<br />
 								<br />
