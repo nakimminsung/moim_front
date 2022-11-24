@@ -21,7 +21,7 @@ function SellerLogin() {
     axios.post(url, { email, password })
       .then(res => {
         console.log(res.data.check);
-        console.log(res.data.email);
+        console.log(res.data.name);
 
 
         // 아이디와 비번이 맞을경우
@@ -32,7 +32,8 @@ function SellerLogin() {
           // localStorage.myname = res.data.myname
           sessionStorage.loginok = 'yes';
           sessionStorage.email = email;
-          sessionStorage.password = res.data.password
+          sessionStorage.name = res.data.name;
+          sessionStorage.password = res.data.password;
 
           // 일단 Home으로 이동
           navi("/");

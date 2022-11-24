@@ -346,38 +346,6 @@ function Mypage(props) {
 									</tr>
 
 									<tr>
-										<Leftth>성별</Leftth>
-										<LeftTd>
-											<div>
-												<RadioLabel>
-													<IconRadio
-														type='radio'
-														value='F'
-														checked={gender === 'F'}
-														onChange={
-															handleRadioBtn
-														}
-													></IconRadio>
-													여성
-												</RadioLabel>
-											</div>
-											<div>
-												<RadioLabel>
-													<IconRadio
-														type='radio'
-														value='M'
-														checked={gender === 'M'}
-														onChange={
-															handleRadioBtn
-														}
-													></IconRadio>
-													남성
-												</RadioLabel>
-											</div>
-										</LeftTd>
-									</tr>
-
-									<tr>
 										<Leftth>생일</Leftth>
 										<LeftTd>
 											<InputTextS>
