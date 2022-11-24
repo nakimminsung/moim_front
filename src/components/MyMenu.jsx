@@ -8,7 +8,7 @@ import MenuList from '@material-ui/core/MenuList';
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import styled from 'styled-components';
 import Avatar from '@material-ui/core/Avatar';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import jwt_decode from 'jwt-decode';
 
@@ -21,6 +21,9 @@ export default function MyMenu() {
 
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);
+		console.log(jwt_decode(
+			localStorage.getItem('token')
+		))
 	};
 	const handleClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -77,13 +80,12 @@ export default function MyMenu() {
 			>
 				<MyButtonIcon />
 				{loginCheck ? (
-					<Avatar
+					< Avatar
 						className='loginAvatar'
 						alt='Remy Sharp'
-						src={
-							jwt_decode(localStorage.getItem('token'))
-								.profile_image
-						}
+						src={jwt_decode(
+							localStorage.getItem('token'),
+						).profile_image}
 					/>
 				) : (
 					<AccountCircleIcon className='noneIcon' />
@@ -96,7 +98,7 @@ export default function MyMenu() {
 				transition
 				disablePortal
 			>
-				{({TransitionProps, placement}) => (
+				{({ TransitionProps, placement }) => (
 					<Grow
 						{...TransitionProps}
 						style={{
@@ -189,6 +191,14 @@ export default function MyMenu() {
 												}}
 											>
 												회원가입
+											</MenuItem>
+											<MenuItem
+												onClick={() => {
+													navi('/seller');
+													handleClose(false);
+												}}
+											>
+												판매자 로그인
 											</MenuItem>
 										</>
 									)}

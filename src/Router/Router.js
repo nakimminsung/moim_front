@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import AdminLayout from '../pages/layout/AdminLayout';
 import Layout from '../pages/layout/Layout';
 import MapLayout from '../pages/layout/MapLayout';
@@ -14,7 +14,7 @@ function Router() {
 				<Route path='/map/*' element={<MapLayout />} />
 				<Route
 					path='/oauth2/redirect/:token'
-					// path="/oauth2/redirect/"
+					// path="/oauth/redirect/"
 					element={<KakaoLoginRedirect />}
 				/>
 			</Routes>
