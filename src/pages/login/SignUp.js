@@ -52,17 +52,17 @@ function SignUp() {
                 </Naver>
               </Item>
               <Item>
-                <Facebook href="http://localhost:9000/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect">
+                <Facebook href="http://localhost:9000/oauth2/authorization/facebook?redirect_uri=http://localhost:3000/oauth2/redirect">
                   <SpIcon className="Facebook" />
                   페이스북으로 가입하기
                 </Facebook>
               </Item>
-              <Item>
-                <Twitter href="http://localhost:9000/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
+              {/* <Item>
+                <Twitter href="http://localhost:9000/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth2/redirect">
                   <SpIcon className="Twitter" />
                   구글 가입하기
                 </Twitter>
-              </Item>
+              </Item> */}
 
               <Item>
                 <Email href="/signupemail">이메일로 가입하기</Email>
@@ -189,11 +189,13 @@ const SignupStep = styled.div`
       display: inline-block;
       position: relative;
       border-top: 1px solid #aaa;
+      width:200px;
     }
 
     li {
       position: relative;
       top: -15px;
+      left: -15px;
       z-index: 10;
       background: #fff;
       color: #999;
