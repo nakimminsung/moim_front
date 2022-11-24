@@ -8,7 +8,7 @@ import MenuList from '@material-ui/core/MenuList';
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import styled from 'styled-components';
 import Avatar from '@material-ui/core/Avatar';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import jwt_decode from 'jwt-decode';
 
@@ -21,23 +21,13 @@ export default function MyMenu() {
 
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);
-		console.log(jwt_decode(
-			localStorage.getItem('token')
-		))
+		console.log(jwt_decode(localStorage.getItem('token')));
 	};
 	const handleClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
 			return;
 		}
 		setOpen(false);
-	};
-	const logout = () => {
-		try {
-			localStorage.clear();
-			document.location.href = '/';
-		} catch (e) {
-			console.log(e);
-		}
 	};
 	// const goMypage = () => {
 	// 	try {
@@ -61,14 +51,26 @@ export default function MyMenu() {
 	useEffect(() => {
 		try {
 			if (localStorage.getItem('token') !== null) {
-				setLoginCheck(true);
+				setLoginCheck(1);
+			} else if (sessionStorage.loginok === 'yes') {
+				setLoginCheck(2);
 			} else {
-				setLoginCheck(false);
+				setLoginCheck(3);
 			}
 		} catch (error) {
 			console.log('error: ' + JSON.stringify(localStorage));
 		}
 	}, [loginCheck]);
+
+	const logout = () => {
+		try {
+			localStorage.clear();
+			sessionStorage.clear();
+			document.location.href = '/';
+		} catch (e) {
+			console.log(e);
+		}
+	};
 
 	return (
 		<>
@@ -79,14 +81,17 @@ export default function MyMenu() {
 				onClick={handleToggle}
 			>
 				<MyButtonIcon />
-				{loginCheck ? (
-					< Avatar
+				{loginCheck === 1 ? (
+					<Avatar
 						className='loginAvatar'
 						alt='Remy Sharp'
-						src={jwt_decode(
-							localStorage.getItem('token'),
-						).profile_image}
+						src={
+							jwt_decode(localStorage.getItem('token'))
+								.profile_image
+						}
 					/>
+				) : loginCheck === 2 ? (
+					<AccountCircleIcon className='noneIcon' />
 				) : (
 					<AccountCircleIcon className='noneIcon' />
 				)}
@@ -98,7 +103,7 @@ export default function MyMenu() {
 				transition
 				disablePortal
 			>
-				{({ TransitionProps, placement }) => (
+				{({TransitionProps, placement}) => (
 					<Grow
 						{...TransitionProps}
 						style={{
@@ -114,7 +119,7 @@ export default function MyMenu() {
 									autoFocusItem={open}
 									id='menu-list-grow'
 								>
-									{loginCheck ? (
+									{loginCheck === 1 ? (
 										<>
 											<MenuItem>
 												{
@@ -164,6 +169,35 @@ export default function MyMenu() {
 												}}
 											>
 												회원정보관리
+											</MenuItem>
+											<MenuItem
+												onClick={() => {
+													logout();
+													handleClose();
+												}}
+											>
+												로그아웃
+											</MenuItem>
+										</>
+									) : loginCheck === 2 ? (
+										<>
+											<MenuItem>
+												{sessionStorage.name}님
+											</MenuItem>
+											<hr
+												style={{
+													margin: '0 auto',
+													width: '90%',
+													color: '#a0a0a0',
+												}}
+											/>
+											<MenuItem
+												onClick={() => {
+													navi('/host/slist');
+													handleClose(false);
+												}}
+											>
+												호스트페이지
 											</MenuItem>
 											<MenuItem
 												onClick={() => {
