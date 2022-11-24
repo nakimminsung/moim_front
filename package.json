@@ -43,9 +43,11 @@
     "react-scripts": "5.0.1",
     "react-scroll": "^1.8.8",
     "react-slick": "^0.29.0",
+    "react-stomp": "^5.1.0",
     "react-swipeable-views": "^0.14.0",
     "redux": "^4.2.0",
     "slick-carousel": "^1.8.1",
+    "sockjs": "^0.3.24",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.0"
   },

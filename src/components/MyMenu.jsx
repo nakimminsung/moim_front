@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -13,46 +13,48 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import jwt_decode from 'jwt-decode';
 
 export default function MyMenu() {
-	const [open, setOpen] = React.useState(false);
-	const anchorRef = React.useRef(null);
+	const [open, setOpen] = useState(false);
+	const anchorRef = useRef(null);
 	const navi = useNavigate();
+	const [loginCheck, setLoginCheck] = useState('');
+	const prevOpen = useRef(open);
 
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);
 	};
-
 	const handleClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
 			return;
 		}
 		setOpen(false);
 	};
-
-	// return focus to the button when we transitioned from !open -> open
-	const prevOpen = React.useRef(open);
-	useEffect(() => {
-		if (prevOpen.current === true && open === false) {
-			anchorRef.current.focus();
-		}
-
-		prevOpen.current = open;
-	}, [open]);
-
-	const [loginCheck, setLoginCheck] = useState('');
-
-	const goMypage = () => {
+	const logout = () => {
 		try {
-			if (localStorage.getItem('token') === null) {
-				alert('로그인 해주세요.');
-				document.location.href = '/login';
-			} else {
-				document.location.href = '/mypage';
-			}
+			localStorage.clear();
+			document.location.href = '/';
 		} catch (e) {
 			console.log(e);
 		}
 	};
+	// const goMypage = () => {
+	// 	try {
+	// 		if (localStorage.getItem('token') === null) {
+	// 			alert('로그인 해주세요.');
+	// 			document.location.href = '/login';
+	// 		} else {
+	// 			document.location.href = '/mypage';
+	// 		}
+	// 	} catch (e) {
+	// 		console.log(e);
+	// 	}
+	// };
 
+	useEffect(() => {
+		if (prevOpen.current === true && open === false) {
+			anchorRef.current.focus();
+		}
+		prevOpen.current = open;
+	}, [open]);
 	useEffect(() => {
 		try {
 			if (localStorage.getItem('token') !== null) {
@@ -64,15 +66,6 @@ export default function MyMenu() {
 			console.log('error: ' + JSON.stringify(localStorage));
 		}
 	}, [loginCheck]);
-
-	const logout = () => {
-		try {
-			localStorage.clear();
-			document.location.href = '/';
-		} catch (e) {
-			console.log(e);
-		}
-	};
 
 	return (
 		<>

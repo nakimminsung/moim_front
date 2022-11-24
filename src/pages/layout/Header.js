@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {SearchRounded} from '@material-ui/icons';
 import mlogo from '../../asset/logo/m_logo.png';
-import MyMenu from '../components/MyMenu';
+import MyMenu from '../../components/MyMenu';
 import styled from 'styled-components';
 
 function Header(props) {

@@ -38,7 +38,7 @@ function Mainpage(props) {
 
 					{/* 임시버튼 */}
 					<li>
-						<NavLink to={'/'}>임시 버튼</NavLink>
+						<NavLink to={'/chat/chat'}>채팅</NavLink>
 					</li>
 					<li>
 						<NavLink to={'/'}>임시 버튼</NavLink>
