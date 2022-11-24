@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import { MenuItem, Select } from '@material-ui/core'
 function SellerJoin(props) {
     const [isAllChecked, setIsAllChecked] = useState(false);
     const [checkedItems, setCheckedItems] = useState([]);
@@ -43,30 +43,39 @@ function SellerJoin(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
-    const [nickname, setNickname] = useState("");
     const [placeName, setPlaceName] = useState("");
     const [businessNumber, setBusinessNumber] = useState("");
+    const [phoneNum, setPhoneNum] = useState("");
     const [address, setAddress] = useState("");
+    const [logo, setLogo] = useState("");
+    const [bank, setBank] = useState("국민");
+    const [accountNumber, setAccountNumber] = useState("");
 
     let body = {
         email: email,
         password: password,
-        nickname: nickname,
+        companyName: placeName,
+        businessNumber: businessNumber,
+        logoImage: '',
+        phone: phoneNum,
+        address: address,
+        bank: bank,
+        accountNumber: accountNumber
     };
 
     const onSubmit = async () => {
         try {
             const response = await axios.post(
-                "http://localhost:9000/member/signup",
+                "http://localhost:9000/member/sellersignup",
                 body,
                 {
                     headers: { "Content-Type": "application/json" },
                 }
             );
             console.log(response.data.code);
-            if (response.data.code === 1000) {
-                window.location.href = "/emailcheck";
-            }
+            // if (response.data.code === 1000) {
+            //     window.location.href = "/";
+            // }
         } catch (e) {
             console.log(e);
         }
@@ -137,6 +146,26 @@ function SellerJoin(props) {
             setCheckBusiNum(1);
         }
     }
+    // 휴대폰 하이픈
+    const phoneNumCheck = (number) => {
+        const phone = number.replace(/[^0-9]/g, '').replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3').replace(/\-{1,2}$/g, '');
+        setPhoneNum(phone);
+    }
+
+
+    // 옵션
+    const Options = [
+        { key: "국민", value: "국민은행" },
+        { key: "신한", value: "신한은행" },
+        { key: "하나", value: "하나은행" },
+        { key: "우리", value: "우리은행" },
+        { key: "농협", value: "농협은행" },
+    ]
+
+    const onChangeHandler = (e) => {
+        setBank(e.currentTarget.value)
+        console.log(bank);
+    }
 
     return (
         <WrapLogin>
@@ -149,7 +178,6 @@ function SellerJoin(props) {
                     </LoginLogo>
 
                     <LoginSection>
-                        <LoginTitle>판매자 회원가입</LoginTitle>
                         <SignupStep className="wrap">
                             <Title>가입 정보 입력하기</Title>
                         </SignupStep>
@@ -206,25 +234,6 @@ function SellerJoin(props) {
                             </FormBlockBody>
                         </FormBlock>
 
-                        <FormBlock>
-                            <FormBlockHead>
-                                <AsteriskRed>*</AsteriskRed> 이름
-                            </FormBlockHead>
-                            <FormBlockBody>
-                                <InputTextSizeWTypeL>
-                                    <EmailInput
-                                        id="name"
-                                        value={nickname}
-                                        type="text"
-                                        placeholder="이름을 입력해 주세요"
-                                        required
-                                        onChange={(e) => {
-                                            setNickname(e.target.value);
-                                        }}
-                                    />
-                                </InputTextSizeWTypeL>
-                            </FormBlockBody>
-                        </FormBlock>
 
                         <FormBlock>
                             <FormBlockHead>
@@ -277,12 +286,67 @@ function SellerJoin(props) {
                                 <InputTextSizeWTypeL>
                                     <EmailInput
                                         id="name"
-                                        value={1}
+                                        value={address}
                                         type="text"
                                         placeholder="주소를 입력해 주세요"
                                         required
                                         onChange={(e) => {
-                                            setNickname(e.target.value);
+                                            setAddress(e.target.value);
+                                        }}
+                                    />
+                                </InputTextSizeWTypeL>
+                            </FormBlockBody>
+                        </FormBlock>
+
+                        <FormBlock>
+                            <FormBlockHead>
+                                전화번호
+                            </FormBlockHead>
+                            <FormBlockBody>
+                                <InputTextSizeWTypeL>
+                                    <EmailInput
+                                        id="name"
+                                        value={phoneNum}
+                                        type="text"
+                                        placeholder="전화번호를 입력해 주세요"
+                                        required
+                                        onChange={(e) => {
+                                            phoneNumCheck(e.target.value)
+                                        }}
+                                    />
+                                </InputTextSizeWTypeL>
+                            </FormBlockBody>
+                        </FormBlock>
+
+                        <FormBlock>
+                            <FormBlockHead>
+                                <AsteriskRed>*</AsteriskRed> 은행
+                            </FormBlockHead>
+                            <FormBlockBody>
+                                <select onChange={onChangeHandler} value={bank}
+                                    defaultValue={bank}>
+                                    {Options.map((item, index) => (
+                                        <option key={item.key} value={item.key}>{item.value}</option>
+                                    ))}
+                                </select>
+
+                            </FormBlockBody>
+                        </FormBlock>
+
+                        <FormBlock>
+                            <FormBlockHead>
+                                <AsteriskRed>*</AsteriskRed> 계좌번호
+                            </FormBlockHead>
+                            <FormBlockBody>
+                                <InputTextSizeWTypeL>
+                                    <EmailInput
+                                        id="name"
+                                        value={accountNumber}
+                                        type="text"
+                                        placeholder="계좌번호를 입력해주세요"
+                                        required
+                                        onChange={(e) => {
+                                            setAccountNumber(e.target.value);
                                         }}
                                     />
                                 </InputTextSizeWTypeL>

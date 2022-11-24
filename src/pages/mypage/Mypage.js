@@ -182,21 +182,9 @@ function Mypage(props) {
 						<div>
 							<MyMenuEm>MY MENU</MyMenuEm>
 							<MyInfoNav>
-								<MyInfoB>
-									<MyInfoSpan>주문배송</MyInfoSpan>
-								</MyInfoB>
-								<MyAa href='/order'>주문내역</MyAa>
-								<MyAa onClick={review}>취소/환불내역</MyAa>
-
 								{/* <MyInfoB>
-                  <MyInfoSpan>알림 및 메시지</MyInfoSpan>
-                </MyInfoB>
-                <MyA href="/notification">알림</MyA>
-                <MyA href="/message">메시지</MyA> */}
-
-								<MyInfoB>
-									<MyInfoSpan>나의 구매후기</MyInfoSpan>
-								</MyInfoB>
+									<MyInfoSpan>My MENU</MyInfoSpan>
+								</MyInfoB> */}
 								<MyAa href='/review'>
 									후기 쓰기
 								</MyAa>

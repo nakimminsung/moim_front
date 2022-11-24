@@ -19,11 +19,10 @@ export default function MyMenu() {
 
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);
+		console.log(jwt_decode(
+			localStorage.getItem('token')
+		))
 	};
-
-	// const profileImage = jwt_decode(
-	// 	localStorage.getItem('token'),
-	// ).profile_image;
 
 	const handleClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -88,7 +87,7 @@ export default function MyMenu() {
 			>
 				<MyButtonIcon />
 				{loginCheck ? (
-					<Avatar
+					< Avatar
 						className='loginAvatar'
 						alt='Remy Sharp'
 						src={jwt_decode(
@@ -206,7 +205,7 @@ export default function MyMenu() {
 													handleClose(false);
 												}}
 											>
-												판매자 회원가입
+												판매자 로그인
 											</MenuItem>
 										</>
 									)}
