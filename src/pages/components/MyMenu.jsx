@@ -59,9 +59,11 @@ export default function MyMenu() {
 	useEffect(() => {
 		try {
 			if (localStorage.getItem('token') !== null) {
-				setLoginCheck(true);
+				setLoginCheck(1);
+			} else if (sessionStorage.loginok == 'yes') {
+				setLoginCheck(2);
 			} else {
-				setLoginCheck(false);
+				setLoginCheck(3);
 			}
 		} catch (error) {
 			console.log('error: ' + JSON.stringify(localStorage));
@@ -71,6 +73,7 @@ export default function MyMenu() {
 	const logout = () => {
 		try {
 			localStorage.clear();
+			sessionStorage.clear();
 			document.location.href = '/';
 		} catch (e) {
 			console.log(e);
@@ -86,7 +89,7 @@ export default function MyMenu() {
 				onClick={handleToggle}
 			>
 				<MyButtonIcon />
-				{loginCheck ? (
+				{loginCheck == 1 ? (
 					< Avatar
 						className='loginAvatar'
 						alt='Remy Sharp'
@@ -94,6 +97,8 @@ export default function MyMenu() {
 							localStorage.getItem('token'),
 						).profile_image}
 					/>
+				) : loginCheck == 2 ? (
+					<AccountCircleIcon className='noneIcon' />
 				) : (
 					<AccountCircleIcon className='noneIcon' />
 				)}
@@ -121,7 +126,7 @@ export default function MyMenu() {
 									autoFocusItem={open}
 									id='menu-list-grow'
 								>
-									{loginCheck ? (
+									{loginCheck == 1 ? (
 										<>
 											<MenuItem>
 												{
@@ -171,6 +176,38 @@ export default function MyMenu() {
 												}}
 											>
 												회원정보관리
+											</MenuItem>
+											<MenuItem
+												onClick={() => {
+													logout();
+													handleClose();
+												}}
+											>
+												로그아웃
+											</MenuItem>
+										</>
+									) : loginCheck == 2 ? (
+										<>
+											<MenuItem>
+												{
+													sessionStorage.name
+												}
+												님
+											</MenuItem>
+											<hr
+												style={{
+													margin: '0 auto',
+													width: '90%',
+													color: '#a0a0a0',
+												}}
+											/>
+											<MenuItem
+												onClick={() => {
+													navi('/host/slist');
+													handleClose(false);
+												}}
+											>
+												호스트페이지
 											</MenuItem>
 											<MenuItem
 												onClick={() => {
