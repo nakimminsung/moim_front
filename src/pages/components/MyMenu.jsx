@@ -87,7 +87,10 @@ export default function MyMenu() {
 					<Avatar
 						className='loginAvatar'
 						alt='Remy Sharp'
-						src='https://github.com/MoiM-Project/data/blob/main/review/KakaoTalk_20221107_181600198_02.jpg?raw=true'
+						src={
+							jwt_decode(localStorage.getItem('token'))
+								.profile_image
+						}
 					/>
 				) : (
 					<AccountCircleIcon className='noneIcon' />

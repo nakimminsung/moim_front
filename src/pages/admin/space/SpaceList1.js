@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Person} from '@material-ui/icons';
 import axios from 'axios';
-import RoomIcon from '@material-ui/icons/Room';
 import {useNavigate} from 'react-router-dom';
 
 function SpaceList1(props) {
@@ -23,6 +22,8 @@ function SpaceList1(props) {
 
 		axios.get(url).then((res) => {
 			setSpaceList(res.data);
+
+			console.log(res.data);
 		});
 	};
 
