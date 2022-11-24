@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import Pagenation from './Pagenation';
 import './SpaceBookingList.css';
 
@@ -26,127 +26,25 @@ function SpaceBookingList(props) {
 	const [sort, setSort] = useState('');
 	const [bookingList, setBookingList] = useState([]);
 	const [bookingStatus, setBookingStatus] = useState('-1');
-
-	// const [search, setSearch] = useState('');
-
-	// const onChangeSearch = (e) => {
-	// 	e.preventDefault();
-	// 	e.SearchRef.current.value;
-	// };
-	// useEffect(() => {
-	// 	onSearch();
-	// }, [search]);
-
-	// const onSearch = () => {
-	// 	// setSearch(SearchRef.current.value);
-	// 	console.log(search);
-
-	// 	if (search === null || search === '') {
-	// 		let bookingListUrl =
-	// 			localStorage.url +
-	// 			`/host/bookinglist?hostNum=${hostNum}&bookingStatus=${bookingStatus}&sort=${sort}`;
-	// 		axios.get(bookingListUrl).then((res) => {
-	// 			setBookingList(res.data);
-	// 		});
-	// 	}
-	// 	const filterData = bookingList.filter((row) =>
-	// 		row.roomName.includes(search),
-	// 	);
-	// 	const filterData2 = bookingList.filter((row) =>
-	// 		row.name.includes(search),
-	// 	);
-	// 	console.log(filterData);
-	// 	console.log(filterData2);
-	// 	setBookingList(filterData.length !== 0 ? filterData : filterData2);
-
-	// 	// if (search) {
-	// 	// 	console.log('check: ' + filterData);
-	// 	// 	setBookingList(filterData);
-	// 	// 	//서치가 현선혜인데 룸네임이 '현선혜'이 없음
-	// 	// }
-	// 	// } else if (search) {
-	// 	// 	const filterData = bookingList.filter((row) =>
-	// 	// 		row.roomName.includes(search),
-	// 	// 	);
-	// 	// 	setBookingList(filterData);
-	// 	// 	//서치가 현선혜인데 룸네임이 '현선혜'이 없음
-	// 	// 	if (!row.roomName.includes(search)) {
-	// 	// 		const filterData2 = bookingList.filter((row) =>
-	// 	// 			row.name.includes(search),
-	// 	// 		);
-	// 	// 		setBookingList(filterData2);
-	// 	// 	}
-	// 	// }
-	// 	// } else if (search) {
-	// 	// 	const filterData2 = bookingList.filter((row) =>
-	// 	// 		row.name.includes(search),
-	// 	// 	);
-
-	// 	// 	setBookingList(filterData2);
-	// 	// }
-	// 	console.log(SearchRef.current.value);
-	// 	SearchRef.current.value = '';
-	// 	console.log(SearchRef.current.value);
-	// };
-
-	// const onChangeSearch = (e) => {
-	// 	e.preventDefault();
-	// 	setSearch(e.target.value);
-	// };
-
-	// const onSearch = (e) => {
-	// 	e.preventDefault();
-	// 	if (search === null || search === '') {
-	// 		let bookingListUrl =
-	// 			localStorage.url +
-	// 			`/host/bookinglist?hostNum=${hostNum}&bookingStatus=${bookingStatus}&sort=${sort}`;
-	// 		axios.get(bookingListUrl).then((res) => {
-	// 			setBookingList(res.data);
-	// 		});
-	// 	} else {
-	// 		const filterData = bookingList.filter((row) =>
-	// 			row.name.includes(search),
-	// 		);
-	// 		setBookingList(filterData);
-	// 	}
-	// 	setSearch('');
-	// };
-
-	const SearchRef = useRef('');
-	const [search, setSearch] = useState('');
-
-	// const bookingSearch = () => {
-	// 	const filterData = bookingList.filter((row) =>
-	// 		row.roomName.includes(search),
-	// 	);
-	// 	const filterData2 = bookingList.filter((row) =>
-	// 		row.name.includes(search),
-	// 	);
-	// 	console.log(filterData);
-	// 	console.log(filterData2);
-	// 	console.log(bookingList);
-	// 	console.log(search);
-	// 	setBookingList(filterData.length !== 0 ? filterData : filterData2);
-
-	// 	// SearchRef.current = '';
-	// };
+	console.log(bookingList);
 
 	const getBookingList = () => {
-		// if (search === null || search === '') {
 		let bookingListUrl =
 			localStorage.url +
-			`/host/bookinglist?hostNum=${hostNum}&bookingStatus=${bookingStatus}&sort=${sort}&search=${search}`;
+			`/host/bookinglist?hostNum=${hostNum}&bookingStatus=${bookingStatus}&sort=${sort}`;
 		axios.get(bookingListUrl).then((res) => {
 			setBookingList(res.data);
 		});
 		console.log(bookingListUrl);
-		// }
 	};
+
+	const [searchKeyword, setSearchKeyword] = useState(''); //조회 검색어
+
 	console.log(bookingList);
 	useEffect(() => {
 		getBookingList();
 		// bookingSearch();
-	}, [bookingStatus, sort, search]);
+	}, [bookingStatus, sort]);
 
 	// select
 	const handleChange = (event) => {
@@ -165,10 +63,7 @@ function SpaceBookingList(props) {
 	let weekday = new Array();
 	for (let i = 0; i < bookingList.length; i++) {
 		let str = bookingList[i].bookingTime;
-		// console.log('aa' + bookingList[i].num);
 		let arr = str.split(',');
-		// console.log('aa' + Array.isArray(arr));
-		// console.log(arr);
 		let _stime = arr[0];
 		let _etime = arr[arr.length - 1];
 
@@ -217,6 +112,12 @@ function SpaceBookingList(props) {
 	newBookingList = [...filter];
 	// console.log(newBookingList);
 
+	const navi = useNavigate();
+
+	const onCalendar = () => {
+		navi(`/host/bookingcalendar`);
+	};
+
 	return (
 		<>
 			{Number(hostNum) ? (
@@ -238,28 +139,17 @@ function SpaceBookingList(props) {
 														id='reservation_num'
 														placeholder='예약자이름을 입력하세요'
 														// ref={SearchRef}
-														onChange={(e) =>
-															(SearchRef.current =
-																e.target.value)
-														}
-														onKeyUp={(e) =>
-															e.key === 'Enter'
-																? setSearch(
-																		SearchRef.current,
-																  )
-																: ''
-														}
+														onChange={(e) => {
+															setSearchKeyword(
+																e.target.value,
+															);
+														}}
 													/>
 												</div>
 											</div>
 											<div className='flex'>
 												<label
 													style={{cursor: 'pointer'}}
-													onClick={() =>
-														setSearch(
-															SearchRef.current,
-														)
-													}
 												>
 													<span className='search'>
 														<span>
@@ -314,9 +204,14 @@ function SpaceBookingList(props) {
 								className='inner_width inner_width_shallow'
 								style={{backgroundColor: 'yellow'}}
 							>
-								<span>
-									<span>캘린더 보기</span>
-								</span>
+								<label
+									style={{cursor: 'pointer'}}
+									onClick={onCalendar}
+								>
+									<span>
+										<span>캘린더 보기</span>
+									</span>
+								</label>
 							</div>
 						</div>
 						{bookingList.length == 0 ? (
@@ -334,6 +229,20 @@ function SpaceBookingList(props) {
 								<div className='BLContainer'>
 									{newBookingList &&
 										newBookingList
+											.filter((data) =>
+												searchKeyword === ''
+													? true
+													: (data.roomName
+															? data.roomName.includes(
+																	searchKeyword,
+															  )
+															: false) ||
+													  (data.name
+															? data.name.includes(
+																	searchKeyword,
+															  )
+															: false),
+											)
 											.slice(offset, offset + limit)
 											.map((item, idx) => (
 												<>
