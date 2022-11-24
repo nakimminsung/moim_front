@@ -1,6 +1,4 @@
-import {SearchRounded} from '@material-ui/icons';
 import React, {useRef, useState} from 'react';
-import NoticeListAdmin from './NoticeListAdmin';
 
 //dialogue 관련
 import TextField from '@mui/material/TextField';
@@ -17,25 +15,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
 
-function NoticeManagement(props) {
-	const input = useRef(null);
-	const [noticeList, setNoticeList] = useState('');
-	const [searchWord, setSearchWord] = useState('');
-
-	//input text 에 엔터키 적용시키기
-	const handleOnKeyPress = (e) => {
-		if (e.key === 'Enter') {
-			// Enter 입력이 되면
-			handleClick(); //검색 버튼 클릭 이벤트 실행
-		}
-	};
-
-	//검색 버튼 클릭 시 이벤트
-	const handleClick = (e) => {
-		//searchWord에 입력값 저장
-		setSearchWord(input.current.value);
-	};
-
+function NoticeInsert(props) {
 	//modal dialogue : OPEN / CLOSE
 	const [open, setOpen] = React.useState(false);
 
@@ -50,6 +30,9 @@ function NoticeManagement(props) {
 		setNoticeType('');
 		setNoticeTitle('');
 		setNoticeContent('');
+		setUploadFile([]);
+
+		console.log(uploadFile);
 	};
 
 	//modal 내부의 select style 관련
@@ -99,133 +82,72 @@ function NoticeManagement(props) {
 	const submitHandler = (e) => {
 		e.preventDefault();
 
-		// BackEnd로 보낼 url
-		let url = localStorage.url + '/admin/noticeInsert';
+		//값이 비어있는지 체크
+		if (noticeType == null || noticeType == '') {
+			alert('유형을 선택해주시기 바랍니다');
+			return;
+		} else if (noticeTitle == null || noticeTitle == '') {
+			alert('제목을 입력해주시기 바랍니다');
+			return;
+		} else if (noticeContent == null || noticeContent == '') {
+			alert('내용을 입력해주시기 바랍니다');
+			return;
+		} else {
+			// BackEnd로 보낼 url
+			let url = localStorage.url + '/admin/noticeInsert';
 
-		// state에 저장한 값을 가져옵니다.
-		// let body = {
-		// 	noticeType: noticeType,
-		// 	noticeTitle: noticeTitle,
-		// 	noticeContent: noticeContent,
-		// 	uploadFile: uploadFile,
-		// };
-		const formData = new FormData();
-		formData.append('noticeType', noticeType);
-		formData.append('noticeTitle', noticeTitle);
-		formData.append('noticeContent', noticeContent);
-		formData.append('uploadFile', uploadFile);
+			// state에 저장한 값을 가져옵니다.
+			// let body = {
+			// 	noticeType: noticeType,
+			// 	noticeTitle: noticeTitle,
+			// 	noticeContent: noticeContent,
+			// 	uploadFile: uploadFile,
+			// };
 
-		// axios.post(url, body).then((res) => console.log(res));
-		//url로 body 데이터를 보낸다
+			const formData = new FormData();
+			formData.append('noticeType', noticeType);
+			formData.append('noticeTitle', noticeTitle);
+			formData.append('noticeContent', noticeContent);
+			formData.append('uploadFile', uploadFile);
 
-		axios({
-			method: 'post',
-			url: url, //BackEnd로 보낼 url
-			data: formData,
-			headers: {'Content-Type': 'multipart/form-data'},
-		}).then((res) => {
-			console.log('res.data=' + res.data);
-			alert('등록이 완료되었습니다.');
+			// axios.post(url, body).then((res) => console.log(res));
+			//url로 body 데이터를 보낸다
 
-			//성공하고 비워주기
-			setNoticeType('');
-			setNoticeTitle('');
-			setNoticeContent('');
-			setUploadFile([]);
+			axios({
+				method: 'post',
+				url: url, //BackEnd로 보낼 url
+				data: formData,
+				headers: {'Content-Type': 'multipart/form-data'},
+			}).then((res) => {
+				console.log('res.data=' + res.data);
+				alert('등록이 완료되었습니다.');
 
-			//성공하고 화면 리로드
-			window.location.reload();
-		});
+				//성공하고 비워주기
+				setNoticeType('');
+				setNoticeTitle('');
+				setNoticeContent('');
+				setUploadFile([]);
 
-		//성공하고 modal 창 닫기
-		setOpen(false);
+				//성공하고 화면 리로드
+				window.location.reload();
+			});
+
+			//성공하고 modal 창 닫기
+			setOpen(false);
+		}
 	};
 
 	return (
 		<div>
-			<div
-				className='noticeSearch'
-				style={{
-					width: '100%',
-					// border: '1px solid gray',
-					border: 'none',
-					borderRadius: '10px',
-					backgroundColor: 'white',
-					boxShadow: '0px 2px 2px 1px rgba(0 0 0 / 10%)',
-				}}
+			<button
+				type='button'
+				className='btn btn-dark'
+				onClick={handleClickOpen}
 			>
-				<SearchRounded
-					style={{
-						fontSize: '30px',
-						marginBottom: '-5px',
-						marginLeft: '10px',
-						marginRight: '20px',
-						cursor: 'pointer',
-						color: 'gray',
-					}}
-					onClick={handleClick}
-				/>
-				<input
-					type={'text'}
-					className='searchContainer'
-					style={{
-						width: '90%',
-						height: '60px',
+				작성하기
+			</button>
 
-						outline: 'none',
-						border: 'none',
-						// backgroundColor: 'rgba(240, 242, 245)',
-						backgroundColor: 'white',
-					}}
-					placeholder='공지사항 / 이벤트의 제목을 입력해주세요'
-					ref={input}
-					onKeyPress={handleOnKeyPress}
-				/>
-			</div>
-
-			<br />
-			{/* 검색 여부에 따른 삼항 연산자 */}
-			<div
-				style={{
-					marginLeft: '10px',
-					paddingTop: '5px',
-					display: 'flex',
-					justifyContent: 'space-between',
-				}}
-			>
-				{searchWord !== '' ? (
-					//검색단어 있으면서, 결과가 있을때
-					noticeList.length !== 0 ? (
-						<b>
-							'{{searchWord}.searchWord}' (으)로 검색된 게시글 :{' '}
-							{noticeList.length} 개
-						</b>
-					) : (
-						//검색단어 있으면서, 결과가 없을때
-						<b>
-							'{{searchWord}.searchWord}' (으)로 검색된 게시글이
-							없습니다.
-						</b>
-					)
-				) : //삼항 연산자 중첩 시작
-				//검색단어 없으면서, 결과가 있을때
-				noticeList.length !== 0 ? (
-					<b>조회된 게시글 : {noticeList.length} 개</b>
-				) : (
-					//검색단어 없으면서, 결과가 없을때
-					<b>등록된 게시글이 없습니다.</b>
-				)}
-
-				<button
-					type='button'
-					className='btn btn-dark'
-					onClick={handleClickOpen}
-				>
-					작성하기
-				</button>
-			</div>
-
-			{/* Dialogue Modal 화면 : 공지사항 작성 폼 */}
+			{/* Dialogue Modal 화면 : 공지사항 작성 INSERT 폼 */}
 			<div>
 				<form onSubmit={submitHandler}>
 					<Dialog open={open} onClose={handleClose}>
@@ -307,15 +229,8 @@ function NoticeManagement(props) {
 					</Dialog>
 				</form>
 			</div>
-
-			{/* 하위 컴포넌트 : 공지사항 리스트 가져오기 */}
-			<NoticeListAdmin
-				noticeList={noticeList}
-				setNoticeList={setNoticeList}
-				searchWord={searchWord}
-			/>
 		</div>
 	);
 }
 
-export default NoticeManagement;
+export default NoticeInsert;

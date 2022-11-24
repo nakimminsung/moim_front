@@ -64,13 +64,8 @@ function NoticeList(props) {
 								</AccordionSummary>
 								<AccordionDetails>
 									{/* <Typography> */}
-									<pre
-										style={{
-											textAlign: 'center',
-											height: 'auto',
-										}}
-									>
-										{/* 사진이 있을때만 출력 */}
+									{/* 사진이 있을때만 출력 */}
+									<div style={{textAlign: 'center'}}>
 										{data.imageUrl !== null ? (
 											// src DB가 https 로 시작할때
 											data.imageUrl.startsWith('http') ? (
@@ -99,7 +94,18 @@ function NoticeList(props) {
 											//사진이 없을때 공란
 											''
 										)}
-										<br />
+									</div>
+									<br />
+									<pre
+										style={{
+											textAlign: '',
+											height: 'auto',
+											paddingLeft: '20%',
+											paddingRight: '20%',
+											fontFamily:
+												'Roboto,Helvetica,Arial,sans-serif',
+										}}
+									>
 										{data.content}
 									</pre>
 									{/* </Typography> */}
