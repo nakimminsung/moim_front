@@ -34,13 +34,11 @@
 	--small: 0.813rem;
 }
 
-<<<<<<< HEAD
-=======
-/* input {
+
+/* /* input {
 	all: unset;  나김민성 매우쳐라!!
 } */
 
->>>>>>> 6605c25a8671e335bc9962c84c95c60a4890cb3f
 body {
 	font-size: var(--normal);
 }

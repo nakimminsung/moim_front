@@ -1,6 +1,5 @@
-import {styled, TextField} from '@material-ui/core';
-import axios from 'axios';
 import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import DaumPostcode from 'react-daum-postcode';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -12,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@material-ui/core/Button';
 import styled1 from 'styled-components';
 import {useNavigate} from 'react-router-dom';
+import {styled, TextField} from '@material-ui/core';
+import axios from 'axios';
 
 //다이얼로그에 필요한 코드들
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -47,7 +48,38 @@ function BootstrapDialogTitle(props) {
 	);
 }
 
-function SpaceAddForm(props) {
+function SpaceUpdateForm(props) {
+	const {num} = useParams();
+	const navi = useNavigate();
+	console.log(num);
+	localStorage.url = 'http://localhost:9000';
+	let uploadUrl = localStorage.url + '/host/photoupload';
+	let imageUrl = localStorage.url + '/image/';
+
+	//num에 해당하는 dto 가져오기
+	const onSelectData = () => {
+		let selectUrl = localStorage.url + '/host/select?num=' + num;
+		console.log(selectUrl);
+		axios.get(selectUrl).then((res) => {
+			setName(res.data.name);
+			setOneIntroduction(res.data.oneIntroduction);
+			setFullIntroduction(res.data.fullIntroduction);
+			setAddress(res.data.address);
+			setAddress2(res.data.address2);
+			setThumbnailImage(res.data.thumbnailImage);
+			setLat(res.data.lat);
+			setLng(res.data.lng);
+			console.log('수정전lng=' + lng);
+			console.log('수정전lat=' + lat);
+		});
+	};
+	//처음 시작 시 스프링으로부터 dto를 얻어야하므로 useEffect 에서 호출
+	useEffect(() => {
+		onSelectData();
+		console.log('호출');
+		console.log(address);
+	}, []);
+
 	//주소 검색
 	const [openPostcode, setOpenPostcode] = useState(false);
 	const [address, setAddress] = useState('');
@@ -58,9 +90,11 @@ function SpaceAddForm(props) {
 	const [oneIntroduction, setOneIntroduction] = useState();
 	const [fullIntroduction, setFullIntroduction] = useState();
 
-	const [num, setNum] = useState();
+	const [lat, setLat] = useState('');
+	const [lng, setLng] = useState('');
 
-	const navi = useNavigate();
+	//파일 미리보기
+	const [thumbnailImage, setThumbnailImage] = useState('');
 
 	const handle = {
 		// 버튼 클릭 이벤트
@@ -76,7 +110,9 @@ function SpaceAddForm(props) {
 			//     주소: ${data.address},
 			//     우편번호: ${data.zonecode}
 			// `);
+
 			setAddress(`${data.address} ${data.buildingName}`);
+			console.log('address=' + address);
 
 			setOpenPostcode(false);
 			setOpen(false);
@@ -87,13 +123,6 @@ function SpaceAddForm(props) {
 		setOpen(false);
 		setOpenPostcode(false);
 	};
-
-	localStorage.url = 'http://localhost:9000';
-	let uploadUrl = localStorage.url + '/host/photoupload';
-	let imageUrl = localStorage.url + '/image/';
-
-	//파일 미리보기
-	const [thumbnailImage, setThumbnailImage] = useState('');
 
 	//파일첨부 이벤트
 	const photoUploadEvent = (e) => {
@@ -108,41 +137,36 @@ function SpaceAddForm(props) {
 			headers: {'Content-Type': 'multipart/form-data'},
 		}).then((res) => {
 			//파라미터를 res가 받고(response 를 뜻함) String으로 보냈음(Public String)
-
 			//스프링에서 map이 아닌 String으로 업로드한 파일명을 리턴했으므로 res가 곧 파일명임
 			setThumbnailImage(res.data);
 		});
 	};
 
-	// 다음 페이지로 이동
-	const onSubmitEvent = (e) => {
-		console.log(oneIntroduction);
+	//수정이벤트
+	const updateButtonEvent = (e) => {
 		e.preventDefault();
-		let insertUrl = localStorage.url + '/host/insert';
-		console.log(insertUrl);
+
+		let updateUrl = localStorage.url + '/host/update?num=' + num;
+		console.log('수정후lng=' + lng);
+		console.log('수정후lat=' + lat);
+		console.log('수정 후 주소=' + address);
 		axios
-			.post(insertUrl, {
+			.patch(updateUrl, {
+				num,
 				name,
 				address,
 				address2,
 				oneIntroduction,
 				fullIntroduction,
+				thumbnailImage,
 				lat,
 				lng,
-				// locationobj,
 			})
 			.then((res) => {
-				setNum(res.data);
-				navi(`/host/addform2/${res.data}`);
+				navi(`/host/updateform2/${num}`);
 			});
 	};
 
-	const [lat, setLat] = useState('');
-	const [lng, setLng] = useState('');
-
-	// console.log(locationobj);
-	// console.log('lat: ' + lat);
-	// console.log('lng: ' + lng);
 	//주소 받아오는 api
 	useEffect(() => {
 		axios
@@ -156,16 +180,6 @@ function SpaceAddForm(props) {
 				},
 			)
 			.then((res) => {
-				// const location = res.data.documents[0];
-				// console.log(res.data);
-				// console.log('ddd: ' + res.data.documents[0].address.x);
-				// setLocationObj({
-				// 	// si: location.address.region_1depth_name,
-				// 	// gu: location.address.region_2depth_name,
-				// 	// dong: location.address.region_3depth_name,
-				// 	locationX: location.address.x,
-				// 	locationY: location.address.y,
-				// });
 				setLng(res.data.documents[0].address.x);
 				setLat(res.data.documents[0].address.y);
 			});
@@ -173,7 +187,7 @@ function SpaceAddForm(props) {
 
 	return (
 		<div>
-			<form onSubmit={onSubmitEvent}>
+			<form onSubmit={updateButtonEvent}>
 				<div>
 					<div
 						className='input-group'
@@ -329,8 +343,8 @@ function SpaceAddForm(props) {
 							{thumbnailImage && (
 								<img
 									alt=''
-									src={imageUrl + thumbnailImage}
 									// src={thumbnailImage}
+									src={imageUrl + thumbnailImage}
 									style={{
 										width: '170px',
 										height: '170px',
@@ -360,6 +374,7 @@ function SpaceAddForm(props) {
 								variant='outlined'
 								size='small'
 								value={address}
+								onChange={handle.selectAddress}
 							/>
 
 							<BtnBox>
@@ -433,14 +448,14 @@ function SpaceAddForm(props) {
 								navi(-1);
 							}}
 						>
-							이전
+							취소
 						</BtnWrap>
 					</BtnEventWrap>
 					<BtnEventWrap>
 						<BtnWrap
 							type='submit'
 							style={{backgroundColor: '#ff3a48'}}
-							onClick={onSubmitEvent}
+							onClick={updateButtonEvent}
 						>
 							다음
 						</BtnWrap>
@@ -451,7 +466,7 @@ function SpaceAddForm(props) {
 	);
 }
 
-export default SpaceAddForm;
+export default SpaceUpdateForm;
 
 const ButtonEvent = styled1.div`
 	margin: 0 auto 100px;
