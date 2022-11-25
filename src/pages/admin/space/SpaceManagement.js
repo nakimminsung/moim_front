@@ -18,7 +18,7 @@ function SpaceManagement(props) {
 	const [show, setShow] = useState(1);
 
 	//하위 List 컴포넌트에 전달 될 sort 와 searchWord
-	const [sort, setSort] = useState('and approvalStatus=1');
+	const [sort, setSort] = useState('order by r.num desc');
 	const [searchWord, setSearchWord] = useState('');
 
 	//Select Option 에 따른 값 변경 (set Sort)
@@ -97,7 +97,7 @@ function SpaceManagement(props) {
 						//검색단어 있으면서, 결과가 있을때
 						spaceList.length !== 0 ? (
 							<b>
-								{{searchWord}.searchWord} (으)로 검색된 공간 :{' '}
+								'{{searchWord}.searchWord}' (으)로 검색된 공간 :{' '}
 								{spaceList.length} 개
 							</b>
 						) : (
@@ -148,21 +148,21 @@ function SpaceManagement(props) {
 						value={sort}
 						onChange={handleChange}
 					>
-						<option value={'and approvalStatus=1'}>
-							승인 완료
+						<option value={'order by r.num desc'}>최신순</option>
+						<option value={'order by readCount desc'}>
+							인기순
 						</option>
 						<option value={'and approvalStatus=0'}>
 							승인 대기
 						</option>
-						<option value={'order by r.num desc'}>최신순</option>
-						<option value={'order by readCount desc'}>
-							인기순
+						<option value={'and approvalStatus=1'}>
+							승인 완료
 						</option>
 					</select>
 				</div>
 			</div>
 
-			{/* 리스트 컴포넌트 호출 */}
+			{/* 리스트 컴포넌트 호출 (종류_TYPE 선택) */}
 			<div>
 				{show === 1 ? (
 					<SpaceList1
