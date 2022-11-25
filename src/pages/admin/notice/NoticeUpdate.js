@@ -222,6 +222,9 @@ function NoticeUpdate(props) {
 								value={updateContent}
 							/>
 							<br />
+							<p style={{color: 'skyblue'}}>
+								* 첨부하지 않을 경우 기존 사진이 유지됩니다.
+							</p>
 							<input
 								type={'file'}
 								className='form-control'
