@@ -49,6 +49,11 @@ function NoticeList(props) {
 							<Accordion
 								expanded={expanded === idx} //펼치기
 								onChange={handleChange(idx)} //닫기
+								style={{
+									backgroundColor:
+										//짝수일때
+										idx % 2 === 0 ? '#f5f5f5' : 'white',
+								}}
 							>
 								<AccordionSummary
 									expandIcon={<ExpandMoreIcon />}
@@ -61,11 +66,19 @@ function NoticeList(props) {
 										<b>{data.type}</b>
 									</Typography>
 									<Typography sx={{color: 'text.secondary'}}>
+										{/* 공지사항 제목 : notice title */}
 										<b>{data.title}</b>
 									</Typography>
 								</AccordionSummary>
 								<AccordionDetails>
 									{/* <Typography> */}
+									{/* 공지사항 작성일자 : notice writeday */}
+									<span
+										style={{color: 'gray', float: 'right'}}
+									>
+										작성일시 : {data.writeday}
+									</span>
+									<br />
 									{/* 사진이 있을때만 출력 */}
 									<div style={{textAlign: 'center'}}>
 										{data.imageUrl !== null ? (
