@@ -8,14 +8,13 @@ import CardContent from '@mui/material/CardContent';
 import {CardActionArea} from '@mui/material';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
-import {useTheme} from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import {autoPlay} from 'react-swipeable-views-utils';
 import styled from '@emotion/styled/macro';
 import {Box, Typography} from '@mui/material';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import Slider from 'react-slick';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -41,25 +40,18 @@ function RoomCard(props) {
 
 	useEffect(() => {
 		selectTagList(roomNum);
-	}, []);
+	}, [roomNum]);
 
-	// carousel
-	const theme = useTheme();
-	const [activeStep, setActiveStep] = useState(0);
-	const maxSteps = imageData.length;
-
-	const handleNext = () => {
-		setActiveStep((prevActiveStep) =>
-			activeStep === maxSteps - 1 ? 0 : prevActiveStep + 1,
-		);
-	};
-	const handleBack = () => {
-		setActiveStep((prevActiveStep) =>
-			activeStep === 0 ? maxSteps - 1 : prevActiveStep - 1,
-		);
-	};
-	const handleStepChange = (step) => {
-		setActiveStep(step);
+	//Slick Setting(사진 넘기기)
+	var settings = {
+		speed: 500, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+		slidesToShow: 1, // 한 화면에 보여질 컨텐츠 개수
+		slidesToScroll: 1, //스크롤 한번에 움직일 컨텐츠 개수
+		arrows: true, // 옆으로 이동하는 화살표 표시 여부
+		pauseOnHover: true, // 슬라이드 이동시 마우스 호버하면 슬라이더 멈추게 설정
+		draggable: true, //드래그 가능 여부(없어도 가능)
+		nextArrow: <KeyboardArrowRightIcon className='cardRight' />, //화살표
+		prevArrow: <KeyboardArrowLeftIcon className='cardLeft' />, //화살표
 	};
 
 	return (
@@ -67,21 +59,16 @@ function RoomCard(props) {
 			<Card>
 				<CardActionArea>
 					<Box>
-						<CardAction
-							axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-							index={activeStep}
-							onChangeIndex={handleStepChange}
-							enableMouseEvents
-						>
-							{imageData &&
-								imageData.map((step, index) => (
-									<ImageDiv key={step.label}>
-										{Math.abs(activeStep - index) <= 2 ? (
+						<CardAction className='cardImg'>
+							<Slider {...settings}>
+								{imageData &&
+									imageData.map((step, index) => (
+										<ImageDiv key={step.label}>
 											<ImageBox
 												component='img'
 												sx={{
-													height: '100%',
-													minHeight: '200px',
+													height: '250px',
+													minHeight: '250px',
 													display: 'block',
 													maxWidth: '100%',
 													overflow: 'hidden',
@@ -97,31 +84,10 @@ function RoomCard(props) {
 													);
 												}}
 											/>
-										) : null}
-									</ImageDiv>
-								))}
+										</ImageDiv>
+									))}
+							</Slider>
 						</CardAction>
-						<ImageButtonDiv
-							style={{
-								display:
-									imageData.length < 2 ? 'none' : 'block',
-							}}
-						>
-							<PrevButton size='small' onClick={handleBack}>
-								{theme.direction === 'rtl' ? (
-									<KeyboardArrowRight />
-								) : (
-									<KeyboardArrowLeft />
-								)}
-							</PrevButton>
-							<NextButton size='small' onClick={handleNext}>
-								{theme.direction === 'rtl' ? (
-									<KeyboardArrowLeft />
-								) : (
-									<KeyboardArrowRight />
-								)}
-							</NextButton>
-						</ImageButtonDiv>
 					</Box>
 					<PayInfo
 						style={{
@@ -142,12 +108,18 @@ function RoomCard(props) {
 						{roomData.payment}
 					</PayInfo>
 					<CardContent
+						style={{height: '170px'}}
 						onClick={() => {
 							navi('/detail/' + roomData.num);
 						}}
 					>
-						<Typography gutterBottom variant='h5' component='div'>
-							{roomData.name.length > 11
+						<Typography
+							gutterBottom
+							variant='h6'
+							component='div'
+							style={{fontWeight: 'bold'}}
+						>
+							{String(roomData.name).length > 11
 								? roomData.name.substr(0, 12) + '...'
 								: roomData.name}
 						</Typography>
@@ -196,32 +168,10 @@ export default RoomCard;
 const ImageDiv = styled(Box)`
 	overflow: hidden;
 `;
-const ImageButtonDiv = styled(Box)``;
-const PrevButton = styled(Button)`
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	cursor: pointer;
-	height: 200px;
-	border: 0;
-	background: none;
-	color: white;
-`;
-const NextButton = styled(Button)`
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	cursor: pointer;
-	height: 200px;
-	border: 0px;
-	background: none;
-	color: white;
-`;
+
 const PayInfo = styled(Typography)`
-	width: 70px;
-	height: 70px;
+	width: 65px;
+	height: 65px;
 	padding-left: 18px;
 	padding-right: 13px;
 	display: flex;
@@ -254,6 +204,8 @@ const RoomInfoBottom = styled(Box)`
 	display: flex;
 	justify-content: space-between;
 	margin-top: 10px;
+	align-items: baseline;
+	margin-top: 1px;
 `;
 const PriceDiv = styled(Box)`
 	display: flex;
@@ -263,7 +215,7 @@ const Price = styled(Typography)`
 	font-size: 23px;
 	margin-right: 5px;
 	color: #9b4de3;
-	margin-bottom: -3px;
+	margin-bottom: -7px;
 `;
 const EtcInfoDiv = styled(Box)`
 	display: flex;
@@ -297,7 +249,7 @@ const CardWrapper = styled(Typography)`
 `;
 const CardAction = styled(AutoPlaySwipeableViews)`
 	width: 100%;
-	height: 200px;
+	height: 250px;
 	overflow: hidden;
 `;
 const ImageBox = styled(Box)`

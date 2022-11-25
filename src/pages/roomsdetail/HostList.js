@@ -32,12 +32,13 @@ function HostList(props) {
 	};
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		selectHostRoomList();
 	}, [sort]);
 
 	return (
 		<ListWrapper>
-			<div style={{marginTop: '100px'}}>
+			<div style={{marginTop: '30px'}}>
 				<b
 					style={{
 						borderBottom: '2px solid #ffd014',

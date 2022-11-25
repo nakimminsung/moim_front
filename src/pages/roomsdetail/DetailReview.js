@@ -109,7 +109,12 @@ function DetailReview(props) {
 												>
 													<img
 														alt=''
-														src='https://ssl.pstatic.net/static/pwe/address/img_profile.png'
+														src={
+															item.profile_image ==
+															null
+																? 'https://ssl.pstatic.net/static/pwe/address/img_profile.png'
+																: item.profile_image
+														}
 														className='qnaImg'
 													/>
 												</td>
