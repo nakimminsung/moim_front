@@ -1,8 +1,27 @@
 import {SearchRounded} from '@material-ui/icons';
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import NoticeList from './NoticeList';
 
 function Notice(props) {
+	//검색을 위한 변수 선언
+	const input = useRef(null);
+	const [searchWord, setSearchWord] = useState('');
+	const [noticeList, setNoticeList] = useState('');
+
+	//input text 에 엔터키 적용시키기
+	const handleOnKeyPress = (e) => {
+		if (e.key === 'Enter') {
+			// Enter 입력이 되면
+			handleClick(); //검색 버튼 클릭 이벤트 실행
+		}
+	};
+
+	//검색 버튼 클릭 시 이벤트
+	const handleClick = (e) => {
+		//searchWord에 입력값 저장
+		setSearchWord(input.current.value);
+	};
+
 	return (
 		<div className='allDiv'>
 			{/* 공지사항 헤더 */}
@@ -37,6 +56,8 @@ function Notice(props) {
 							className='form-control'
 							placeholder='검색어를 입력해주세요.'
 							style={{width: '85%', borderRadius: '10px'}}
+							ref={input}
+							onKeyPress={handleOnKeyPress}
 						/>
 						<button
 							type='button'
@@ -48,6 +69,7 @@ function Notice(props) {
 								border: 'none',
 								borderRadius: '10px',
 							}}
+							onClick={handleClick}
 						>
 							<span>
 								<SearchRounded
@@ -80,7 +102,12 @@ function Notice(props) {
 					</tbody>
 				</table> */}
 
-				<NoticeList />
+				<NoticeList
+					searchWord={searchWord}
+					setSearchWord={setSearchWord}
+					noticeList={noticeList}
+					setNoticeList={setNoticeList}
+				/>
 			</div>
 		</div>
 	);

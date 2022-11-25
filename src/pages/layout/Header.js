@@ -1,6 +1,6 @@
-import React, {useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {SearchRounded} from '@material-ui/icons';
+import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { SearchRounded } from '@material-ui/icons';
 import mlogo from '../../asset/logo/m_logo.png';
 import MyMenu from '../components/MyMenu';
 import styled from 'styled-components';
@@ -21,9 +21,7 @@ function Header(props) {
 	//검색 버튼 클릭 시 이벤트
 	const handleClick = (e) => {
 		//searchWord에 입력값 저장
-		console.log(input.current.value);
-		setSearchWord(input.current.value);
-		console.log(searchWord);
+		const searchWord = input.current.value;
 		navi('/searchroom?searchWord=' + searchWord);
 	};
 
