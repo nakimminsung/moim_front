@@ -17,6 +17,8 @@ function SpaceBookingList(props) {
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * limit;
 
+	const [searchKeyword, setSearchKeyword] = useState(''); //조회 검색어
+
 	localStorage.url = 'http://localhost:9000';
 	let imageUrl = localStorage.url + '/image/';
 	const hostNum = 1; // 여기에 호스트넘버 받아야합니다
@@ -37,8 +39,6 @@ function SpaceBookingList(props) {
 		});
 		console.log(bookingListUrl);
 	};
-
-	const [searchKeyword, setSearchKeyword] = useState(''); //조회 검색어
 
 	console.log(bookingList);
 	useEffect(() => {
