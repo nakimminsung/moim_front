@@ -22,6 +22,13 @@ import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
 import HostTotalPlace from '../pages/roomsdetail/HostTotalPlace';
 import Search from '../pages/search/Search';
 import Notice from '../pages/notice/Notice';
+import SellerLogin from '../pages/login/SellerLogin';
+import SellerJoin from '../pages/login/SellerJoin';
+import SpaceUpdateForm from '../pages/host/SpaceUpdateForm';
+import SpaceUpdateForm2 from '../pages/host/SpaceUpdateForm2';
+import SpaceUpdateForm3 from '../pages/host/SpaceUpdateForm3';
+import SpaceBookingList from '../pages/host/SpaceBookingList';
+import SpaceCalendar from '../pages/host/SpaceCalendar';
 
 function BasicRouter() {
 	return (
@@ -48,6 +55,20 @@ function BasicRouter() {
 					<Route path='addform' element={<SpaceAddForm />} />
 					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
 					<Route path='addform3/:num' element={<SpaceAddForm3 />} />
+					<Route
+						path='updateform/:num'
+						element={<SpaceUpdateForm />}
+					/>
+					<Route
+						path='updateform2/:num'
+						element={<SpaceUpdateForm2 />}
+					/>
+					<Route
+						path='updateform3/:num'
+						element={<SpaceUpdateForm3 />}
+					/>
+					<Route path='bookinglist' element={<SpaceBookingList />} />
+					<Route path='bookingcalendar' element={<SpaceCalendar />} />
 				</Route>
 				{/* 호스트 끝 */}
 
@@ -69,6 +90,8 @@ function BasicRouter() {
 				<Route path='login' element={<Login />} />
 				<Route path='signup' element={<SignUp />} />
 				<Route path='signupEmail' element={<SignUpEmail />} />
+				<Route path='seller' element={<SellerLogin />} />
+				<Route path='sellerJoin' element={<SellerJoin />} />
 				<Route path='mypage' element={<Mypage />} />
 
 				{/* 카테고리별 방 페이지 */}

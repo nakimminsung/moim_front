@@ -42,6 +42,7 @@ function SignUpEmail() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [nickname, setNickname] = useState("");
 
   let body = {
@@ -78,7 +79,6 @@ function SignUpEmail() {
       if (regex.test(email)) {
         try {
           const response = await axios.get(
-            // "https://backend.alittlevanilla.kro.kr/member/" + email
             "http://localhost:9000/member/" + email
           );
           if (response.data === true) {
@@ -105,9 +105,6 @@ function SignUpEmail() {
         <LoginWrap>
           <LoginLogo>
             <h1>
-              {/* <LogoA href="/">
-                <SpIcon />
-              </LogoA> */}
             </h1>
           </LoginLogo>
 
@@ -150,7 +147,7 @@ function SignUpEmail() {
                 <InputTextSizeW>
                   <EmailInput
                     id="password"
-                    // type="password"
+                    type="password"
                     value={password}
                     placeholder="비밀번호 (영문+숫자+특수문자 8자 이상)"
                     required
@@ -162,8 +159,14 @@ function SignUpEmail() {
               </FormBlockBody>
               <FormBlockBody>
                 <InputTextSizeW>
-                  <EmailInput placeholder="비밀번호 확인" required />
+                  <EmailInput placeholder="비밀번호 확인"
+                    type="password"
+                    value={passwordConfirm}
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                    required />
                 </InputTextSizeW>
+                {password.length < 1 || passwordConfirm.length < 1 ? <FormError>비밀번호를 입력하세요</FormError> :
+                  password !== passwordConfirm ? <FormError>비밀번호가 일치하지 않습니다</FormError> : <FormSuccess>비밀번호가 일치합니다.</FormSuccess>}
               </FormBlockBody>
             </FormBlock>
 
@@ -206,7 +209,6 @@ function SignUpEmail() {
                 <TermsBody>
                   <TermsItem>
                     <InputCheckBox>
-                      {/* <Terms1 type="checkbox"></Terms1> */}
                       <input
                         type="checkbox"
                         value="provision"
@@ -223,7 +225,6 @@ function SignUpEmail() {
                   {/*  */}
                   <TermsItem>
                     <InputCheckBox>
-                      {/* <Terms1 type="checkbox"></Terms1> */}
                       <input
                         type="checkbox"
                         value="privacy"
@@ -383,39 +384,6 @@ const TermsLabel = styled.label`
   font-size: 14px;
 `;
 
-// const BpCheckAll = styled.input`
-//   -webkit-appearance: none;
-//   background: transparent;
-//   display: inline-block;
-//   position: relative;
-//   height: 18px;
-//   width: 18px;
-//   vertical-align: middle;
-//   -webkit-box-sizing: border-box;
-//   box-sizing: border-box;
-//   border: 0;
-//   margin: 0;
-
-//   &:before {
-//     font-size: 16px;
-//     font-style: normal;
-//     content: "✓";
-//     border: 1px solid #f1c333	;
-//     background: #f1c333	;
-//     color: #fff;
-//     cursor: pointer;
-//     display: inline-block;
-//     line-height: 16px;
-//     width: 16px;
-//     height: 16px;
-//     position: absolute;
-//     top: 0px;
-//     left: 0px;
-//     border-radius: 2px;
-//     text-align: center;
-//   }
-// `;
-
 const InputCheckBox = styled.div`
   float: left;
   margin-right: 10px;
@@ -477,6 +445,13 @@ const FormError = styled.span`
   cursor: default !important;
 `;
 
+const FormSuccess = styled.span`
+  color: green;
+  margin: 10px 0 0;
+  display: block;
+  cursor: default !important;
+`;
+
 const InputTextSizeW = styled.div`
   &.formError {
     cursor: default !important;
@@ -533,11 +508,13 @@ const SignupStep = styled.div`
       display: inline-block;
       position: relative;
       border-top: 1px solid #aaa;
+      width:200px;
     }
 
     li {
       position: relative;
       top: -15px;
+      left: -15px;
       z-index: 10;
       background: #fff;
       color: #999;
