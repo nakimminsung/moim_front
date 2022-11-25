@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 
 //dialogue 관련
 import TextField from '@mui/material/TextField';
@@ -221,10 +221,6 @@ function NoticeInsert(props) {
 							>
 								저장
 							</button>
-							{/* 
-						<Button onClick={handleClose}>취소</Button>
-						<Button onClick={handleSubmit}>저장</Button>
-						 */}
 						</DialogActions>
 					</Dialog>
 				</form>
