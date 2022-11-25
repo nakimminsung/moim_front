@@ -4,6 +4,8 @@ import {useNavigate} from 'react-router-dom';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
+import './SpaceCalendar.css';
 
 function SpaceCalendar(props) {
 	localStorage.url = 'http://localhost:9000';
@@ -48,11 +50,14 @@ function SpaceCalendar(props) {
 			a.push({
 				title: b.roomName,
 				date: b.bookingDate,
+				startTime: b.bookingTime[0],
+				endTime: b.bookingTime[b.bookingTime.length - 1],
 			}),
 		);
 
 		setData(a);
 	}, [bookingList]);
+	console.log(data);
 
 	return (
 		<div>
@@ -67,6 +72,7 @@ function SpaceCalendar(props) {
 				// 	{title: 'event 2', date: '2022-11-28'},
 				// ]}
 				events={data}
+				// eventTextColor='black'
 			/>
 		</div>
 	);

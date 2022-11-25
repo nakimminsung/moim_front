@@ -1,6 +1,8 @@
 import {
+	Button,
 	Card,
 	CardActionArea,
+	CardActions,
 	CardContent,
 	CardMedia,
 	Typography,
@@ -21,9 +23,9 @@ function SpaceBookingList(props) {
 
 	localStorage.url = 'http://localhost:9000';
 	let imageUrl = localStorage.url + '/image/';
+	// const {hostNum} = useParams();
 	const hostNum = 1; // 여기에 호스트넘버 받아야합니다
 	console.log(hostNum);
-	// const {hostNum} = useParams();
 
 	const [sort, setSort] = useState('');
 	const [bookingList, setBookingList] = useState([]);
@@ -434,6 +436,25 @@ function SpaceBookingList(props) {
 																	</Typography>
 																</CardContent>
 															</CardActionArea>
+															<CardActions>
+																<Button
+																	size='small'
+																	color='primary'
+																	onClick={() => {
+																		navi(
+																			`../bookingdetail/${item.num}`,
+																		);
+																	}}
+																>
+																	<span
+																		style={{
+																			color: '#704de4',
+																		}}
+																	>
+																		상세내역
+																	</span>
+																</Button>
+															</CardActions>
 														</Card>
 													</div>
 												</>
