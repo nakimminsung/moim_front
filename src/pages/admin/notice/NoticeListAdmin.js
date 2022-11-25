@@ -4,13 +4,16 @@ import {Link} from 'react-router-dom';
 import NoticeUpdate from './NoticeUpdate';
 
 function NoticeListAdmin(props) {
-	const {noticeList, setNoticeList, searchWord} = props;
+	const {noticeList, setNoticeList, searchWord, sort} = props;
 
 	//공지사항 list 가져오기
 	const getNoticeList = () => {
 		let url =
-			localStorage.url + '/admin/noticeList?searchWord=' + searchWord;
-		console.log(url);
+			localStorage.url +
+			'/admin/noticeList?searchWord=' +
+			searchWord +
+			'&sort=' +
+			sort;
 
 		axios.get(url).then((res) => {
 			setNoticeList(res.data);
@@ -20,7 +23,7 @@ function NoticeListAdmin(props) {
 	useEffect(() => {
 		//공지사항 리스트 가져오기
 		getNoticeList();
-	}, [searchWord]); //searchWord 값이 바뀔때마다
+	}, [searchWord, sort]); //searchWord 값이 바뀔때마다
 
 	//공지사항 삭제를 위한 num 변수 선언
 	var num = '';

@@ -8,7 +8,10 @@ import NoticeInsert from './NoticeInsert';
 function NoticeManagement(props) {
 	const input = useRef(null);
 	const [noticeList, setNoticeList] = useState('');
+
+	//하위 List 컴포넌트에 전달 될 sort 와 searchWord
 	const [searchWord, setSearchWord] = useState('');
+	const [sort, setSort] = useState('order by num desc');
 
 	//input text 에 엔터키 적용시키기
 	const handleOnKeyPress = (e) => {
@@ -22,6 +25,12 @@ function NoticeManagement(props) {
 	const handleClick = (e) => {
 		//searchWord에 입력값 저장
 		setSearchWord(input.current.value);
+	};
+
+	//Select Option 에 따른 값 변경 (set Sort)
+	const handleChange = (e) => {
+		console.log(e.target.value);
+		setSort(e.target.value);
 	};
 
 	return (
@@ -99,7 +108,23 @@ function NoticeManagement(props) {
 					<b>등록된 게시글이 없습니다.</b>
 				)}
 
-				<div>
+				<div style={{display: 'flex'}}>
+					<select
+						style={{
+							width: '100px',
+							height: '37px',
+							borderRadius: '5px',
+						}}
+						value={sort}
+						onChange={handleChange}
+					>
+						<option value={'order by num desc'}>최신순</option>
+						<option value={'and type = "이벤트"'}>이벤트</option>
+						<option value={'and type = "공지사항"'}>
+							공지사항
+						</option>
+					</select>
+					&emsp;
 					{/* Dialogue Modal 화면 : 공지사항 작성 INSERT 폼 */}
 					<NoticeInsert />
 				</div>
@@ -110,6 +135,7 @@ function NoticeManagement(props) {
 				noticeList={noticeList}
 				setNoticeList={setNoticeList}
 				searchWord={searchWord}
+				sort={sort}
 			/>
 		</div>
 	);

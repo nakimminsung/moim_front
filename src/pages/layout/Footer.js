@@ -45,7 +45,7 @@ function footer(props) {
 								<div>
 									<b style={{fontSize: 20}}>모임</b>
 									<br />
-									<span>(주)모임 : 김병찬</span>&nbsp;&nbsp;
+									<span>(주)모임 : 윤명국</span>&nbsp;&nbsp;
 									<span>
 										주소 : 서울특별시 강남구 역삼동
 										테헤란로5길 7 위워크

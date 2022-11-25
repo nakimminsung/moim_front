@@ -39,9 +39,11 @@ function NoticeList(props) {
 	}, [searchWord]);
 
 	return (
-		<div style={{width: '100%', borderTop: '2px solid gray'}}>
+		<div style={{width: '100%', borderTop: '2px solid lightgray'}}>
 			<div className='noticeListDiv'>
-				{noticeList &&
+				{/* 1. 검색 결과가 있을때 */}
+				{noticeList.length != 0 ? (
+					noticeList &&
 					noticeList.map((data, idx) => (
 						<>
 							<Accordion
@@ -113,8 +115,25 @@ function NoticeList(props) {
 								</AccordionDetails>
 							</Accordion>
 						</>
-					))}
+					))
+				) : (
+					// 2. 검색 결과가 없을때
+					<>
+						<div
+							style={{
+								textAlign: 'center',
+								marginTop: '50px',
+								paddingBottom: '50px',
+								borderBottom: '2px solid lightgray',
+							}}
+						>
+							<h3>검색된 공지사항이 없습니다</h3>
+						</div>
+					</>
+				)}
 			</div>
+			<br />
+			{/* 페이지네이션 여부 */}
 		</div>
 	);
 }

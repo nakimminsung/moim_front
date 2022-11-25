@@ -10,13 +10,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import {FormControl} from '@material-ui/core';
 
 import {makeStyles} from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
 
 function NoticeUpdate(props) {
-	//NoticeListAdmin 에서 넘어온 num 선언
+	//NoticeListAdmin 에서 넘어온 num을 받기위해 변수 선언
 	var num = props;
 
 	//modal dialogue : OPEN / CLOSE
@@ -25,7 +24,6 @@ function NoticeUpdate(props) {
 	const handleClickOpen = () => {
 		setOpen(true);
 
-		console.log(props.num);
 		//modal 오픈할때 공지사항 정보 가져오기
 		getNoticeInfo();
 	};
@@ -33,16 +31,7 @@ function NoticeUpdate(props) {
 	const handleClose = () => {
 		setOpen(false);
 
-		//값 비워주기
-		// setNoticeType('');
-		// setNoticeTitle('');
-		// setNoticeContent('');
-		// setUploadFile([]);
-
-		setUpdateType('');
-		setUpdateTitle('');
-		setUpdateContent('');
-		setUpdateFile([]);
+		//클릭할때마다 DB정보를 가져오므로 값 비워줄필요 없음
 	};
 
 	//modal 내부의 select style 관련
@@ -58,41 +47,37 @@ function NoticeUpdate(props) {
 
 	const classes = useStyles();
 
-	// const [noticeType, setNoticeType] = useState('');
-	// const [noticeTitle, setNoticeTitle] = useState('');
-	// const [noticeContent, setNoticeContent] = useState('');
-	// const [uploadFile, setUploadFile] = useState('');
-
 	const [updateType, setUpdateType] = useState('');
 	const [updateTitle, setUpdateTitle] = useState('');
 	const [updateContent, setUpdateContent] = useState('');
 	const [updateFile, setUpdateFile] = useState('');
+	const [oldPhoto, setoldPhoto] = useState('');
 
 	//modal 내부의 select 변경 이벤트
 	const noticeTypeHandler = (e) => {
 		e.preventDefault();
-		// setNoticeType(e.target.value);
+
 		setUpdateType(e.target.value);
 	};
 
 	//modal 내부의 제목 변경 이벤트
 	const noticeTitleHandler = (e) => {
 		e.preventDefault();
-		// setNoticeTitle(e.target.value);
+
 		setUpdateTitle(e.target.value);
 	};
 
 	//modal 내부의 제목 변경 이벤트
 	const noticeContentHandler = (e) => {
 		e.preventDefault();
-		// setNoticeContent(e.target.value);
+
 		setUpdateContent(e.target.value);
 	};
 
 	//modal 내부의 파일 변경 이벤트
 	const uploadFileHandler = (e) => {
 		e.preventDefault();
-		// setUploadFile(e.target.files[0]);
+
 		setUpdateFile(e.target.files[0]);
 	};
 
@@ -112,32 +97,34 @@ function NoticeUpdate(props) {
 			return;
 		} else {
 			// BackEnd로 보낼 url
-			let url = localStorage.url + '/admin/noticeInsert';
+			// let url = localStorage.url + '/admin/noticeInsert?num=' + num;
+			let url = localStorage.url + '/admin/updateNotice';
 
 			//formData로 한번에 보내기
-			const formData = new FormData();
-			formData.append('updateType', updateType);
-			formData.append('updateTitle', updateTitle);
-			formData.append('updateContent', updateContent);
-			formData.append('updateFile', updateFile);
+			const updateData = new FormData();
+			updateData.append('updateType', updateType);
+			updateData.append('updateTitle', updateTitle);
+			updateData.append('updateContent', updateContent);
+			updateData.append('updateFile', updateFile);
+			updateData.append('num', props.num);
+			updateData.append('oldPhoto', oldPhoto);
 
-			// axios.post(url, body).then((res) => console.log(res));
 			//url로 body 데이터를 보낸다
-
 			axios({
 				method: 'post',
 				url: url, //BackEnd로 보낼 url
-				data: formData,
+				data: updateData,
 				headers: {'Content-Type': 'multipart/form-data'},
 			}).then((res) => {
 				console.log('res.data=' + res.data);
-				alert('등록이 완료되었습니다.');
+				alert('수정 완료되었습니다.');
 
 				//성공하고 비워주기
 				setUpdateType('');
 				setUpdateTitle('');
 				setUpdateContent('');
 				setUpdateFile([]);
+				setoldPhoto('');
 
 				//성공하고 화면 리로드
 				window.location.reload();
@@ -148,9 +135,6 @@ function NoticeUpdate(props) {
 		}
 	};
 
-	//getNoticeInfo 가져와서 담을 변수 선언
-	const [noticeDto, setNoticeDto] = useState('');
-
 	// num값에 해당하는 notice 정보 가져오기
 	const getNoticeInfo = () => {
 		let url = localStorage.url + '/admin/getNoticeInfo?num=' + props.num;
@@ -159,8 +143,11 @@ function NoticeUpdate(props) {
 		axios.get(url).then((res) => {
 			console.log(res.data);
 
-			//noticeDto에 가져온 데이터 담기
-			setNoticeDto(res.data);
+			//가져온 데이터를 변수에 담기
+			setUpdateType(res.data.type);
+			setUpdateTitle(res.data.title);
+			setUpdateContent(res.data.content);
+			setoldPhoto(res.data.imageUrl);
 		});
 	};
 
@@ -200,36 +187,30 @@ function NoticeUpdate(props) {
 								className={classes.formControl}
 								style={{marginLeft: '-0px'}}
 							>
-								<InputLabel htmlFor='age-native-simple'>
+								{/* <InputLabel htmlFor='age-native-simple'>
 									유형 선택
-								</InputLabel>
+								</InputLabel> */}
 
 								<Select
 									native
 									onChange={noticeTypeHandler}
 									//value={noticeType}
-									value={noticeDto.type}
+									value={updateType}
 								>
-									<option
-										aria-label='None'
-										value=''
-										disabled
-									/>
 									<option value={'이벤트'}>이벤트</option>
 									<option value={'공지사항'}>공지사항</option>
 								</Select>
 							</FormControl>
 
 							<TextField
-								// autoFocus
 								margin='dense'
 								id='title'
-								label='제목을 입력해주세요'
+								// label='제목을 입력해주세요'
 								type='text'
 								fullWidth
 								variant='standard'
 								onChange={noticeTitleHandler}
-								value={noticeDto.title}
+								value={updateTitle}
 							/>
 							<br />
 							<br />
@@ -238,7 +219,7 @@ function NoticeUpdate(props) {
 								placeholder='내용을 입력해주시기 바랍니다.'
 								style={{height: '300px'}}
 								onChange={noticeContentHandler}
-								value={noticeDto.content}
+								value={updateContent}
 							/>
 							<br />
 							<input

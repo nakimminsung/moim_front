@@ -151,7 +151,16 @@ function NoticeInsert(props) {
 			<div>
 				<form onSubmit={submitHandler}>
 					<Dialog open={open} onClose={handleClose}>
-						<DialogTitle>공지사항 등록</DialogTitle>
+						<DialogTitle
+							style={{
+								backgroundColor: 'gray',
+								color: 'white',
+								fontWeight: 'bold',
+								marginBottom: '10px',
+							}}
+						>
+							공지사항 등록
+						</DialogTitle>
 						<DialogContent>
 							<DialogContentText style={{width: '600px'}}>
 								'유형'을 선택한 후 제목과 내용을 작성해주시기
