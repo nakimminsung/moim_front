@@ -90,18 +90,6 @@ function Notice(props) {
 			<br />
 			<br />
 			<div className='noticeContent' style={{width: '100%'}}>
-				{/* <table className='table table-striped' style={{width: '100%'}}>
-					<tbody>
-						<tr>
-							<th>공지사항</th>
-							<td>
-								[이벤트] 스클 X 하리무 코엑스 광고 인증샷 이벤트
-								참여하고 공간쿠폰 받으세요! (~11/28)
-							</td>
-						</tr>
-					</tbody>
-				</table> */}
-
 				<NoticeList
 					searchWord={searchWord}
 					setSearchWord={setSearchWord}
