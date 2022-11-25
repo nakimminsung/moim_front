@@ -46,13 +46,14 @@ li {
 
 	background-color: rgba(0, 0, 0);
 	opacity: 0.6;
-	color: lightgray;
+	/* color: lightgray; */
+	color: white;
 }
 
 .memberTable td {
 	border-bottom: 0.5px solid gray;
 	border-left: 0.5px solid gray;
-	height: 40px;
+	height: 45px;
 
 	text-align: center;
 }
@@ -76,10 +77,42 @@ li {
 
 	background-color: rgba(0, 0, 0);
 	opacity: 0.6;
-	color: lightgray;
+	/* color: lightgray; */
+	color: white;
 }
 
 .hostTable td {
+	border-bottom: 0.5px solid gray;
+	border-left: 0.5px solid gray;
+	height: 45px;
+
+	text-align: center;
+}
+
+/* 공지사항 관리 */
+.noticeTable table {
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+}
+
+.noticeTable th {
+	border-bottom: 2px solid gray;
+	border-left: 0.5px solid gray;
+	height: 40px;
+
+	text-align: center;
+
+	background-color: rgba(0, 0, 0);
+	opacity: 0.6;
+	/* color: lightgray; */
+	color: white;
+}
+
+.noticeTable td {
 	border-bottom: 0.5px solid gray;
 	border-left: 0.5px solid gray;
 	height: 40px;

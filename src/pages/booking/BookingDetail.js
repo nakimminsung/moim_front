@@ -35,8 +35,8 @@ function BookingDetail() {
 								<Top bookingList={bookingList} />
 							</div>
 							<div className='BKContainer'>
-								<Right />
-								<Left />
+								<Right bookingList={bookingList} />
+								<Left bookingList={bookingList} />
 							</div>
 						</>
 					) : (

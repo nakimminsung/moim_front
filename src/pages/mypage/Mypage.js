@@ -3,11 +3,24 @@ import styled, { css } from 'styled-components';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import { useParams } from 'react-router';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
+const useStyles = makeStyles((theme) => ({
+	container: {
+		display: 'flex',
+		flexWrap: 'wrap',
+	},
+	textField: {
+		marginLeft: theme.spacing(1),
+		marginRight: theme.spacing(1),
+		width: 200,
+	},
+}));
 function Mypage(props) {
-	if (localStorage.getItem("token") == null) {
-		alert("로그인 해주세요.");
-		document.location.href = "/";
+	if (localStorage.getItem('token') == null) {
+		alert('로그인 해주세요.');
+		document.location.href = '/';
 	}
 
 	const [name, setName] = useState('');
@@ -146,63 +159,50 @@ function Mypage(props) {
 						<ProfileArea>
 							<Outline>
 								<Profile>
-									<ChangeProfile />
-
+									<img src={token.profile_image}></img>
 									<LinkStyle>수정</LinkStyle>
 								</Profile>
 							</Outline>
 							{/*  */}
 							<AreaText>
-								<AreaTextA href='/membership'>
-									<span>Lv.1</span>
-								</AreaTextA>
 								<StrongName>{token.nickname}님</StrongName>
 							</AreaText>
+							<Button
+								type='button'
+								onClick={() => {
+									setEmailChangeBtn(
+										!emailChangeBtn,
+									);
+								}}
+							>
+								프로필 변경하기
+							</Button>
 						</ProfileArea>
 						{/*  */}
 						<div>
 							<MyMenuEm>MY MENU</MyMenuEm>
 							<MyInfoNav>
-								<MyInfoB>
-									<MyInfoSpan>주문배송</MyInfoSpan>
-								</MyInfoB>
-								<MyAa href='/order'>주문내역</MyAa>
-								<MyAa onClick={review}>취소/환불내역</MyAa>
-
 								{/* <MyInfoB>
-                  <MyInfoSpan>알림 및 메시지</MyInfoSpan>
-                </MyInfoB>
-                <MyA href="/notification">알림</MyA>
-                <MyA href="/message">메시지</MyA> */}
-
-								<MyInfoB>
-									<MyInfoSpan>나의 구매후기</MyInfoSpan>
-								</MyInfoB>
-								<MyA type='button' onClick={review}>
+									<MyInfoSpan>My MENU</MyInfoSpan>
+								</MyInfoB> */}
+								<MyAa href='/review'>
 									후기 쓰기
-								</MyA>
-								<MyA type='button' onClick={review}>
+								</MyAa>
+								<MyAa href='/review'>
 									내가 쓴 후기
-								</MyA>
+								</MyAa>
 
-								<MyInfoB>
+								<MyAa>
 									<MyInfoSpan>관심 리스트</MyInfoSpan>
-								</MyInfoB>
-								<MyA href='/likelist'>찜 목록</MyA>
-								<MyA
-									href='/followingstore'
-									type='button'
-									onClick={review}
-								>
-									팔로우하는 상점
-								</MyA>
-								<MyA
+								</MyAa>
+								<MyAa href='/like'>찜 목록</MyAa>
+								<MyAa
 									href='/recentproduct'
 									type='button'
-									onClick={review}
+								// onClick={review}
 								>
 									최근 본 상품
-								</MyA>
+								</MyAa>
 							</MyInfoNav>
 						</div>
 					</MyInfo>
@@ -225,6 +225,24 @@ function Mypage(props) {
 													type='text'
 													defaultValue={
 														result.nickname || ''
+													}
+													onChange={(e) => {
+														setName(e.target.value);
+													}}
+												></InputFilldis>
+											</InputText>
+										</LeftTd>
+									</tr>
+
+									<tr>
+										<Leftth>비밀번호</Leftth>
+										<LeftTd>
+											<InputText>
+												<InputFilldis
+													placeholder={token.password}
+													type='text'
+													defaultValue={
+														result.password || ''
 													}
 													onChange={(e) => {
 														setName(e.target.value);
@@ -272,7 +290,8 @@ function Mypage(props) {
 									<tr>
 										<Leftth>전화</Leftth>
 										<LeftTd>
-											<span>{result.phoneNum}</span>
+											{/* <span>{result.phoneNum}</span> */}
+											<span>010-1111-2222</span>
 											<Button
 												type='button'
 												onClick={() => {
@@ -327,42 +346,10 @@ function Mypage(props) {
 									</tr>
 
 									<tr>
-										<Leftth>성별</Leftth>
-										<LeftTd>
-											<div>
-												<RadioLabel>
-													<IconRadio
-														type='radio'
-														value='F'
-														checked={gender === 'F'}
-														onChange={
-															handleRadioBtn
-														}
-													></IconRadio>
-													여성
-												</RadioLabel>
-											</div>
-											<div>
-												<RadioLabel>
-													<IconRadio
-														type='radio'
-														value='M'
-														checked={gender === 'M'}
-														onChange={
-															handleRadioBtn
-														}
-													></IconRadio>
-													남성
-												</RadioLabel>
-											</div>
-										</LeftTd>
-									</tr>
-
-									<tr>
 										<Leftth>생일</Leftth>
 										<LeftTd>
 											<InputTextS>
-												<InputFilldis
+												{/* <InputFilldis
 													type='text'
 													defaultValue={
 														result.birthday || ''
@@ -372,24 +359,22 @@ function Mypage(props) {
 															e.target.value,
 														);
 													}}
-												></InputFilldis>
+												></InputFilldis> */}
+												<form className="" noValidate>
+													<TextField
+														id="date"
+														label="Birthday"
+														type="date"
+														defaultValue="2022-01-01"
+														className=""
+														InputLabelProps={{
+															shrink: true,
+														}}
+													/>
+												</form>
 											</InputTextS>
 										</LeftTd>
 									</tr>
-									{/* 
-                  <tr>
-                    <Leftth>알림설정</Leftth>
-                    <LeftTd>
-                      할인쿠폰/이벤트/감동적인 뉴스레터를 받아보시겠습니까?
-                      <Mt10>
-                        <div>
-                          <Label>
-                            <CheckBox type="checkbox"></CheckBox>
-                          </Label>
-                        </div>
-                      </Mt10>
-                    </LeftTd>
-                  </tr> */}
 								</Tbody>
 							</TableStyleHeadLeft>
 
@@ -676,12 +661,11 @@ const Outline = styled.div`
 	-webkit-border-radius: 50%;
 	border-radius: 50%;
 	background: #fff;
-	padding: 5px;
+	padding: 3px;
 	margin: 0 auto;
 `;
 
 const Profile = styled.label`
-	background-image: url('https://image.idus.com/image/files/b5b721bcb181484797e726ba90503777.jpg');
 	margin: 0;
 	display: block;
 	width: 80px;
@@ -789,9 +773,10 @@ const Section = styled.section`
 const TitleStyleClf = styled.div`
 	vertical-align: bottom;
 	padding-bottom: 4px;
-	margin-bottom: 32px;
+	margin-bottom: 60px;
 	position: relative;
 	vertical-align: middle;
+	
 `;
 
 const Textfl = styled.a`
@@ -853,6 +838,7 @@ const Button = styled.button`
 	color: #333;
 	border: 1px solid #ccc;
 	background: #fff;
+	margin-left:30px;
 `;
 
 const AuthButton = styled.button`
