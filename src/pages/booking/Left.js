@@ -12,9 +12,9 @@ import Select from '@material-ui/core/Select';
 import Rating from '@mui/material/Rating';
 import InfoIcon from '@mui/icons-material/Info';
 import axios from 'axios';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
+import jwt_decode from 'jwt-decode';
 
 function Left({bookingList}) {
 	const [rating, setRating] = React.useState(0); // 별점
@@ -102,6 +102,16 @@ function Left({bookingList}) {
 		setOpen(false);
 	};
 
+	// 승인 결제 후 booking status update
+	const updateStatus = (e) => {
+		let updateUrl = localStorage.url + `/bookingDetail/updateStatus`;
+		let data = {
+			num,
+		};
+
+		axios.patch(updateUrl, data).then((res) => {});
+	};
+
 	// 옵션
 	let options = new Array();
 	let option = bookingList.roomOption;
@@ -136,12 +146,75 @@ function Left({bookingList}) {
 		setUploadFile([]);
 	};
 
-	// modal select
-	const [age, setAge] = React.useState('');
+	// 날짜 계산
+	const days = ['일', '월', '화', '수', '목', '금', '토'];
 
-	const handleChange = (event) => {
-		setAge(event.target.value);
-	};
+	function leftPad(value) {
+		if (value >= 10) {
+			return value;
+		}
+
+		return `0${value}`;
+	}
+
+	function toStringByFormatting(source, delimiter = '-') {
+		const year = source.getFullYear();
+		const month = leftPad(source.getMonth() + 1);
+		const day = leftPad(source.getDate());
+
+		return [year, month, day].join(delimiter);
+	}
+	let requestDate = toStringByFormatting(new Date(bookingList.createdAt));
+	let requestDay = days[new Date(bookingList.createdAt).getDay()];
+
+	// 승인 결제
+	// iamport
+	const {IMP} = window;
+	function payment(data) {
+		IMP.init('imp30007238'); //아임포트 관리자 콘솔에 서 확인한 '가맹점 식별코드' 입력
+		IMP.request_pay(
+			{
+				// param
+				//pg: 'html5_inicis', //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+				pg: 'kakaopay',
+				pay_method: 'card', //지불 방법
+				merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+				name: bookingList.roomName, //결제창에 노출될 상품명
+				amount: bookingList.totalPrice, //금액
+				buyer_email: jwt_decode(localStorage.getItem('token')).email,
+				buyer_name: jwt_decode(localStorage.getItem('token')).nickname,
+			},
+			function (rsp) {
+				// console.log(res.data);
+				let bookingDetailNum = bookingList.num;
+				// callback
+				if (rsp.success) {
+					updateStatus(); // booking status update: 2 => 3
+					// booking table insert
+					let url = `http://localhost:9000/booking/insert`;
+					let pg = rsp.pg_provider;
+					let merchantUid = rsp.merchant_uid;
+					let totalPrice = rsp.paid_amount;
+
+					axios
+						.post(url, {
+							totalPrice,
+							pg,
+							merchantUid,
+							userNum,
+							roomNum,
+							bookingDetailNum,
+						})
+						.then((res) => {
+							alert('결제가 완료되었습니다.');
+							window.location.reload();
+						});
+				} else {
+					alert('결제에 실패했습니다.');
+				}
+			},
+		);
+	}
 
 	return (
 		<>
@@ -258,7 +331,7 @@ function Left({bookingList}) {
 								variant='outlined'
 								onClick={handleClickOpen}
 							>
-								예약취소
+								결제하기
 							</Button>
 						</>
 					) : Number(bookingList.bookingStatus) === 4 ? (
@@ -356,6 +429,98 @@ function Left({bookingList}) {
 									>
 										등록
 									</button>
+								</DialogActions>
+							</>
+						) : bookingList.bookingStatus === 2 ? (
+							<>
+								<DialogTitle
+									id='alert-dialog-title'
+									style={{
+										borderBottom: '3px solid #704de4',
+										marginBotton: '40px',
+									}}
+								>
+									<h4
+										style={{
+											marginBottom: '10px',
+											marginTop: '10px',
+											textAlign: 'center',
+										}}
+									>
+										결제하시겠습니까?
+									</h4>
+								</DialogTitle>
+								<DialogContent>
+									<DialogContentText id='alert-dialog-description'>
+										<span
+											style={{
+												marginTop: '5px',
+												marginRight: '40px',
+											}}
+										>
+											예약공간
+										</span>
+										<span style={{float: 'right'}}>
+											{bookingList.roomName}
+										</span>
+										<hr />
+										<span>예약날짜</span>
+										<span style={{float: 'right'}}>
+											{requestDate}
+										</span>
+										<hr />
+										<span>예약시간</span>
+										<span style={{float: 'right'}}>
+											{stime}시~{Number(etime) + 1}시,{' '}
+											{Number(etime) + 1 - stime}시간
+										</span>
+										<hr />
+										<span>예약인원</span>
+										<span style={{float: 'right'}}>
+											{bookingList.headCount}명
+										</span>
+										<hr />
+										<span>결제예정금액</span>
+										<span
+											style={{
+												float: 'right',
+												color: '#704de4',
+											}}
+										>
+											₩
+											{Number(
+												bookingList.totalPrice,
+											).toLocaleString('ko-KR')}
+										</span>
+										<hr />
+										<InfoIcon style={{color: 'red'}} />
+										&nbsp;&nbsp;
+										<span style={{color: 'red'}}>
+											결제전에, 환불기준과 예약내용을
+											반드시 확인해주세요!
+										</span>
+									</DialogContentText>
+								</DialogContent>
+								<DialogActions>
+									<Button
+										onClick={handleClose}
+										color='primary'
+									>
+										닫기
+									</Button>
+
+									<Button
+										onClick={() => {
+											payment();
+											//navigate(`../list/${userNum}`);
+											handleClose();
+										}}
+										color='primary'
+										autoFocus
+										type='button'
+									>
+										결제하기
+									</Button>
 								</DialogActions>
 							</>
 						) : (
