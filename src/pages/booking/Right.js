@@ -61,6 +61,7 @@ function Right({bookingList}) {
 						<p
 							style={{
 								marginLeft: 'auto',
+								paddingTop: '10px',
 							}}
 						>
 							예약번호 : {bookingList.num}
