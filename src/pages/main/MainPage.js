@@ -40,7 +40,7 @@ function Mainpage(props) {
 					</li>
 					{/* 임시버튼 */}
 					<li>
-						<NavLink to={'/'}>임시 버튼</NavLink>
+						<NavLink to={'/mypage1'}>마이페이지</NavLink>
 					</li>
 					<li>
 						<NavLink to={'/notice'}>공지사항🦆</NavLink>

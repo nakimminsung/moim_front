@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -17,6 +17,7 @@ import Login from '../pages/login/Login';
 import SignUp from '../pages/login/SignUp';
 import SignUpEmail from '../pages/login/SignUpEmail';
 import Mypage from '../pages/mypage/Mypage';
+import Mypage1 from '../pages/mypage/Mypage1';
 import CategoryRoom from '../pages/categoryroom/CategoryRoom';
 import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
 import HostTotalPlace from '../pages/roomsdetail/HostTotalPlace';
@@ -93,6 +94,7 @@ function BasicRouter() {
 				<Route path='seller' element={<SellerLogin />} />
 				<Route path='sellerJoin' element={<SellerJoin />} />
 				<Route path='mypage' element={<Mypage />} />
+				<Route path='mypage1' element={<Mypage1 />} />
 
 				{/* 카테고리별 방 페이지 */}
 				<Route path='categoryroomList'>
