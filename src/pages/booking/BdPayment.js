@@ -6,7 +6,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import InfoIcon from '@mui/icons-material/Info';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@mui/material/Checkbox';
 import './booking.css';
+
+const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
 function BdPayment({
 	name,
@@ -41,6 +44,15 @@ function BdPayment({
 		setOpen(false);
 	};
 
+	// 결제 modal checkbox
+	const checkOnlyOne = (checkThis) => {
+		const checkboxes = document.getElementsByName('payment');
+		for (let i = 0; i < checkboxes.length; i++) {
+			if (checkboxes[i] !== checkThis) {
+				checkboxes[i].checked = false;
+			}
+		}
+	};
 	return (
 		<>
 			<div
@@ -158,8 +170,11 @@ function BdPayment({
 					<DialogTitle
 						id='alert-dialog-title'
 						style={{
-							borderBottom: '3px solid #704de4',
+							backgroundColor: '#704de4',
+							marginRight: '0px',
 							marginBotton: '40px',
+							color: 'white',
+							width: '480px',
 						}}
 					>
 						{roomData.payment === '바로결제' ? (
@@ -220,6 +235,38 @@ function BdPayment({
 								₩{Number(totalPrice).toLocaleString('ko-KR')}
 							</span>
 							<hr />
+							<div style={{textAlign: 'center'}}>
+								<input
+									checked
+									type='checkbox'
+									name='payment'
+									value='일반결제'
+									onChange={(e) => checkOnlyOne(e.target)}
+								/>{' '}
+								일반결제&nbsp;&nbsp;
+								<input
+									type='checkbox'
+									name='payment'
+									value='kakaopay'
+									onChange={(e) => checkOnlyOne(e.target)}
+								/>{' '}
+								kakaopay&nbsp;&nbsp;
+								<input
+									type='checkbox'
+									name='payment'
+									value='payco'
+									onChange={(e) => checkOnlyOne(e.target)}
+								/>{' '}
+								payco&nbsp;&nbsp;
+								<input
+									type='checkbox'
+									name='payment'
+									value='tosspay'
+									onChange={(e) => checkOnlyOne(e.target)}
+								/>{' '}
+								tosspay
+							</div>
+							<br />
 							{roomData.payment === '바로결제' ? (
 								<>
 									<InfoIcon style={{color: 'red'}} />

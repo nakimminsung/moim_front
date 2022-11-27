@@ -9,6 +9,7 @@ import queryString from 'query-string';
 import jwt_decode from 'jwt-decode';
 import BdPayment from './BdPayment';
 import BDTop from './BDTop';
+
 function BookingMain() {
 	const [roomData, setRoomData] = useState('');
 	const [optionList, setOptionList] = useState([]);
@@ -185,12 +186,13 @@ function BookingMain() {
 
 	// 결제
 	function payment(data) {
-		IMP.init('imp30007238'); //아임포트 관리자 콘솔에 서 확인한 '가맹점 식별코드' 입력
+		let impCode = process.env.REACT_APP_IMP;
+		IMP.init(`${impCode}`); //아임포트 관리자 콘솔에 서 확인한 '가맹점 식별코드' 입력
 		IMP.request_pay(
 			{
 				// param
 				//pg: 'html5_inicis', //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
-				pg: 'kakaopay',
+				pg: 'payco',
 				pay_method: 'card', //지불 방법
 				merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
 				name: roomData.name, //결제창에 노출될 상품명
