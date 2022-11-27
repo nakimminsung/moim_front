@@ -8,26 +8,45 @@ import jwt_decode from 'jwt-decode';
 function Mypage1(props) {
     const memberNum = jwt_decode(localStorage.getItem('token')).idx;
     const [memberList, setMemberList] = useState('');
+    // let memberList = '';
 
     const url =
         localStorage.url +
         '/member/getMemberInfo?idx=' + memberNum
 
-    const memberInfo = () => {
-        axios.get(url).then((res) => {
+    const memberInfo = async () => {
+        await axios.get(url).then((res) => {
             // console.log(res.data)
-            setMemberList(res.data)
+            setMemberList(res.data);
+            // memberList = res.data;
+            // console.log(res.data);
+            console.log(memberList);
         });
     };
 
     useEffect(() => {
-        axios.get(url)
-            .then(res => {
-                console.log(res.data);
-                setMemberList(res.data);
-                console.log(memberList);
-            })
+        memberInfo();
     }, []);
+    // const memberInfo = () => {
+    //     axios.get(url).then((res) => {
+    //         // console.log(res.data)
+    //         setMemberList(res.data);
+    //         console.log(res.data);
+    //     });
+    // };
+
+    // useEffect(() => {
+    //     // axios.get(url)
+    //     //     .then(res => {
+    //     //         console.log(res.data);
+    //     //         setMemberList(res.data);
+    //     //         console.log(memberList);
+    //     //     })
+    //     memberInfo();
+    //     console.log(memberList);
+    // }, []);
+
+
 
 
     return (

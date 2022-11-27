@@ -14,6 +14,8 @@ function CategoryRoom(props) {
     const [payment, setPayment] = useState('');
     const [sprice, setSprice] = useState(0);
     const [eprice, setEprice] = useState(500000);
+    const [stime, setStime] = useState('0');
+    const [etime, setEtime] = useState('24');
     const [facility, setFacility] = useState([]);
     const { categoryNum } = useParams();
 

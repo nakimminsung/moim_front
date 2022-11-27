@@ -8,7 +8,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 function MyContent(props) {
     const token = jwt_decode(localStorage.getItem('token'));
     const memberNum = jwt_decode(localStorage.getItem('token')).idx;
-    const memberList = props;
+    // const memberList = props;
     const [email, setEmail] = useState(`${token.email}`);
 
     const hideEmail = () => {
@@ -46,13 +46,14 @@ function MyContent(props) {
 
     useEffect(() => {
         hideEmail()
+        // console.log(memberList);
     }, [])
 
     return (
         <div className="my-content-wrapper">
             <div className="my-content-profile" style={{ textAlign: "center" }}>
                 <div className="my-profile-update" style={{ display: "flex", display: "inline-block", marginTop: '30px', marginBottom: '5px' }}>
-                    <img alt="updateprofileImage" src={`http://localhost:9000/image/${memberList.profile_image}`} className="updateprofileImage" />
+                    <img alt="updateprofileImage" src={`http://localhost:9000/image/${props.memberList.profile_image}`} className="updateprofileImage" />
                 </div>
                 <div>
                     <b style={{ fontSize: '12px' }}>{email}</b>
@@ -74,7 +75,7 @@ function MyContent(props) {
                             <tr>
                                 <td style={{ textAlign: 'left' }}>비밀번호</td>
                                 <td style={{ textAlign: 'left' }}>
-                                    {token.password ? <Button variant="outlined" color="primary" size="small">비밀번호 변경하기</Button> : '소셜로그인은 비밀번호 변경 불가'}
+                                    {props.memberList.password !== 'kakao' ? <Button variant="outlined" color="primary" size="small">비밀번호 변경하기</Button> : <b style={{ color: 'red' }}>소셜로그인은 비밀번호 변경 불가</b>}
                                 </td>
                             </tr>
                             <tr>

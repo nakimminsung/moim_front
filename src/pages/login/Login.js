@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
+import FindPassword from "./FindPassword";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -120,7 +121,7 @@ function Login() {
                   </InputCheckbox>
                   <label>이메일 저장하기</label>
                 </div>
-                <a>아이디 / 비밀번호 찾기</a>
+                <FindPassword />
               </EmailLoginOption>
             </EmailLoginContainer>
             <CommonButton
