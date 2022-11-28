@@ -2727,8 +2727,8 @@ __metadata:
   linkType: hard
 
 "@mui/x-date-pickers@npm:^5.0.8":
-  version: 5.0.8
-  resolution: "@mui/x-date-pickers@npm:5.0.8"
+  version: 5.0.9
+  resolution: "@mui/x-date-pickers@npm:5.0.9"
   dependencies:
     "@babel/runtime": ^7.18.9
     "@date-io/core": ^2.15.0
@@ -2766,7 +2766,7 @@ __metadata:
       optional: true
     moment:
       optional: true
-  checksum: a7a9c1ebbe7cb4d18e6271b1082b941690402c1258aee445ad7390aba582e1b51a2af9f42f489dc3ab8060d130aefb491c510659f381d86f94d4eb652163cf30
+  checksum: 11c7414b59bdc34ac5708ccb0fd799a928915b792f2b9342994e74a61d5c718803aea32a92c3de2aed7ee7383b6fc5ba01689559a6b93946a10ecb7e7b9f4a18
   languageName: node
   linkType: hard
 
@@ -2827,8 +2827,8 @@ __metadata:
   linkType: hard
 
 "@pmmmwh/react-refresh-webpack-plugin@npm:^0.5.3":
-  version: 0.5.9
-  resolution: "@pmmmwh/react-refresh-webpack-plugin@npm:0.5.9"
+  version: 0.5.10
+  resolution: "@pmmmwh/react-refresh-webpack-plugin@npm:0.5.10"
   dependencies:
     ansi-html-community: ^0.0.8
     common-path-prefix: ^3.0.0
@@ -2836,7 +2836,7 @@ __metadata:
     error-stack-parser: ^2.0.6
     find-up: ^5.0.0
     html-entities: ^2.1.0
-    loader-utils: ^2.0.3
+    loader-utils: ^2.0.4
     schema-utils: ^3.0.0
     source-map: ^0.7.3
   peerDependencies:
@@ -2861,7 +2861,7 @@ __metadata:
       optional: true
     webpack-plugin-serve:
       optional: true
-  checksum: 446c0add9ecf17ed9911bf310bf22ab64f4b3d0ce334e68a3fcac5efee782ef4d7b6260997efaf720c7a2ea39086db89629e4aa07fb18558387d8dc8f0f31da2
+  checksum: c45beded9c56fbbdc7213a2c36131ace5db360ed704d462cc39d6678f980173a91c9a3f691e6bd3a026f25486644cd0027e8a12a0a4eced8e8b886a0472e7d34
   languageName: node
   linkType: hard
 
@@ -2966,6 +2966,13 @@ __metadata:
   dependencies:
     "@sinonjs/commons": ^1.7.0
   checksum: 09b5a158ce013a6c37613258bad79ca4efeb99b1f59c41c73cca36cac00b258aefcf46eeea970fccf06b989414d86fe9f54c1102272c0c3bdd51a313cea80949
+  languageName: node
+  linkType: hard
+
+"@stomp/stompjs@npm:^6.1.2":
+  version: 6.1.2
+  resolution: "@stomp/stompjs@npm:6.1.2"
+  checksum: f6ef589c0a39f7ab19dad8eda2a9a31f24cd585d56ed6018f9c8578883aff11e87f9d8388c11ca6187ddafb257f42822209c0ef403ee574591fc9f9059df4bc0
   languageName: node
   linkType: hard
 
@@ -5042,9 +5049,9 @@ __metadata:
   linkType: hard
 
 "ci-info@npm:^3.2.0":
-  version: 3.6.2
-  resolution: "ci-info@npm:3.6.2"
-  checksum: fd8fc172f925208d17ca8473e05e9e5709c796d31ee23fa0b53f418bc449c237e9c031a55c161102afb4e69ef34ce6f6a5d421886ce087478b222a5c7b9ae1f3
+  version: 3.7.0
+  resolution: "ci-info@npm:3.7.0"
+  checksum: 6e5df0250382ff3732703b36b958d2d892dd3c481f9671666f96c2ab7888be744bc4dca81395be958dcb828502d94f18fa9aa8901c5a3c9923cda212df02724c
   languageName: node
   linkType: hard
 
@@ -9435,7 +9442,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^2.0.0, loader-utils@npm:^2.0.3":
+"loader-utils@npm:^2.0.0, loader-utils@npm:^2.0.4":
   version: 2.0.4
   resolution: "loader-utils@npm:2.0.4"
   dependencies:
@@ -9883,6 +9890,7 @@ __metadata:
     "@mui/icons-material": ^5.10.9
     "@mui/material": ^5.10.13
     "@mui/x-date-pickers": ^5.0.8
+    "@stomp/stompjs": ^6.1.2
     "@testing-library/jest-dom": ^5.14.1
     "@testing-library/react": ^13.0.0
     "@testing-library/user-event": ^13.2.1
@@ -9916,9 +9924,11 @@ __metadata:
     react-swipeable-views: ^0.14.0
     redux: ^4.2.0
     slick-carousel: ^1.8.1
-    sockjs: ^0.3.24
+    sockjs-client: ^1.6.1
+    stompjs: ^2.3.3
     styled-components: ^5.3.6
     web-vitals: ^2.1.0
+    websocket: ^1.0.34
   languageName: unknown
   linkType: soft
 
@@ -12861,7 +12871,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sockjs-client@npm:^1.5.0":
+"sockjs-client@npm:^1.5.0, sockjs-client@npm:^1.6.1":
   version: 1.6.1
   resolution: "sockjs-client@npm:1.6.1"
   dependencies:
@@ -13535,8 +13545,8 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.0.0, terser@npm:^5.10.0, terser@npm:^5.14.1":
-  version: 5.15.1
-  resolution: "terser@npm:5.15.1"
+  version: 5.16.0
+  resolution: "terser@npm:5.16.0"
   dependencies:
     "@jridgewell/source-map": ^0.3.2
     acorn: ^8.5.0
@@ -13544,7 +13554,7 @@ __metadata:
     source-map-support: ~0.5.20
   bin:
     terser: bin/terser
-  checksum: 9880a1e0956983a1ce5de204ea35121c0009fa41d582a6904ae850e1953a1a2cc021168439565280c5a8eee67c85a874175627e24989b046c7a72589b81c3979
+  checksum: d035672bd28bd40ff80d83bea6bc6c85bddf41c18060e49c8b36a3aa45a0a6b4a59c6a56bdf52f9d3350587684d664f8ca26656c6084abeb951b85edf34e47ae
   languageName: node
   linkType: hard
 
@@ -14232,7 +14242,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"websocket@npm:latest":
+"websocket@npm:^1.0.34, websocket@npm:latest":
   version: 1.0.34
   resolution: "websocket@npm:1.0.34"
   dependencies:

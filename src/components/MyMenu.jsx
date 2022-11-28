@@ -48,6 +48,7 @@ export default function MyMenu() {
 		}
 		prevOpen.current = open;
 	}, [open]);
+
 	useEffect(() => {
 		try {
 			if (localStorage.getItem('token') !== null) {
@@ -71,7 +72,6 @@ export default function MyMenu() {
 			console.log(e);
 		}
 	};
-
 	return (
 		<>
 			<MyButton
