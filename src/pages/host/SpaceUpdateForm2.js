@@ -1,23 +1,24 @@
-import {Button, Checkbox} from '@material-ui/core';
+import {Checkbox} from '@material-ui/core';
 import {CloseOutlined} from '@material-ui/icons';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
+import styled from 'styled-components';
 import SpaceImages from './SpaceImages';
 import SpaceInfo from './SpaceInfo';
 import SpaceOption from './SpaceOption';
 import SpaceTag from './SpaceTag';
 import SpaceWarning from './SpaceWarning';
-import styled from 'styled-components';
 
-function SpaceAddForm2(props) {
+function SpaceUpdateForm2(props) {
 	const {num} = useParams();
+	console.log(num);
+	//룸 넘버
+	const roomNum = num;
+
 	const navi = useNavigate();
 	localStorage.url = 'http://localhost:9000';
 	let imageUrl = localStorage.url + '/image/';
-
-	//룸 넘버
-	const roomNum = num;
 
 	// 카테고리 체크박스 (체크된 카테고리의 번호를 담을 배열)
 	const [checkedArr, setCheckedArr] = useState([]);
@@ -49,6 +50,43 @@ function SpaceAddForm2(props) {
 		mclist();
 	}, []);
 
+	// 호출한 체크값 담을 배열
+	const [checkList, setCheckList] = useState([]);
+	const [callRoption, setCallRoption] = useState([]);
+	const [callRoomImage, setCallRoomImage] = useState([]);
+	const [callTag, setCallTag] = useState([]);
+	const [callInfo, setCallInfo] = useState([]);
+	const [callPre, setCallPre] = useState([]);
+	// console.log(checkList);
+
+	//룸 넘버에 해당하는 dto 가져오기
+	const onSelectData = () => {
+		let url = localStorage.url + '/host/updateform2?roomNum=' + roomNum;
+		axios.get(url).then((res) => {
+			setCheckList(res.data.categoryData);
+			setCallRoption(res.data.roptionData);
+			setCallRoomImage(res.data.imageData);
+			setCallTag(res.data.tagData);
+			setCallInfo(res.data.infoData);
+			setCallPre(res.data.preData);
+		});
+	};
+
+	//처음 시작 시 스프링으로부터 dto를 얻어야하므로 useEffect 에서 호출
+	useEffect(() => {
+		onSelectData();
+		// console.log('호출');
+	}, []);
+
+	const [callCategory, setCallCategoryNum] = useState('');
+
+	useEffect(() => {
+		for (let s of checkList) {
+			setCallCategoryNum(callCategory.concat(s.categoryNum + ','));
+		}
+	}, [checkList]);
+	console.log(callCategory);
+
 	//카테고리 체크박스 이벤트
 	const handleSingleCheck = (checked, num) => {
 		if (checked) {
@@ -65,7 +103,7 @@ function SpaceAddForm2(props) {
 
 	// 태그 담을 배열
 	const [tname, setTag] = useState([]);
-	console.log(tname);
+	// console.log(tname);
 	//태그 버튼 이벤트
 	const onchange1 = () => {
 		if (document.getElementById('tag').value.trim() == '') {
@@ -97,7 +135,7 @@ function SpaceAddForm2(props) {
 
 	// 인포 담을 배열
 	const [icontent, setInfo] = useState([]);
-	console.log(icontent);
+	// console.log(icontent);
 	//인포 버튼 이벤트
 	const onchange3 = () => {
 		setInfo(icontent.concat(document.getElementById('info').value.trim()));
@@ -116,7 +154,7 @@ function SpaceAddForm2(props) {
 
 	// 주의사항 담을 배열
 	const [pcontent, setPrecautions] = useState([]);
-	console.log(pcontent);
+	// console.log(pcontent);
 	//주의사항 버튼 이벤트
 	const onchange5 = () => {
 		setPrecautions(
@@ -174,7 +212,7 @@ function SpaceAddForm2(props) {
 		e.preventDefault();
 		let oname = NameRef.current.value;
 		let price = PriceRef.current.value;
-		console.log(roptionList);
+		// console.log(roptionList);
 		setRoptionList(
 			roptionList.concat({
 				oname,
@@ -211,25 +249,11 @@ function SpaceAddForm2(props) {
 		});
 	};
 
-	//취소 버튼 클릭 이벤트
-	const cancelButton = () => {
-		const cancelUrl = localStorage.url + '/host/cancel?num=' + num;
-		axios.delete(cancelUrl).then((res) => {
-			navi('/host/addform');
-		});
-	};
-
 	// 다음 버튼 클릭 이벤트
 	const nextButton = (e) => {
 		e.preventDefault();
 		//옵션 저장
 		let optioninsertUrl = localStorage.url + '/host/optioninsert';
-		console.log(optioninsertUrl);
-		// let oname = NameRef.current.value;
-		// let price = PriceRef.current.value;
-		console.log('roptionList' + roptionList);
-		console.log(roptionList);
-		console.log(roomNum);
 		axios
 			.post(optioninsertUrl, {
 				roptionList,
@@ -262,10 +286,9 @@ function SpaceAddForm2(props) {
 			})
 			.then((res) => {
 				console.log(res);
-				navi(`/host/addform3/${res.data}`);
+				navi(`/host/updateform3/${res.data}`);
 			});
 	};
-
 	return (
 		<div>
 			<form onSubmit={nextButton}>
@@ -321,64 +344,68 @@ function SpaceAddForm2(props) {
 						<div className='row'>
 							<table>
 								<tbody>
-									{maincategorylist &&
-										maincategorylist.map((mc, idx) => (
-											<tr>
-												<th
-													className='depth_1'
-													key={idx}
-												>
-													<span>{mc.mcname}</span>
-													<span className='pointer'></span>
-												</th>
-												{categorylist &&
-													categorylist.map((c, idx) =>
-														mc.num ===
-														c.mainCategoryNum ? (
-															<td
-																key={idx}
-																className='depth_2'
-															>
-																<label
-																	style={{
-																		cursor: 'pointer',
-																	}}
-																>
-																	<span>
-																		<Checkbox
-																			inputProps={{
-																				'aria-label':
-																					'uncontrolled-checkbox',
-																			}}
-																			name='space'
-																			onClick={(
-																				e,
-																			) =>
-																				handleSingleCheck(
-																					e
-																						.target
-																						.checked,
-																					c.num,
-																				)
-																			}
-																			checked={
-																				checkedArr.includes(
-																					c.num,
-																				)
-																					? true
-																					: false
-																			}
-																		/>
-																		{
-																			c.cname
+									<>
+										{maincategorylist &&
+											maincategorylist.map((mc, idx) => (
+												<tr>
+													<th
+														className='depth_1'
+														key={idx}
+													>
+														<span>{mc.mcname}</span>
+														<span className='pointer'></span>
+													</th>
+													{categorylist &&
+														categorylist.map(
+															(c, idx) =>
+																mc.num ===
+																c.mainCategoryNum ? (
+																	<td
+																		key={
+																			idx
 																		}
-																	</span>
-																</label>
-															</td>
-														) : null,
-													)}
-											</tr>
-										))}
+																		className='depth_2'
+																	>
+																		<label
+																			style={{
+																				cursor: 'pointer',
+																			}}
+																		>
+																			<span>
+																				<input
+																					name='space'
+																					type={
+																						'checkbox'
+																					}
+																					onClick={(
+																						e,
+																					) =>
+																						handleSingleCheck(
+																							e
+																								.target
+																								.checked,
+																							c.num,
+																						)
+																					}
+																					checked={
+																						callCategory.includes(
+																							c.num,
+																						)
+																							? true
+																							: false
+																					}
+																				/>
+																				{
+																					c.cname
+																				}
+																			</span>
+																		</label>
+																	</td>
+																) : null,
+														)}
+												</tr>
+											))}
+									</>
 								</tbody>
 							</table>
 						</div>
@@ -398,72 +425,111 @@ function SpaceAddForm2(props) {
 						<div
 							className='previewimg'
 							style={{
+								display: 'flex',
 								border: '1px solid black',
 								backgroundColor: '#d3d3d3',
 								height: '200px',
 							}}
 						>
-							{rimageUrl == 0
-								? null
-								: rimageUrl &&
-								  rimageUrl.map((room, idx) => (
-										<>
-											{idx % 5 === 0 ? (
-												<div
-													style={{
-														position: 'relative',
-													}}
-												>
-													<img
-														alt=''
-														src={`${imageUrl}${room}`}
-														className='roomImge'
-														style={{
-															width: '170px',
-															height: '170px',
-															maxWidth: '170px',
-															maxHeight: '170px',
-															marginLeft: '5px',
-														}}
-													/>
+							{callRoomImage &&
+								callRoomImage.map((images, idx) => (
+									<div
+										style={{
+											position: 'relative',
+										}}
+									>
+										<img
+											alt=''
+											src={`${imageUrl}${images.rimageUrl}`}
+											className='roomImge'
+											style={{
+												width: '170px',
+												height: '170px',
+												maxWidth: '170px',
+												maxHeight: '170px',
+												marginLeft: '5px',
+											}}
+										/>
 
-													<CloseOutlined
-														style={{
-															color: '#b2b2b2',
-															cursor: 'pointer',
-															width: '20px',
-															height: '20px',
-															border: '1px solid #e0e0e0',
-															backgroundColor:
-																'f6f6f6',
-															position:
-																'absolute',
-															zIndex: '1',
-														}}
-														onClick={() => {
-															const delUrl =
-																localStorage.url +
-																'/host/delphoto?idx=' +
-																idx;
-															axios
-																.get(delUrl)
-																.then((res) => {
-																	//DB는 삭제되지 않음
-																});
+										<CloseOutlined
+											style={{
+												color: '#b2b2b2',
+												cursor: 'pointer',
+												width: '20px',
+												height: '20px',
+												border: '1px solid #e0e0e0',
+												backgroundColor: 'f6f6f6',
+												position: 'absolute',
+												zIndex: '1',
+											}}
+											onClick={() => {
+												const imagesdelUrl =
+													localStorage.url +
+													'/host/imagesdel?num=' +
+													images.num;
+												axios
+													.delete(imagesdelUrl)
+													.then((res) => {
+														alert('삭제되었습니다');
+														window.location.replace(
+															`/host/updateform2/${roomNum}`,
+														);
+													});
+											}}
+										/>
+									</div>
+								))}
+							{rimageUrl &&
+								rimageUrl.map((room, idx) => (
+									<div
+										style={{
+											position: 'relative',
+										}}
+									>
+										<img
+											alt=''
+											src={`${imageUrl}${room.rimageUrl}`}
+											className='roomImge'
+											style={{
+												width: '170px',
+												height: '170px',
+												maxWidth: '170px',
+												maxHeight: '170px',
+												marginLeft: '5px',
+											}}
+										/>
 
-															setRoomImage(
-																rimageUrl.filter(
-																	(a, i) =>
-																		i !==
-																		idx,
-																),
-															);
-														}}
-													/>
-												</div>
-											) : null}
-										</>
-								  ))}
+										<CloseOutlined
+											style={{
+												color: '#b2b2b2',
+												cursor: 'pointer',
+												width: '20px',
+												height: '20px',
+												border: '1px solid #e0e0e0',
+												backgroundColor: 'f6f6f6',
+												position: 'absolute',
+												zIndex: '1',
+											}}
+											onClick={() => {
+												const delUrl =
+													localStorage.url +
+													'/host/delphoto?idx=' +
+													idx;
+												axios
+													.get(delUrl)
+													.then((res) => {
+														//DB는 삭제되지 않음
+													});
+
+												setRoomImage(
+													rimageUrl.filter(
+														(a, i) => i !== idx,
+													),
+												);
+											}}
+										/>
+									</div>
+								))}
 						</div>
 					</Space>
 					<br />
@@ -485,10 +551,10 @@ function SpaceAddForm2(props) {
 							oimageUrl={oimageUrl}
 						/>
 						<div>
-							{roptionList &&
-								roptionList.map((rotion, idx) => (
-									<table>
-										<tbody>
+							<table>
+								<tbody>
+									{callRoption &&
+										callRoption.map((rotion, idx) => (
 											<tr key={idx}>
 												<td>
 													<img
@@ -510,6 +576,53 @@ function SpaceAddForm2(props) {
 															cursor: 'pointer',
 														}}
 														onClick={() => {
+															const optiondelUrl =
+																localStorage.url +
+																'/host/roptindel?num=' +
+																rotion.num;
+															console.log(
+																optiondelUrl,
+															);
+															axios
+																.delete(
+																	optiondelUrl,
+																)
+																.then((res) => {
+																	alert(
+																		'삭제되었습니다',
+																	);
+																	window.location.replace(
+																		`/host/updateform2/${roomNum}`,
+																	);
+																});
+														}}
+													/>
+												</td>
+											</tr>
+										))}
+									{roptionList &&
+										roptionList.map((roption2, idx) => (
+											<tr key={idx}>
+												<td>
+													<img
+														style={{
+															width: '150px',
+														}}
+														alt=''
+														src={
+															imageUrl +
+															roption2.oimageUrl
+														}
+													/>
+												</td>
+												<td>{roption2.oname}</td>
+												<td>{roption2.price}</td>
+												<td>
+													<CloseOutlined
+														style={{
+															cursor: 'pointer',
+														}}
+														onClick={() => {
 															setRoptionList(
 																roptionList.filter(
 																	(a, i) =>
@@ -521,9 +634,9 @@ function SpaceAddForm2(props) {
 													/>
 												</td>
 											</tr>
-										</tbody>
-									</table>
-								))}
+										))}
+								</tbody>
+							</table>
 						</div>
 					</Space>
 
@@ -541,29 +654,64 @@ function SpaceAddForm2(props) {
 							onchange2={onchange2}
 						/>
 						<div>
-							{tname.map((t, idx2) => (
-								<b
-									key={idx2}
-									style={{
-										border: '1px solid pink',
-										backgroundColor: '#efefef',
-									}}
-								>
-									<span>
-										#{t}
-										<CloseOutlined
-											style={{cursor: 'pointer'}}
-											onClick={() => {
-												setTag(
-													tname.filter(
-														(a, i) => i !== idx2,
-													),
-												);
-											}}
-										/>
-									</span>
-								</b>
-							))}
+							{callTag &&
+								callTag.map((t, idx2) => (
+									<b
+										key={idx2}
+										style={{
+											border: '1px solid pink',
+											backgroundColor: '#efefef',
+										}}
+									>
+										<span>
+											#{t.tname}
+											<CloseOutlined
+												style={{cursor: 'pointer'}}
+												onClick={() => {
+													const tagdelUrl =
+														localStorage.url +
+														'/host/updatedel?num=' +
+														t.num;
+													console.log(tagdelUrl);
+													axios
+														.delete(tagdelUrl)
+														.then((res) => {
+															alert(
+																'삭제되었습니다',
+															);
+															window.location.replace(
+																`/host/updateform2/${roomNum}`,
+															);
+														});
+												}}
+											/>
+										</span>
+									</b>
+								))}
+							{tname &&
+								tname.map((t1, idx) => (
+									<b
+										key={idx}
+										style={{
+											border: '1px solid pink',
+											backgroundColor: '#efefef',
+										}}
+									>
+										<span>
+											#{t1}
+											<CloseOutlined
+												style={{cursor: 'pointer'}}
+												onClick={() => {
+													setTag(
+														tname.filter(
+															(a, i) => i !== idx,
+														),
+													);
+												}}
+											/>
+										</span>
+									</b>
+								))}
 						</div>
 					</Space>
 					<br />
@@ -579,21 +727,46 @@ function SpaceAddForm2(props) {
 							onchange4={onchange4}
 						/>
 						<div>
-							{icontent.map((info, idx3) => (
-								<h5 key={idx3}>
-									<b>{info}</b>
-									<CloseOutlined
-										style={{cursor: 'pointer'}}
-										onClick={() => {
-											setInfo(
-												icontent.filter(
-													(a, i) => i !== idx3,
-												),
-											);
-										}}
-									/>
-								</h5>
-							))}
+							{callInfo &&
+								callInfo.map((info, idx3) => (
+									<h5 key={idx3}>
+										<b>{info.icontent}</b>
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												const infodelUrl =
+													localStorage.url +
+													'/host/updatedel?num=' +
+													info.num;
+												console.log(infodelUrl);
+												axios
+													.delete(infodelUrl)
+													.then((res) => {
+														alert('삭제되었습니다');
+														window.location.replace(
+															`/host/updateform2/${roomNum}`,
+														);
+													});
+											}}
+										/>
+									</h5>
+								))}
+							{icontent &&
+								icontent.map((info1, idx) => (
+									<h5 key={idx}>
+										<b>{info1}</b>
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												setInfo(
+													icontent.filter(
+														(a, i) => i !== idx,
+													),
+												);
+											}}
+										/>
+									</h5>
+								))}
 						</div>
 					</Space>
 					<br />
@@ -609,21 +782,46 @@ function SpaceAddForm2(props) {
 							onchange6={onchange6}
 						/>
 						<div>
-							{pcontent.map((pre, idx4) => (
-								<h5 key={idx4}>
-									<b>{pre}</b>
-									<CloseOutlined
-										style={{cursor: 'pointer'}}
-										onClick={() => {
-											setPrecautions(
-												pcontent.filter(
-													(a, i) => i !== idx4,
-												),
-											);
-										}}
-									/>
-								</h5>
-							))}
+							{callPre &&
+								callPre.map((pre, idx4) => (
+									<h5 key={idx4}>
+										<b>{pre.pcontent}</b>
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												const predelUrl =
+													localStorage.url +
+													'/host/updatedel?num=' +
+													pre.num;
+												console.log(predelUrl);
+												axios
+													.delete(predelUrl)
+													.then((res) => {
+														alert('삭제되었습니다');
+														window.location.replace(
+															`/host/updateform2/${roomNum}`,
+														);
+													});
+											}}
+										/>
+									</h5>
+								))}
+							{icontent &&
+								pcontent.map((pre1, idx) => (
+									<h5 key={idx}>
+										<b>{pre1}</b>
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												setPrecautions(
+													pcontent.filter(
+														(a, i) => i !== idx,
+													),
+												);
+											}}
+										/>
+									</h5>
+								))}
 						</div>
 					</Space>
 				</div>
@@ -640,7 +838,9 @@ function SpaceAddForm2(props) {
 								cursor: 'pointer',
 								backgroundColor: '#4d4d4d',
 							}}
-							onClick={cancelButton}
+							onClick={() => {
+								navi(-1);
+							}}
 						>
 							이전
 						</BtnWrap>
@@ -660,7 +860,8 @@ function SpaceAddForm2(props) {
 	);
 }
 
-export default SpaceAddForm2;
+export default SpaceUpdateForm2;
+
 const ButtonEvent = styled.div`
 	margin: 0 auto 100px;
 	width: 1380;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Right({bookingList}) {
+function BookingDetailLeft({bookingList}) {
 	// 날짜 요일 계산
 	const days = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -26,110 +26,121 @@ function Right({bookingList}) {
 	let requestDay = days[new Date(bookingList.createdAt).getDay()];
 	let bookingDay = days[new Date(bookingList.bookingDate).getDay()];
 
-	// 시간 배열에서 뽑아오기, 요일계산
-	let stime;
-	let etime = new Array();
-	let calTime;
+	// // 시간 배열에서 뽑아오기, 요일계산
+	// let stime;
+	// let etime = new Array();
+	// let calTime;
 
-	let str = bookingList.bookingTime;
-	let arr = str.split(',');
-	console.log('arr' + arr);
-	let _stime = arr[0];
-	console.log(_stime);
-	let _etime = arr[arr.length - 1];
+	// let str = bookingList.bookingTime;
+	// let arr = str.split(',');
+	// console.log('arr' + arr);
+	// let _stime = arr[0];
+	// console.log(_stime);
+	// let _etime = arr[arr.length - 1];
 
-	stime = _stime;
-	etime = _etime;
-	calTime = _etime - _stime;
-	console.log(stime);
-	console.log(calTime);
-	let options = new Array();
-	let option = bookingList.roomOption;
-	options = option.split(',');
+	// stime = _stime;
+	// etime = _etime;
+	// calTime = _etime - _stime;
+	// console.log(stime);
+	// console.log(calTime);
+	// let options = new Array();
+	// let option = bookingList.roomOption;
+	// options = option.split(',');
+
 	return (
-		<>
-			<div className='BKItem'>
-				<div className='bdInfo'>
-					<div
-						style={{
-							display: 'flex',
-							borderBottom: '3px solid #704de4',
-						}}
-					>
-						<h4>예약 내용</h4>
-
-						<p
+		<div>
+			<>
+				<div className='BKItem'>
+					<div className='bdInfo'>
+						<div
 							style={{
-								marginLeft: 'auto',
+								display: 'flex',
+								borderBottom: '3px solid #704de4',
 							}}
 						>
-							예약번호 : {bookingList.num}
-						</p>
-					</div>
-					<div
-						style={{
-							display: 'flex',
-							marginLeft: '30px',
-							marginTop: '10px',
-						}}
-					>
-						<p>신청일</p>
-						<p style={{marginLeft: 'auto'}}>
-							{requestDate}&nbsp;({requestDay})
-						</p>
-					</div>
-					<div
-						style={{
-							display: 'flex',
-							marginLeft: '30px',
-						}}
-					>
-						<p>예약공간</p>
-						<p style={{marginLeft: 'auto'}}>
-							{bookingList.roomName}
-						</p>
-					</div>
-					<div
-						style={{
-							display: 'flex',
-							marginLeft: '30px',
-						}}
-					>
-						<p>예약내용</p>
-						<p style={{marginLeft: 'auto'}}>
-							{bookingDate}&nbsp;({bookingDay})&nbsp;{stime}
-							&nbsp;~
-							{etime},&nbsp;{calTime}시간
-						</p>
-					</div>
-					<div
-						style={{
-							display: 'flex',
-							marginLeft: '30px',
-						}}
-					>
-						<p>예약인원</p>
-						<p style={{marginLeft: 'auto'}}>
-							{bookingList.headCount}명
-						</p>
-					</div>
-					{options.some((item) => item.length !== 0) ? (
-						<>
-							<div
+							<h4>예약 내용</h4>
+
+							<p
 								style={{
-									display: 'flex',
-									marginLeft: '30px',
+									marginLeft: 'auto',
 								}}
 							>
-								<p>추가옵션</p>
-								<p style={{marginLeft: 'auto'}}>
-									{bookingList.roomOption}
-								</p>
+								예약번호 : {bookingList.num}
+							</p>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								marginLeft: '30px',
+								marginTop: '10px',
+							}}
+						>
+							<p>신청일</p>
+							<p style={{marginLeft: 'auto'}}>
+								{requestDate}&nbsp;({requestDay})
+							</p>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								marginLeft: '30px',
+							}}
+						>
+							<p>예약공간</p>
+							<p style={{marginLeft: 'auto'}}>
+								{bookingList.roomName}
+							</p>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								marginLeft: '30px',
+							}}
+						>
+							<p>예약내용</p>
+							<p style={{marginLeft: 'auto'}}>
+								{bookingDate}
+								&nbsp; ({bookingDay})
+							</p>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								marginLeft: '30px',
+							}}
+						>
+							<p>예약시간</p>
+							<div style={{marginLeft: 'auto'}}>
+								<p>{bookingList.bookingTime}(시)</p>
 							</div>
-						</>
-					) : (
-						<></>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								marginLeft: '30px',
+							}}
+						>
+							<p>예약인원</p>
+							<p style={{marginLeft: 'auto'}}>
+								{bookingList.headCount}명
+							</p>
+						</div>
+					</div>
+					{/*  */}
+					{bookingList.roomOption == 0 ? null : (
+						<div
+							style={{
+								display: 'flex',
+								marginLeft: '30px',
+							}}
+						>
+							<p>추가옵션</p>
+							<p style={{marginLeft: 'auto'}}>
+								{bookingList.roomOption}
+							</p>
+						</div>
 					)}
+					{/*  */}
 					<div
 						style={{
 							display: 'flex',
@@ -270,9 +281,9 @@ function Right({bookingList}) {
 						<p style={{marginLeft: 'auto'}}>환불불가</p>
 					</div>
 				</div>
-			</div>
-		</>
+			</>
+		</div>
 	);
 }
 
-export default Right;
+export default BookingDetailLeft;

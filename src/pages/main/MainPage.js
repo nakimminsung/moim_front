@@ -35,12 +35,12 @@ function Mainpage(props) {
 							예약내역리스트
 						</NavLink>
 					</li>
-
+					<li>
+						<NavLink to={'/host/bookinglist'}>예약리스트</NavLink>
+					</li>
 					{/* 임시버튼 */}
 					<li>
 						<NavLink to={'/chat/chat'}>채팅 (호스트)</NavLink>
-					</li>
-					<li>
 						<NavLink to={'/chat/chat'}>채팅 (유저)</NavLink>
 					</li>
 					<li>

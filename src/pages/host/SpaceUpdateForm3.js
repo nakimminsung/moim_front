@@ -1,11 +1,11 @@
 import {ClassNames} from '@emotion/react';
 import {FormControl, MenuItem, Select, TextField} from '@material-ui/core';
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 
-function SpaceAddForm3(props) {
+function SpaceUpdateForm3(props) {
 	localStorage.url = 'http://localhost:9000';
 	const {num} = useParams();
 	const navi = useNavigate();
@@ -16,27 +16,66 @@ function SpaceAddForm3(props) {
 	const [stime, setStime] = useState(1);
 	const [etime, setEtime] = useState(24);
 	const [holiday, setHoliday] = useState(7);
-	// const [floor, setFloor] = useState('1');
-	const floorRef = React.useRef('');
+
 	const [floorhide, setFloorHide] = useState(false);
-	// const [parking, setParking] = useState('');
-	const parkingRef = React.useRef('');
 	const [parkinghide, setParkingHide] = useState(false);
-	const [elevator, setElevator] = useState([]);
-	const [payment, setPayment] = useState([]);
-	const HeadcountRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
-	const weekAmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
-	const weekPmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
-	const holiAmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
-	const holiPmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
+
+	const [floor, setFloor] = useState('1');
+	const [parking, setParking] = useState('');
+	const [headcount, setHeadCount] = useState();
+	const [weekAmPrice, setWeekAmPrice] = useState();
+	const [weekPmPrice, setWeekPmPrice] = useState();
+	const [holiAmPrice, setHoliAmPrice] = useState();
+	const [holiPmPrice, setHoliPmPrice] = useState();
+
+	const [elevator, setElevator] = useState();
+	const [payment, setPayment] = useState();
+
+	// const floorRef = React.useRef('');
+	// const parkingRef = React.useRef('');
+	// const HeadcountRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
+	// const weekAmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
+	// const weekPmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
+	// const holiAmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
+	// const holiPmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
+
+	//num에 해당하는 dto 가져오기
+	const onSelectData = () => {
+		let selectUrl = localStorage.url + '/host/select?num=' + num;
+		console.log(selectUrl);
+		axios.get(selectUrl).then((res) => {
+			setStime(res.data.stime);
+			setEtime(res.data.etime);
+			setHoliday(res.data.holiday);
+			setElevator(res.data.elevator);
+			console.log(elevator);
+			setPayment(res.data.payment);
+			// console.log(payment);
+			setFloor(res.data.floor);
+			setParking(res.data.parking);
+			setHeadCount(res.data.headcount);
+			setWeekAmPrice(res.data.weekAmPrice);
+			setWeekPmPrice(res.data.weekPmPrice);
+			setHoliAmPrice(res.data.holiAmPrice);
+			setHoliPmPrice(res.data.holiPmPrice);
+		});
+	};
+
+	//처음 시작 시 스프링으로부터 dto를 얻어야하므로 useEffect 에서 호출
+	useEffect(() => {
+		onSelectData();
+		console.log('호출');
+	}, []);
 
 	const payCheck = (e) => {
 		setPayment(e.target.value);
 		// console.log(e.target.value);
 	};
 
-	const elevatorCheck = (e) => {
+	const radioCheck = (e) => {
 		setElevator(e.target.value);
+		// console.log(elevator);
+		// setElevator(e.target.value);
 		// console.log(e.target.value);
 	};
 
@@ -50,14 +89,14 @@ function SpaceAddForm3(props) {
 		setHoliday(e.target.value);
 	};
 	const floorOnchange = (e) => {
-		floorRef.current = e.target.value;
+		setFloor(e.target.value);
 		console.log(e.target.value);
 		if (e.target.value != '직접입력') {
 			setFloorHide(false);
 		}
 	};
 	const parkingOnchange = (e) => {
-		parkingRef.current = e.target.value;
+		setParking(e.target.value);
 		console.log(e.target.value);
 		if (e.target.value != '직접입력') {
 			setParkingHide(false);
@@ -79,13 +118,13 @@ function SpaceAddForm3(props) {
 
 		let insertUpdateUrl = localStorage.url + '/host/insertupdate';
 		//헤드카운트 가져오는 방법
-		let headcount = HeadcountRef.current.value;
-		let weekAmPrice = weekAmPriceRef.current.value;
-		let weekPmPrice = weekAmPriceRef.current.value;
-		let holiAmPrice = weekAmPriceRef.current.value;
-		let holiPmPrice = weekAmPriceRef.current.value;
-		let floor = floorRef.current.value;
-		let parking = parkingRef.current.value;
+		// let headcount = HeadcountRef.current.value;
+		// let weekAmPrice = weekAmPriceRef.current.value;
+		// let weekPmPrice = weekAmPriceRef.current.value;
+		// let holiAmPrice = weekAmPriceRef.current.value;
+		// let holiPmPrice = weekAmPriceRef.current.value;
+		// let floor = floorRef.current.value;
+		// let parking = parkingRef.current.value;
 
 		axios
 			.post(insertUpdateUrl, {
@@ -107,7 +146,6 @@ function SpaceAddForm3(props) {
 				navi(`/host/slist`);
 			});
 	};
-
 	return (
 		<div className='contents'>
 			<form onSubmit={onSubmitEvent}>
@@ -174,10 +212,12 @@ function SpaceAddForm3(props) {
 								required
 								type={'number'}
 								margin='normal'
+								value={headcount}
 								InputProps={{inputProps: {min: 0, max: 10}}}
 								variant='outlined'
 								size='small'
-								inputRef={HeadcountRef}
+								onChange={(e) => setHeadCount(e.target.value)}
+								// inputRef={HeadcountRef}
 							/>
 							명
 						</div>
@@ -201,8 +241,9 @@ function SpaceAddForm3(props) {
 								>
 									<Select
 										native
-										defaultValue={0}
+										// defaultValue={0}
 										onChange={stiemeOnchange}
+										value={stime}
 										inputProps={{
 											id: 'outlined-age-native-simple',
 										}}
@@ -229,7 +270,8 @@ function SpaceAddForm3(props) {
 								>
 									<Select
 										native
-										defaultValue={24}
+										// defaultValue={24}
+										value={etime}
 										onChange={etiemeOnchange}
 										inputProps={{
 											id: 'outlined-age-native-simple',
@@ -279,7 +321,7 @@ function SpaceAddForm3(props) {
 									id='demo-simple-select-outlined'
 									value={holiday}
 									onChange={holidayOnchange}
-									defaultValue={7}
+									// defaultValue={7}
 								>
 									<MenuItem value={7} selected>
 										휴무없음
@@ -311,7 +353,8 @@ function SpaceAddForm3(props) {
 								<Select
 									labelId='demo-simple-select-outlined-label'
 									id='demo-simple-select-outlined'
-									ref={floorRef}
+									value={floor}
+									// ref={floorRef}
 									// value={floorRef.current}
 									onChange={floorOnchange}
 									defaultValue={1}
@@ -347,10 +390,8 @@ function SpaceAddForm3(props) {
 									variant='outlined'
 									size='small'
 									onChange={(e) => {
-										floorRef.current = e.target.value;
-										console.log(
-											'floor=' + floorRef.current,
-										);
+										setFloor(e.target.value);
+										console.log('floor=' + floor);
 									}}
 								/>
 							) : null}
@@ -372,7 +413,8 @@ function SpaceAddForm3(props) {
 								<Select
 									labelId='demo-simple-select-outlined-label'
 									id='demo-simple-select-outlined'
-									ref={parkingRef}
+									value={parking}
+									// ref={parkingRef}
 									onChange={parkingOnchange}
 									defaultValue={1}
 								>
@@ -425,22 +467,22 @@ function SpaceAddForm3(props) {
 						<div>
 							<label>
 								<input
-									style={{display: 'none'}}
+									// style={{display: 'none'}}
 									type={'radio'}
-									value='1'
-									checked={elevator === '1'}
-									onChange={elevatorCheck}
+									value={'1'}
+									checked={elevator == '1'}
+									onChange={radioCheck}
 								/>
 								있음
 							</label>
 							<b>///////</b>
 							<label>
 								<input
-									style={{display: 'none'}}
+									// style={{display: 'none'}}
 									type={'radio'}
-									value='0'
-									checked={elevator === '0'}
-									onChange={elevatorCheck}
+									value={'0'}
+									checked={elevator == '0'}
+									onChange={radioCheck}
 								/>
 								없음
 							</label>
@@ -471,28 +513,52 @@ function SpaceAddForm3(props) {
 										<td>
 											<input
 												type='number'
-												ref={weekAmPriceRef}
+												value={weekAmPrice}
+												// ref={weekAmPriceRef}
+												onChange={(e) =>
+													setWeekAmPrice(
+														e.target.value,
+													)
+												}
 												min='0'
 											/>
 										</td>
 										<td>
 											<input
 												type='number'
-												ref={weekPmPriceRef}
+												value={weekPmPrice}
+												// ref={weekPmPriceRef}
+												onChange={(e) =>
+													setWeekPmPrice(
+														e.target.value,
+													)
+												}
 												min='0'
 											/>
 										</td>
 										<td>
 											<input
 												type='number'
-												ref={holiAmPriceRef}
+												value={holiAmPrice}
+												// ref={holiAmPriceRef}
+												onChange={(e) =>
+													setHoliAmPrice(
+														e.target.value,
+													)
+												}
 												min='0'
 											/>
 										</td>
 										<td>
 											<input
 												type='number'
-												ref={holiPmPriceRef}
+												value={holiPmPrice}
+												// ref={holiPmPriceRef}
+												onChange={(e) =>
+													setHoliPmPrice(
+														e.target.value,
+													)
+												}
 												min='0'
 											/>
 										</td>
@@ -513,10 +579,10 @@ function SpaceAddForm3(props) {
 						<br />
 						<label>
 							<input
-								style={{display: 'none'}}
+								// style={{display: 'none'}}
 								type={'radio'}
-								value='바로결제'
-								checked={payment === '바로결제'}
+								value={'바로결제'}
+								checked={payment == '바로결제'}
 								onChange={payCheck}
 							/>
 							바로결제
@@ -524,10 +590,10 @@ function SpaceAddForm3(props) {
 						<b>////////////</b>
 						<label>
 							<input
-								style={{display: 'none'}}
+								// style={{display: 'none'}}
 								type={'radio'}
-								value='승인결제'
-								checked={payment === '승인결제'}
+								value={'승인결제'}
+								checked={payment == '승인결제'}
 								onChange={payCheck}
 							/>
 							승인결제
@@ -567,7 +633,8 @@ function SpaceAddForm3(props) {
 	);
 }
 
-export default SpaceAddForm3;
+export default SpaceUpdateForm3;
+
 const ButtonEvent = styled.div`
 	margin: 0 auto 100px;
 	width: 1380;
