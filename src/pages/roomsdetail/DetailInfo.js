@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {Link} from 'react-scroll';
+import DetailMap from './DetailMap';
 import DetailQna from './DetailQna';
 
 function DetailInfo(props) {
@@ -291,7 +292,6 @@ function DetailInfo(props) {
 						fontSize: '18px',
 						paddingBottom: '5px',
 					}}
-					id='34'
 				>
 					환불규정 안내
 				</b>
@@ -343,7 +343,10 @@ function DetailInfo(props) {
 					<b>이용 3일전 ~ 당일</b>&nbsp;&nbsp;
 					<span>환불 불가</span>
 				</span>
+
+				<DetailMap roomData={roomData} />
 			</div>
+
 			<DetailQna />
 		</div>
 	);

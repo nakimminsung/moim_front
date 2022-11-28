@@ -18,13 +18,12 @@ import Slider from 'react-slick';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-function RoomCard(props) {
-	const {roomData, roomNum} = props;
+function SmCard(props) {
+	const {randomData, randomNum} = props;
 	const [tagData, setTagData] = useState([]);
 	const [imageData, setImageData] = useState([]);
 	const [reviewCount, setReviewCount] = useState('');
 	const [likeCount, setLikeCount] = useState('');
-	const navi = useNavigate();
 
 	// room tag list select function
 	const selectTagList = (num) => {
@@ -39,8 +38,8 @@ function RoomCard(props) {
 	};
 
 	useEffect(() => {
-		selectTagList(roomNum);
-	}, [roomNum]);
+		selectTagList(randomNum);
+	}, [randomNum]);
 
 	//Slick Setting(사진 넘기기)
 	var settings = {
@@ -59,7 +58,7 @@ function RoomCard(props) {
 			<Card>
 				<CardActionArea>
 					<Box>
-						<CardAction className='cardImg'>
+						<CardAction className='randomImg'>
 							<Slider {...settings}>
 								{imageData &&
 									imageData.map((step, index) => (
@@ -78,10 +77,9 @@ function RoomCard(props) {
 												src={step.rimageUrl}
 												alt={step.label}
 												onClick={() => {
-													navi(
-														'/detail/' +
-															roomData.num,
-													);
+													window.location.href =
+														'http://localhost:3000/detail/' +
+														randomData.num;
 												}}
 											/>
 										</ImageDiv>
@@ -92,25 +90,27 @@ function RoomCard(props) {
 					<PayInfo
 						style={{
 							backgroundColor:
-								roomData.payment === '바로결제'
+								randomData.payment === '바로결제'
 									? '#ffff33'
-									: roomData.payment === '승인결제'
+									: randomData.payment === '승인결제'
 									? '#9b4de3'
 									: '',
 							color:
-								roomData.payment === '바로결제'
+								randomData.payment === '바로결제'
 									? '#9b4de3'
-									: roomData.payment === '승인결제'
+									: randomData.payment === '승인결제'
 									? '#ffff33'
 									: '',
 						}}
 					>
-						{roomData.payment}
+						{randomData.payment}
 					</PayInfo>
 					<CardContent
 						style={{height: '170px'}}
 						onClick={() => {
-							navi('/detail/' + roomData.num);
+							window.location.href =
+								'http://localhost:3000/detail/' +
+								randomData.num;
 						}}
 					>
 						<Typography
@@ -119,14 +119,14 @@ function RoomCard(props) {
 							component='div'
 							style={{fontWeight: 'bold'}}
 						>
-							{String(roomData.name).length > 11
-								? roomData.name.substr(0, 12) + '...'
-								: roomData.name}
+							{String(randomData.name).length > 11
+								? randomData.name.substr(0, 12) + '...'
+								: randomData.name}
 						</Typography>
 						<Typography variant='body2' color='text.secondary'>
 							<Address>
 								<RoomIcon />
-								{roomData.address.split(' ')[1]}
+								{randomData.address.split(' ')[1]}
 							</Address>
 							<TagDiv>
 								{tagData &&
@@ -137,7 +137,7 @@ function RoomCard(props) {
 							<RoomInfoBottom>
 								<PriceDiv>
 									<Price>
-										{roomData.weekAmPrice.toLocaleString(
+										{randomData.weekAmPrice.toLocaleString(
 											'ko-KR',
 										)}
 									</Price>
@@ -145,7 +145,7 @@ function RoomCard(props) {
 								</PriceDiv>
 								<EtcInfoDiv>
 									<HeadCount>
-										<PersonIcon /> {roomData.headcount}
+										<PersonIcon /> {randomData.headcount}
 									</HeadCount>
 									<ReviewCount>
 										<SmsIcon style={{marginRight: '5px'}} />
@@ -164,7 +164,7 @@ function RoomCard(props) {
 	);
 }
 
-export default RoomCard;
+export default SmCard;
 const ImageDiv = styled(Box)`
 	overflow: hidden;
 `;
@@ -203,7 +203,6 @@ const Tag = styled(Box)`
 const RoomInfoBottom = styled(Box)`
 	display: flex;
 	justify-content: space-between;
-	margin-top: 10px;
 	align-items: baseline;
 	margin-top: 1px;
 `;

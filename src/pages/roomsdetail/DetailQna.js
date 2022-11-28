@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 import DetailReview from './DetailReview';
 import Pagenation from './DetailPaging';
@@ -17,7 +17,6 @@ import {
 } from '@material-ui/core';
 
 function DetailQna(props) {
-	const navi = useNavigate();
 	const {num} = useParams();
 	const [qna, setQna] = useState([]);
 	const [qnaLength, setQnaLength] = useState(0);
@@ -77,7 +76,7 @@ function DetailQna(props) {
 
 	return (
 		<div>
-			<div id='5' style={{marginTop: '100px'}}>
+			<div id='5' style={{marginTop: '150px'}}>
 				<b
 					style={{
 						borderBottom: '2px solid #ffd014',

@@ -74,62 +74,17 @@ function QNA(props) {
 						textAlign: 'center',
 					}}
 				>
-					<b>현재 등록된 이용후기가 없습니다.</b>
+					<b>현재 등록된 Q&A가 없습니다.</b>
 				</h5>
 			) : (
-				memberQna &&
-				memberQna.map((item, index) => (
-					<Card style={{width: '31%'}}>
-						<CardActionArea>
-							<CardContent>
-								<Typography
-									gutterBottom
-									variant='h6'
-									component='div'
-									style={{fontWeight: 'bold'}}
-								>
-									예약번호 : {item.num}
-								</Typography>
-								<Typography
-									variant='body1'
-									component='div'
-									color='text.secondary'
-								>
-									<Space>공간명 : {item.name}</Space>
-									<Rating
-										name='half-rating-read'
-										style={{
-											color: '#704de4',
-										}}
-										value={item.rating}
-										precision={1}
-										readOnly
-									/>
-									<Space>{item.content}</Space>
-									<ImageDiv>
-										<ImageBox
-											component='img'
-											sx={{
-												height: '60px',
-												minHeight: '60px',
-												display: 'block',
-												maxWidth: '60px',
-												overflow: 'hidden',
-												width: '60px',
-											}}
-											id='image'
-											src={item.reviewImageUrl}
-											alt={item.label}
-										/>
-									</ImageDiv>
-									<Space>{item.writeday}</Space>
-								</Typography>
-							</CardContent>
-							<Button variant='contained'>수정</Button>
-							<Button variant='contained'>삭제</Button>
-						</CardActionArea>
-					</Card>
-				))
+				<table>
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>문의내용</th>
+						</tr>
+					</thead>
+				</table>
 			)}
 		</ListWrapper>
 	);

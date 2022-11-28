@@ -14,12 +14,14 @@ import styled from '@emotion/styled/macro';
 import {Box, Typography} from '@mui/material';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import CloseIcon from '@material-ui/icons/Close';
 import Slider from 'react-slick';
+import jwt_decode from 'jwt-decode';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function RoomCard(props) {
-	const {roomData, roomNum} = props;
+	const {roomData, num} = props;
 	const [tagData, setTagData] = useState([]);
 	const [imageData, setImageData] = useState([]);
 	const [reviewCount, setReviewCount] = useState('');
@@ -38,9 +40,20 @@ function RoomCard(props) {
 		});
 	};
 
+	//x 클릭시 찜목록 삭제
+	const deleteLike = () => {
+		let deleteLikeUrl = localStorage.url + '/detail/deleteLike';
+		console.log(deleteLikeUrl);
+		let userNum = jwt_decode(localStorage.getItem('token')).idx;
+		axios.post(deleteLikeUrl, {userNum, num}).then((res) => {
+			alert('삭제되었습니다');
+			window.location.reload();
+		});
+	};
+
 	useEffect(() => {
-		selectTagList(roomNum);
-	}, [roomNum]);
+		selectTagList(num);
+	}, [num]);
 
 	//Slick Setting(사진 넘기기)
 	var settings = {
@@ -107,12 +120,7 @@ function RoomCard(props) {
 					>
 						{roomData.payment}
 					</PayInfo>
-					<CardContent
-						style={{height: '170px'}}
-						onClick={() => {
-							navi('/detail/' + roomData.num);
-						}}
-					>
+					<CardContent style={{height: '170px'}}>
 						<Typography
 							gutterBottom
 							variant='h6'
@@ -122,8 +130,17 @@ function RoomCard(props) {
 							{String(roomData.name).length > 11
 								? roomData.name.substr(0, 12) + '...'
 								: roomData.name}
+							<span style={{float: 'right'}}>
+								<CloseIcon onClick={deleteLike} />
+							</span>
 						</Typography>
-						<Typography variant='body2' color='text.secondary'>
+						<Typography
+							variant='body2'
+							color='text.secondary'
+							onClick={() => {
+								navi('/detail/' + roomData.num);
+							}}
+						>
 							<Address>
 								<RoomIcon />
 								{roomData.address.split(' ')[1]}
