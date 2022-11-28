@@ -45,6 +45,7 @@ function CategoryRoom(props) {
             facility.length;
         axios.get(url).then((res) => setRoomData(res.data));
         console.log(url);
+        console.log(roomData);
     };
 
     useEffect(() => {

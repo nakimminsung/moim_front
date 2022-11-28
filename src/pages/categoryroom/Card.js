@@ -32,6 +32,10 @@ function RoomCard(props) {
         let url = localStorage.url + '/tag/list?num=' + num;
         console.log(url);
         axios.get(url).then((res) => {
+            console.log(res.data.tagData)
+            console.log(res.data.roomImageData)
+            console.log(res.data.reviewCount)
+            console.log(res.data.likeCount)
             setTagData(res.data.tagData);
             setImageData(res.data.roomImageData);
             setReviewCount(res.data.reviewCount);
@@ -41,7 +45,8 @@ function RoomCard(props) {
 
     useEffect(() => {
         selectTagList(roomNum);
-    }, []);
+        // console.log(imageData.rimageUrl)
+    }, [roomNum]);
 
     // carousel
     const theme = useTheme();
