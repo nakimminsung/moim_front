@@ -1,14 +1,19 @@
 import axios from 'axios';
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import NoticeUpdate from './NoticeUpdate';
 
 function NoticeListAdmin(props) {
-	const {noticeList, setNoticeList, searchWord} = props;
+	const {noticeList, setNoticeList, searchWord, sort} = props;
 
+	//공지사항 list 가져오기
 	const getNoticeList = () => {
 		let url =
-			localStorage.url + '/admin/noticeList?searchWord=' + searchWord;
-		console.log(url);
+			localStorage.url +
+			'/admin/noticeList?searchWord=' +
+			searchWord +
+			'&sort=' +
+			sort;
 
 		axios.get(url).then((res) => {
 			setNoticeList(res.data);
@@ -16,9 +21,36 @@ function NoticeListAdmin(props) {
 	};
 
 	useEffect(() => {
-		//멤버 리스트 가져오기
+		//공지사항 리스트 가져오기
 		getNoticeList();
-	}, [searchWord]); //searchWord 값이 바뀔때마다
+	}, [searchWord, sort]); //searchWord 값이 바뀔때마다
+
+	//공지사항 삭제를 위한 num 변수 선언
+	var num = '';
+
+	//공지사항 삭제하기 delete
+	const deleteNotice = () => {
+		//confirm alert
+		if (window.confirm('삭제하시겠습니까?')) {
+			//예
+			//url에 num값 보내기
+			let url = localStorage.url + '/admin/deleteNotice?num=' + num;
+			console.log(url);
+
+			//Back-End로 url 넘김
+			axios.delete(url).then((res) => {
+				//성공하고 리스트 다시 가져오기
+				getNoticeList();
+				// window.location.reload();
+			});
+
+			//삭제완료 alert
+			alert('삭제되었습니다.');
+		} else {
+			//아니오
+			alert('취소하셨습니다');
+		}
+	};
 
 	return (
 		<div className='noticeTable' style={{marginTop: '20px', width: '100%'}}>
@@ -62,19 +94,30 @@ function NoticeListAdmin(props) {
 								</td>
 								<td>{row.writeday}</td>
 								<td>
-									<button
-										type='button'
-										className='btn btn-outline-secondary'
+									<div
+										style={{
+											display: 'flex',
+											justifyContent: 'center',
+										}}
 									>
-										수정
-									</button>
-									&emsp;
-									<button
-										type='button'
-										className='btn btn-outline-danger'
-									>
-										삭제
-									</button>
+										<NoticeUpdate num={row.num} />
+										&emsp;
+										<button
+											type='button'
+											className='btn btn-outline-danger'
+											// onClick={(e) => {
+											// 	console.log(e.target.value);
+											// }}
+											value={row.num}
+											onClick={(e) => {
+												num = e.target.value;
+
+												deleteNotice();
+											}}
+										>
+											삭제
+										</button>
+									</div>
 								</td>
 							</tr>
 						))
