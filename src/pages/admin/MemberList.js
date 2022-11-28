@@ -129,7 +129,8 @@ function MemberList(props) {
 																	alert(
 																		'변경 완료',
 																	);
-																	window.location.reload();
+																	// window.location.reload();
+																	getMemberList();
 																});
 														} else {
 															//아니오
@@ -149,11 +150,11 @@ function MemberList(props) {
 											) : row.password.startsWith(
 													'naver',
 											  ) ? (
-												''
+												'소셜회원'
 											) : row.password.startsWith(
 													'kakao',
 											  ) ? (
-												''
+												'소셜회원'
 											) : (
 												<button
 													type='button'

@@ -37,7 +37,8 @@ function HostList(props) {
 								<th style={{width: '15%'}}>호스트명</th>
 								<th style={{width: '15%'}}>회원가입일</th>
 								<th>경고 누적</th>
-								<th>활성 상태</th>
+								<th style={{width: '8%'}}>활성 상태</th>
+								<th>정지/활성화</th>
 								<th style={{width: '10%'}}>경고 초기화</th>
 								<th style={{width: '10%'}}>비번 초기화</th>
 							</tr>
@@ -98,6 +99,41 @@ function HostList(props) {
 												onClick={(e) => {
 													if (
 														window.confirm(
+															'상태를 변경하시겠습니까?',
+														)
+													) {
+														//예
+														let url =
+															localStorage.url +
+															'/admin/hostActive?hostNum=' +
+															e.target.value;
+
+														axios
+															.get(url)
+															.then((res) => {
+																alert(
+																	'상태 변경 완료',
+																);
+																// window.location.reload();
+																getHostList();
+															});
+													} else {
+														//아니오
+														alert('취소하셨습니다');
+													}
+												}}
+											>
+												변경
+											</button>
+										</td>
+										<td>
+											<button
+												type='button'
+												className='btn btn-outline-secondary'
+												value={row.num}
+												onClick={(e) => {
+													if (
+														window.confirm(
 															'경고 누적을 초기화 하시겠습니까?',
 														)
 													) {
@@ -121,13 +157,13 @@ function HostList(props) {
 													}
 												}}
 											>
-												차단 해제
+												초기화
 											</button>
 										</td>
 										<td>
 											<button
 												type='button'
-												className='btn btn-dark'
+												className='btn btn-outline-dark'
 												value={row.num}
 												onClick={(e) => {
 													if (
