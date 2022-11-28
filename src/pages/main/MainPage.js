@@ -41,6 +41,8 @@ function Mainpage(props) {
 					{/* 임시버튼 */}
 					<li>
 						<NavLink to={'/chat/chat'}>채팅 (호스트)</NavLink>
+					</li>
+					<li>
 						<NavLink to={'/chat/chat'}>채팅 (유저)</NavLink>
 					</li>
 					<li>
