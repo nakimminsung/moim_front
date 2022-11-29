@@ -189,7 +189,7 @@ function Left({bookingList}) {
 				let bookingDetailNum = bookingList.num;
 				// callback
 				if (rsp.success) {
-					updateStatus(); // booking status update: 2 => 3
+					//	updateStatus(); // booking status update: 2 => 3
 					// booking table insert
 					let url = `http://localhost:9000/booking/insert`;
 					let pg = rsp.pg_provider;
