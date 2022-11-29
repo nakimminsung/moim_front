@@ -148,7 +148,7 @@ export default function MyMenu() {
 											</MenuItem>
 											<MenuItem
 												onClick={() => {
-													navi('/');
+													navi('/review');
 													handleClose(false);
 												}}
 											>

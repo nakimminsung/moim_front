@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 import DetailReview from './DetailReview';
 import Pagenation from './DetailPaging';
@@ -17,7 +17,6 @@ import {
 } from '@material-ui/core';
 
 function DetailQna(props) {
-	const navi = useNavigate();
 	const {num} = useParams();
 	const [qna, setQna] = useState([]);
 	const [qnaLength, setQnaLength] = useState(0);
@@ -77,8 +76,14 @@ function DetailQna(props) {
 
 	return (
 		<div>
-			<div id='5' style={{marginTop: '100px'}}>
-				<b style={{borderBottom: '2px solid #ffd014'}}>
+			<div id='5' style={{marginTop: '150px'}}>
+				<b
+					style={{
+						borderBottom: '2px solid #ffd014',
+						fontSize: '18px',
+						paddingBottom: '5px',
+					}}
+				>
 					Q&A <span style={{color: '#704de4'}}>({qna.length}개)</span>
 				</b>
 				<span className='qnabtn'>
@@ -200,7 +205,12 @@ function DetailQna(props) {
 												>
 													<img
 														alt=''
-														src='https://ssl.pstatic.net/static/pwe/address/img_profile.png'
+														src={
+															item.profile_image ==
+															null
+																? 'https://ssl.pstatic.net/static/pwe/address/img_profile.png'
+																: item.profile_image
+														}
 														className='qnaImg'
 													/>
 												</td>
