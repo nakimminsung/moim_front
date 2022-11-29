@@ -103,8 +103,9 @@ function Review(props) {
 			data: updateReviewData,
 			headers: {'Content-Type': 'multipart/form-data'},
 		}).then((res) => {
-			console.log('res.data=' + res.data);
 			alert('등록이 완료되었습니다.');
+
+			window.location.reload();
 
 			//성공하고 비워주기
 			setRating('');
@@ -153,16 +154,18 @@ function Review(props) {
 			<ReviewList>
 				<CardWrapper>
 					{memberReviewList.length == 0 ? (
-						<h5
-							style={{
-								height: '300px',
-								width: '100%',
-								lineHeight: '300px',
-								textAlign: 'center',
-							}}
-						>
-							<b>현재 등록된 이용후기가 없습니다.</b>
-						</h5>
+						<Wrapper>
+							<h5
+								style={{
+									height: '300px',
+									width: '100%',
+									lineHeight: '300px',
+									textAlign: 'center',
+								}}
+							>
+								<b>현재 등록된 이용후기가 없습니다.</b>
+							</h5>
+						</Wrapper>
 					) : (
 						memberReviewList &&
 						memberReviewList.map((item, index) => (
@@ -245,8 +248,11 @@ function Review(props) {
 													}}
 													id='image'
 													src={
-														imgUrl +
-														item.reviewImageUrl
+														item.reviewImageUrl ==
+														null
+															? 'https://github.com/MoiM-Project/data/blob/main/icon/%EC%BA%A1%EC%B2%98.JPG?raw=true'
+															: imgUrl +
+															  item.reviewImageUrl
 													}
 													alt={item.label}
 												/>
@@ -421,6 +427,9 @@ const CardWrapper = styled(Typography)`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 20px 20px;
+`;
+const Wrapper = styled(Typography)`
+	grid-column: span 3;
 `;
 
 const ImageBox = styled(Box)`
