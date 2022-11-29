@@ -4,7 +4,7 @@ import AdminMain from '../pages/admin/AdminMain';
 import BannerManagement from '../pages/admin/BannerManagement';
 import HostManagement from '../pages/admin/HostManagement';
 import MemberManagement from '../pages/admin/MemberManagement';
-import NoticeManagement from '../pages/admin/NoticeManagement';
+import NoticeManagement from '../pages/admin/notice/NoticeManagement';
 import PopUpManagement from '../pages/admin/PopUpManagement';
 import ReportManagement from '../pages/admin/ReportManagement';
 import SpaceManagement from '../pages/admin/space/SpaceManagement';

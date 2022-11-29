@@ -35,11 +35,10 @@ function Mainpage(props) {
 							예약내역리스트
 						</NavLink>
 					</li>
-
-					{/* 임시버튼 */}
 					<li>
-						<NavLink to={'/'}>임시 버튼</NavLink>
+						<NavLink to={'/host/bookinglist'}>예약리스트</NavLink>
 					</li>
+					{/* 임시버튼 */}
 					<li>
 						<NavLink to={'/'}>임시 버튼</NavLink>
 					</li>

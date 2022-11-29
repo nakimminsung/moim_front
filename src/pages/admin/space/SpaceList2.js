@@ -26,6 +26,41 @@ function SpaceList2(props) {
 		});
 	};
 
+	//공간 승인/거부를 위한 방 번호 변수 선언
+	var roomNum = '';
+
+	//공간 승인 axios 통신
+	const approveSpace = () => {
+		// BackEnd 와 통신하기위한 url 지정
+		// 특정 방에대한 정보(승인여부 : approvalStatus)만 update하면 되므로 Num 만 넘김
+		let url = localStorage.url + '/admin/approveSpace?roomNum=' + roomNum;
+
+		// front - back 통신구간 (axios)
+		axios.get(url).then((res) => {
+			// 성공했을 때 alert 처리
+			alert('승인 처리되었습니다.');
+
+			// reload
+			window.location.reload();
+		});
+	};
+
+	//공간 거부 axios 통신
+	const rejectSpace = () => {
+		// BackEnd 와 통신하기위한 url 지정
+		// 특정 방에대한 정보(승인여부 : approvalStatus)만 update하면 되므로 Num 만 넘김
+		let url = localStorage.url + '/admin/rejectSpace?roomNum=' + roomNum;
+
+		// front - back 통신구간 (axios)
+		axios.get(url).then((res) => {
+			// 성공했을 때 alert 처리
+			alert('승인 거부되었습니다.');
+
+			// reload
+			window.location.reload();
+		});
+	};
+
 	useEffect(() => {
 		//방 리스트
 		getSpaceList();
@@ -51,7 +86,7 @@ function SpaceList2(props) {
 								border: '1px solid lightgray',
 								borderRadius: '5px',
 								width: '49%',
-								cursor: 'pointer',
+								// cursor: 'pointer',
 
 								marginBottom: '15px',
 								backgroundColor: 'white',
@@ -59,28 +94,78 @@ function SpaceList2(props) {
 
 								display: 'flex',
 								padding: '10px 10px 10px',
+
+								position: 'relative',
 							}}
 							key={idx}
-							onClick={() => {
-								navi('/detail/' + data.num);
-							}}
+							// onClick={() => {
+							// 	navi('/detail/' + data.num);
+							// }}
 						>
 							{/* 방 이미지 */}
-							<div>
-								<img
-									alt=''
-									src={data.thumbnailImage}
-									style={{
-										width: '250px',
-										height: '200px',
-										borderRadius: '5px',
-										marginRight: '20px',
-									}}
-								/>
+							<div className='roomImage' style={{width: '35%'}}>
+								{data.approvalStatus == 0 ? (
+									<>
+										<div
+											style={{
+												position: 'relative',
+												width: '100%',
+											}}
+										>
+											<img
+												alt=''
+												src={data.thumbnailImage}
+												style={{
+													width: '100%',
+													height: '200px',
+													// height: '70%',
+													borderRadius: '5px',
+
+													opacity: '0.4',
+												}}
+											/>
+											<span
+												style={{
+													width: '100%',
+													fontSize: '24px',
+													fontWeight: 'bold',
+													color: 'gray',
+													position: 'absolute',
+													zIndex: '1',
+													// left: '0px',
+													top: '80px',
+													left: '25%',
+												}}
+											>
+												승인 대기
+											</span>
+										</div>
+									</>
+								) : (
+									<>
+										<div
+											style={{
+												position: 'relative',
+												width: '100%',
+											}}
+										>
+											<img
+												alt=''
+												src={data.thumbnailImage}
+												style={{
+													width: '100%',
+													height: '200px',
+													// height: '70%',
+													borderRadius: '5px',
+												}}
+											/>
+										</div>
+									</>
+								)}
 							</div>
 
 							{/* 방 정보 */}
-							<div style={{color: 'gray'}}>
+							<div style={{color: 'gray', marginLeft: '10px'}}>
 								<h5>
 									<b style={{color: 'black'}}>{data.name}</b>
 								</h5>
@@ -115,6 +200,54 @@ function SpaceList2(props) {
 									{data.headcount}인{' '}
 								</span>
 								<br />
+								<br />
+								{/* 11/23 신규 추가 영역 */}
+								{/* 상세보기 / 공간 승인 / 공개여부 */}
+								<button
+									type='button'
+									className='btn btn-secondary'
+									onClick={() => {
+										navi('/detail/' + data.num);
+									}}
+								>
+									상세 보기
+								</button>
+								{/* 승인 상태에 따른 삼항 연산자 (승인 버튼 노출) */}
+								{data.approvalStatus == 0 ? (
+									<>
+										{/* 삼항연산자 조건에서 태그 하나만 올 수 있는데 &nbsp까지 2개이므로 하나로 인식하게끔 <> </>로 가둬줘야됨 */}
+										&nbsp;
+										<button
+											type='button'
+											className='btn btn-success'
+											value={data.num}
+											onClick={(e) => {
+												roomNum = e.target.value;
+
+												approveSpace();
+											}}
+										>
+											공간 승인
+										</button>
+									</>
+								) : (
+									<>
+										{/* 삼항연산자 조건에서 태그 하나만 올 수 있는데 &nbsp까지 2개이므로 하나로 인식하게끔 <> </>로 가둬줘야됨 */}
+										&nbsp;
+										<button
+											type='button'
+											className='btn btn-danger'
+											value={data.num}
+											onClick={(e) => {
+												roomNum = e.target.value;
+
+												rejectSpace();
+											}}
+										>
+											공간 거부
+										</button>
+									</>
+								)}
 								<br />
 							</div>
 						</div>

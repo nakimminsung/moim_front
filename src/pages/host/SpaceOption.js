@@ -17,8 +17,8 @@ function SpaceOption(props) {
 	let imageUrl = localStorage.url + '/image/';
 	return (
 		<div>
-			<div className='input-group'>
-				<BtnBox>
+			<div>
+				{/* <BtnBox>
 					<BtnLabel>
 						<div>파일첨부</div>
 						<input
@@ -35,72 +35,86 @@ function SpaceOption(props) {
 							}}
 						/>
 					</BtnLabel>
-				</BtnBox>
+				</BtnBox> */}
 			</div>
-			<div style={{marginTop: '100px'}}>
-				{oimageUrl == 0 ? null : (
-					<table>
-						<thead>
-							<tr>
-								<th>사진</th>
-								<th>이름</th>
-								<th>가격</th>
-								<th>버튼</th>
-							</tr>
-						</thead>
-						<tbody>
-							<td>
-								<img
-									alt=''
-									src={imageUrl + oimageUrl}
-									style={{maxWidth: '150px'}}
-								/>
-							</td>
-							<td>
-								<TextField
-									id='roption2'
-									style={{margin: 8, width: '400px'}}
-									placeholder='옵션을 입력해주세요'
-									InputLabelProps={{
-										shrink: true,
-									}}
-									variant='outlined'
-									size='small'
-									inputRef={NameRef}
-								/>
-							</td>
-							<td>
-								<TextField
-									id='roption3'
-									type='number'
-									style={{margin: 8, width: '400px'}}
-									placeholder='가격을 입력해주세요'
-									InputLabelProps={{
-										shrink: true,
-									}}
-									variant='outlined'
-									size='small'
-									inputRef={PriceRef}
-								/>
-							</td>
-							<td>
-								{/* <BtnBox>
-									<BtnLabel>
-										<div onClick={optionButton}>추가</div>
-									</BtnLabel>
-								</BtnBox> */}
-								<Button
-									variant='contained'
-									color='primary'
-									onClick={optionButton}
-								>
-									추가
-								</Button>
-							</td>
-						</tbody>
-					</table>
-				)}
-			</div>
+			<table>
+				<thead>
+					<tr>
+						<th width={200} style={{backgroundColor: '#efefef'}}>
+							사진
+						</th>
+						<th style={{backgroundColor: '#efefef'}}>이름</th>
+						<th style={{backgroundColor: '#efefef'}}>가격</th>
+						<th style={{backgroundColor: '#efefef'}}>버튼</th>
+					</tr>
+				</thead>
+				<tbody>
+					<td>
+						<label>
+							<div>파일첨부</div>
+							<input
+								type='file'
+								id='roption1'
+								style={{
+									visibility: 'hidden',
+									display: 'none',
+								}}
+								onChange={photoUploadEvent3}
+								required
+								onClick={() => {
+									document.getElementById('roption1').click();
+								}}
+							/>
+						</label>
+						<img
+							alt=''
+							src={imageUrl + oimageUrl}
+							style={{maxWidth: '150px'}}
+						/>
+					</td>
+					<td>
+						<TextField
+							id='roption2'
+							style={{margin: 8, width: '400px'}}
+							placeholder='옵션을 입력해주세요'
+							InputLabelProps={{
+								shrink: true,
+							}}
+							variant='outlined'
+							size='small'
+							inputRef={NameRef}
+						/>
+					</td>
+					<td>
+						<TextField
+							id='roption3'
+							type='number'
+							style={{margin: 8, width: '400px'}}
+							placeholder='가격을 입력해주세요'
+							InputLabelProps={{
+								shrink: true,
+							}}
+							variant='outlined'
+							size='small'
+							inputRef={PriceRef}
+						/>
+					</td>
+					<td>
+						{/* <BtnBox>
+                                    <BtnLabel>
+                                        <div onClick={optionButton}>추가</div>
+                                    </BtnLabel>
+                                </BtnBox> */}
+						<Button
+							variant='contained'
+							color='primary'
+							onClick={optionButton}
+						>
+							추가
+						</Button>
+					</td>
+				</tbody>
+			</table>
 		</div>
 	);
 }
