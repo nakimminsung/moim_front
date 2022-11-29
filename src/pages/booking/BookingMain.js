@@ -149,7 +149,7 @@ function BookingMain() {
 				roomOption,
 			})
 			.then((res) => {
-				navigate(`../list/${userNum}`);
+				// navigate(`../list/${userNum}`);
 			});
 	};
 
@@ -478,6 +478,7 @@ function BookingMain() {
 								onSend={onSend}
 								roomOption={roomOption}
 								userNum={userNum}
+								roomNum={roomNum}
 							/>
 						</div>
 					</div>

@@ -95,15 +95,16 @@ function BdPayment({
 					let maxNumUrl = `http://localhost:9000/bookingDetail/getMaxNum`;
 
 					axios.get(maxNumUrl).then((res) => {
-						// console.log(res.data);
 						let bookingDetailNum = res.data.num + 1; // 마지막 데이터 들어가게 하려고 +1 함(지금 결제된거 들어가게 하려고)
+
 						// callback
 						if (rsp.success) {
 							// booking table insert
 							let url = `http://localhost:9000/booking/insert`;
 							let pg = rsp.pg_provider;
 							let merchantUid = rsp.merchant_uid;
-
+							let totalPrice = rsp.paid_amount;
+							console.log('roomNum' + roomNum);
 							axios
 								.post(url, {
 									totalPrice,

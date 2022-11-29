@@ -82,7 +82,7 @@ function Left({bookingList}) {
 		// booking detail table update
 		axios.patch(updateUrl, data).then((res) => {
 			alert('예약이 취소되었습니다.');
-			// window.location.reload();
+			window.location.reload();
 		});
 
 		// booking table delete
@@ -92,7 +92,7 @@ function Left({bookingList}) {
 		};
 
 		axios.post(deleteUrl, data2).then((res) => {
-			console.log('booking 삭제 완료');
+			// console.log('booking 삭제 완료');
 		});
 		//성공하고 modal 창 닫기
 		setOpen(false);
