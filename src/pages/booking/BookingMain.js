@@ -149,7 +149,7 @@ function BookingMain() {
 				roomOption,
 			})
 			.then((res) => {
-				// navigate(`../list/${userNum}`);
+				navigate(`../list/${userNum}`);
 			});
 	};
 

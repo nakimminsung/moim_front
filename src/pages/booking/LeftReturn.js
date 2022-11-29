@@ -475,8 +475,11 @@ function LeftReturn({
 								<DialogTitle
 									id='alert-dialog-title'
 									style={{
-										borderBottom: '3px solid #704de4',
-										marginBotton: '40px',
+										backgroundColor: '#704de4',
+                            			marginRight: '0px',
+                            			marginBotton: '40px',
+                            			color: 'white',
+                            			width: '480px',
 									}}
 								>
 									<h4
@@ -493,7 +496,7 @@ function LeftReturn({
 									<DialogContentText id='alert-dialog-description'>
 										<span
 											style={{
-												marginTop: '5px',
+												marginTop: '10px',
 												marginRight: '40px',
 											}}
 										>
