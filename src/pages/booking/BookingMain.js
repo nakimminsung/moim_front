@@ -184,57 +184,6 @@ function BookingMain() {
 		setOptionPrice(total);
 	};
 
-	// 결제
-	function payment(data) {
-		let impCode = process.env.REACT_APP_IMP;
-		IMP.init(`${impCode}`); //아임포트 관리자 콘솔에 서 확인한 '가맹점 식별코드' 입력
-		IMP.request_pay(
-			{
-				// param
-				//pg: 'html5_inicis', //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
-				pg: 'payco',
-				pay_method: 'card', //지불 방법
-				merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-				name: roomData.name, //결제창에 노출될 상품명
-				amount: totalPrice, //금액
-				buyer_email: jwt_decode(localStorage.getItem('token')).email,
-				buyer_name: jwt_decode(localStorage.getItem('token')).nickname,
-			},
-			function (rsp) {
-				// console.log(rsp);
-				onSend(3, roomOption); //3: 예약확정
-				let maxNumUrl = `http://localhost:9000/bookingDetail/getMaxNum`;
-
-				axios.get(maxNumUrl).then((res) => {
-					// console.log(res.data);
-					let bookingDetailNum = res.data.num + 1; // 마지막 데이터 들어가게 하려고 +1 함(지금 결제된거 들어가게 하려고)
-					// callback
-					if (rsp.success) {
-						// booking table insert
-						let url = `http://localhost:9000/booking/insert`;
-						let pg = rsp.pg_provider;
-						let merchantUid = rsp.merchant_uid;
-
-						axios
-							.post(url, {
-								totalPrice,
-								pg,
-								merchantUid,
-								userNum,
-								roomNum,
-								bookingDetailNum,
-							})
-							.then((res) => {
-								alert('결제가 완료되었습니다.');
-							});
-					} else {
-						alert('결제에 실패했습니다.');
-					}
-				});
-			},
-		);
-	}
-
 	useEffect(() => {
 		selectRoomData();
 		selectOptionData();
@@ -526,7 +475,6 @@ function BookingMain() {
 								head={head}
 								totalPrice={totalPrice}
 								roomData={roomData}
-								payment={payment}
 								onSend={onSend}
 								roomOption={roomOption}
 								userNum={userNum}

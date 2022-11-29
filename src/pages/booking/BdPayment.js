@@ -8,6 +8,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@mui/material/Checkbox';
 import './booking.css';
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
@@ -28,6 +30,7 @@ function BdPayment({
 	onSend,
 	roomOption,
 	userNum,
+	roomNum,
 }) {
 	// 모달
 	const [open, setOpen] = React.useState(false);
@@ -53,6 +56,216 @@ function BdPayment({
 			}
 		}
 	};
+	// 결제 check된 값 가져오기
+	let payMethod = '';
+	function getCheckboxValue(event) {
+		if (event.target.checked) {
+			payMethod = event.target.value;
+		} else {
+			payMethod = '';
+		}
+		document.getElementById('payMethod').innerText = payMethod;
+	}
+
+	// iamport
+	const {IMP} = window;
+
+	// 결제
+	function payment(data) {
+		let impCode = process.env.REACT_APP_IMP;
+		IMP.init(`${impCode}`); //아임포트 관리자 콘솔에 서 확인한 '가맹점 식별코드' 입력
+		if (payMethod === 'kakaopay') {
+			IMP.request_pay(
+				{
+					// param
+					//pg: 'html5_inicis', //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+					pg: 'kakaopay',
+					pay_method: 'card', //지불 방법
+					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+					name: roomData.name, //결제창에 노출될 상품명
+					amount: totalPrice, //금액
+					buyer_email: jwt_decode(localStorage.getItem('token'))
+						.email,
+					buyer_name: jwt_decode(localStorage.getItem('token'))
+						.nickname,
+				},
+				function (rsp) {
+					// console.log(rsp);
+					onSend(3, roomOption); //3: 예약확정
+					let maxNumUrl = `http://localhost:9000/bookingDetail/getMaxNum`;
+
+					axios.get(maxNumUrl).then((res) => {
+						// console.log(res.data);
+						let bookingDetailNum = res.data.num + 1; // 마지막 데이터 들어가게 하려고 +1 함(지금 결제된거 들어가게 하려고)
+						// callback
+						if (rsp.success) {
+							// booking table insert
+							let url = `http://localhost:9000/booking/insert`;
+							let pg = rsp.pg_provider;
+							let merchantUid = rsp.merchant_uid;
+
+							axios
+								.post(url, {
+									totalPrice,
+									pg,
+									merchantUid,
+									userNum,
+									roomNum,
+									bookingDetailNum,
+								})
+								.then((res) => {
+									alert('결제가 완료되었습니다.');
+								});
+						} else {
+							alert('결제에 실패했습니다.');
+						}
+					});
+				},
+			);
+		} else if (payMethod === 'tosspay') {
+			IMP.request_pay(
+				{
+					// param
+					pg: 'tosspay', //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+					pay_method: 'card', //지불 방법
+					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+					name: roomData.name, //결제창에 노출될 상품명
+					amount: totalPrice, //금액
+					buyer_email: jwt_decode(localStorage.getItem('token'))
+						.email,
+					buyer_name: jwt_decode(localStorage.getItem('token'))
+						.nickname,
+				},
+				function (rsp) {
+					// console.log(rsp);
+					onSend(3, roomOption); //3: 예약확정
+					let maxNumUrl = `http://localhost:9000/bookingDetail/getMaxNum`;
+
+					axios.get(maxNumUrl).then((res) => {
+						// console.log(res.data);
+						let bookingDetailNum = res.data.num + 1; // 마지막 데이터 들어가게 하려고 +1 함(지금 결제된거 들어가게 하려고)
+						// callback
+						if (rsp.success) {
+							// booking table insert
+							let url = `http://localhost:9000/booking/insert`;
+							let pg = rsp.pg_provider;
+							let merchantUid = rsp.merchant_uid;
+
+							axios
+								.post(url, {
+									totalPrice,
+									pg,
+									merchantUid,
+									userNum,
+									roomNum,
+									bookingDetailNum,
+								})
+								.then((res) => {
+									alert('결제가 완료되었습니다.');
+								});
+						} else {
+							alert('결제에 실패했습니다.');
+						}
+					});
+				},
+			);
+		} else if (payMethod === 'payco') {
+			IMP.request_pay(
+				{
+					// param
+					pg: 'payco', //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+					pay_method: 'card', //지불 방법
+					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+					name: roomData.name, //결제창에 노출될 상품명
+					amount: totalPrice, //금액
+					buyer_email: jwt_decode(localStorage.getItem('token'))
+						.email,
+					buyer_name: jwt_decode(localStorage.getItem('token'))
+						.nickname,
+				},
+				function (rsp) {
+					// console.log(rsp);
+					onSend(3, roomOption); //3: 예약확정
+					let maxNumUrl = `http://localhost:9000/bookingDetail/getMaxNum`;
+
+					axios.get(maxNumUrl).then((res) => {
+						// console.log(res.data);
+						let bookingDetailNum = res.data.num + 1; // 마지막 데이터 들어가게 하려고 +1 함(지금 결제된거 들어가게 하려고)
+						// callback
+						if (rsp.success) {
+							// booking table insert
+							let url = `http://localhost:9000/booking/insert`;
+							let pg = rsp.pg_provider;
+							let merchantUid = rsp.merchant_uid;
+
+							axios
+								.post(url, {
+									totalPrice,
+									pg,
+									merchantUid,
+									userNum,
+									roomNum,
+									bookingDetailNum,
+								})
+								.then((res) => {
+									alert('결제가 완료되었습니다.');
+								});
+						} else {
+							alert('결제에 실패했습니다.');
+						}
+					});
+				},
+			);
+		} else {
+			IMP.request_pay(
+				{
+					// param
+					pg: 'html5_inicis', //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+					pay_method: 'card', //지불 방법
+					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+					name: roomData.name, //결제창에 노출될 상품명
+					amount: totalPrice, //금액
+					buyer_email: jwt_decode(localStorage.getItem('token'))
+						.email,
+					buyer_name: jwt_decode(localStorage.getItem('token'))
+						.nickname,
+				},
+				function (rsp) {
+					// console.log(rsp);
+					onSend(3, roomOption); //3: 예약확정
+					let maxNumUrl = `http://localhost:9000/bookingDetail/getMaxNum`;
+
+					axios.get(maxNumUrl).then((res) => {
+						// console.log(res.data);
+						let bookingDetailNum = res.data.num + 1; // 마지막 데이터 들어가게 하려고 +1 함(지금 결제된거 들어가게 하려고)
+						// callback
+						if (rsp.success) {
+							// booking table insert
+							let url = `http://localhost:9000/booking/insert`;
+							let pg = rsp.pg_provider;
+							let merchantUid = rsp.merchant_uid;
+
+							axios
+								.post(url, {
+									totalPrice,
+									pg,
+									merchantUid,
+									userNum,
+									roomNum,
+									bookingDetailNum,
+								})
+								.then((res) => {
+									alert('결제가 완료되었습니다.');
+								});
+						} else {
+							alert('결제에 실패했습니다.');
+						}
+					});
+				},
+			);
+		}
+	}
+
 	return (
 		<>
 			<div
@@ -235,37 +448,56 @@ function BdPayment({
 								₩{Number(totalPrice).toLocaleString('ko-KR')}
 							</span>
 							<hr />
-							<div style={{textAlign: 'center'}}>
-								<input
-									checked
-									type='checkbox'
-									name='payment'
-									value='일반결제'
-									onChange={(e) => checkOnlyOne(e.target)}
-								/>{' '}
-								일반결제&nbsp;&nbsp;
-								<input
-									type='checkbox'
-									name='payment'
-									value='kakaopay'
-									onChange={(e) => checkOnlyOne(e.target)}
-								/>{' '}
-								kakaopay&nbsp;&nbsp;
-								<input
-									type='checkbox'
-									name='payment'
-									value='payco'
-									onChange={(e) => checkOnlyOne(e.target)}
-								/>{' '}
-								payco&nbsp;&nbsp;
-								<input
-									type='checkbox'
-									name='payment'
-									value='tosspay'
-									onChange={(e) => checkOnlyOne(e.target)}
-								/>{' '}
-								tosspay
-							</div>
+							{roomData.payment === '바로결제' ? (
+								<>
+									<div style={{textAlign: 'center'}}>
+										<input
+											checked
+											type='checkbox'
+											name='payment'
+											value='일반결제'
+											onChange={(e) => {
+												checkOnlyOne(e.target);
+												getCheckboxValue(e);
+											}}
+										/>{' '}
+										일반결제&nbsp;&nbsp;
+										<input
+											type='checkbox'
+											name='payment'
+											value='kakaopay'
+											onChange={(e) => {
+												checkOnlyOne(e.target);
+												getCheckboxValue(e);
+											}}
+										/>{' '}
+										kakaopay&nbsp;&nbsp;
+										<input
+											type='checkbox'
+											name='payment'
+											value='payco'
+											onChange={(e) => {
+												checkOnlyOne(e.target);
+												getCheckboxValue(e);
+											}}
+										/>{' '}
+										payco&nbsp;&nbsp;
+										<input
+											type='checkbox'
+											name='payment'
+											value='tosspay'
+											onChange={(e) => {
+												checkOnlyOne(e.target);
+												getCheckboxValue(e);
+											}}
+										/>{' '}
+										tosspay
+									</div>
+								</>
+							) : (
+								<></>
+							)}
+
 							<br />
 							{roomData.payment === '바로결제' ? (
 								<>
