@@ -5,6 +5,7 @@ import Pagenation from './DetailPaging';
 import Rating from '@material-ui/lab/Rating';
 import {FormControlLabel, Switch} from '@material-ui/core';
 import DetailHost from './DetailHost';
+import DetailSm from './DetailSm';
 
 function DetailReview(props) {
 	const {num} = useParams();
@@ -191,15 +192,6 @@ function DetailReview(props) {
 																	: 'block',
 														}}
 													>
-														<b
-															style={{
-																color: '#704de4',
-																fontSize:
-																	'17px',
-															}}
-														>
-															호스트답글
-														</b>
 														<pre className='qnaContent'>
 															{item.answerContent}
 														</pre>

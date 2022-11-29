@@ -9,6 +9,7 @@ import axios from 'axios';
 import Rating from '@mui/material/Rating';
 import InfoIcon from '@mui/icons-material/Info';
 import CloseIcon from '@mui/icons-material/Close';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 import {
 	Card,
@@ -26,9 +27,14 @@ function Review(props) {
 	const [memberReviewList, setMemberReviewList] = useState([]);
 	const [sort, setSort] = useState('order by writeday desc');
 	const [rating, setRating] = useState(''); // 별점
+	const [content, setContent] = useState('');
 	const [uploadFile, setUploadFile] = useState('');
 	const [num, setNum] = useState('');
+	const [contentLength, setContentLength] = useState(0);
 	const [review, setReview] = useState('');
+	const [oldPhoto, setoldPhoto] = useState('');
+
+	const imgUrl = 'http://localhost:9000/image/';
 
 	// theme의 space list select
 	const selectReviewList = () => {
@@ -57,30 +63,44 @@ function Review(props) {
 		setRating('');
 		setUploadFile([]);
 		setNum('');
+		setContent('');
 	};
 
 	// 내용 수정
 	const contentHandler = (e) => {
 		e.preventDefault();
-		setReview({...review, content: e.target.value});
+		setContentLength(e.target.value.length);
+		setContent(e.target.value);
 	};
-
+	//사진 수정
 	const uploadFileHandler = (e) => {
 		e.preventDefault();
 		setUploadFile(e.target.files[0]);
-		console.log('uploadFile' + e.target.files[0]);
 	};
 
-	//modal submit 이벤트 (이용완료 - 리뷰작성)
+	//수정
 	const submitHandler = (e) => {
 		e.preventDefault();
+		// BackEnd로 보낼 url
+		let updateUrl = localStorage.url + '/reviewUpdate';
+		console.log(updateUrl);
+		//formData로 한번에 보내기
+		const updateReviewData = new FormData();
+		updateReviewData.append('content', content);
+		updateReviewData.append('rating', rating);
+		updateReviewData.append('uploadFile', uploadFile);
+		updateReviewData.append('num', num);
+		updateReviewData.append('oldPhoto', oldPhoto);
 
-		let updateUrl = localStorage.url + '/review/update';
+		for (let key of updateReviewData.keys()) {
+			console.log(key, ':', updateReviewData.get(key));
+		}
 
+		//url로 body 데이터를 보낸다
 		axios({
 			method: 'post',
 			url: updateUrl, //BackEnd로 보낼 url
-			data: review,
+			data: updateReviewData,
 			headers: {'Content-Type': 'multipart/form-data'},
 		}).then((res) => {
 			console.log('res.data=' + res.data);
@@ -89,9 +109,8 @@ function Review(props) {
 			//성공하고 비워주기
 			setRating('');
 			setUploadFile([]);
-
-			//성공하고 화면 리로드
-			window.location.reload();
+			setContent('');
+			setoldPhoto('');
 		});
 
 		//성공하고 modal 창 닫기
@@ -125,19 +144,8 @@ function Review(props) {
 						<MenuItem value={'order by writeday desc'}>
 							최신순
 						</MenuItem>
-						<MenuItem
-							value={
-								'and answerContent is not null order by writeday asc'
-							}
-						>
-							답글있음
-						</MenuItem>
-						<MenuItem
-							value={
-								'and answerContent is null order by writeday asc'
-							}
-						>
-							답글없음
+						<MenuItem value={'order by writeday asc'}>
+							과거순
 						</MenuItem>
 					</Select>
 				</FormControl>
@@ -160,7 +168,7 @@ function Review(props) {
 						memberReviewList.map((item, index) => (
 							<Card style={{width: '100%'}}>
 								<CardActionArea>
-									<CardContent>
+									<CardContent style={{cursor: 'auto'}}>
 										<Typography
 											gutterBottom
 											component='div'
@@ -170,13 +178,22 @@ function Review(props) {
 													'1px solid #7b68ee',
 												paddingBottom: '10px',
 											}}
-											onClick={() => {
-												window.location.href =
-													'http://localhost:3000/detail/' +
-													item.roomNum;
-											}}
 										>
-											예약번호 :{item.num}
+											예약번호 :
+											<span
+												style={{
+													textDecoration: 'underline',
+													color: '#7b68ee',
+													cursor: 'pointer',
+												}}
+												onClick={() => {
+													window.location.href =
+														'http://localhost:3000/detail/' +
+														item.roomNum;
+												}}
+											>
+												{item.num}
+											</span>
 										</Typography>
 										<Typography
 											variant='body1'
@@ -184,7 +201,24 @@ function Review(props) {
 											color='text.secondary'
 											style={{marginTop: '25px'}}
 										>
-											<Space>공간명 : {item.name}</Space>
+											<Space>
+												공간명 :{' '}
+												<span
+													style={{
+														textDecoration:
+															'underline',
+														color: '#7b68ee',
+														cursor: 'pointer',
+													}}
+													onClick={() => {
+														window.location.href =
+															'http://localhost:3000/detail/' +
+															item.roomNum;
+													}}
+												>
+													{item.name}
+												</span>
+											</Space>
 											<Rating
 												name='half-rating-read'
 												style={{
@@ -204,15 +238,16 @@ function Review(props) {
 												<ImageBox
 													component='img'
 													sx={{
-														height: '130px',
-														minHeight: '130px',
+														height: '150px',
 														display: 'block',
-														maxWidth: '130px',
 														overflow: 'hidden',
-														width: '130px',
+														width: '40%',
 													}}
 													id='image'
-													src={item.reviewImageUrl}
+													src={
+														imgUrl +
+														item.reviewImageUrl
+													}
 													alt={item.label}
 												/>
 											</ImageDiv>
@@ -227,8 +262,9 @@ function Review(props) {
 											style={{
 												background: '#704de4',
 												color: 'white',
-												width: '80%',
+												width: '95%',
 												marginBottom: '20px',
+												height: '40px',
 											}}
 											onClick={() => {
 												setOpen(true);
@@ -244,6 +280,17 @@ function Review(props) {
 														setReview(res.data);
 														setRating(
 															res.data.rating,
+														);
+														setContent(
+															res.data.content,
+														);
+														setoldPhoto(
+															res.data
+																.reviewImageUrl,
+														);
+														setContentLength(
+															res.data.content
+																.length,
 														);
 													});
 											}}
@@ -292,16 +339,21 @@ function Review(props) {
 						/>
 					</DialogContentText>
 
-					<br />
+					<div>
+						<span style={{float: 'right'}}>
+							{contentLength}/200자
+						</span>
+					</div>
 					<textarea
 						className='form-control'
 						placeholder='이용후기를 작성해주세요.'
-						style={{height: '300px'}}
+						style={{height: '150px'}}
 						onChange={contentHandler}
-						value={review.content}
+						value={content}
+						maxLength={200}
 					/>
-					<DialogContentText style={{color: 'red'}}>
-						<InfoIcon style={{color: 'red'}} />
+					<DialogContentText style={{color: 'red', fontSize: '12px'}}>
+						<ErrorOutlineIcon />
 						이용완료일 기준 30일 이내까지 작성 및 수정하실 수
 						있습니다.
 					</DialogContentText>
@@ -311,29 +363,37 @@ function Review(props) {
 						className='form-control'
 						onChange={uploadFileHandler}
 					/>
-					<DialogContentText style={{color: 'red'}}>
-						<InfoIcon style={{color: 'red'}} />
+					<DialogContentText style={{color: 'red', fontSize: '12px'}}>
+						<ErrorOutlineIcon />
 						운영정책과 맞지 않는 이미지 업로드시 무통보 삭제 될 수
 						있습니다.
 					</DialogContentText>
+					<DialogActions
+						style={{
+							marginTop: '20px',
+							width: '100%',
+							textAlign: 'center',
+						}}
+					>
+						<button
+							type='button'
+							className='btn btn-secondary'
+							onClick={deleteReview}
+							style={{width: '50%', height: '40px'}}
+						>
+							삭제
+						</button>
+						&nbsp;&nbsp;
+						<button
+							type='submit'
+							className='btn btn-dark'
+							onClick={submitHandler}
+							style={{width: '50%', height: '40px'}}
+						>
+							수정
+						</button>
+					</DialogActions>
 				</DialogContent>
-				<DialogActions style={{marginRight: '15px'}}>
-					<button
-						type='button'
-						className='btn btn-outline-secondary'
-						onClick={deleteReview}
-					>
-						삭제
-					</button>
-					&nbsp;&nbsp;
-					<button
-						type='submit'
-						className='btn btn-dark'
-						onClick={submitHandler}
-					>
-						등록
-					</button>
-				</DialogActions>
 			</Dialog>
 		</ListWrapper>
 	);
@@ -382,9 +442,12 @@ const ImageDiv = styled(Box)`
 	overflow: hidden;
 	text-align: center;
 `;
-const Space = styled(Typography)``;
+const Space = styled(Typography)`
+	font-weight: bold;
+`;
 const SpaceContent = styled(Typography)``;
 const SpaceWriteday = styled(Typography)`
 	color: #b2b2b2;
 	font-size: 13px;
+	margin-top: 10px;
 `;
