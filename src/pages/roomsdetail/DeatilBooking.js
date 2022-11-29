@@ -38,7 +38,7 @@ function DeatilBooking(props) {
 	const onTime = (stime, etime) => {
 		let times = [];
 
-		for (let i = Number(stime); i <= Number(etime); i++) {
+		for (let i = Number(stime); i < Number(etime); i++) {
 			times.push(i);
 		}
 		setBusinessHour(times);
@@ -68,7 +68,7 @@ function DeatilBooking(props) {
 	};
 	//시간 선택
 	const selectTime = (e) => {
-		for (let s = roomData.stime; s <= roomData.etime; s++) {
+		for (let s = roomData.stime; s < roomData.etime; s++) {
 			document
 				.getElementById('smallTime' + s)
 				.classList.remove('smallTimecolor');
@@ -185,7 +185,7 @@ function DeatilBooking(props) {
 	//예약된 시간 막기
 	useEffect(() => {
 		console.log(bookingTimes);
-		for (let i = roomData.stime; i <= roomData.etime; i++) {
+		for (let i = roomData.stime; i < roomData.etime; i++) {
 			console.log(bookingTimes.includes(i));
 			if (bookingTimes.includes(String(i))) {
 				document.getElementById('smallTime' + i).className +=
