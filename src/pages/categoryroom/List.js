@@ -1,4 +1,6 @@
-import { FormControl, MenuItem, Select } from '@mui/material';
+import { FormControl } from '@mui/material';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { Box } from '@mui/system';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -29,12 +31,13 @@ function List(props) {
                             id='demo-select-small'
                             value={sort}
                             onChange={handleChange}
+                            defaultValue={'a.readCount desc'}
                         >
-                            <MenuItem value={'readCount desc'}>인기순</MenuItem>
-                            <MenuItem value={'weekAmPrice asc'}>
+                            <MenuItem value={'a.readCount desc'}>인기순</MenuItem>
+                            <MenuItem value={'a.weekAmPrice asc'}>
                                 낮은 가격순
                             </MenuItem>
-                            <MenuItem value={'weekAmPrice desc'}>
+                            <MenuItem value={'a.weekAmPrice desc'}>
                                 높은 가격순
                             </MenuItem>
                         </Select>

@@ -12,132 +12,132 @@ import { data } from '../../thememap/data/Space';
 
 // button theme
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    paper: {
-        marginRight: theme.spacing(2),
-    },
+	root: {
+		display: 'flex',
+	},
+	paper: {
+		marginRight: theme.spacing(2),
+	},
 }));
 
 export default function SpaceFilter(props) {
-    const [open, setopen] = useState(false);
-    const classes = useStyles();
-    const anchorRef = useRef(null);
-    const prevOpen = useRef(open);
-    const [address, setAddress] = useState('');
+	const [open, setopen] = useState(false);
+	const classes = useStyles();
+	const anchorRef = useRef(null);
+	const prevOpen = useRef(open);
+	const [address, setAddress] = useState('');
 
-    // open
-    const handleToggle = () => {
-        setopen((prevOpen) => !prevOpen);
-    };
-    // close
-    const handleClose = (event) => {
-        if (anchorRef.current && anchorRef.current.contains(event.target)) {
-            return;
-        }
-        setopen(false);
-    };
-    // return focus to the button when we transitioned from !open -> open
-    useEffect(() => {
-        if (prevOpen.current === true && open === false) {
-            anchorRef.current.focus();
-        }
-        prevOpen.current = open;
-    }, [open, address]);
+	// open
+	const handleToggle = () => {
+		setopen((prevOpen) => !prevOpen);
+	};
+	// close
+	const handleClose = (event) => {
+		if (anchorRef.current && anchorRef.current.contains(event.target)) {
+			return;
+		}
+		setopen(false);
+	};
+	// return focus to the button when we transitioned from !open -> open
+	useEffect(() => {
+		if (prevOpen.current === true && open === false) {
+			anchorRef.current.focus();
+		}
+		prevOpen.current = open;
+	}, [open, address]);
 
-    const handleChange = (value) => {
-        setAddress(value);
-    };
+	const handleChange = (value) => {
+		setAddress(value);
+	};
 
-    const filterRun = () => {
-        props.setAddress(address);
-        console.log(address);
-    };
+	const filterRun = () => {
+		props.setAddress(address);
+		console.log(address);
+	};
 
-    return (
-        <div className={classes.root}>
-            <SpaceButton
-                ref={anchorRef}
-                aria-controls={open ? 'menu-list-grow' : undefined}
-                aria-haspopup='true'
-                onClick={handleToggle}
-            >
-                <span>전체지역</span>
-                <ArrowDropDownIcon />
-            </SpaceButton>
-            <Popper
-                open={open}
-                anchorEl={anchorRef.current}
-                role={undefined}
-                transition
-                disablePortal
-            >
-                {({ TransitionProps, placement }) => (
-                    <Grow
-                        {...TransitionProps}
-                        style={{
-                            transformOrigin:
-                                placement === 'bottom'
-                                    ? 'center top'
-                                    : 'center bottom',
-                            position: 'relative',
-                            left: '80px',
-                        }}
-                    >
-                        <Paper>
-                            <ClickAwayListener onClickAway={handleClose}>
-                                <SpaceMenuList
-                                    autoFocusItem={open}
-                                    id='menu-list-grow'
-                                >
-                                    <Wrapper>
-                                        <Left>
-                                            {data.map((item, i) => (
-                                                <div
-                                                    onMouseOver={(e) => {
-                                                        handleChange(
-                                                            e.target.innerText,
-                                                        );
-                                                    }}
-                                                >
-                                                    {item.address}
-                                                </div>
-                                            ))}
-                                        </Left>
-                                        <Right>
-                                            {data.map((item, i) =>
-                                                item.address === address ? (
-                                                    <div>
-                                                        {item.detail.map(
-                                                            (item, i) => (
-                                                                <AddressDetail
-                                                                    onClick={() => {
-                                                                        handleClose(
-                                                                            false,
-                                                                        );
-                                                                        filterRun();
-                                                                    }}
-                                                                >
-                                                                    {item}
-                                                                </AddressDetail>
-                                                            ),
-                                                        )}
-                                                    </div>
-                                                ) : (
-                                                    ''
-                                                ),
-                                            )}
-                                        </Right>
-                                    </Wrapper>
-                                </SpaceMenuList>
-                            </ClickAwayListener>
-                        </Paper>
-                    </Grow>
-                )}
-            </Popper>
-        </div>
-    );
+	return (
+		<div className={classes.root}>
+			<SpaceButton
+				ref={anchorRef}
+				aria-controls={open ? 'menu-list-grow' : undefined}
+				aria-haspopup='true'
+				onClick={handleToggle}
+			>
+				<span>전체지역</span>
+				<ArrowDropDownIcon />
+			</SpaceButton>
+			<Popper
+				open={open}
+				anchorEl={anchorRef.current}
+				role={undefined}
+				transition
+				disablePortal
+			>
+				{({ TransitionProps, placement }) => (
+					<Grow
+						{...TransitionProps}
+						style={{
+							transformOrigin:
+								placement === 'bottom'
+									? 'center top'
+									: 'center bottom',
+							position: 'relative',
+							left: '80px',
+						}}
+					>
+						<Paper>
+							<ClickAwayListener onClickAway={handleClose}>
+								<SpaceMenuList
+									autoFocusItem={open}
+									id='menu-list-grow'
+								>
+									<Wrapper>
+										<Left>
+											{data.map((item, i) => (
+												<div
+													onMouseOver={(e) => {
+														handleChange(
+															e.target.innerText,
+														);
+													}}
+												>
+													{item.address}
+												</div>
+											))}
+										</Left>
+										<Right>
+											{data.map((item, i) =>
+												item.address === address ? (
+													<div>
+														{item.detail.map(
+															(item, i) => (
+																<AddressDetail
+																	onClick={() => {
+																		handleClose(
+																			false,
+																		);
+																		filterRun();
+																	}}
+																>
+																	{item}
+																</AddressDetail>
+															),
+														)}
+													</div>
+												) : (
+													''
+												),
+											)}
+										</Right>
+									</Wrapper>
+								</SpaceMenuList>
+							</ClickAwayListener>
+						</Paper>
+					</Grow>
+				)}
+			</Popper>
+		</div>
+	);
 }
 
 const SpaceButton = styled.button`

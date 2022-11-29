@@ -81,7 +81,7 @@ function MyContent(props) {
                             <tr>
                                 <td style={{ textAlign: 'left' }}>이메일</td>
                                 <td style={{ textAlign: 'left' }}>{token.email}</td>
-                                <td style={{ textAlign: 'left', color: '#FAE267' }}>인증완료</td>
+                                <td style={{ textAlign: 'left', color: 'red' }}>인증완료</td>
                             </tr>
                             <tr>
                                 <td style={{ textAlign: 'left' }}>연락처</td>
@@ -94,7 +94,9 @@ function MyContent(props) {
                             </tr>
                             <tr>
                                 <td style={{ textAlign: 'left' }}>SNS연동</td>
-                                <td style={{ textAlign: 'left' }}>카카오연동</td>
+                                <td style={{ textAlign: 'left' }}>
+                                    {props.memberList.password !== 'kakao' ? <b style={{ color: 'red' }}>연동 정보 없음</b> : <b style={{ color: '#E1CD19' }}>카카오연동</b>}
+                                </td>
                             </tr>
                         </tbody>
                     </table>

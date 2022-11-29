@@ -7,9 +7,9 @@ import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios';
 import TuneIcon from '@mui/icons-material/Tune';
 import Menu from '@mui/material/Menu';
-import { marks } from '../thememap/data/PriceMark';
+import { marks } from '../../thememap/data/PriceMark';
 
-function Filter(props) {
+function FaciFilter(props) {
     const { setPayment, setSprice, setEprice, setFacility } = props;
     const [data, setData] = useState([]);
     const [value, setValue] = useState([0, 100000000]);
@@ -233,7 +233,7 @@ function Filter(props) {
     );
 }
 
-export default Filter;
+export default FaciFilter;
 
 const Wrapper = styled(Box)`
 	display: flex;
