@@ -72,7 +72,6 @@ function BdPayment({
 
 	// 결제
 	function payment(data) {
-		console.log('aaaa');
 		let impCode = process.env.REACT_APP_IMP;
 		IMP.init(`${impCode}`); //아임포트 관리자 콘솔에 서 확인한 '가맹점 식별코드' 입력
 		if (payMethod === 'kakaopay') {

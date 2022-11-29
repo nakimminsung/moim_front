@@ -12,6 +12,7 @@ function Left({bookingList}) {
 	let userNum = bookingList.userNum;
 	let roomNum = bookingList.roomNum;
 	let num = bookingList.num;
+	let bookingDetailNum = bookingList.num;
 	console.log('ss' + num);
 
 	const contentHandler = (e) => {
@@ -73,30 +74,28 @@ function Left({bookingList}) {
 		e.preventDefault();
 
 		let updateUrl = localStorage.url + `/bookingDetail/update`;
-		console.log(updateUrl);
-		console.log('num' + num);
 		let data = {
 			num,
 			cancelReason,
 		};
-		console.log(data);
+
+		// booking detail table update
 		axios.patch(updateUrl, data).then((res) => {
 			alert('예약이 취소되었습니다.');
-			window.location.reload();
+			// window.location.reload();
 		});
 
-		//성공하고 modal 창 닫기
-		setOpen(false);
-	};
-
-	// 승인 결제 후 booking status update
-	const updateStatus = (e) => {
-		let updateUrl = localStorage.url + `/bookingDetail/updateStatus`;
-		let data = {
-			num,
+		// booking table delete
+		let deleteUrl = localStorage.url + `/booking/delete`;
+		let data2 = {
+			bookingDetailNum,
 		};
 
-		axios.patch(updateUrl, data).then((res) => {});
+		axios.post(deleteUrl, data2).then((res) => {
+			console.log('booking 삭제 완료');
+		});
+		//성공하고 modal 창 닫기
+		setOpen(false);
 	};
 
 	// 옵션
@@ -154,63 +153,6 @@ function Left({bookingList}) {
 	let requestDate = toStringByFormatting(new Date(bookingList.createdAt));
 	let requestDay = days[new Date(bookingList.createdAt).getDay()];
 
-	// 승인 결제
-	// iamport
-	const {IMP} = window;
-	function payment(data) {
-		//	console.log('asaa');
-		let impCode = process.env.REACT_APP_IMP;
-		IMP.init(`${impCode}`); //아임포트 관리자 콘솔에 서 확인한 '가맹점 식별코드' 입력
-		IMP.request_pay(
-			{
-				// param
-				//pg: 'html5_inicis', //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
-				pg: 'payco',
-				pay_method: 'card', //지불 방법
-				merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-				name: bookingList.roomName, //결제창에 노출될 상품명
-				amount: bookingList.totalPrice, //금액
-				buyer_email: jwt_decode(localStorage.getItem('token')).email,
-				buyer_name: jwt_decode(localStorage.getItem('token')).nickname,
-			},
-			function (rsp) {
-				// console.log('rsp');
-				console.log(rsp);
-				// console.log(res.data);
-				let bookingDetailNum = bookingList.num;
-				// callback
-				if (rsp.success) {
-<<<<<<< HEAD
-=======
-					console.log('sssaaa');
->>>>>>> feature/payment2
-					//	updateStatus(); // booking status update: 2 => 3
-					// booking table insert
-					let url = `http://localhost:9000/booking/insert`;
-					let pg = rsp.pg_provider;
-					let merchantUid = rsp.merchant_uid;
-					let totalPrice = rsp.paid_amount;
-
-					axios
-						.post(url, {
-							totalPrice,
-							pg,
-							merchantUid,
-							userNum,
-							roomNum,
-							bookingDetailNum,
-						})
-						.then((res) => {
-							alert('결제가 완료되었습니다.');
-							window.location.reload();
-						});
-				} else {
-					alert('결제에 실패했습니다.');
-				}
-			},
-		);
-	}
-
 	return (
 		<>
 			<LeftReturn
@@ -229,7 +171,6 @@ function Left({bookingList}) {
 				uploadFileHandler={uploadFileHandler}
 				submitHandler={submitHandler}
 				requestDate={requestDate}
-				payment={payment}
 				cancelReason={cancelReason}
 				contentHandler2={contentHandler2}
 				submitHandler2={submitHandler2}
