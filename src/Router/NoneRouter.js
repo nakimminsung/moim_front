@@ -4,6 +4,7 @@ import {Route, Routes} from 'react-router-dom';
 import CategoryMap from '../pages/categoryMap/CategoryMap';
 import Map from '../pages/thememap/Map';
 import ChatRoom from '../components/ChatRoom';
+import Chat from '../components/Chat';
 
 function NoneRouter() {
 	return (
@@ -15,7 +16,7 @@ function NoneRouter() {
 					path='/category/:categoryNum'
 					element={<CategoryMap />}
 				/>
-				<Route path='chat' element={<ChatRoom />} />
+				<Route path='chat' element={<Chat />} />
 			</Routes>
 		</>
 	);
