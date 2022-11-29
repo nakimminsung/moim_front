@@ -83,6 +83,7 @@ function DatailFunction(props) {
 						float: 'right',
 					}}
 				>
+					{/* 챗봇기능 */}
 					<span>
 						<SmsOutlined
 							style={{marginBottom: '5px', marginRight: '-2px'}}
@@ -104,6 +105,7 @@ function DatailFunction(props) {
 						)}
 					</span>
 					&nbsp;
+					{/* 신고기능 */}
 					<span
 						class='material-symbols-outlined'
 						style={{fontSize: 'xx-large'}}
