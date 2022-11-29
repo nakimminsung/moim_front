@@ -158,6 +158,7 @@ function Left({bookingList}) {
 	// iamport
 	const {IMP} = window;
 	function payment(data) {
+		//	console.log('asaa');
 		let impCode = process.env.REACT_APP_IMP;
 		IMP.init(`${impCode}`); //아임포트 관리자 콘솔에 서 확인한 '가맹점 식별코드' 입력
 		IMP.request_pay(
@@ -173,11 +174,14 @@ function Left({bookingList}) {
 				buyer_name: jwt_decode(localStorage.getItem('token')).nickname,
 			},
 			function (rsp) {
+				// console.log('rsp');
+				console.log(rsp);
 				// console.log(res.data);
 				let bookingDetailNum = bookingList.num;
 				// callback
 				if (rsp.success) {
-					updateStatus(); // booking status update: 2 => 3
+					console.log('sssaaa');
+					//	updateStatus(); // booking status update: 2 => 3
 					// booking table insert
 					let url = `http://localhost:9000/booking/insert`;
 					let pg = rsp.pg_provider;
