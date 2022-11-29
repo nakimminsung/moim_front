@@ -1,45 +1,44 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 
-//dialogue 관련
-import TextField from '@mui/material/TextField';
+//modal dialogue 관련
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {FormControl} from '@material-ui/core';
-
 import {makeStyles} from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-
-import Select from '@material-ui/core/Select';
-import axios from 'axios';
 
 //modal Radio
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import FormLabel from '@material-ui/core/FormLabel';
-
 function ReportDetail(props) {
-	//modal dialogue : OPEN / CLOSE
-	const [open, setOpen] = React.useState(false);
+	//DetailFunction 상위에서 roomNum 가져오기
+	const {roomNum} = props;
 
+	//변수 선언
+	const [reportType, setReportType] = useState('');
+	const [reportContent, setReportContent] = useState('');
+
+	//글자수 실시간 카운트
+	const [textCount, setTextCount] = useState(0);
+
+	//modal dialogue : OPEN
+	const [open, setOpen] = React.useState(false);
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
 
+	//modal dialogue : CLOSE
 	const handleClose = () => {
 		setOpen(false);
 
 		//값 비워주기
-		setNoticeType('');
-		setNoticeTitle('');
-		setNoticeContent('');
-		setUploadFile([]);
-
-		console.log(uploadFile);
+		setReportType('');
+		setReportContent('');
 	};
 
 	//modal 내부의 select style 관련
@@ -55,76 +54,29 @@ function ReportDetail(props) {
 
 	const classes = useStyles();
 
-	const [noticeType, setNoticeType] = useState('');
-	const [noticeTitle, setNoticeTitle] = useState('');
-	const [noticeContent, setNoticeContent] = useState('');
-	const [uploadFile, setUploadFile] = useState('');
-
-	//modal 내부의 radio 이벤트
-	const [value, setValue] = React.useState('female');
-	const handleChange = (event) => {
-		setValue(event.target.value);
-	};
-
-	//modal 내부의 select 변경 이벤트
-	const noticeTypeHandler = (e) => {
-		e.preventDefault();
-		setNoticeType(e.target.value);
-		// console.log('noticeType' + e.target.value);
-	};
-
-	const noticeTitleHandler = (e) => {
-		e.preventDefault();
-		setNoticeTitle(e.target.value);
-		// console.log('noticeTitle' + e.target.value);
-	};
-
-	const noticeContentHandler = (e) => {
-		e.preventDefault();
-		setNoticeContent(e.target.value);
-		// console.log('noticeContent' + e.target.value);
-	};
-
-	const uploadFileHandler = (e) => {
-		e.preventDefault();
-		setUploadFile(e.target.files[0]);
-		// console.log('uploadFile' + e.target.files[0]);
-	};
-
 	//modal submit 이벤트
 	const submitHandler = (e) => {
 		e.preventDefault();
 
 		//값이 비어있는지 체크
-		if (noticeType == null || noticeType == '') {
+		if (reportType == null || reportType == '') {
 			alert('유형을 선택해주시기 바랍니다');
 			return;
-		} else if (noticeTitle == null || noticeTitle == '') {
-			alert('제목을 입력해주시기 바랍니다');
-			return;
-		} else if (noticeContent == null || noticeContent == '') {
+		} else if (reportContent == null || reportContent == '') {
 			alert('내용을 입력해주시기 바랍니다');
 			return;
 		} else {
 			// BackEnd로 보낼 url
-			let url = localStorage.url + '/admin/noticeInsert';
-
-			// state에 저장한 값을 가져옵니다.
-			// let body = {
-			// 	noticeType: noticeType,
-			// 	noticeTitle: noticeTitle,
-			// 	noticeContent: noticeContent,
-			// 	uploadFile: uploadFile,
-			// };
+			let url = localStorage.url + '/admin/reportUpdate';
 
 			const formData = new FormData();
-			formData.append('noticeType', noticeType);
-			formData.append('noticeTitle', noticeTitle);
-			formData.append('noticeContent', noticeContent);
-			formData.append('uploadFile', uploadFile);
+			formData.append('reportType', reportType);
+			formData.append('reportContent', reportContent);
+			formData.append('roomNum', roomNum);
 
-			// axios.post(url, body).then((res) => console.log(res));
-			//url로 body 데이터를 보낸다
+			// console.log(reportType);
+			// console.log(reportContent);
+			// console.log(roomNum);
 
 			axios({
 				method: 'post',
@@ -132,17 +84,11 @@ function ReportDetail(props) {
 				data: formData,
 				headers: {'Content-Type': 'multipart/form-data'},
 			}).then((res) => {
-				console.log('res.data=' + res.data);
-				alert('등록이 완료되었습니다.');
+				alert('신고가 접수되었습니다.');
 
 				//성공하고 비워주기
-				setNoticeType('');
-				setNoticeTitle('');
-				setNoticeContent('');
-				setUploadFile([]);
-
-				//성공하고 화면 리로드
-				window.location.reload();
+				setReportType('');
+				setReportContent('');
 			});
 
 			//성공하고 modal 창 닫기
@@ -160,6 +106,7 @@ function ReportDetail(props) {
 				상세 보기
 			</button>
 
+			{/* Dialogue Modal 화면 : 신고 작성 INSERT 폼 */}
 			{/* Dialogue Modal 화면 : 공지사항 작성 INSERT 폼 */}
 			<div>
 				<form onSubmit={submitHandler}>
@@ -172,21 +119,17 @@ function ReportDetail(props) {
 								marginBottom: '10px',
 							}}
 						>
-							신고 상세내용
+							신고 상세
 						</DialogTitle>
+
 						<DialogContent>
-							<DialogContentText
-								style={{width: '600px', color: 'black'}}
-							>
-								<b>
-									* 담당자는 아래 내용을 확인하신 후{' '}
-									<span style={{color: 'red'}}>
-										'처리 여부'
-									</span>
-									를 결정해주시기 바랍니다.
-								</b>
+							<DialogContentText style={{width: '600px'}}>
+								담당자는 내용을 확인하신 후 검토가 필요하다면{' '}
+								<b>'처리중'</b> 상태로, <br />
+								처리가 완료되면 <b>'처리 완료'</b> 상태로
+								변경해주시기 바랍니다.
 							</DialogContentText>
-							<br />
+							{/* <br /> */}
 							<FormControl
 								className={classes.formControl}
 								style={{marginLeft: '-0px'}}
@@ -194,70 +137,48 @@ function ReportDetail(props) {
 								<FormControl component='fieldset'>
 									<br />
 									<span style={{color: 'gray'}}>
-										문의 내용
+										문의 유형
 									</span>
 									<RadioGroup
-										aria-label='gender'
-										name='gender1'
-										value={value}
-										onChange={handleChange}
+										aria-label='reportType'
+										name='reportType1'
+										value={'불쾌한 태도'}
+										// onChange={reportTypeHandler}
 									>
 										<FormControlLabel
-											value='호스트의 예약관리 부주의로 공간 이용 불가능'
+											value='예약관리 부주의'
 											control={<Radio />}
 											label='호스트의 예약관리 부주의로 공간 이용 불가능'
 										/>
 										<FormControlLabel
-											value='호스트의 불쾌한 태도 (예: 욕설, 위협, 차별 등)'
+											value='불쾌한 태도'
 											control={<Radio />}
 											label='호스트의 불쾌한 태도 (예: 욕설, 위협, 차별 등)'
 										/>
 										<FormControlLabel
-											value='호스트의 외부결제 유도 (예: 송금, 계좌이체, 타 서비스 결제 등)'
+											value='외부결제 유도'
 											control={<Radio />}
 											label='호스트의 외부결제 유도 (예: 송금, 계좌이체, 타 서비스 결제 등)'
 										/>
 										<FormControlLabel
-											value='공간 정보 및 이미지에 문제가 있음 (예: 실제와 다름, 개인정보 유출 등)'
+											value='정보 불일치'
 											control={<Radio />}
 											label='공간 정보 및 이미지에 문제가 있음 (예: 실제와 다름, 개인정보 유출 등)'
 										/>
 									</RadioGroup>
 								</FormControl>
 								<br />
-								<span style={{color: 'gray'}}>처리 상태</span>
-								<Select
-									native
-									onChange={noticeTypeHandler}
-									value={noticeType}
-								>
-									<option value={'접수 대기'}>
-										접수 대기
-									</option>
-									<option value={'처리 완료'}>
-										처리 완료
-									</option>
-								</Select>
 							</FormControl>
 
-							<TextField
-								// autoFocus
-								margin='dense'
-								id='title'
-								label='제목을 입력해주세요'
-								type='text'
-								fullWidth
-								variant='standard'
-								onChange={noticeTitleHandler}
-								value={noticeTitle}
-							/>
 							<br />
 
-							<br />
-							<input
-								type={'file'}
+							<span style={{color: 'gray'}}>문의 내용</span>
+
+							<textarea
+								maxLength={200}
 								className='form-control'
-								onChange={uploadFileHandler}
+								style={{height: '180px'}}
+								value={reportContent}
 							/>
 						</DialogContent>
 						<DialogActions style={{marginRight: '15px'}}>

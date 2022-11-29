@@ -18,12 +18,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 //jwt user token
 import jwt_decode from 'jwt-decode';
 
-function ReportInsert(props) {
+function QnaReportInsert(props) {
 	//token 에서 userInfo 가져오기
 	let userNum = jwt_decode(localStorage.getItem('token')).idx;
 
 	//DetailFunction 상위에서 roomNum 가져오기
-	const {roomNum} = props;
+	// const {qnaNum} = props;
+	const qnaNum = 4;
 
 	//변수 선언
 	const [reportType, setReportType] = useState('');
@@ -90,18 +91,13 @@ function ReportInsert(props) {
 			return;
 		} else {
 			// BackEnd로 보낼 url
-			let url = localStorage.url + '/admin/reportInsert';
+			let url = localStorage.url + '/admin/reportQnaInsert';
 
 			const formData = new FormData();
 			formData.append('reportType', reportType);
 			formData.append('reportContent', reportContent);
-			formData.append('roomNum', roomNum);
+			formData.append('qnaNum', qnaNum);
 			formData.append('userNum', userNum);
-
-			// console.log(reportType);
-			// console.log(reportContent);
-			// console.log(roomNum);
-			// console.log(userNum);
 
 			axios({
 				method: 'post',
@@ -154,19 +150,18 @@ function ReportInsert(props) {
 							<DialogContentText
 								style={{width: '600px', color: 'black'}}
 							>
-								<span>
-									<p>안녕하세요, 게스트님. </p>
-									<p>
-										공간을 이용하시면서 불편한 점이
-										있으셨나요?
-									</p>
+								<div style={{marginBottom: '5px'}}>
+									안녕하세요, 게스트님.
+								</div>
 
-									<p>
-										공간을 이용하는 과정에서 어떤 문제가
-										발생하셨다면, <b>'모임'</b> 에
-										알려주세요 :)
-									</p>
-								</span>
+								<div style={{marginBottom: '5px'}}>
+									공간을 이용하시면서 불편한 점이 있으셨나요?
+								</div>
+
+								<div>
+									공간을 이용하는 과정에서 어떤 문제가
+									발생하셨다면, <b>'모임'</b> 에 알려주세요 :)
+								</div>
 							</DialogContentText>
 							{/* <br /> */}
 							<FormControl
@@ -256,4 +251,4 @@ function ReportInsert(props) {
 	);
 }
 
-export default ReportInsert;
+export default QnaReportInsert;

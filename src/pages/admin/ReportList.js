@@ -21,6 +21,7 @@ function ReportList(props) {
 						</tr>
 					</thead>
 					<tbody>
+						{/* 반복 구간 */}
 						<tr>
 							<td>1</td>
 							<td>1</td>
