@@ -28,6 +28,8 @@ function RoomCard(props) {
 	const [likeCount, setLikeCount] = useState('');
 	const navi = useNavigate();
 
+	const imgUrl = 'http://localhost:9000/image/';
+
 	// room tag list select function
 	const selectTagList = (num) => {
 		let url = localStorage.url + '/tag/list?num=' + num;
@@ -88,7 +90,7 @@ function RoomCard(props) {
 													width: '100%',
 												}}
 												id='image'
-												src={step.rimageUrl}
+												src={imgUrl + step.rimageUrl}
 												alt={step.label}
 												onClick={() => {
 													navi(
