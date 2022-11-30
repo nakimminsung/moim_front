@@ -61,13 +61,13 @@ function DatailFunction(props) {
 				let userNum = jwt_decode(localStorage.getItem('token')).idx;
 
 				axios.post(insertLikeUrl, {userNum, num}).then((res) => {
-					alert('등록되었습니다');
+					alert('찜목록에 추가되었습니다');
 				});
 			} else {
 				let deleteLikeUrl = localStorage.url + '/detail/deleteLike';
 				let userNum = jwt_decode(localStorage.getItem('token')).idx;
 				axios.post(deleteLikeUrl, {userNum, num}).then((res) => {
-					alert('삭제되었습니다');
+					alert('찜목록에서 삭제되었습니다');
 				});
 			}
 		} else {
@@ -83,6 +83,7 @@ function DatailFunction(props) {
 						float: 'right',
 					}}
 				>
+					{/* 챗봇기능 */}
 					<span>
 						<SmsOutlined
 							style={{marginBottom: '5px', marginRight: '-2px'}}
@@ -104,6 +105,7 @@ function DatailFunction(props) {
 						)}
 					</span>
 					&nbsp;
+					{/* 신고기능 */}
 					<span
 						class='material-symbols-outlined'
 						style={{fontSize: 'xx-large'}}
