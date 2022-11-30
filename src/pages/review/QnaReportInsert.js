@@ -22,9 +22,9 @@ function QnaReportInsert(props) {
 	//token 에서 userInfo 가져오기
 	let userNum = jwt_decode(localStorage.getItem('token')).idx;
 
-	//DetailFunction 상위에서 roomNum 가져오기
-	// const {qnaNum} = props;
-	const qnaNum = 4;
+	//DetailFunction 상위에서 qnaNum, roomNum 가져오기
+	const {qnaNum, roomNum} = props;
+	// const qnaNum = 4;
 
 	//변수 선언
 	const [reportType, setReportType] = useState('');
