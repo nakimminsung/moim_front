@@ -16,41 +16,19 @@ function SpaceOption(props) {
 	localStorage.url = 'http://localhost:9000';
 	let imageUrl = localStorage.url + '/image/';
 	return (
-		<div>
-			<div>
-				{/* <BtnBox>
-					<BtnLabel>
-						<div>파일첨부</div>
-						<input
-							type='file'
-							id='roption1'
-							style={{
-								visibility: 'hidden',
-								display: 'none',
-							}}
-							onChange={photoUploadEvent3}
-							required
-							onClick={() => {
-								document.getElementById('roption1').click();
-							}}
-						/>
-					</BtnLabel>
-				</BtnBox> */}
-			</div>
-			<table>
-				<thead>
-					<tr>
-						<th width={200} style={{backgroundColor: '#efefef'}}>
-							사진
-						</th>
-						<th style={{backgroundColor: '#efefef'}}>이름</th>
-						<th style={{backgroundColor: '#efefef'}}>가격</th>
-						<th style={{backgroundColor: '#efefef'}}>버튼</th>
+		<div style={{marginTop: '20px', width: '100%'}}>
+			<table style={{width: '100%'}}>
+				<thead style={{textAlign: 'center'}}>
+					<tr style={{backgroundColor: '#efefef'}}>
+						<th style={{width: '25%'}}>사진</th>
+						<th style={{width: '25%'}}>이름</th>
+						<th style={{width: '25%'}}>가격</th>
+						<th style={{width: '25%'}}>버튼</th>
 					</tr>
 				</thead>
 				<tbody>
-					<td>
-						<label>
+					<td style={{textAlign: 'center'}}>
+						<label style={{cursor: 'pointer'}}>
 							<div>파일첨부</div>
 							<input
 								type='file'
@@ -99,12 +77,7 @@ function SpaceOption(props) {
 							inputRef={PriceRef}
 						/>
 					</td>
-					<td>
-						{/* <BtnBox>
-                                    <BtnLabel>
-                                        <div onClick={optionButton}>추가</div>
-                                    </BtnLabel>
-                                </BtnBox> */}
+					<td style={{textAlign: 'center'}}>
 						<Button
 							variant='contained'
 							color='primary'

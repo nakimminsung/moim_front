@@ -31,24 +31,20 @@
 	border: 1px solid #e0e0e0;
 	color: #656565;
 }
-.slick-prev,
-.slick-next {
+/* 상세페이지 slick 화살표 방향 */
+.sliderBanner .slick-prev,
+.sliderBanner .slick-next {
 	font-family: 'slick';
 	font-size: 90px !important;
-	line-height: 1;
-
 	opacity: 0.75;
 	color: #ebffeb;
-
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 	z-index: 10;
 }
-.slick-prev:hover,
-.slick-next:hover {
+.sliderBanner .slick-prev:hover,
+.sliderBanner .slick-next:hover {
 	font-size: 90px !important;
-	opacity: 0.75;
-	color: #ebffeb;
+	opacity: 1;
+	color: #f5f5f5;
 }
 
 /*DetailInfo css */
@@ -289,4 +285,111 @@ input::-webkit-inner-spin-button {
 	line-height: 50px;
 	background-color: white;
 	border-radius: 50px;
+}
+/* map */
+.mapButton {
+	height: 48px;
+	color: #704de4;
+	line-height: 48px;
+	border-radius: 50px;
+	display: inline-block;
+	text-align: center;
+	font-size: 15px;
+	border: 1px solid #704de4;
+	width: 48%;
+	background-color: white;
+}
+
+/* 추천공간 */
+.randomPlace {
+	margin-bottom: 100px;
+	margin-top: 100px;
+}
+.randomPlace .randomSlider .slick-list {
+	height: 500px;
+}
+.randomPlace .randomSlider .slick-prev {
+	font-family: 'slick';
+	font-size: 50px !important;
+	opacity: 0.75;
+	color: black;
+	z-index: 10;
+	left: -50px !important ;
+}
+.randomPlace .randomSlider .slick-next {
+	font-family: 'slick';
+	font-size: 50px !important;
+	opacity: 0.75;
+	color: black;
+	z-index: 10;
+	right: -50px !important ;
+}
+
+/* card 화살표 위치 변경 */
+.cardImg .slick-slider > .slick-prev {
+	opacity: 0;
+}
+.cardImg .slick-slider:hover > .slick-prev {
+	opacity: 1;
+	color: #f5f5f5;
+	left: 0px !important ;
+	font-size: 40px !important;
+	z-index: 999;
+	background-image: linear-gradient(
+		to right,
+		rgb(50, 50, 50) -55%,
+		transparent 100%
+	);
+	height: 100%;
+}
+.cardImg .slick-slider > .slick-next {
+	opacity: 0;
+}
+.cardImg .slick-slider:hover > .slick-next {
+	opacity: 1;
+	color: #f5f5f5;
+	right: 0px !important ;
+	font-size: 40px !important;
+	z-index: 999;
+	background-image: linear-gradient(
+		to right,
+		transparent 0%,
+		rgb(50, 50, 50) 150%
+	);
+	height: 100%;
+}
+/* 추천공간 이미지 slick */
+.randomImg .slick-slider > .slick-prev {
+	opacity: 0;
+}
+.randomImg .slick-slider:hover > .slick-prev {
+	opacity: 1;
+	color: #f5f5f5;
+	left: 0px !important ;
+	top: 127px;
+	font-size: 40px !important;
+	z-index: 999;
+	background-image: linear-gradient(
+		to right,
+		rgb(50, 50, 50) -55%,
+		transparent 100%
+	);
+	height: 100%;
+}
+.randomImg .slick-slider > .slick-next {
+	opacity: 0;
+}
+.randomImg .slick-slider:hover > .slick-next {
+	opacity: 1;
+	color: #f5f5f5;
+	right: 0px !important ;
+	top: 127px;
+	font-size: 40px !important;
+	z-index: 999;
+	background-image: linear-gradient(
+		to right,
+		transparent 0%,
+		rgb(50, 50, 50) 150%
+	);
+	height: 100%;
 }

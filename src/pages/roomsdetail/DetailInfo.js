@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {Link} from 'react-scroll';
+import DetailMap from './DetailMap';
 import DetailQna from './DetailQna';
 
 function DetailInfo(props) {
@@ -41,7 +42,7 @@ function DetailInfo(props) {
 				style={{
 					width: '100%',
 					position: 'sticky',
-					top: '60px',
+					top: '99px',
 					zIndex: '1',
 				}}
 			>
@@ -49,7 +50,7 @@ function DetailInfo(props) {
 					to='1'
 					spy={true}
 					value={1}
-					offset={-110}
+					offset={-160}
 					onClick={cssActive}
 					className={
 						'detailMenu' + (btnActive === 1 ? ' active' : '')
@@ -62,7 +63,7 @@ function DetailInfo(props) {
 					to='2'
 					spy={true}
 					value={2}
-					offset={-120}
+					offset={-160}
 					onClick={cssActive}
 					className={
 						'detailMenu' + (btnActive === 2 ? ' active' : '')
@@ -74,7 +75,7 @@ function DetailInfo(props) {
 					to='3'
 					spy={true}
 					value={3}
-					offset={-120}
+					offset={-160}
 					onClick={cssActive}
 					className={
 						'detailMenu' + (btnActive === 3 ? ' active' : '')
@@ -86,7 +87,7 @@ function DetailInfo(props) {
 					to='4'
 					spy={true}
 					value={4}
-					offset={-120}
+					offset={-160}
 					onClick={cssActive}
 					className={
 						'detailMenu' + (btnActive === 4 ? ' active' : '')
@@ -98,7 +99,7 @@ function DetailInfo(props) {
 					to='5'
 					spy={true}
 					value={5}
-					offset={-120}
+					offset={-160}
 					onClick={cssActive}
 					className={
 						'detailMenu' + (btnActive === 5 ? ' active' : '')
@@ -110,7 +111,7 @@ function DetailInfo(props) {
 					to='6'
 					spy={true}
 					value={6}
-					offset={-120}
+					offset={-160}
 					onClick={cssActive}
 					className={
 						'detailMenu' + (btnActive === 6 ? ' active' : '')
@@ -120,7 +121,15 @@ function DetailInfo(props) {
 				</Link>
 			</div>
 			<div id='1' style={{width: '100%', marginTop: '40px'}}>
-				<b style={{borderBottom: '2px solid #ffd014'}}>공간소개</b>
+				<b
+					style={{
+						borderBottom: '2px solid #ffd014',
+						fontSize: '18px',
+						paddingBottom: '5px',
+					}}
+				>
+					공간소개
+				</b>
 				<br />
 				<br />
 				<pre
@@ -206,7 +215,15 @@ function DetailInfo(props) {
 			</div>
 
 			<div id='2' style={{marginTop: '100px'}}>
-				<b style={{borderBottom: '2px solid #ffd014'}}>시설안내</b>
+				<b
+					style={{
+						borderBottom: '2px solid #ffd014',
+						fontSize: '18px',
+						paddingBottom: '5px',
+					}}
+				>
+					시설안내
+				</b>
 				<br />
 				<br />
 				{roomInfo &&
@@ -231,7 +248,13 @@ function DetailInfo(props) {
 			</div>
 
 			<div id='3' style={{marginTop: '100px'}}>
-				<b style={{borderBottom: '2px solid #ffd014'}}>
+				<b
+					style={{
+						borderBottom: '2px solid #ffd014',
+						fontSize: '18px',
+						paddingBottom: '5px',
+					}}
+				>
 					예약시 주의사항
 				</b>
 				<br />
@@ -263,7 +286,13 @@ function DetailInfo(props) {
 					marginTop: '120px',
 				}}
 			>
-				<b style={{borderBottom: '2px solid #ffd014'}} id='34'>
+				<b
+					style={{
+						borderBottom: '2px solid #ffd014',
+						fontSize: '18px',
+						paddingBottom: '5px',
+					}}
+				>
 					환불규정 안내
 				</b>
 				<br />
@@ -314,7 +343,10 @@ function DetailInfo(props) {
 					<b>이용 3일전 ~ 당일</b>&nbsp;&nbsp;
 					<span>환불 불가</span>
 				</span>
+
+				<DetailMap roomData={roomData} />
 			</div>
+
 			<DetailQna />
 		</div>
 	);

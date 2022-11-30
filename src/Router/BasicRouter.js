@@ -32,6 +32,7 @@ import SpaceCalendar from '../pages/host/SpaceCalendar';
 import SpaceBookingDetail from '../pages/host/SpaceBookingDetail';
 import PasswordSearch from '../pages/login/PasswordSearch';
 import PasswordSearch2 from '../pages/login/PasswordSearch2';
+import SpaceAcount from '../pages/host/SpaceAcount';
 
 function BasicRouter() {
 	return (
@@ -76,6 +77,7 @@ function BasicRouter() {
 						path='bookingdetail/:bookingDetailNum'
 						element={<SpaceBookingDetail />}
 					/>
+					<Route path='acount' element={<SpaceAcount />} />
 				</Route>
 				{/* 호스트 끝 */}
 

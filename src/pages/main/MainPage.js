@@ -38,9 +38,9 @@ function Mainpage(props) {
 					<li>
 						<NavLink to={'/host/bookinglist'}>예약리스트</NavLink>
 					</li>
-					{/* 임시버튼 */}
 					<li>
 						<NavLink to={'/passwordsearch'}>비밀번호변경</NavLink>
+						<NavLink to={'/host/acount'}>정산페이지</NavLink>
 					</li>
 					<li>
 						<NavLink to={'/notice'}>공지사항🦆</NavLink>
