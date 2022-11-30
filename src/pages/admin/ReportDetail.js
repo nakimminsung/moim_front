@@ -280,15 +280,19 @@ function ReportDetail(props) {
 															reportStatusHandler
 														}
 														value={reportStatus}
-														label='처리 상태'
 													>
-														<option
+														{/* <option
 															aria-label='None'
 															value=''
 															disabled
 															// selected
 														>
 															진행 상태
+														</option> */}
+														<option
+															value={'신고 접수'}
+														>
+															신고 접수
 														</option>
 														<option
 															value={'처리중'}
