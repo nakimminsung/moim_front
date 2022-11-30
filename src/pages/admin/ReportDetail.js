@@ -27,14 +27,16 @@ function ReportDetail(props) {
 
 	//상세 보기 시 데이터 가져오기
 	const getReportInfo = () => {
-		let url = localStorage.url + '/admin/reportInfo';
+		let url = localStorage.url + '/admin/reportInfo?num=' + props.num;
 
 		axios.get(url).then((res) => {
-			reportType = res.data.type;
-			reportContent = res.data.content;
+			console.log(res.data);
 
-			console.log(reportType);
-			console.log(reportContent);
+			//가져온 데이터를 변수에 담기
+			// setUpdateType(res.data.type);
+			// setUpdateTitle(res.data.title);
+			// setUpdateContent(res.data.content);
+			// setoldPhoto(res.data.imageUrl);
 		});
 	};
 
