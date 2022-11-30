@@ -282,7 +282,7 @@ function Acount1(props) {
 				<table>
 					<thead>
 						<tr>
-							<th>정산일</th>
+							<th>결제일</th>
 							<th>예약번호</th>
 							<th>공간명</th>
 							<th>PG</th>
