@@ -57,7 +57,7 @@ function SpaceUpdateForm2(props) {
 	const [callTag, setCallTag] = useState([]);
 	const [callInfo, setCallInfo] = useState([]);
 	const [callPre, setCallPre] = useState([]);
-	// console.log(checkList);
+	console.log(checkList);
 
 	//룸 넘버에 해당하는 dto 가져오기
 	const onSelectData = () => {
@@ -78,14 +78,26 @@ function SpaceUpdateForm2(props) {
 		// console.log('호출');
 	}, []);
 
-	const [callCategory, setCallCategoryNum] = useState('');
+	const [callCategory, setCallCategoryNum] = useState([]);
+
+	// useEffect(() => {
+	// 	for (let s of checkList) {
+	// 		setCallCategoryNum(callCategory.concat(s.categoryNum + ','));
+	// 	}
+	// }, [checkList]);
+	// console.log('callCategory=' + callCategory);
 
 	useEffect(() => {
+		let list = [];
 		for (let s of checkList) {
-			setCallCategoryNum(callCategory.concat(s.categoryNum + ','));
+			// setCallCategoryNum(callCategory.concat(s.categoryNum + ','));
+			list = list.concat(s.categoryNum);
+			// console.log('s=' + s);
+			// console.log('list=' + list);
 		}
+		setCallCategoryNum(list);
 	}, [checkList]);
-	console.log(callCategory);
+	// console.log('callCategory=' + callCategory);
 
 	//카테고리 체크박스 이벤트
 	const handleSingleCheck = (checked, num) => {
@@ -377,7 +389,7 @@ function SpaceUpdateForm2(props) {
 																					type={
 																						'checkbox'
 																					}
-																					onClick={(
+																					onChange={(
 																						e,
 																					) =>
 																						handleSingleCheck(

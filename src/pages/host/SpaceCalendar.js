@@ -50,11 +50,10 @@ function SpaceCalendar(props) {
 			a.push({
 				title: b.roomName,
 				date: b.bookingDate,
-				startTime: b.bookingTime[0],
-				endTime: b.bookingTime[b.bookingTime.length - 1],
+				// startTime: b.bookingTime[0],
+				// endTime: b.bookingTime[b.bookingTime.length - 1],
 			}),
 		);
-
 		setData(a);
 	}, [bookingList]);
 	console.log(data);
