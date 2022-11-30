@@ -16,6 +16,8 @@ function DetailReview(props) {
 	const [photoList, setPhotoList] = useState([]);
 	const [totalList, setTotalList] = useState([]);
 
+	const imgUrl = 'http://localhost:9000/image/';
+
 	//페이징처리
 	const [limit, setLimit] = useState(3);
 	const [page, setPage] = useState(1);
@@ -171,6 +173,7 @@ function DetailReview(props) {
 																	<img
 																		alt=''
 																		src={
+																			imgUrl +
 																			item.reviewImageUrl
 																		}
 																		className='reviewImg'

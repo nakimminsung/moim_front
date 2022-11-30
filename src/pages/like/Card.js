@@ -28,6 +28,8 @@ function RoomCard(props) {
 	const [likeCount, setLikeCount] = useState('');
 	const navi = useNavigate();
 
+	const imgUrl = 'http://localhost:9000/image/';
+
 	// room tag list select function
 	const selectTagList = (num) => {
 		let url = localStorage.url + '/tag/list?num=' + num;
@@ -46,7 +48,7 @@ function RoomCard(props) {
 		console.log(deleteLikeUrl);
 		let userNum = jwt_decode(localStorage.getItem('token')).idx;
 		axios.post(deleteLikeUrl, {userNum, num}).then((res) => {
-			alert('삭제되었습니다');
+			alert('찜목록에서 삭제되었습니다');
 			window.location.reload();
 		});
 	};
@@ -88,7 +90,7 @@ function RoomCard(props) {
 													width: '100%',
 												}}
 												id='image'
-												src={step.rimageUrl}
+												src={imgUrl + step.rimageUrl}
 												alt={step.label}
 												onClick={() => {
 													navi(
