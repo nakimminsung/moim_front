@@ -36,7 +36,7 @@ function ReportList(props) {
 							<th style={{width: ''}}>대상 호스트</th>
 							<th>처리 상태</th>
 							<th style={{width: '15%'}}>접수 일자</th>
-							<th style={{width: '10%'}}>비고</th>
+							<th style={{width: '10%'}}>상세 내용</th>
 						</tr>
 					</thead>
 					<tbody>
