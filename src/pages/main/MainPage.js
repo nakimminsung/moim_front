@@ -1,4 +1,4 @@
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Category from './Category';
 import './MainPage.css';
 import NoticeEvent from './NoticeEvent';
@@ -16,7 +16,7 @@ function Mainpage(props) {
 			<div className='directButton'>
 				<ul
 					className='main'
-					style={{display: 'flex', justifyContent: 'center'}}
+					style={{ display: 'flex', justifyContent: 'center' }}
 				>
 					<li>
 						<NavLink to={'/admin'}>관리자🐹</NavLink>
@@ -39,6 +39,7 @@ function Mainpage(props) {
 						<NavLink to={'/host/bookinglist'}>예약리스트</NavLink>
 					</li>
 					<li>
+						<NavLink to={'/passwordsearch'}>비밀번호변경</NavLink>
 						<NavLink to={'/host/acount'}>정산페이지</NavLink>
 					</li>
 					<li>
