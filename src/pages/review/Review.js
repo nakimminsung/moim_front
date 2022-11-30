@@ -103,7 +103,7 @@ function Review(props) {
 			data: updateReviewData,
 			headers: {'Content-Type': 'multipart/form-data'},
 		}).then((res) => {
-			alert('등록이 완료되었습니다.');
+			alert('수정 완료되었습니다.');
 
 			window.location.reload();
 
@@ -360,7 +360,7 @@ function Review(props) {
 					/>
 					<DialogContentText style={{color: 'red', fontSize: '12px'}}>
 						<ErrorOutlineIcon />
-						이용완료일 기준 30일 이내까지 작성 및 수정하실 수
+						이용 완료일 기준 30일 이내까지 작성 및 수정하실 수
 						있습니다.
 					</DialogContentText>
 					<br />
@@ -371,7 +371,7 @@ function Review(props) {
 					/>
 					<DialogContentText style={{color: 'red', fontSize: '12px'}}>
 						<ErrorOutlineIcon />
-						운영정책과 맞지 않는 이미지 업로드시 무통보 삭제 될 수
+						운영 정책과 맞지 않는 이미지 업로드시 무통보 삭제될 수
 						있습니다.
 					</DialogContentText>
 					<DialogActions
