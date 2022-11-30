@@ -98,6 +98,7 @@ function QnaReportInsert(props) {
 			formData.append('reportContent', reportContent);
 			formData.append('qnaNum', qnaNum);
 			formData.append('userNum', userNum);
+			formData.append('roomNum', roomNum);
 
 			axios({
 				method: 'post',

@@ -11,6 +11,7 @@ import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import QnaReportInsert from './QnaReportInsert';
 
 function QNA(props) {
 	const [memberQna, setMemberQna] = useState([]);
@@ -104,9 +105,21 @@ function QNA(props) {
 								</AccordionSummary>
 								<AccordionDetails>
 									<Typography>
-										{data.answer == null
-											? '아직 호스트가 답변을 하지 않았습니다'
-											: data.answer}
+										{data.answer == null ? (
+											'아직 호스트가 답변을 하지 않았습니다'
+										) : (
+											<>
+												<div style={{float: 'right'}}>
+													<QnaReportInsert
+														qnaNum={data.num}
+														roomNum={data.roomNum}
+													/>
+												</div>
+												<br />
+												<br />
+												{data.answer}
+											</>
+										)}
 									</Typography>
 								</AccordionDetails>
 							</Accordion>

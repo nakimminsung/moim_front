@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 //modal dialogue 관련
@@ -20,25 +20,36 @@ function ReportDetail(props) {
 	const {roomNum} = props;
 
 	//변수 선언
-	const [reportType, setReportType] = useState('');
-	const [reportContent, setReportContent] = useState('');
+	const [reportStatus, setReportStatus] = useState('');
 
-	//글자수 실시간 카운트
-	const [textCount, setTextCount] = useState(0);
+	const reportType = '';
+	const reportContent = '';
+
+	//상세 보기 시 데이터 가져오기
+	const getReportInfo = () => {
+		let url = localStorage.url + '/admin/reportInfo';
+
+		axios.get(url).then((res) => {
+			reportType = res.data.type;
+			reportContent = res.data.content;
+
+			console.log(reportType);
+			console.log(reportContent);
+		});
+	};
 
 	//modal dialogue : OPEN
 	const [open, setOpen] = React.useState(false);
 	const handleClickOpen = () => {
 		setOpen(true);
+
+		//리스트 가져오기
+		getReportInfo();
 	};
 
 	//modal dialogue : CLOSE
 	const handleClose = () => {
 		setOpen(false);
-
-		//값 비워주기
-		setReportType('');
-		setReportContent('');
 	};
 
 	//modal 내부의 select style 관련
@@ -59,15 +70,13 @@ function ReportDetail(props) {
 		e.preventDefault();
 
 		//값이 비어있는지 체크
-		if (reportType == null || reportType == '') {
-			alert('유형을 선택해주시기 바랍니다');
-			return;
-		} else if (reportContent == null || reportContent == '') {
-			alert('내용을 입력해주시기 바랍니다');
+		if (reportStatus == null || reportStatus == '') {
+			alert('처리 상태를 변경해주시기 바랍니다.');
+
 			return;
 		} else {
 			// BackEnd로 보낼 url
-			let url = localStorage.url + '/admin/reportUpdate';
+			let url = localStorage.url + '/admin/reportAccess';
 
 			const formData = new FormData();
 			formData.append('reportType', reportType);
@@ -85,10 +94,6 @@ function ReportDetail(props) {
 				headers: {'Content-Type': 'multipart/form-data'},
 			}).then((res) => {
 				alert('신고가 접수되었습니다.');
-
-				//성공하고 비워주기
-				setReportType('');
-				setReportContent('');
 			});
 
 			//성공하고 modal 창 닫기
@@ -142,7 +147,7 @@ function ReportDetail(props) {
 									<RadioGroup
 										aria-label='reportType'
 										name='reportType1'
-										value={'불쾌한 태도'}
+										value={reportType}
 										// onChange={reportTypeHandler}
 									>
 										<FormControlLabel

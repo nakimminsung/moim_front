@@ -11,6 +11,7 @@ function ReportList(props) {
 
 		axios.get(url).then((res) => {
 			setReportList(res.data);
+			// console.log(res.data);
 		});
 	};
 
@@ -30,9 +31,10 @@ function ReportList(props) {
 						<tr>
 							<th style={{width: '5%'}}>번호</th>
 							<th style={{width: '15%'}}>신고 유형</th>
-							<th style={{width: '15%'}}>접수 경로</th>
-							<th style={{width: '20%'}}>신고 유저</th>
-							<th style={{width: '20%'}}>대상 호스트</th>
+							<th style={{width: '10%'}}>접수 경로</th>
+							<th style={{width: ''}}>신고 유저</th>
+							<th style={{width: ''}}>대상 호스트</th>
+							<th>처리 상태</th>
 							<th style={{width: '15%'}}>접수 일자</th>
 							<th style={{width: '10%'}}>비고</th>
 						</tr>
@@ -52,14 +54,11 @@ function ReportList(props) {
 									<td>{idx + 1}</td>
 									<td>{row.type}</td>
 									<td>
-										{row.roomNum != null
-											? '공간 상세정보'
-											: row.QnANum != null
-											? 'QnA'
-											: ''}
+										{row.qnaNum != 0 ? 'Q&A' : '공간 정보'}
 									</td>
 									<td>{row.nickname}</td>
 									<td>{row.companyName}</td>
+									<td>{row.status}</td>
 									<td>{row.writeday}</td>
 									<td>
 										<ReportDetail num={row.num} />
