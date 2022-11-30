@@ -17,7 +17,6 @@ import Login from '../pages/login/Login';
 import SignUp from '../pages/login/SignUp';
 import SignUpEmail from '../pages/login/SignUpEmail';
 import Mypage from '../pages/mypage/Mypage';
-import Mypage1 from '../pages/mypage/Mypage1';
 import CategoryRoom from '../pages/categoryroom/CategoryRoom';
 import SpaceAddForm3 from '../pages/host/SpaceAddForm3';
 import HostTotalPlace from '../pages/roomsdetail/HostTotalPlace';
@@ -31,6 +30,8 @@ import SpaceUpdateForm3 from '../pages/host/SpaceUpdateForm3';
 import SpaceBookingList from '../pages/host/SpaceBookingList';
 import SpaceCalendar from '../pages/host/SpaceCalendar';
 import SpaceBookingDetail from '../pages/host/SpaceBookingDetail';
+import PasswordSearch from '../pages/login/PasswordSearch';
+import PasswordSearch2 from '../pages/login/PasswordSearch2';
 
 function BasicRouter() {
 	return (
@@ -99,7 +100,8 @@ function BasicRouter() {
 				<Route path='seller' element={<SellerLogin />} />
 				<Route path='sellerJoin' element={<SellerJoin />} />
 				<Route path='mypage' element={<Mypage />} />
-				<Route path='mypage1' element={<Mypage1 />} />
+				<Route path='passwordsearch' element={<PasswordSearch />} />
+				<Route path='passwordsearch2' element={<PasswordSearch2 />} />
 
 				{/* 카테고리별 방 페이지 */}
 				<Route path='categoryroomList'>

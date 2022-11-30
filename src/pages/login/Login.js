@@ -105,7 +105,7 @@ function Login() {
                 />
                 <EmailLoginInput
                   id="password"
-                  // type="password"
+                  type="password"
                   value={password}
                   placeholder="비밀번호"
                   required
