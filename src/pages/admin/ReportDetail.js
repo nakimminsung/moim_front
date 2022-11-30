@@ -15,15 +15,17 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+import Select from '@material-ui/core/Select';
+
 function ReportDetail(props) {
 	//DetailFunction 상위에서 roomNum 가져오기
 	const {roomNum} = props;
 
 	//변수 선언
 	const [reportStatus, setReportStatus] = useState('');
-
-	const reportType = '';
-	const reportContent = '';
+	const [reportType, setReportType] = useState('');
+	const [reportContent, setReportContent] = useState('');
+	const [reportAnswer, setReportAnswer] = useState('');
 
 	//상세 보기 시 데이터 가져오기
 	const getReportInfo = () => {
@@ -33,10 +35,8 @@ function ReportDetail(props) {
 			console.log(res.data);
 
 			//가져온 데이터를 변수에 담기
-			// setUpdateType(res.data.type);
-			// setUpdateTitle(res.data.title);
-			// setUpdateContent(res.data.content);
-			// setoldPhoto(res.data.imageUrl);
+			setReportType(res.data.type);
+			setReportContent(res.data.content);
 		});
 	};
 
@@ -78,7 +78,7 @@ function ReportDetail(props) {
 			return;
 		} else {
 			// BackEnd로 보낼 url
-			let url = localStorage.url + '/admin/reportAccess';
+			let url = localStorage.url + '/admin/reportResult';
 
 			const formData = new FormData();
 			formData.append('reportType', reportType);
@@ -101,6 +101,22 @@ function ReportDetail(props) {
 			//성공하고 modal 창 닫기
 			setOpen(false);
 		}
+	};
+
+	// report status SElect 변경 이벤트
+	const reportStatusHandler = (e) => {
+		e.preventDefault();
+		setReportStatus(e.target.value);
+		console.log('noticeType' + e.target.value);
+	};
+
+	//modal 내부의 Content 입력 이벤트
+	const reportAnswerHandler = (e) => {
+		e.preventDefault();
+		// setTextCount(e.target.value.length);
+		setReportAnswer(e.target.value);
+
+		// console.log('setReportContent' + e.target.value);
 	};
 
 	return (
@@ -174,7 +190,6 @@ function ReportDetail(props) {
 										/>
 									</RadioGroup>
 								</FormControl>
-								<br />
 							</FormControl>
 
 							<br />
@@ -184,26 +199,72 @@ function ReportDetail(props) {
 							<textarea
 								maxLength={200}
 								className='form-control'
-								style={{height: '180px'}}
-								value={reportContent}
+								style={{height: '80px'}}
+								defaultValue={reportContent}
 							/>
+							<br />
+
+							{/* 처리상태 Select */}
+							{/* <div style={{float: 'right'}}>
+								
+							</div> */}
 						</DialogContent>
-						<DialogActions style={{marginRight: '15px'}}>
-							<button
-								type='button'
-								className='btn btn-outline-secondary'
-								onClick={handleClose}
-							>
-								취소
-							</button>
-							&nbsp;&nbsp;
-							<button
-								type='submit'
-								className='btn btn-dark'
-								onClick={submitHandler}
-							>
-								저장
-							</button>
+						<DialogActions
+							style={{
+								marginRight: '15px',
+								marginLeft: '15px',
+								display: 'flex',
+								justifyContent: 'space-between',
+							}}
+						>
+							<div style={{marginTop: '-10px'}}>
+								<span style={{color: 'gray'}}>처리 내용</span>
+								<textarea
+									maxLength={100}
+									className='form-control'
+									placeholder='내용을 입력해주시기 바랍니다.'
+									style={{height: '30px', width: '300px'}}
+									onChange={reportAnswerHandler}
+									value={reportAnswer}
+								/>
+							</div>
+							<div>
+								<Select
+									native
+									onChange={reportStatusHandler}
+									value={reportStatus}
+									label='처리 상태'
+								>
+									<option
+										aria-label='None'
+										value=''
+										disabled
+										// selected
+									>
+										진행 상태
+									</option>
+									<option value={'처리중'}>처리중</option>
+									<option value={'처리 완료'}>
+										처리 완료
+									</option>
+								</Select>
+								&nbsp;&nbsp;
+								<button
+									type='button'
+									className='btn btn-outline-secondary'
+									onClick={handleClose}
+								>
+									취소
+								</button>
+								&nbsp;&nbsp;
+								<button
+									type='submit'
+									className='btn btn-dark'
+									onClick={submitHandler}
+								>
+									저장
+								</button>
+							</div>
 						</DialogActions>
 					</Dialog>
 				</form>
