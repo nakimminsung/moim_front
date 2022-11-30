@@ -451,6 +451,7 @@ function SpaceUpdateForm2(props) {
 										}}
 									>
 										<img
+											key={idx}
 											alt=''
 											src={`${imageUrl}${images.rimageUrl}`}
 											className='roomImge'
@@ -499,6 +500,7 @@ function SpaceUpdateForm2(props) {
 										}}
 									>
 										<img
+											key={idx}
 											alt=''
 											src={`${imageUrl}${room.rimageUrl}`}
 											className='roomImge'
