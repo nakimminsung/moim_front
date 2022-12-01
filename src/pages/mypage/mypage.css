@@ -52,7 +52,7 @@ footer {
 }
 
 div.my-menu-wrapper {
-    position: fixed;
+    /* position: fixed; */
     height: 500px;
     top: 100px;
     width: 200px;
@@ -103,7 +103,7 @@ a.menu-select:hover {
 
 /* content */
 div.my-content-wrapper {
-    position: fixed;
+    /* position: fixed; */
     height: 700px;
     top: 100px;
     width: 600px;

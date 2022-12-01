@@ -20,7 +20,7 @@ function Mypage(props) {
             setMemberList(res.data);
             // memberList = res.data;
             // console.log(res.data);
-            console.log(memberList);
+            // console.log(memberList);
         });
     };
 

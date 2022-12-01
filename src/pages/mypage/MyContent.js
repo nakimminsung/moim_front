@@ -53,7 +53,12 @@ function MyContent(props) {
         <div className="my-content-wrapper">
             <div className="my-content-profile" style={{ textAlign: "center" }}>
                 <div className="my-profile-update" style={{ display: "flex", display: "inline-block", marginTop: '30px', marginBottom: '5px' }}>
-                    <img alt="updateprofileImage" src={`http://localhost:9000/image/${props.memberList.profile_image}`} className="updateprofileImage" />
+                    {
+                        localStorage.getItem('token') !== null ?
+                            <img alt="updateprofileImage" src={jwt_decode(localStorage.getItem('token')).profile_image} className="updateprofileImage" />
+                            :
+                            <img alt="updateprofileImage" src={`http://localhost:9000/image/${props.memberList.profile_image}`} className="updateprofileImage" />
+                    }
                 </div>
                 <div>
                     <b style={{ fontSize: '12px' }}>{email}</b>

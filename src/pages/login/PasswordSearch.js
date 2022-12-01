@@ -1,67 +1,90 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 // import FindPassword from "./FindPassword";
 
 function PasswordSearch(props) {
-	const [email, setEmail] = useState('');
-	const navi = useNavigate();
+  const [email, setEmail] = useState('');
+  const [emailSocial, setEmailSocial] = useState('');
+  const navi = useNavigate();
 
-	const move = () => {
-		navi('/passwordsearch2', {
-			state: {
-				email: { email }
-			}
-		});
-	};
-	return (
-		<div>
-			<LoginWrap>
-				<LoginContainer>
-					<LoginHeadLogo>
-						<h2>MoiM</h2>
-						<br />
-						<h5>
-							비밀번호를 찾고자하는 아이디를 입력해주세요
-						</h5>
-						<br />
-					</LoginHeadLogo>
-					<LoginSignupContent>
-					</LoginSignupContent>
-					<LoginSigninContent>
-						<BorderAndText>
-							<span>이메일 로그인</span>
-						</BorderAndText>
-						<EmailLoginContainer>
-							<div>
-								<EmailLoginInput
-									id="email"
-									type="email"
-									value={email}
-									placeholder="이메일"
-									required
-									onChange={(e) => {
-										setEmail(e.target.value);
-									}}
-								/>
-							</div>
-						</EmailLoginContainer>
-						<CommonButton
-							type="button"
-							onClick={move}
-						>
-							다음
-						</CommonButton>
-					</LoginSigninContent>
-					<MoveSignUP>
-						<span>아이디가 기억나지 않는다면? <a href='/signUp'>아이디 찾기</a></span>
-					</MoveSignUP>
-				</LoginContainer>
-			</LoginWrap>
+  const checkSocial = () => {
+    axios.get(
+      'http://localhost:9000/member/checksocial?email=' + email
+    ).then((res) => {
+      console.log(res.data)
+      setEmailSocial(res.data)
+      // console.log(emailSocial)
+    });
+  }
 
-		</div>
-	);
+  const move = () => {
+    checkSocial()
+    console.log(emailSocial)
+    if (emailSocial == 'social') {
+      alert('소셜로 가입한 경우에는 비밀번호 변경이 불가합니다.')
+      navi('/')
+    } else {
+      navi('/passwordsearch2', {
+        state: {
+          email: { email }
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    checkSocial()
+  }, [email]);
+
+  return (
+    <div>
+      <LoginWrap>
+        <LoginContainer>
+          <LoginHeadLogo>
+            <h2>MoiM</h2>
+            <br />
+            <h5>
+              비밀번호를 찾고자하는 아이디를 입력해주세요
+            </h5>
+            <br />
+          </LoginHeadLogo>
+          <LoginSignupContent>
+          </LoginSignupContent>
+          <LoginSigninContent>
+            <BorderAndText>
+              <span>이메일 로그인</span>
+            </BorderAndText>
+            <EmailLoginContainer>
+              <div>
+                <EmailLoginInput
+                  id="email"
+                  type="email"
+                  value={email}
+                  placeholder="이메일"
+                  required
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </div>
+            </EmailLoginContainer>
+            <CommonButton
+              type="button"
+              onClick={move}
+            >
+              다음
+            </CommonButton>
+          </LoginSigninContent>
+          <MoveSignUP>
+            <span>아이디가 기억나지 않는다면? <a href='/signUp'>아이디 찾기</a></span>
+          </MoveSignUP>
+        </LoginContainer>
+      </LoginWrap>
+
+    </div>
+  );
 }
 
 export default PasswordSearch;
