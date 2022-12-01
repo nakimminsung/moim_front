@@ -3,11 +3,16 @@ import React, {useEffect} from 'react';
 import ReportDetail from './ReportDetail';
 
 function ReportList(props) {
-	const {sort, reportList, setReportList} = props;
+	const {sort, searchWord, reportList, setReportList} = props;
 
 	//신고 DB list 가져오기
 	const getReportList = () => {
-		let url = localStorage.url + '/admin/reportList?sort=' + sort;
+		let url =
+			localStorage.url +
+			'/admin/reportList?sort=' +
+			sort +
+			'&searchWord=' +
+			searchWord;
 
 		axios.get(url).then((res) => {
 			setReportList(res.data);
@@ -18,7 +23,7 @@ function ReportList(props) {
 	useEffect(() => {
 		//리스트 가져오기
 		getReportList();
-	}, [sort]); //상위 컴포넌트에서 sort 값이 바뀔때마다
+	}, [sort, searchWord]); //상위 컴포넌트에서 sort 값이 바뀔때마다
 
 	return (
 		<div>
@@ -31,11 +36,12 @@ function ReportList(props) {
 						<tr>
 							<th style={{width: '5%'}}>번호</th>
 							<th style={{width: '15%'}}>신고 유형</th>
-							<th style={{width: '10%'}}>접수 경로</th>
-							<th style={{width: ''}}>신고 유저</th>
-							<th style={{width: ''}}>대상 호스트</th>
-							<th>처리 상태</th>
+							{/* <th style={{width: '10%'}}>접수 경로</th> */}
+							<th>신고 유저</th>
+							<th>대상 호스트</th>
+							<th>진행 상태</th>
 							<th style={{width: '15%'}}>접수 일자</th>
+							<th style={{width: '15%'}}>수정 일자</th>
 							<th style={{width: '10%'}}>상세 내용</th>
 						</tr>
 					</thead>
@@ -53,13 +59,26 @@ function ReportList(props) {
 								<tr style={{verticalAlign: 'middle'}} key={idx}>
 									<td>{idx + 1}</td>
 									<td>{row.type}</td>
-									<td>
+									{/* <td>
 										{row.qnaNum != 0 ? 'Q&A' : '공간 정보'}
+									</td> */}
+									<td>
+										{row.nickname} (
+										{row.memail.length > 4
+											? row.memail.substr(0, 5) + '...'
+											: row.memail}
+										)
 									</td>
-									<td>{row.nickname}</td>
-									<td>{row.companyName}</td>
+									<td>
+										{row.companyName} (
+										{row.hemail.length > 4
+											? row.hemail.substr(0, 5) + '...'
+											: row.hemail}
+										)
+									</td>
 									<td>{row.status}</td>
-									<td>{row.writeday}</td>
+									<td>{row.writeday.substr(0, 10)}</td>
+									<td>{row.finishday}</td>
 									<td>
 										<ReportDetail num={row.num} />
 									</td>

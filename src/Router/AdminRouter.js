@@ -7,6 +7,7 @@ import MemberManagement from '../pages/admin/MemberManagement';
 import NoticeManagement from '../pages/admin/notice/NoticeManagement';
 import PopUpManagement from '../pages/admin/PopUpManagement';
 import ReportManagement from '../pages/admin/ReportManagement';
+import SettlementManagement from '../pages/admin/SettlementManagement';
 import SpaceManagement from '../pages/admin/space/SpaceManagement';
 
 import ThemeManagement from '../pages/admin/ThemeManagement';
@@ -23,8 +24,11 @@ function AdminRouter() {
 				<Route path='report' element={<ReportManagement />} />
 				<Route path='notice' element={<NoticeManagement />} />
 				<Route path='theme' element={<ThemeManagement />} />
+				{/* 
 				<Route path='popup' element={<PopUpManagement />} />
 				<Route path='banner' element={<BannerManagement />} />
+				 */}
+				<Route path='settlement' element={<SettlementManagement />} />
 			</Routes>
 		</>
 	);

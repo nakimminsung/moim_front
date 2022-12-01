@@ -95,6 +95,11 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 					<li>
+						<NavLink to={'/admin/settlement'} className='NavLink'>
+							정산 관리
+						</NavLink>
+					</li>
+					{/* <li>
 						<NavLink to={'/admin/popup'} className='NavLink'>
 							팝업 관리
 						</NavLink>
@@ -103,7 +108,7 @@ function AdminMenu(props) {
 						<NavLink to={'/admin/banner'} className='NavLink'>
 							배너 관리
 						</NavLink>
-					</li>
+					</li> */}
 				</ul>
 			</div>
 		</div>

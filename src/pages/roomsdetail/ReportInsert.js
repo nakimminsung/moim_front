@@ -114,6 +114,8 @@ function ReportInsert(props) {
 				//성공하고 비워주기
 				setReportType('');
 				setReportContent('');
+
+				window.location.reload();
 			});
 
 			//성공하고 modal 창 닫기
