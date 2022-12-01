@@ -1,6 +1,8 @@
 import axios from 'axios';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReportDetail from './ReportDetail';
+
+import Pagination from 'react-js-pagination';
 
 function ReportList(props) {
 	const {sort, searchWord, reportList, setReportList} = props;
@@ -24,6 +26,17 @@ function ReportList(props) {
 		//리스트 가져오기
 		getReportList();
 	}, [sort, searchWord]); //상위 컴포넌트에서 sort 값이 바뀔때마다
+
+	//페이징 처리 - pagenation
+	const [page, setPage] = useState(1);
+
+	//한번에 보여질 아이템 수
+	let items = 12;
+
+	//페이지 변경 이벤트
+	const handlePageChange = (page) => {
+		setPage(page);
+	};
 
 	return (
 		<div>
@@ -55,39 +68,61 @@ function ReportList(props) {
 							</tr>
 						) : (
 							reportList &&
-							reportList.map((row, idx) => (
-								<tr style={{verticalAlign: 'middle'}} key={idx}>
-									<td>{idx + 1}</td>
-									<td>{row.type}</td>
-									{/* <td>
+							reportList
+
+								.slice(
+									items * (page - 1),
+									items * (page - 1) + items,
+								)
+								.map((row, idx) => (
+									<tr
+										style={{verticalAlign: 'middle'}}
+										key={idx}
+									>
+										<td>{idx + 1}</td>
+										<td>{row.type}</td>
+										{/* <td>
 										{row.qnaNum != 0 ? 'Q&A' : '공간 정보'}
 									</td> */}
-									<td>
-										{row.nickname} (
-										{row.memail.length > 4
-											? row.memail.substr(0, 5) + '...'
-											: row.memail}
-										)
-									</td>
-									<td>
-										{row.companyName} (
-										{row.hemail.length > 4
-											? row.hemail.substr(0, 5) + '...'
-											: row.hemail}
-										)
-									</td>
-									<td>{row.status}</td>
-									<td>{row.writeday.substr(0, 10)}</td>
-									<td>{row.finishday}</td>
-									<td>
-										<ReportDetail num={row.num} />
-									</td>
-								</tr>
-							))
+										<td>
+											{row.nickname} (
+											{row.memail.length > 4
+												? row.memail.substr(0, 5) +
+												  '...'
+												: row.memail}
+											)
+										</td>
+										<td>
+											{row.companyName} (
+											{row.hemail.length > 4
+												? row.hemail.substr(0, 5) +
+												  '...'
+												: row.hemail}
+											)
+										</td>
+										<td>{row.status}</td>
+										<td>{row.writeday.substr(0, 10)}</td>
+										<td>{row.finishday}</td>
+										<td>
+											<ReportDetail num={row.num} />
+										</td>
+									</tr>
+								))
 						)}
 					</tbody>
 				</table>
 			</div>
+
+			{/* 페이지네이션 생기는 위치 */}
+			<Pagination
+				activePage={page} // 현재 보고있는 페이지
+				itemsCountPerPage={12} // 한 페이지에 출력할 아이템 수
+				totalItemsCount={reportList.length} // 총 아이템 수
+				pageRangeDisplayed={5} // 표시할 아이템 수
+				prevPageText={'‹'}
+				nextPageText={'›'}
+				onChange={handlePageChange}
+			/>
 		</div>
 	);
 }
