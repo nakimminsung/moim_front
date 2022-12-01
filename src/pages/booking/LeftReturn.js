@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import {useNavigate} from 'react-router-dom';
 
 function LeftReturn({
 	bookingList,
@@ -37,6 +38,7 @@ function LeftReturn({
 	let userNum = bookingList.userNum;
 	let roomNum = bookingList.roomNum;
 	let num = bookingList.num;
+	const navigate = useNavigate();
 
 	// 결제 modal checkbox
 	const checkOnlyOne = (checkThis) => {
@@ -112,7 +114,7 @@ function LeftReturn({
 							})
 							.then((res) => {
 								alert('결제가 완료되었습니다.');
-								window.location.reload();
+								navigate(`../list/${userNum}`);
 							});
 					} else {
 						alert('결제에 실패했습니다.');
@@ -156,7 +158,7 @@ function LeftReturn({
 							})
 							.then((res) => {
 								alert('결제가 완료되었습니다.');
-								window.location.reload();
+								navigate(`../list/${userNum}`);
 							});
 					} else {
 						alert('결제에 실패했습니다.');
@@ -200,7 +202,7 @@ function LeftReturn({
 							})
 							.then((res) => {
 								alert('결제가 완료되었습니다.');
-								window.location.reload();
+								navigate(`../list/${userNum}`);
 							});
 					} else {
 						alert('결제에 실패했습니다.');
@@ -244,7 +246,7 @@ function LeftReturn({
 							})
 							.then((res) => {
 								alert('결제가 완료되었습니다.');
-								window.location.reload();
+								navigate(`../list/${userNum}`);
 							});
 					} else {
 						alert('결제에 실패했습니다.');
@@ -476,10 +478,10 @@ function LeftReturn({
 									id='alert-dialog-title'
 									style={{
 										backgroundColor: '#704de4',
-                            			marginRight: '0px',
-                            			marginBotton: '40px',
-                            			color: 'white',
-                            			width: '480px',
+										marginRight: '0px',
+										marginBotton: '40px',
+										color: 'white',
+										width: '480px',
 									}}
 								>
 									<h4

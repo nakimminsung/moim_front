@@ -363,17 +363,17 @@ function BdPayment({
 						</h4>
 					</div>
 				</div>
-				
-					<Button
-						class='bookingBtn'
-						type='button'
-						id='btn_submit'
-						variant='outlined'
-						onClick={handleClickOpen}
-					>
-						예약신청하기
-					</Button>
-			
+
+				<Button
+					class='bookingBtn'
+					type='button'
+					id='btn_submit'
+					variant='outlined'
+					onClick={handleClickOpen}
+				>
+					예약신청하기
+				</Button>
+
 				{/* 모달 */}
 				<Dialog
 					open={open}
@@ -522,7 +522,6 @@ function BdPayment({
 							<Button
 								onClick={() => {
 									payment();
-									//navigate(`../list/${userNum}`);
 									handleClose();
 								}}
 								color='primary'
