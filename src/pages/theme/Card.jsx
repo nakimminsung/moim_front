@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import RoomIcon from '@mui/icons-material/Room';
-import {Favorite} from '@material-ui/icons';
+import { Favorite } from '@material-ui/icons';
 import SmsIcon from '@mui/icons-material/Sms';
 import PersonIcon from '@mui/icons-material/Person';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import {CardActionArea} from '@mui/material';
+import { CardActionArea } from '@mui/material';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
-import {useTheme} from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
-import {autoPlay} from 'react-swipeable-views-utils';
+import { autoPlay } from 'react-swipeable-views-utils';
 import styled from '@emotion/styled/macro';
-import {Box, Typography} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -24,7 +24,7 @@ function RoomCard(props) {
 	const [imageData, setImageData] = useState([]);
 	const [reviewCount, setReviewCount] = useState('');
 	const [likeCount, setLikeCount] = useState('');
-	const {roomData, roomNum} = props;
+	const { roomData, roomNum } = props;
 	const navi = useNavigate();
 
 	// room tag list select function
@@ -93,7 +93,7 @@ function RoomCard(props) {
 												onClick={() => {
 													navi(
 														'/detail/' +
-															roomData.num,
+														roomData.num,
 													);
 												}}
 											/>
@@ -129,14 +129,14 @@ function RoomCard(props) {
 								roomData.payment === '바로결제'
 									? '#ffff33'
 									: roomData.payment === '승인결제'
-									? '#9b4de3'
-									: '',
+										? '#9b4de3'
+										: '',
 							color:
 								roomData.payment === '바로결제'
 									? '#9b4de3'
 									: roomData.payment === '승인결제'
-									? '#ffff33'
-									: '',
+										? '#ffff33'
+										: '',
 						}}
 					>
 						{roomData.payment}
@@ -176,7 +176,7 @@ function RoomCard(props) {
 										<PersonIcon /> {roomData.headcount}
 									</HeadCount>
 									<ReviewCount>
-										<SmsIcon style={{marginRight: '5px'}} />
+										<SmsIcon style={{ marginRight: '5px' }} />
 										{reviewCount}
 									</ReviewCount>
 									<LikeCount>

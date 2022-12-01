@@ -54,7 +54,7 @@ function NoticeListAdmin(props) {
 
 	return (
 		<div className='noticeTable' style={{marginTop: '20px', width: '100%'}}>
-			<table className='table table-bordered' style={{width: '100%'}}>
+			<table className='' style={{width: '100%'}}>
 				<thead>
 					<tr style={{textAlign: 'center'}}>
 						<th style={{width: '5%'}}>번호</th>

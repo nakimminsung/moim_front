@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -26,6 +26,11 @@ import Menu from '@mui/material/Menu';
 import Filter from './Filter';
 import FilterContent from './FilterContent';
 import { useNavigate, useParams } from 'react-router-dom';
+import Search from './filter/Search';
+import SpaceFilter from './filter/SpaceFilter';
+import HeadFilter from './filter/HeadFilter';
+import DateFilter from './filter/DateFilter';
+import FaciFilter from './filter/FaciFilter';
 
 const CustomTabs = (props) => (
     <React.Fragment>
@@ -38,6 +43,7 @@ function Filtering(props) {
     const navi = useNavigate();
     // {num}은 router의 :num의 이름과 같아야 한다.
     const { categoryNum } = useParams();
+    const searchRef = useRef('');
     const [value, setValue] = useState(dayjs(new Date()).locale('ko'));
     // 부모 컴포넌트의 변수 받기
     const {
@@ -47,13 +53,15 @@ function Filtering(props) {
         setAddress,
         headCount,
         setHeadCount,
-        // sort,
-        // setSort,
+        sort,
+        setSort,
         setPayment,
         setSprice,
         setEprice,
-        setSearch,
         setFacility,
+        setHoliday,
+        setStime,
+        setEtime,
     } = props;
 
 
@@ -92,132 +100,55 @@ function Filtering(props) {
     return (
         <Wrapper>
             <Left>
-                <Card
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                        alignItems: 'center',
-                        width: '100%',
-                        height: '100%',
-                        minHeight: '55px',
-                        padding: '0 20px',
-                        position: 'relative',
-                    }}
-                >
-                    <SearchIcon
-                        style={{
-                            position: 'absolute',
-                            zIndex: 1,
-                            color: '#a0a0a0',
-                            cursor: 'pointer',
-                        }}
-                    />
-                    <input
-                        type='text'
-                        placeholder='공간명 검색'
-                        value={roomName}
-                        onChange={(e) => {
-                            setRoomName(e.target.value);
-                        }}
-                        style={{
-                            width: '100%',
-                            backgroundColor: 'white',
-                            border: '0px',
-                        }}
-                    />
-                </Card>
+                {/* 공간명 검색 */}
+                <Search setRoomName={setRoomName} />
             </Left>
             <Middle>
-                <Box
-                    sx={{
-                        minWidth: 120,
-                        width: '30%',
-                        marginRight: '20px',
-                        backgroundColor: '#fff',
-                        borderRadius: '5px',
-                    }}
-                >
-                    <FormControl fullWidth>
-                        <InputLabel id='demo-simple-select-label'>
-                            지역
-                        </InputLabel>
-                        <Select
-                            labelId='demo-simple-select-label'
-                            id='demo-simple-select'
-                            value={address}
-                            label='지역'
-                            onChange={spaceChange}
-                        >
-                            <MenuItem value={'서울'}>서울</MenuItem>
-                            <MenuItem value={'강동'}>강동</MenuItem>
-                            <MenuItem value={'부산'}>부산</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <Box
-                    sx={{
-                        minWidth: 120,
-                        width: '10%',
-                        marginRight: '20px',
-                        backgroundColor: '#fff',
-                        borderRadius: '5px',
-                    }}
-                >
-                    <FormControl fullWidth>
-                        <InputLabel id='demo-simple-select-label'>
-                            인원
-                        </InputLabel>
-                        <Select
-                            labelId='demo-simple-select-label'
-                            id='demo-simple-select'
-                            value={headCount}
-                            label='인원'
-                            onChange={headCountChange}
-                        >
-                            <MenuItem value={1}>1</MenuItem>
-                            <MenuItem value={2}>2</MenuItem>
-                            <MenuItem value={3}>3</MenuItem>
-                            <MenuItem value={4}>4</MenuItem>
-                            <MenuItem value={5}>5</MenuItem>
-                            <MenuItem value={6}>6</MenuItem>
-                            <MenuItem value={7}>7</MenuItem>
-                            <MenuItem value={8}>8</MenuItem>
-                            <MenuItem value={9}>9</MenuItem>
-                            <MenuItem value={10}>10</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <ThemeProvider theme={theme}>
-                    <LocalizationProvider
-                        dateAdapter={AdapterDayjs}
-                        dateFormats={dayjs.locale('ko')}
+                <MiddleBox>
+                    {/* 지역 필터링 */}
+                    <SpaceFilter setAddress={setAddress} />
+                    {/* 인원 설정 */}
+                    <HeadFilter setHeadCount={setHeadCount} />
+                    {/* 날짜 설정 */}
+                    <DateFilter
+                        setHoliday={setHoliday}
+                        setStime={setStime}
+                        setEtime={setEtime}
+                    />
+                </MiddleBox>
+                <Right>
+                    <FaciFilter
+                        setPayment={setPayment}
+                        setSprice={setSprice}
+                        setEprice={setEprice}
+                        setFacility={setFacility}
+                    />
+                    <FilterButton
+                        onClick={() => {
+                            navi('/map/category/' + categoryNum);
+                        }}
+                        id='basic-button'
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup='true'
+                        aria-expanded={open ? 'true' : undefined}
                     >
-                        <Stack spacing={3}>
-                            <DateTimePicker
-                                renderInput={(params) => (
-                                    <TextField {...params} />
-                                )}
-                                value={value}
-                                onChange={(newValue) => {
-                                    setValue(newValue);
-                                }}
-                                style={{ color: 'lightgray' }}
-                                hideTabs={false}
-                                components={{ Tabs: CustomTabs }}
-                                componentsProps={{
-                                    // actionBar: {
-                                    // 	actions: ['today'],
-                                    // },
-                                    tabs: {
-                                        dateRangeIcon: <LightModeIcon />,
-                                        timeIcon: <AcUnitIcon />,
-                                    },
-                                }}
-                            />
-                        </Stack>
-                    </LocalizationProvider>
-                </ThemeProvider>
-                <div
+                        <MapOutlinedIcon
+                            style={{ color: '#9b4de3', fontSize: '15px;' }}
+                        />
+                        <Typography
+                            style={{
+                                marginLeft: '10px',
+                                fontSize: '15px',
+                                color: '#9b4de3',
+                                fontWeight: '1000',
+                            }}
+                        >
+                            지도
+                        </Typography>
+                    </FilterButton>
+                </Right>
+
+                {/* <div
                     style={{
                         display: 'flex',
                         width: '30%',
@@ -225,7 +156,7 @@ function Filtering(props) {
                         justifyContent: 'flex-end',
                     }}
                 >
-                    <FilterButton
+                    {/* <FilterButton
                         onClick={handleClick}
                         id='basic-button'
                         aria-controls={open ? 'basic-menu' : undefined}
@@ -269,52 +200,44 @@ function Filtering(props) {
                         >
                             지도
                         </Typography>
-                    </FilterButton>
-                    <Menu
-                        id='basic-menu'
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                        }}
-                    >
-                        <FilterContent
-                            setPayment={setPayment}
-                            setSprice={setSprice}
-                            setEprice={setEprice}
-                            setFacility={setFacility}
-                            setAnchorEl={setAnchorEl}
-                            setRoomName={setRoomName}
-                            setSearch={setSearch}
-                        />
-                    </Menu>
-                </div>
+                    </FilterButton> */}
+                <Menu
+                    id='basic-menu'
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <FilterContent
+                        setPayment={setPayment}
+                        setSprice={setSprice}
+                        setEprice={setEprice}
+                        setFacility={setFacility}
+                        setAnchorEl={setAnchorEl}
+                        setRoomName={setRoomName}
+                    // setSearch={setSearch}
+                    />
+                </Menu>
             </Middle>
-        </Wrapper>
+        </Wrapper >
     );
 }
 
 export default Filtering;
 
-const FilterButton = styled(Button)`
-	border: 2px solid #9b4de3;
-	width: 100px;
-	height: 40px;
-	cursor: pointer;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 25px;
-	font-weight: 1000;
-	background-color: #fff;
-	border-radius: 30px;
-    margin-right:15px;
-    padding-right:7px;
-`;
 const Wrapper = styled(Box)`
 	display: flex;
 	align-items: center;
+	@media (max-width: 1000px) {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	@media (max-width: 900px) {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 `;
 const Left = styled(Box)`
 	display: flex;
@@ -325,23 +248,59 @@ const Left = styled(Box)`
 	@media (max-width: 1680px) {
 		width: 24%;
 	}
-	@media (max-width: 767px) {
-		width: 45%;
+	@media (max-width: 1000px) {
+		width: 100%;
+	}
+	@media (max-width: 900px) {
+		width: 100%;
 	}
 `;
 const Middle = styled(Box)`
 	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	padding-left: 10px;
-	padding-right: 5px;
+	justify-content: space-between;
 	@media (max-width: 1920px) {
 		width: 80.8%;
 	}
 	@media (max-width: 1680px) {
 		width: 76%;
 	}
-	@media (max-width: 767px) {
-		width: 55%;
+	@media (max-width: 1000px) {
+		width: 100%;
+		margin-top: 10px;
 	}
+	@media (max-width: 900px) {
+		width: 100%;
+		margin-top: 10px;
+	}
+`;
+const MiddleBox = styled(Box)`
+	display: flex;
+	width: 100%;
+	padding-left: 10px;
+    z-index: 99;
+	@media (max-width: 1000px) {
+		padding-left: 0;
+	}
+	@media (max-width: 900px) {
+		padding-left: 0;
+	}
+`;
+const Right = styled(Box)`
+	display: flex;
+	width: 25%;
+	justify-content: flex-end;
+`;
+const FilterButton = styled.button`
+	border: 2px solid #9b4de3;
+	width: 130px;
+	height: 55px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 25px;
+	font-weight: 1000;
+	background-color: #fff;
+	border-radius: 30px;
+	margin-left: auto;
 `;
