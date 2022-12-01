@@ -1,5 +1,6 @@
 import {FormControl, MenuItem, Select, TextField} from '@mui/material';
 import axios from 'axios';
+import {lastDayOfMonth} from 'date-fns';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {Calendar} from 'react-calendar';
@@ -14,7 +15,10 @@ function Acount1(props) {
 		new Date(new Date().getFullYear(), new Date().getMonth(), 1),
 	);
 	console.log('sday=' + sday);
-	const [eday, setEday] = useState(new Date());
+	//const [eday, setEday] = useState(new Date());
+	const [eday, setEday] = useState(
+		new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
+	);
 	const [sshowCalendar, setSShowCalendar] = useState(false);
 	const [eshowCalendar, setEShowCalendar] = useState(false);
 
@@ -63,6 +67,7 @@ function Acount1(props) {
 		});
 	};
 
+	const [payStatus, setPayStatus] = useState(0);
 	//리스트 호출하는 것
 	const [acountlist, setAcountList] = useState([]);
 	//검색 버튼 눌렀을때 발생하는 이벤트
@@ -79,14 +84,15 @@ function Acount1(props) {
 			'&roomName=' +
 			roomName +
 			'&hostNum=' +
-			hostNum;
+			hostNum +
+			'&payStatus=' +
+			payStatus;
 		console.log(searchUrl);
 		axios.get(searchUrl).then((res) => {
 			console.log(res.data);
 			setAcountList(res.data);
 		});
 	};
-	//검색 버튼 눌렀을때 발생하는 이벤트
 
 	// // --테스트용
 	useEffect(() => {
@@ -99,8 +105,11 @@ function Acount1(props) {
 
 	const sumtotal = () => {
 		let a = 0;
-		acountlist.map((price, i) => (a += price.totalPrice));
-
+		acountlist.map((price, i) => {
+			if (price.bookingStatus == 4 && price.payStatus == 0) {
+				a += price.totalPrice;
+			}
+		});
 		console.log('a=' + a);
 		setTot(a);
 		console.log(tot);
@@ -226,9 +235,6 @@ function Acount1(props) {
 					onChange={changeStartDay}
 					value={sday}
 					locale='en-EN'
-					// defaultActiveStartDate={new Date()} //금일 날짜 표시
-					// ctiveStartDate={new Date()}
-					// defaultValue={sday}
 					formatMonthYear={(locale, date) =>
 						date
 							.toLocaleString('ko', {
@@ -265,7 +271,7 @@ function Acount1(props) {
 					<b>
 						{moment(sday).format('YYYY-MM-DD')}
 						&nbsp;~&nbsp;
-						{moment(eday).format('YYYY-MM-DD')} 기간에 정산된
+						{moment(eday).format('YYYY-MM-DD')} 기간에 정산될
 						내역입니다
 					</b>
 				</span>
@@ -291,26 +297,32 @@ function Acount1(props) {
 							<th>상태</th>
 						</tr>
 					</thead>
-					{acountlist &&
-						acountlist.map((item, idx) => (
-							<tbody>
-								<tr>
-									<td>{item.createdAt}</td>
-									<td>{item.merchantUid}</td>
-									<td>{item.roomName}</td>
-									<td>{item.pg}</td>
-									<td>{item.name}</td>
-									<td>{item.totalPrice}</td>
-									<td>
-										{Number(item.bookingStatus) === 4 ? (
-											<span>이용완료</span>
-										) : Number(item.bookingStatus) === 5 ? (
-											<span>취소/환불</span>
-										) : null}
-									</td>
-								</tr>
-							</tbody>
-						))}
+
+					<tbody>
+						{acountlist &&
+							acountlist.map((item, idx) => {
+								if (
+									item.payStatus == 0 &&
+									item.bookingStatus == 4
+								)
+									return (
+										<tr key={idx}>
+											<td>{item.createdAt}</td>
+											<td>{item.merchantUid}</td>
+											<td>{item.roomName}</td>
+											<td>{item.pg}</td>
+											<td>{item.name}</td>
+											<td>{item.totalPrice}</td>
+											<td>
+												{Number(item.payStatus) ===
+												0 ? (
+													<span>정산예정</span>
+												) : null}
+											</td>
+										</tr>
+									);
+							})}
+					</tbody>
 				</table>
 			</div>
 		</div>
