@@ -363,7 +363,7 @@ function BdPayment({
 						</h4>
 					</div>
 				</div>
-				{
+				
 					<Button
 						class='bookingBtn'
 						type='button'
@@ -373,7 +373,7 @@ function BdPayment({
 					>
 						예약신청하기
 					</Button>
-				}
+			
 				{/* 모달 */}
 				<Dialog
 					open={open}
