@@ -48,7 +48,7 @@ function RoomCard(props) {
 		console.log(deleteLikeUrl);
 		let userNum = jwt_decode(localStorage.getItem('token')).idx;
 		axios.post(deleteLikeUrl, {userNum, num}).then((res) => {
-			alert('삭제되었습니다');
+			alert('찜목록에서 삭제되었습니다');
 			window.location.reload();
 		});
 	};
