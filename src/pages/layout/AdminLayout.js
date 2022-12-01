@@ -71,6 +71,9 @@ function AdminLayout(props) {
 
 						position: 'fixed',
 						opacity: '0.9',
+
+						//공간 img의 '승인상태' 문구의 zindex가 1이므로 보다 크게
+						zIndex: '5',
 					}}
 				>
 					<Breadcrumbs aria-label='breadcrumb'>

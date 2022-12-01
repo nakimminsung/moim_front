@@ -5,6 +5,7 @@ import Pagenation from './DetailPaging';
 import Rating from '@material-ui/lab/Rating';
 import {FormControlLabel, Switch} from '@material-ui/core';
 import DetailHost from './DetailHost';
+import DetailSm from './DetailSm';
 
 function DetailReview(props) {
 	const {num} = useParams();
@@ -14,6 +15,8 @@ function DetailReview(props) {
 	const [checked, setChecked] = useState(false);
 	const [photoList, setPhotoList] = useState([]);
 	const [totalList, setTotalList] = useState([]);
+
+	const imgUrl = 'http://localhost:9000/image/';
 
 	//페이징처리
 	const [limit, setLimit] = useState(3);
@@ -53,8 +56,18 @@ function DetailReview(props) {
 		<div>
 			<div id='6' style={{marginTop: '100px'}}>
 				<div>
-					<b style={{borderBottom: '2px solid #ffd014'}}>
-						이용후기 {reviewCount}개 • 평균평점 {reviewAvg}점
+					<b
+						style={{
+							borderBottom: '2px solid #ffd014',
+							fontSize: '18px',
+							paddingBottom: '5px',
+						}}
+					>
+						이용후기{' '}
+						<b style={{color: 'rgb(112, 77, 228)'}}>
+							({reviewCount}개)
+						</b>{' '}
+						{/* 평균평점 {reviewAvg}점 */}
 					</b>
 					<span style={{float: 'right'}}>
 						<FormControlLabel
@@ -99,7 +112,12 @@ function DetailReview(props) {
 												>
 													<img
 														alt=''
-														src='https://ssl.pstatic.net/static/pwe/address/img_profile.png'
+														src={
+															item.profile_image ==
+															null
+																? 'https://ssl.pstatic.net/static/pwe/address/img_profile.png'
+																: item.profile_image
+														}
 														className='qnaImg'
 													/>
 												</td>
@@ -155,6 +173,7 @@ function DetailReview(props) {
 																	<img
 																		alt=''
 																		src={
+																			imgUrl +
 																			item.reviewImageUrl
 																		}
 																		className='reviewImg'
@@ -176,15 +195,6 @@ function DetailReview(props) {
 																	: 'block',
 														}}
 													>
-														<b
-															style={{
-																color: '#704de4',
-																fontSize:
-																	'17px',
-															}}
-														>
-															호스트답글
-														</b>
 														<pre className='qnaContent'>
 															{item.answerContent}
 														</pre>

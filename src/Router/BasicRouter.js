@@ -24,6 +24,15 @@ import Search from '../pages/search/Search';
 import Notice from '../pages/notice/Notice';
 import SellerLogin from '../pages/login/SellerLogin';
 import SellerJoin from '../pages/login/SellerJoin';
+import SpaceUpdateForm from '../pages/host/SpaceUpdateForm';
+import SpaceUpdateForm2 from '../pages/host/SpaceUpdateForm2';
+import SpaceUpdateForm3 from '../pages/host/SpaceUpdateForm3';
+import SpaceBookingList from '../pages/host/SpaceBookingList';
+import SpaceCalendar from '../pages/host/SpaceCalendar';
+import SpaceBookingDetail from '../pages/host/SpaceBookingDetail';
+import PasswordSearch from '../pages/login/PasswordSearch';
+import PasswordSearch2 from '../pages/login/PasswordSearch2';
+import SpaceAcount from '../pages/host/SpaceAcount';
 
 function BasicRouter() {
 	return (
@@ -50,6 +59,25 @@ function BasicRouter() {
 					<Route path='addform' element={<SpaceAddForm />} />
 					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
 					<Route path='addform3/:num' element={<SpaceAddForm3 />} />
+					<Route
+						path='updateform/:num'
+						element={<SpaceUpdateForm />}
+					/>
+					<Route
+						path='updateform2/:num'
+						element={<SpaceUpdateForm2 />}
+					/>
+					<Route
+						path='updateform3/:num'
+						element={<SpaceUpdateForm3 />}
+					/>
+					<Route path='bookinglist' element={<SpaceBookingList />} />
+					<Route path='bookingcalendar' element={<SpaceCalendar />} />
+					<Route
+						path='bookingdetail/:bookingDetailNum'
+						element={<SpaceBookingDetail />}
+					/>
+					<Route path='acount' element={<SpaceAcount />} />
 				</Route>
 				{/* 호스트 끝 */}
 
@@ -74,6 +102,8 @@ function BasicRouter() {
 				<Route path='seller' element={<SellerLogin />} />
 				<Route path='sellerJoin' element={<SellerJoin />} />
 				<Route path='mypage' element={<Mypage />} />
+				<Route path='passwordsearch' element={<PasswordSearch />} />
+				<Route path='passwordsearch2' element={<PasswordSearch2 />} />
 
 				{/* 카테고리별 방 페이지 */}
 				<Route path='categoryroomList'>

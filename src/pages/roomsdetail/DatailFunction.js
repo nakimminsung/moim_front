@@ -7,6 +7,7 @@ import axios from 'axios';
 import DeatilBooking from './DeatilBooking';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import jwt_decode from 'jwt-decode';
+import ReportInsert from './ReportInsert';
 
 function DatailFunction(props) {
 	const [btnLike, setBtnLike] = useState('');
@@ -61,13 +62,13 @@ function DatailFunction(props) {
 				let userNum = jwt_decode(localStorage.getItem('token')).idx;
 
 				axios.post(insertLikeUrl, {userNum, num}).then((res) => {
-					alert('등록되었습니다');
+					alert('찜목록에 추가되었습니다');
 				});
 			} else {
 				let deleteLikeUrl = localStorage.url + '/detail/deleteLike';
 				let userNum = jwt_decode(localStorage.getItem('token')).idx;
 				axios.post(deleteLikeUrl, {userNum, num}).then((res) => {
-					alert('삭제되었습니다');
+					alert('찜목록에서 삭제되었습니다');
 				});
 			}
 		} else {
@@ -83,33 +84,38 @@ function DatailFunction(props) {
 						float: 'right',
 					}}
 				>
-					<span>
-						<SmsOutlined
-							style={{marginBottom: '5px', marginRight: '-2px'}}
-						/>
-					</span>
-					&nbsp;&nbsp;
-					<span
-						onClick={clickedToggle}
-						toggle={btnLike}
-						style={{
-							color: btnLike === false ? '#704de4' : 'black',
-							cursor: 'pointer',
-						}}
-					>
-						{btnLike === false ? (
-							<FavoriteIcon style={{marginBottom: '6px'}} />
-						) : (
-							<FavoriteBorderIcon style={{marginBottom: '6px'}} />
-						)}
-					</span>
-					&nbsp;
-					<span
-						class='material-symbols-outlined'
-						style={{fontSize: 'xx-large'}}
-					>
-						e911_emergency
-					</span>
+					<div style={{display: 'flex'}}>
+						<span>
+							<SmsOutlined
+								style={{
+									marginBottom: '5px',
+									marginRight: '-2px',
+								}}
+							/>
+						</span>
+						&nbsp;&nbsp;
+						<span
+							onClick={clickedToggle}
+							toggle={btnLike}
+							style={{
+								color: btnLike === false ? '#704de4' : 'black',
+								cursor: 'pointer',
+							}}
+						>
+							{btnLike === false ? (
+								<FavoriteIcon style={{marginBottom: '6px'}} />
+							) : (
+								<FavoriteBorderIcon
+									style={{marginBottom: '6px'}}
+								/>
+							)}
+						</span>
+						&nbsp;
+						{/* 911, 신고하기, report */}
+						<div style={{marginTop: '-7px'}}>
+							<ReportInsert roomNum={num} />
+						</div>
+					</div>
 				</span>
 			</div>
 			<div

@@ -16,91 +16,78 @@ function SpaceOption(props) {
 	localStorage.url = 'http://localhost:9000';
 	let imageUrl = localStorage.url + '/image/';
 	return (
-		<div>
-			<div className='input-group'>
-				<BtnBox>
-					<BtnLabel>
-						<div>파일첨부</div>
-						<input
-							type='file'
-							id='roption1'
-							style={{
-								visibility: 'hidden',
-								display: 'none',
-							}}
-							onChange={photoUploadEvent3}
-							required
-							onClick={() => {
-								document.getElementById('roption1').click();
-							}}
+		<div style={{marginTop: '20px', width: '100%'}}>
+			<table style={{width: '100%'}}>
+				<thead style={{textAlign: 'center'}}>
+					<tr style={{backgroundColor: '#efefef'}}>
+						<th style={{width: '25%'}}>사진</th>
+						<th style={{width: '25%'}}>이름</th>
+						<th style={{width: '25%'}}>가격</th>
+						<th style={{width: '25%'}}>버튼</th>
+					</tr>
+				</thead>
+				<tbody>
+					<td style={{textAlign: 'center'}}>
+						<label style={{cursor: 'pointer'}}>
+							<div>파일첨부</div>
+							<input
+								type='file'
+								id='roption1'
+								style={{
+									visibility: 'hidden',
+									display: 'none',
+								}}
+								onChange={photoUploadEvent3}
+								required
+								onClick={() => {
+									document.getElementById('roption1').click();
+								}}
+							/>
+						</label>
+						<img
+							alt=''
+							src={imageUrl + oimageUrl}
+							style={{maxWidth: '150px'}}
 						/>
-					</BtnLabel>
-				</BtnBox>
-			</div>
-			<div style={{marginTop: '100px'}}>
-				{oimageUrl == 0 ? null : (
-					<table>
-						<thead>
-							<tr>
-								<th>사진</th>
-								<th>이름</th>
-								<th>가격</th>
-								<th>버튼</th>
-							</tr>
-						</thead>
-						<tbody>
-							<td>
-								<img
-									alt=''
-									src={imageUrl + oimageUrl}
-									style={{maxWidth: '150px'}}
-								/>
-							</td>
-							<td>
-								<TextField
-									id='roption2'
-									style={{margin: 8, width: '400px'}}
-									placeholder='옵션을 입력해주세요'
-									InputLabelProps={{
-										shrink: true,
-									}}
-									variant='outlined'
-									size='small'
-									inputRef={NameRef}
-								/>
-							</td>
-							<td>
-								<TextField
-									id='roption3'
-									type='number'
-									style={{margin: 8, width: '400px'}}
-									placeholder='가격을 입력해주세요'
-									InputLabelProps={{
-										shrink: true,
-									}}
-									variant='outlined'
-									size='small'
-									inputRef={PriceRef}
-								/>
-							</td>
-							<td>
-								{/* <BtnBox>
-									<BtnLabel>
-										<div onClick={optionButton}>추가</div>
-									</BtnLabel>
-								</BtnBox> */}
-								<Button
-									variant='contained'
-									color='primary'
-									onClick={optionButton}
-								>
-									추가
-								</Button>
-							</td>
-						</tbody>
-					</table>
-				)}
-			</div>
+					</td>
+					<td>
+						<TextField
+							id='roption2'
+							style={{margin: 8, width: '400px'}}
+							placeholder='옵션을 입력해주세요'
+							InputLabelProps={{
+								shrink: true,
+							}}
+							variant='outlined'
+							size='small'
+							inputRef={NameRef}
+						/>
+					</td>
+					<td>
+						<TextField
+							id='roption3'
+							type='number'
+							style={{margin: 8, width: '400px'}}
+							placeholder='가격을 입력해주세요'
+							InputLabelProps={{
+								shrink: true,
+							}}
+							variant='outlined'
+							size='small'
+							inputRef={PriceRef}
+						/>
+					</td>
+					<td style={{textAlign: 'center'}}>
+						<Button
+							variant='contained'
+							color='primary'
+							onClick={optionButton}
+						>
+							추가
+						</Button>
+					</td>
+				</tbody>
+			</table>
 		</div>
 	);
 }

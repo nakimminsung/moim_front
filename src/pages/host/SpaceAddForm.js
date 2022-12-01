@@ -11,11 +11,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Button from '@material-ui/core/Button';
 import styled1 from 'styled-components';
-
-// import Geocode from 'react-geocode';
-
-// import {Button} from '@mui/material';
-
 import {useNavigate} from 'react-router-dom';
 
 //다이얼로그에 필요한 코드들
@@ -124,7 +119,7 @@ function SpaceAddForm(props) {
 		console.log(oneIntroduction);
 		e.preventDefault();
 		let insertUrl = localStorage.url + '/host/insert';
-
+		console.log(insertUrl);
 		axios
 			.post(insertUrl, {
 				name,
@@ -331,10 +326,11 @@ function SpaceAddForm(props) {
 								alignItems: 'flex-start',
 							}}
 						>
-							{thumbnailImage == 0 ? null : (
+							{thumbnailImage && (
 								<img
 									alt=''
 									src={imageUrl + thumbnailImage}
+									// src={thumbnailImage}
 									style={{
 										width: '170px',
 										height: '170px',

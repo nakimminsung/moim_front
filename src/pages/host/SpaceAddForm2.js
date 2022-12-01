@@ -58,7 +58,7 @@ function SpaceAddForm2(props) {
 		} else if (!checked) {
 			// 단일 선택 해제 시 체크된 아이템을 제외한 배열 (필터)
 			setCheckedArr(checkedArr.filter((el) => el !== num));
-			// console.log(checkedArr, roomNum);
+			console.log(checkedArr, roomNum);
 		} else {
 		}
 	};
@@ -222,7 +222,6 @@ function SpaceAddForm2(props) {
 	// 다음 버튼 클릭 이벤트
 	const nextButton = (e) => {
 		e.preventDefault();
-
 		//옵션 저장
 		let optioninsertUrl = localStorage.url + '/host/optioninsert';
 		console.log(optioninsertUrl);
@@ -485,32 +484,77 @@ function SpaceAddForm2(props) {
 							PriceRef={PriceRef}
 							oimageUrl={oimageUrl}
 						/>
-						<div>
-							{roptionList === 0
-								? null
-								: roptionList &&
-								  roptionList.map((rotion, idx) => (
-										<table>
-											<tbody>
-												<tr key={idx}>
-													<td>
-														<img
-															style={{
-																width: '150px',
-															}}
-															alt=''
-															src={
-																imageUrl +
-																rotion.oimageUrl
-															}
-														/>
-													</td>
-													<td>{rotion.oname}</td>
-													<td>{rotion.price}</td>
-												</tr>
-											</tbody>
-										</table>
-								  ))}
+						<div style={{marginTop: '20px', width: '100%'}}>
+							{roptionList &&
+								roptionList.map((rotion, idx) => (
+									<table
+										className='table table-bordered'
+										style={{
+											border: '1px solid black',
+											width: '80%',
+											marginLeft: '100px',
+										}}
+									>
+										<tbody
+											style={{
+												width: '80%',
+												textAlign: 'center',
+											}}
+										>
+											<tr
+												key={idx}
+												style={{
+													verticalAlign: 'middle',
+												}}
+											>
+												<td style={{width: '5%'}}>
+													{idx + 1}
+												</td>
+												<td style={{width: '20%'}}>
+													<img
+														style={{
+															height: '120px',
+															width: '120px',
+															maxWidth: '150px',
+															maxHeight: '150px',
+														}}
+														alt=''
+														src={
+															imageUrl +
+															rotion.oimageUrl
+														}
+													/>
+												</td>
+												<td style={{width: '20%'}}>
+													{rotion.oname}
+												</td>
+												<td style={{width: '20%'}}>
+													{rotion.price}
+												</td>
+												<td style={{width: '20%'}}>
+													<button
+														type='button'
+														className='btn btn-danger'
+														style={{
+															cursor: 'pointer',
+														}}
+														onClick={() => {
+															setRoptionList(
+																roptionList.filter(
+																	(a, i) =>
+																		i !==
+																		idx,
+																),
+															);
+														}}
+													>
+														삭제
+													</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								))}
 						</div>
 					</Space>
 
@@ -536,7 +580,19 @@ function SpaceAddForm2(props) {
 										backgroundColor: '#efefef',
 									}}
 								>
-									#{t}
+									<span>
+										#{t}
+										<CloseOutlined
+											style={{cursor: 'pointer'}}
+											onClick={() => {
+												setTag(
+													tname.filter(
+														(a, i) => i !== idx2,
+													),
+												);
+											}}
+										/>
+									</span>
 								</b>
 							))}
 						</div>
@@ -557,6 +613,16 @@ function SpaceAddForm2(props) {
 							{icontent.map((info, idx3) => (
 								<h5 key={idx3}>
 									<b>{info}</b>
+									<CloseOutlined
+										style={{cursor: 'pointer'}}
+										onClick={() => {
+											setInfo(
+												icontent.filter(
+													(a, i) => i !== idx3,
+												),
+											);
+										}}
+									/>
 								</h5>
 							))}
 						</div>
@@ -577,6 +643,16 @@ function SpaceAddForm2(props) {
 							{pcontent.map((pre, idx4) => (
 								<h5 key={idx4}>
 									<b>{pre}</b>
+									<CloseOutlined
+										style={{cursor: 'pointer'}}
+										onClick={() => {
+											setPrecautions(
+												pcontent.filter(
+													(a, i) => i !== idx4,
+												),
+											);
+										}}
+									/>
 								</h5>
 							))}
 						</div>

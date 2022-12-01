@@ -1,11 +1,5 @@
 import {ClassNames} from '@emotion/react';
-import {
-	Button,
-	FormControl,
-	MenuItem,
-	Select,
-	TextField,
-} from '@material-ui/core';
+import {FormControl, MenuItem, Select, TextField} from '@material-ui/core';
 import axios from 'axios';
 import React, {useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
@@ -41,7 +35,7 @@ function SpaceAddForm3(props) {
 		// console.log(e.target.value);
 	};
 
-	const radioCheck = (e) => {
+	const elevatorCheck = (e) => {
 		setElevator(e.target.value);
 		// console.log(e.target.value);
 	};
@@ -435,7 +429,7 @@ function SpaceAddForm3(props) {
 									type={'radio'}
 									value='1'
 									checked={elevator === '1'}
-									onChange={radioCheck}
+									onChange={elevatorCheck}
 								/>
 								있음
 							</label>
@@ -446,7 +440,7 @@ function SpaceAddForm3(props) {
 									type={'radio'}
 									value='0'
 									checked={elevator === '0'}
-									onChange={radioCheck}
+									onChange={elevatorCheck}
 								/>
 								없음
 							</label>

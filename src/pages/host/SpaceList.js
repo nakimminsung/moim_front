@@ -12,11 +12,10 @@ function SpaceList(props) {
 	localStorage.url = 'http://localhost:9000';
 
 	let imageUrl = localStorage.url + '/image/';
-	const [checked, setChecked] = useState(0);
 
 	// 페이징 처리
 	const [spacelist, setSpacelist] = useState([]);
-	const [limit, setLimit] = useState(3);
+	const [limit, setLimit] = useState(6);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * limit;
 
@@ -27,33 +26,44 @@ function SpaceList(props) {
 			.then((res) => res.json())
 			.then((data) => setSpacelist(data));
 		// console.log(checked);
-	}, [checked]);
+	}, []);
 
-	// console.log(spacelist);
+	const [status, setStatus] = useState(false);
+	const [roomNum, setRoomNum] = useState('');
+	console.log('status=' + status);
 
-	// const list = () => {
-	// 	let listUrl = localStorage.url + '/host/list';
-	// 	console.log(listUrl);
-	// 	axios.get(listUrl).then((res) => {
-	// 		setSpacelist(res.data);
-	// 	});
-	// };
-	// useEffect(() => {
-	// 	// setChecked(checked);
-	// 	console.log(checked);
-	// }, [checked]);
+	const changeStatus = (num, status) => {
+		if (status !== false) {
+			setStatus(false);
+			setRoomNum(num);
+		} else {
+			setStatus(true);
+			setRoomNum(num);
+		}
+		console.log(status);
+		console.log(roomNum);
+		// updateStatus(num, status);
+	};
 
-	const updateStaus = (idx, checked) => {
+	const updateStatus = () => {
+		console.log(status);
 		let statusUrl =
 			localStorage.url +
 			'/host/status?num=' +
-			idx +
+			roomNum +
 			'&hideStatus=' +
-			checked;
+			status;
 		console.log(statusUrl);
-		// console.log('checked' + checked);
-		axios.patch(statusUrl).then((res) => {});
+		axios.patch(statusUrl).then((res) => {
+			alert('변경되었습니다');
+			// window.location.replace(window.location.href);
+			window.history.go(0);
+			//window.location.reload(true);
+		});
 	};
+	useEffect(() => {
+		updateStatus();
+	}, [status, roomNum]);
 
 	const navi = useNavigate();
 
@@ -70,141 +80,216 @@ function SpaceList(props) {
 	};
 
 	return (
-		<RoomList>
-			<BtnWrap fullWidth>
-				<BtnNewAdd
-					variant='outlined'
-					fullWidth
-					color='primary'
-					className='btn_newadd'
-					style={{border: '1px solid blueviolet'}}
-					onClick={() => navi(`/host/addform`)}
-				>
-					<h5>
-						<b style={{color: 'blueviolet'}}>새 공간 등록하기</b>
-					</h5>
-				</BtnNewAdd>
-			</BtnWrap>
-			<br />
-			<br />
-			<div className='spacelist'>
-				{spacelist.slice(offset, offset + limit).map((r, i) => (
-					<BoxSpace key={i}>
-						<Inner>
-							<div>
-								<ImgBox>
-									<Img
-										style={{
-											backgroundImage: `url(${
-												imageUrl + r.thumbnailImage
-											})`,
-											// `url(${r.thumbnailImage})`,
-										}}
-									>
-										{r.approvalStatus == 0 &&
-										r.hideStatus == 0 ? (
-											<Close>
-												<Em className='label'>
-													심사중
-												</Em>
-											</Close>
-										) : r.approvalStatus == 1 &&
-										  r.hideStatus == 0 ? (
-											<Close>
-												<Em className='label'>
-													비공개
-												</Em>
-											</Close>
-										) : r.approvalStatus == 1 &&
-										  r.hideStatus == 1 ? (
-											<span></span>
-										) : null}
-									</Img>
-								</ImgBox>
-								<InfoArea>
-									<p
-										className='title_space'
-										style={{
-											lineHeight: '22px',
-											fontSize: '20px',
-											paddingBottom: '10px',
-											borderBottom: '1px solid #ebebeb',
-											fontWeight: '700',
-										}}
-									>
-										{r.name}
-									</p>
-									<StateList>
-										<li
-											className='date'
-											style={{
-												display: 'inline-block',
-												position: 'relative',
-												paddingTop: '6px',
-												fontSize: '14px',
-												color: '#949494',
-											}}
-										>
-											공간번호 {r.num}
-										</li>
-										<br />
-										<li
-											className='date'
-											style={{
-												display: 'inline-block',
-												position: 'relative',
-												paddingTop: '6px',
-												fontSize: '14px',
-												color: '#949494',
-											}}
-										>
-											등록일 {r.writeday}
-										</li>
-										<Btn>
-											<Toggle
-												checked={checked}
-												setChecked={setChecked}
-												updateStaus={updateStaus}
-												num={r.num}
-											/>
-										</Btn>
-									</StateList>
-								</InfoArea>
-								<div
-									className='btn_btnarea'
-									style={{width: '100%'}}
-								>
-									<SpaceModify>공간정보 수정</SpaceModify>
-									<SpaceDelete
-										onClick={() => deleteButton(r.num)}
-									>
-										삭제
-									</SpaceDelete>
-								</div>
-							</div>
-						</Inner>
-					</BoxSpace>
-				))}
+		<div>
+			<div style={{height: '100vh'}}>
+				<div>
+					<RoomList>
+						<BtnWrap fullWidth>
+							<BtnNewAdd
+								variant='outlined'
+								fullWidth
+								color='primary'
+								className='btn_newadd'
+								style={{border: '1px solid blueviolet'}}
+								onClick={() => navi(`/host/addform`)}
+							>
+								<h5>
+									<b style={{color: 'blueviolet'}}>
+										새 공간 등록하기
+									</b>
+								</h5>
+							</BtnNewAdd>
+						</BtnWrap>
+						<br />
+						<br />
+						<div className='spacelist'>
+							{spacelist
+								.slice(offset, offset + limit)
+								.map((r, i) => (
+									<BoxSpace key={i}>
+										<Inner>
+											<div>
+												<ImgBox>
+													<Img
+														style={{
+															backgroundImage: `url(${
+																imageUrl +
+																r.thumbnailImage
+															})`,
+															// `url(${r.thumbnailImage})`,
+														}}
+													>
+														{r.approvalStatus ==
+															0 &&
+														r.hideStatus == 0 ? (
+															<Close>
+																<Em className='label'>
+																	심사중
+																</Em>
+															</Close>
+														) : r.approvalStatus ==
+																1 &&
+														  r.hideStatus == 0 ? (
+															<Close>
+																<Em className='label'>
+																	비공개
+																</Em>
+															</Close>
+														) : r.approvalStatus ==
+																1 &&
+														  r.hideStatus == 1 ? (
+															<span></span>
+														) : null}
+													</Img>
+												</ImgBox>
+												<InfoArea>
+													<p
+														className='title_space'
+														style={{
+															lineHeight: '22px',
+															fontSize: '20px',
+															paddingBottom:
+																'10px',
+															borderBottom:
+																'1px solid #ebebeb',
+															fontWeight: '700',
+														}}
+													>
+														{r.name}
+													</p>
+													<StateList>
+														<li
+															className='date'
+															style={{
+																display:
+																	'inline-block',
+																position:
+																	'relative',
+																paddingTop:
+																	'6px',
+																fontSize:
+																	'14px',
+																color: '#949494',
+															}}
+														>
+															공간번호 {r.num}
+														</li>
+														<br />
+														<li
+															className='date'
+															style={{
+																display:
+																	'inline-block',
+																position:
+																	'relative',
+																paddingTop:
+																	'6px',
+																fontSize:
+																	'14px',
+																color: '#949494',
+															}}
+														>
+															등록일 {r.writeday}
+														</li>
+														<Btn>
+															{r.approvalStatus ==
+																0 &&
+															r.hideStatus ==
+																0 ? (
+																<button
+																	type='button'
+																	className='btn btn-danger'
+																	value={
+																		r.num
+																	}
+																	disabled
+																>
+																	심사중
+																</button>
+															) : r.approvalStatus ==
+																	1 &&
+															  r.hideStatus ==
+																	1 ? (
+																<button
+																	type='button'
+																	className='btn btn-primary'
+																	value={
+																		r.num
+																	}
+																	// onChange={() =>
+																	// 	changeStatus
+																	// }
+																	onClick={() =>
+																		changeStatus(
+																			r.num,
+																			r.hideStatus,
+																		)
+																	}
+																>
+																	공개중
+																</button>
+															) : r.approvalStatus ==
+																	1 &&
+															  r.hideStatus ==
+																	0 ? (
+																<button
+																	type='button'
+																	className='btn btn-success'
+																	value={
+																		r.num
+																	}
+																	// onChange={() =>
+																	// 	changeStatus
+																	// }
+																	onClick={() =>
+																		changeStatus(
+																			r.num,
+																			r.hideStatus,
+																		)
+																	}
+																	// onClick={() =>
+																	// 	updateStatus(
+																	// 		r.num,
+																	// 		status,
+																	// 	)
+																	// }
+																>
+																	비공개
+																</button>
+															) : null}
+														</Btn>
+													</StateList>
+												</InfoArea>
+												<div
+													className='btn_btnarea'
+													style={{width: '100%'}}
+												>
+													<SpaceModify
+														onClick={() =>
+															navi(
+																'/host/updateform/' +
+																	r.num,
+															)
+														}
+													>
+														공간정보 수정
+													</SpaceModify>
+													<SpaceDelete
+														onClick={() =>
+															deleteButton(r.num)
+														}
+													>
+														삭제
+													</SpaceDelete>
+												</div>
+											</div>
+										</Inner>
+									</BoxSpace>
+								))}
+						</div>
+					</RoomList>
+				</div>
 			</div>
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-
 			<div>
 				<Pagenation
 					total={spacelist.length}
@@ -213,7 +298,7 @@ function SpaceList(props) {
 					setPage={setPage}
 				/>
 			</div>
-		</RoomList>
+		</div>
 	);
 }
 
