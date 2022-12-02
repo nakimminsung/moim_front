@@ -32,12 +32,23 @@ function BdPayment({
 	userNum,
 	roomNum,
 }) {
+	console.log('email' + email);
 	// 모달
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
+		let emailReg =
+			/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+		// 필수정보 체크
 		if (name && phone && email !== '') {
-			setOpen(true);
+			// 이메일 체크
+			if (emailReg.test(email) === false) {
+				alert('이메일 형식으로 입력해 주세요');
+				return;
+			} else {
+				setOpen(true);
+			}
 		} else {
 			alert('필수 정보를 입력해주세요');
 		}
@@ -91,7 +102,7 @@ function BdPayment({
 				},
 				function (rsp) {
 					// console.log(rsp);
-					onSend(3, roomOption); //3: 예약확정
+
 					let maxNumUrl = `http://localhost:9000/bookingDetail/getMaxNum`;
 
 					axios.get(maxNumUrl).then((res) => {
@@ -99,6 +110,7 @@ function BdPayment({
 
 						// callback
 						if (rsp.success) {
+							onSend(3, roomOption); //3: 예약확정
 							// booking table insert
 							let url = `http://localhost:9000/booking/insert`;
 							let pg = rsp.pg_provider;
@@ -119,6 +131,7 @@ function BdPayment({
 								});
 						} else {
 							alert('결제에 실패했습니다.');
+							window.location.reload();
 						}
 					});
 				},
@@ -139,7 +152,7 @@ function BdPayment({
 				},
 				function (rsp) {
 					// console.log(rsp);
-					onSend(3, roomOption); //3: 예약확정
+
 					let maxNumUrl = `http://localhost:9000/bookingDetail/getMaxNum`;
 
 					axios.get(maxNumUrl).then((res) => {
@@ -147,6 +160,7 @@ function BdPayment({
 						let bookingDetailNum = res.data.num + 1; // 마지막 데이터 들어가게 하려고 +1 함(지금 결제된거 들어가게 하려고)
 						// callback
 						if (rsp.success) {
+							onSend(3, roomOption); //3: 예약확정
 							// booking table insert
 							let url = `http://localhost:9000/booking/insert`;
 							let pg = rsp.pg_provider;
@@ -166,6 +180,7 @@ function BdPayment({
 								});
 						} else {
 							alert('결제에 실패했습니다.');
+							window.location.reload();
 						}
 					});
 				},
@@ -186,7 +201,7 @@ function BdPayment({
 				},
 				function (rsp) {
 					// console.log(rsp);
-					onSend(3, roomOption); //3: 예약확정
+
 					let maxNumUrl = `http://localhost:9000/bookingDetail/getMaxNum`;
 
 					axios.get(maxNumUrl).then((res) => {
@@ -194,6 +209,7 @@ function BdPayment({
 						let bookingDetailNum = res.data.num + 1; // 마지막 데이터 들어가게 하려고 +1 함(지금 결제된거 들어가게 하려고)
 						// callback
 						if (rsp.success) {
+							onSend(3, roomOption); //3: 예약확정
 							// booking table insert
 							let url = `http://localhost:9000/booking/insert`;
 							let pg = rsp.pg_provider;
@@ -213,6 +229,7 @@ function BdPayment({
 								});
 						} else {
 							alert('결제에 실패했습니다.');
+							window.location.reload();
 						}
 					});
 				},
@@ -233,7 +250,7 @@ function BdPayment({
 				},
 				function (rsp) {
 					// console.log(rsp);
-					onSend(3, roomOption); //3: 예약확정
+
 					let maxNumUrl = `http://localhost:9000/bookingDetail/getMaxNum`;
 
 					axios.get(maxNumUrl).then((res) => {
@@ -241,6 +258,7 @@ function BdPayment({
 						let bookingDetailNum = res.data.num + 1; // 마지막 데이터 들어가게 하려고 +1 함(지금 결제된거 들어가게 하려고)
 						// callback
 						if (rsp.success) {
+							onSend(3, roomOption); //3: 예약확정
 							// booking table insert
 							let url = `http://localhost:9000/booking/insert`;
 							let pg = rsp.pg_provider;
@@ -260,6 +278,7 @@ function BdPayment({
 								});
 						} else {
 							alert('결제에 실패했습니다.');
+							window.location.reload();
 						}
 					});
 				},
@@ -300,7 +319,13 @@ function BdPayment({
 							<b>₩{price.toLocaleString('ko-KR')}</b>
 						</p>
 					</div>
-					<div style={{display: 'flex'}}>
+					<div
+						style={{
+							display: 'flex',
+							// flexWrap: 'wrap',
+							width: '250px',
+						}}
+					>
 						{optionInsertList.some((elem) => elem.count > 0) ? (
 							<>추가옵션&nbsp;&nbsp;</>
 						) : (
@@ -313,6 +338,7 @@ function BdPayment({
 										key={idx}
 										style={{
 											display: 'inline-block',
+											flexWrap: 'wrap',
 										}}
 									>
 										<b>
@@ -365,7 +391,7 @@ function BdPayment({
 				</div>
 
 				<Button
-					class='bookingBtn'
+					class='bookingBtnn'
 					type='button'
 					id='btn_submit'
 					variant='outlined'
