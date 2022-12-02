@@ -36,7 +36,7 @@ function Review(props) {
 
 	const imgUrl = 'http://localhost:9000/image/';
 
-	// theme의 space list select
+	//전체 리뷰 가져오기
 	const selectReviewList = () => {
 		let userNum = jwt_decode(localStorage.getItem('token')).idx;
 		let url =
@@ -318,7 +318,7 @@ function Review(props) {
 						textAlign: 'center',
 					}}
 				>
-					이용후기 작성
+					이용후기 수정/삭제
 					<span onClick={handleClose}>
 						<CloseIcon
 							style={{

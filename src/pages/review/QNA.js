@@ -6,11 +6,10 @@ import MenuItem from '@mui/material/MenuItem';
 import React, {useEffect, useState} from 'react';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
-import MuiAccordion from '@material-ui/core/Accordion';
-import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
-import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
-import {withStyles} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import {Card, CardActionArea, CardContent, Typography} from '@material-ui/core';
+import QnaContent from './QnaContent';
+import './Review.css';
+import QnaUpdate from './QnaUpdate';
 
 function QNA(props) {
 	const [memberQna, setMemberQna] = useState([]);
@@ -25,7 +24,6 @@ function QNA(props) {
 			userNum +
 			'&sort=' +
 			sort;
-		console.log(url);
 		axios.get(url).then((res) => setMemberQna(res.data));
 	};
 
@@ -33,9 +31,16 @@ function QNA(props) {
 		setSort(e.target.value);
 	};
 
+	//modal dialogue : OPEN / CLOSE
+	const [open, setOpen] = React.useState(false);
+
+	const handleClose = () => {
+		setOpen(false);
+	};
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		selectHostRoomList();
+		console.log(memberQna);
 	}, [sort]);
 
 	// 아코디언 setting
@@ -73,103 +78,155 @@ function QNA(props) {
 					</Select>
 				</FormControl>
 			</SelectDiv>
-			{memberQna.length == 0 ? (
-				<h5
-					style={{
-						height: '300px',
-						width: '100%',
-						lineHeight: '300px',
-						textAlign: 'center',
-					}}
-				>
-					<b>현재 등록된 Q&A가 없습니다.</b>
-				</h5>
-			) : (
-				<div style={{width: '100%'}}>
-					{memberQna &&
-						memberQna.map((data, idx) => (
-							<Accordion
-								square
-								expanded={expanded === idx} //펼치기
-								onChange={handleChange(idx)} //닫기
-								style={{width: '100%'}}
+			<ReviewList>
+				<CardWrapper>
+					{memberQna.length == 0 ? (
+						<Wrapper>
+							<h5
+								style={{
+									height: '300px',
+									width: '100%',
+									lineHeight: '300px',
+									textAlign: 'center',
+								}}
 							>
-								<AccordionSummary
-									aria-controls='panel1d-content'
-									id='panel1d-header'
-								>
-									<Typography>
-										{idx + 1}. {data.question}
-									</Typography>
-								</AccordionSummary>
-								<AccordionDetails>
-									<Typography>
-										{data.answer == null
-											? '아직 호스트가 답변을 하지 않았습니다'
-											: data.answer}
-									</Typography>
-								</AccordionDetails>
-							</Accordion>
-						))}
-				</div>
-			)}
+								<b>현재 등록된 Q&A가 없습니다.</b>
+							</h5>
+						</Wrapper>
+					) : (
+						memberQna &&
+						memberQna.map((item, index) => (
+							<Card style={{width: '100%'}}>
+								<CardActionArea>
+									<CardContent>
+										<Typography
+											gutterBottom
+											component='div'
+											style={{
+												fontWeight: 'bold',
+												borderBottom:
+													'1px solid #7b68ee',
+												paddingBottom: '10px',
+											}}
+										>
+											<Status
+												style={{
+													backgroundColor:
+														item.status ==
+														'답변완료'
+															? '#afafaf'
+															: '#704de4',
+												}}
+											>
+												{item.status}
+											</Status>
+										</Typography>
+										<Typography
+											variant='body1'
+											component='div'
+											color='text.secondary'
+											style={{marginTop: '25px'}}
+										>
+											<Space>
+												공간명 :
+												<span
+													style={{
+														textDecoration:
+															'underline',
+														color: '#7b68ee',
+														cursor: 'pointer',
+													}}
+													onClick={() => {
+														window.location.href =
+															'http://localhost:3000/detail/' +
+															item.roomNum;
+													}}
+												>
+													{item.name}
+												</span>
+											</Space>
+											<SpaceContent>
+												{item.title}
+											</SpaceContent>
+											<SpaceWriteday>
+												{item.writeday}
+											</SpaceWriteday>
+										</Typography>
+									</CardContent>
+									<div
+										style={{
+											display: 'flex',
+											width: '100%',
+											flexDirection: 'row',
+											flexWrap: 'wrap',
+											justifyContent: 'space-evenly',
+											marginBottom: '20px',
+										}}
+									>
+										<QnaUpdate
+											qnaNum={item.num}
+											status={item.status}
+										/>
+										<QnaContent qnaNum={item.num} />
+									</div>
+								</CardActionArea>
+							</Card>
+						))
+					)}
+				</CardWrapper>
+			</ReviewList>
 		</ListWrapper>
 	);
 }
 
 export default QNA;
 const ListWrapper = styled(Box)`
-	padding-bottom: 50px;
+	padding-bottom: 100px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 100%;
 `;
 const SelectDiv = styled(Box)`
 	display: flex;
 	justify-content: flex-end;
 	width: 100%;
-	align-items: flex-start;
+	margin-bottom: 20px;
 `;
-//아코디언 css
-const Accordion = withStyles({
-	root: {
-		border: '1px solid rgba(0, 0, 0, .125)',
-		boxShadow: 'none',
-		'&:not(:last-child)': {
-			borderBottom: 0,
-		},
-		'&:before': {
-			display: 'none',
-		},
-		'&$expanded': {
-			margin: 'auto',
-		},
-	},
-	expanded: {},
-})(MuiAccordion);
+const ReviewList = styled(Box)`
+	// display: grid;
+	width: 100%;
+`;
+const CardWrapper = styled(Typography)`
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 20px 20px;
+`;
+const Wrapper = styled(Typography)`
+	grid-column: span 3;
+`;
 
-const AccordionSummary = withStyles({
-	root: {
-		backgroundColor: 'rgba(0, 0, 0, .03)',
-		borderBottom: '1px solid rgba(0, 0, 0, .125)',
-		marginBottom: -1,
-		minHeight: 56,
-		'&$expanded': {
-			minHeight: 56,
-		},
-	},
-	content: {
-		'&$expanded': {
-			margin: '12px 0',
-		},
-	},
-	expanded: {},
-})(MuiAccordionSummary);
-
-const AccordionDetails = withStyles((theme) => ({
-	root: {
-		padding: theme.spacing(2),
-	},
-}))(MuiAccordionDetails);
+const Space = styled(Typography)`
+	font-weight: bold;
+`;
+const SpaceContent = styled(Typography)`
+	font-size: 16px;
+	margin-top: 10px;
+`;
+const SpaceWriteday = styled(Typography)`
+	color: #b2b2b2;
+	font-size: 13px;
+	margin-top: 10px;
+`;
+const Status = styled(Typography)`
+	width: auto;
+	margin: 7px 7px 7px 0;
+	padding: 0 15px;
+	height: 29px;
+	font-size: 12px;
+	line-height: 29px;
+	border-radius: 29px;
+	display: inline-block;
+	border: 1px solid #e0e0e0;
+	color: #fff;
+`;

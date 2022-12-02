@@ -4,6 +4,11 @@ import {NavLink} from 'react-router-dom';
 function AdminMenu(props) {
 	const {topMenu, setTopMenu} = props;
 
+	const menuHandler = (e) => {
+		// console.log(e.target.name);
+		setTopMenu(e.target.name);
+	};
+
 	return (
 		<div>
 			{/* 좌측 메뉴 div */}
@@ -55,45 +60,84 @@ function AdminMenu(props) {
 						<NavLink
 							to={'/admin'}
 							className='NavLink'
-							onClick={(e) => {
-								setTopMenu(e.target.value);
-								console.log(topMenu);
-							}}
-							// value='admin'
+							name='관리자 메인화면'
+							onClick={menuHandler}
 						>
 							관리자 메인화면
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/member'} className='NavLink'>
+						<NavLink
+							to={'/admin/member'}
+							className='NavLink'
+							name='게스트 관리'
+							onClick={menuHandler}
+						>
 							게스트 관리
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/host'} className='NavLink'>
+						<NavLink
+							to={'/admin/host'}
+							className='NavLink'
+							name='호스트 관리'
+							onClick={menuHandler}
+						>
 							호스트 관리
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/space'} className='NavLink'>
+						<NavLink
+							to={'/admin/space'}
+							className='NavLink'
+							name='공간 관리'
+							onClick={menuHandler}
+						>
 							공간 관리
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/notice'} className='NavLink'>
+						<NavLink
+							to={'/admin/notice'}
+							className='NavLink'
+							name='공지사항 관리'
+							onClick={menuHandler}
+						>
 							공지사항 관리
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/theme'} className='NavLink'>
+						<NavLink
+							to={'/admin/theme'}
+							className='NavLink'
+							name='기획전 관리'
+							onClick={menuHandler}
+						>
 							기획전 관리
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/report'} className='NavLink'>
+						<NavLink
+							to={'/admin/report'}
+							className='NavLink'
+							name='신고 관리'
+							onClick={menuHandler}
+						>
 							신고 관리
 						</NavLink>
 					</li>
+					<li>
+						<NavLink
+							to={'/admin/settlement'}
+							className='NavLink'
+							name='정산 관리'
+							onClick={menuHandler}
+						>
+							정산 관리
+						</NavLink>
+					</li>
+
+					{/* 
 					<li>
 						<NavLink to={'/admin/popup'} className='NavLink'>
 							팝업 관리
@@ -104,6 +148,7 @@ function AdminMenu(props) {
 							배너 관리
 						</NavLink>
 					</li>
+					 */}
 				</ul>
 			</div>
 		</div>

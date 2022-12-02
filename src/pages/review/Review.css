@@ -13,3 +13,16 @@ span.reviewGuest {
 	padding-top: 2%;
 	padding-left: 5%;
 }
+.qnaWriteday {
+	color: #b2b2b2;
+	font-size: 13px;
+	margin-right: 10px;
+	text-align: right;
+	margin-top: 50px;
+}
+.qnaContent1 {
+	width: 400px;
+	height: 100px;
+	padding-left: 10px;
+	border: 1px solid black;
+}

@@ -484,16 +484,39 @@ function SpaceAddForm2(props) {
 							PriceRef={PriceRef}
 							oimageUrl={oimageUrl}
 						/>
-						<div>
+						<div style={{marginTop: '20px', width: '100%'}}>
 							{roptionList &&
 								roptionList.map((rotion, idx) => (
-									<table>
-										<tbody>
-											<tr key={idx}>
-												<td>
+									<table
+										className='table table-bordered'
+										style={{
+											border: '1px solid black',
+											width: '80%',
+											marginLeft: '100px',
+										}}
+									>
+										<tbody
+											style={{
+												width: '80%',
+												textAlign: 'center',
+											}}
+										>
+											<tr
+												key={idx}
+												style={{
+													verticalAlign: 'middle',
+												}}
+											>
+												<td style={{width: '5%'}}>
+													{idx + 1}
+												</td>
+												<td style={{width: '20%'}}>
 													<img
 														style={{
-															width: '150px',
+															height: '120px',
+															width: '120px',
+															maxWidth: '150px',
+															maxHeight: '150px',
 														}}
 														alt=''
 														src={
@@ -502,10 +525,16 @@ function SpaceAddForm2(props) {
 														}
 													/>
 												</td>
-												<td>{rotion.oname}</td>
-												<td>{rotion.price}</td>
-												<td>
-													<CloseOutlined
+												<td style={{width: '20%'}}>
+													{rotion.oname}
+												</td>
+												<td style={{width: '20%'}}>
+													{rotion.price}
+												</td>
+												<td style={{width: '20%'}}>
+													<button
+														type='button'
+														className='btn btn-danger'
 														style={{
 															cursor: 'pointer',
 														}}
@@ -518,7 +547,9 @@ function SpaceAddForm2(props) {
 																),
 															);
 														}}
-													/>
+													>
+														삭제
+													</button>
 												</td>
 											</tr>
 										</tbody>
