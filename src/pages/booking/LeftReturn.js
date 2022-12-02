@@ -118,6 +118,7 @@ function LeftReturn({
 							});
 					} else {
 						alert('결제에 실패했습니다.');
+						window.location.reload();
 					}
 				},
 			);
@@ -162,6 +163,7 @@ function LeftReturn({
 							});
 					} else {
 						alert('결제에 실패했습니다.');
+						window.location.reload();
 					}
 				},
 			);
@@ -206,6 +208,7 @@ function LeftReturn({
 							});
 					} else {
 						alert('결제에 실패했습니다.');
+						window.location.reload();
 					}
 				},
 			);
@@ -250,6 +253,7 @@ function LeftReturn({
 							});
 					} else {
 						alert('결제에 실패했습니다.');
+						window.location.reload();
 					}
 				},
 			);
@@ -342,7 +346,7 @@ function LeftReturn({
 					{Number(bookingList.bookingStatus) === 3 ? (
 						<>
 							<Button
-								class='bookingBtn'
+								class='bookingBtnn'
 								type='button'
 								id='btn_submit'
 								variant='outlined'
@@ -354,7 +358,7 @@ function LeftReturn({
 					) : Number(bookingList.bookingStatus) === 1 ? (
 						<>
 							<Button
-								class='bookingBtn'
+								class='bookingBtnn'
 								type='button'
 								id='btn_submit'
 								variant='outlined'
@@ -366,7 +370,7 @@ function LeftReturn({
 					) : Number(bookingList.bookingStatus) === 2 ? (
 						<>
 							<Button
-								class='bookingBtn'
+								class='bookingBtnn'
 								type='button'
 								id='btn_submit'
 								variant='outlined'
@@ -378,7 +382,7 @@ function LeftReturn({
 					) : Number(bookingList.bookingStatus) === 4 ? (
 						<>
 							<Button
-								class='bookingBtn'
+								class='bookingBtnn'
 								type='button'
 								id='btn_submit'
 								variant='outlined'
@@ -390,7 +394,7 @@ function LeftReturn({
 					) : (
 						<>
 							<Button
-								class='bookingBtn'
+								class='bookingBtnn'
 								type='button'
 								id='btn_submit'
 								variant='outlined'
