@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 import ProfileUpdate from './ProfileUpdate';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+
 function MyContent(props) {
     const token = jwt_decode(localStorage.getItem('token'));
     const memberNum = jwt_decode(localStorage.getItem('token')).idx;
@@ -53,12 +54,8 @@ function MyContent(props) {
         <div className="my-content-wrapper">
             <div className="my-content-profile" style={{ textAlign: "center" }}>
                 <div className="my-profile-update" style={{ display: "flex", display: "inline-block", marginTop: '30px', marginBottom: '5px' }}>
-                    {
-                        localStorage.getItem('token') !== null ?
-                            <img alt="updateprofileImage" src={jwt_decode(localStorage.getItem('token')).profile_image} className="updateprofileImage" />
-                            :
-                            <img alt="updateprofileImage" src={`http://localhost:9000/image/${props.memberList.profile_image}`} className="updateprofileImage" />
-                    }
+                    <img alt="updateprofileImage" src={`http://localhost:9000/image/${props.memberList.profile_image}`} className="updateprofileImage" />
+                    {/* } */}
                 </div>
                 <div>
                     <b style={{ fontSize: '12px' }}>{email}</b>
@@ -86,7 +83,7 @@ function MyContent(props) {
                             <tr>
                                 <td style={{ textAlign: 'left' }}>이메일</td>
                                 <td style={{ textAlign: 'left' }}>{token.email}</td>
-                                <td style={{ textAlign: 'left', color: 'red' }}>인증완료</td>
+                                <td style={{ textAlign: 'left', color: '#ffd014' }}>인증완료</td>
                             </tr>
                             <tr>
                                 <td style={{ textAlign: 'left' }}>연락처</td>
@@ -100,7 +97,11 @@ function MyContent(props) {
                             <tr>
                                 <td style={{ textAlign: 'left' }}>SNS연동</td>
                                 <td style={{ textAlign: 'left' }}>
-                                    {props.memberList.password !== 'kakao' ? <b style={{ color: 'red' }}>연동 정보 없음</b> : <b style={{ color: '#E1CD19' }}>카카오연동</b>}
+                                    {props.memberList.password !== 'kakao' ? <b style={{ color: 'red' }}>연동 정보 없음</b> :
+                                        <div>
+                                            <img src={`image/카카오로고.png`} alt="copy url" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+                                            <b>카카오연동</b>
+                                        </div>}
                                 </td>
                             </tr>
                         </tbody>

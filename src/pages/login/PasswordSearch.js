@@ -16,10 +16,12 @@ function PasswordSearch(props) {
       console.log(res.data)
       setEmailSocial(res.data)
       // console.log(emailSocial)
+
     });
   }
 
   const move = () => {
+
     checkSocial()
     console.log(emailSocial)
     if (emailSocial == 'social') {

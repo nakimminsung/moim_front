@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './mypage.css';
 import jwt_decode from 'jwt-decode';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import TextsmsIcon from '@material-ui/icons/Textsms';
+import HelpIcon from '@material-ui/icons/Help';
 function MyPageMenu(props) {
     const token = jwt_decode(localStorage.getItem('token'));
     const [email, setEmail] = useState(`${token.email}`);
@@ -24,12 +27,7 @@ function MyPageMenu(props) {
             {/* <input type="hidden" name="birth" value="${sessionScope.loginBirth}" /> */}
             <div className="my-profile" style={{ textAlign: "center" }}>
                 <div className="my-pofile-left" style={{ display: "flex", display: "inline-block", marginBottom: '20px' }}>
-                    {
-                        localStorage.getItem('token') !== null ?
-                            <img alt="updateprofileImage" src={jwt_decode(localStorage.getItem('token')).profile_image} className="updateprofileImage" />
-                            :
-                            <img alt="updateprofileImage" src={`http://localhost:9000/image/${props.memberList.profile_image}`} className="updateprofileImage" />
-                    }
+                    <img alt="updateprofileImage" src={`http://localhost:9000/image/${props.memberList.profile_image}`} className="updateprofileImage" />
                 </div>
                 <div>
                     <b>{email}</b>
@@ -45,9 +43,9 @@ function MyPageMenu(props) {
             <div className="my-menu" style={{ marginTop: '30px', textAlign: "center" }}>
                 <div className="my-menu-top">
                     <h3 style={{ "fontWeight": 1000 }}>나의 정보</h3>
-                    <a className="myreview" href="/review">나의리뷰</a>
-                    <a className="mylike" href="/like">찜 목록</a>
-                    <a className="myquestion" href="/">문의내역</a>
+                    <a className="myreview" href="/review"><TextsmsIcon />나의리뷰</a>
+                    <a className="mylike" href="/like"><FavoriteIcon />찜 목록</a>
+                    <a className="myquestion" href="/"><HelpIcon />문의내역</a>
                 </div>
             </div>
         </div >
