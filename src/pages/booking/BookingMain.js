@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import './booking.css';
 import Button from '@material-ui/core/Button';
 import BdOtherInfo from './BdOtherInfo';
 import defaultImg from './img/404.png';
@@ -9,6 +8,7 @@ import queryString from 'query-string';
 import jwt_decode from 'jwt-decode';
 import BdPayment from './BdPayment';
 import BDTop from './BDTop';
+import './booking.css';
 
 function BookingMain() {
 	const [roomData, setRoomData] = useState('');
@@ -189,6 +189,7 @@ function BookingMain() {
 		selectOptionData();
 	}, []);
 
+	// 휴대폰
 	useEffect(() => {
 		if (phone.length === 10) {
 			setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
@@ -213,8 +214,8 @@ function BookingMain() {
 					<div className='bookingTop'>
 						<h1>예약하기</h1>
 					</div>
-					<div className='bdContainer'>
-						<div className='dbItem'>
+					<div className='bmContainer'>
+						<div className='bmItem'>
 							<BDTop
 								price={price}
 								roomData={roomData}
@@ -461,7 +462,7 @@ function BookingMain() {
 								/>
 							</div>
 						</div>
-						<div className='dbItem'>
+						<div className='bmItem'>
 							<BdPayment
 								name={name}
 								phone={phone}
