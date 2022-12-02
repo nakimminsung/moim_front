@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import Category from './Category';
 import './MainPage.css';
 import NoticeEvent from './NoticeEvent';
@@ -13,10 +13,10 @@ function Mainpage(props) {
 
 	return (
 		<div>
-			<div className='directButton'>
+			{/* <div className='directButton'>
 				<ul
 					className='main'
-					style={{ display: 'flex', justifyContent: 'center' }}
+					style={{display: 'flex', justifyContent: 'center'}}
 				>
 					<li>
 						<NavLink to={'/admin'}>관리자🐹</NavLink>
@@ -47,8 +47,11 @@ function Mainpage(props) {
 					</li>
 				</ul>
 			</div>
-
 			<hr />
+			 */}
+			<br />
+			<br />
+			<br />
 			<br />
 
 			{/* 카테고리 영역 */}
@@ -56,6 +59,8 @@ function Mainpage(props) {
 
 			<br />
 			<br />
+			<br />
+
 			<br />
 			<br />
 

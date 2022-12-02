@@ -31,7 +31,7 @@ function ReportList(props) {
 	const [page, setPage] = useState(1);
 
 	//한번에 보여질 아이템 수
-	let items = 12;
+	let items = 10;
 
 	//페이지 변경 이벤트
 	const handlePageChange = (page) => {
@@ -70,10 +70,6 @@ function ReportList(props) {
 							reportList &&
 							reportList
 
-								.slice(
-									items * (page - 1),
-									items * (page - 1) + items,
-								)
 								.map((row, idx) => (
 									<tr
 										style={{verticalAlign: 'middle'}}
@@ -108,21 +104,27 @@ function ReportList(props) {
 										</td>
 									</tr>
 								))
+								.slice(
+									items * (page - 1),
+									items * (page - 1) + items,
+								)
 						)}
 					</tbody>
 				</table>
 			</div>
 
 			{/* 페이지네이션 생기는 위치 */}
-			<Pagination
-				activePage={page} // 현재 보고있는 페이지
-				itemsCountPerPage={12} // 한 페이지에 출력할 아이템 수
-				totalItemsCount={reportList.length} // 총 아이템 수
-				pageRangeDisplayed={5} // 표시할 아이템 수
-				prevPageText={'‹'}
-				nextPageText={'›'}
-				onChange={handlePageChange}
-			/>
+			<div className='pageDiv'>
+				<Pagination
+					activePage={page} // 현재 보고있는 페이지
+					itemsCountPerPage={10} // 한 페이지에 출력할 아이템 수
+					totalItemsCount={reportList.length} // 총 아이템 수
+					pageRangeDisplayed={5} // 표시할 아이템 수
+					prevPageText={'‹'}
+					nextPageText={'›'}
+					onChange={handlePageChange}
+				/>
+			</div>
 		</div>
 	);
 }
