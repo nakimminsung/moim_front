@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { SearchRounded } from '@material-ui/icons';
+import React, {useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {SearchRounded} from '@material-ui/icons';
 import mlogo from '../../asset/logo/m_logo.png';
 import MyMenu from '../components/MyMenu';
 import styled from 'styled-components';
@@ -29,7 +29,7 @@ function Header(props) {
 		<HeaderWrapper>
 			<InnerWrapper>
 				<Home onClick={() => navi('/')}>
-					<img alt='' src={mlogo} />
+					{/* <img alt='' src={mlogo} /> */}
 					<b>MoiM</b>
 				</Home>
 				<SearchBox>
@@ -62,6 +62,8 @@ const HeaderWrapper = styled.header`
 	width: 100%;
 	display: flex;
 	align-items: center;
+
+	border-bottom: 0.5px solid lightgray;
 `;
 const InnerWrapper = styled.div`
 	display: flex;

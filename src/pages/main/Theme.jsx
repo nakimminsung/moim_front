@@ -80,17 +80,17 @@ const ThemeTitleWrapper = styled(Box)`
 	flex-direction: column;
 	align-items: center;
 `;
-const Title = styled(Typography)`
-	font-size: 40px;
-	font-weight: 1000;
+const Title = styled.h2`
+	font-weight: bold;
 	display: block;
 	text-align: center;
-	margin-bottom: 10px;
 `;
-const SubTitle = styled(Typography)`
-	font-size: 17px;
+const SubTitle = styled.h6`
+	color: gray;
+	font-weight: 500;
 	text-align: center;
 	margin-bottom: 30px;
+	margin-top: 0px;
 `;
 const ThemeListWrapper = styled(Box)`
 	display: flex;
