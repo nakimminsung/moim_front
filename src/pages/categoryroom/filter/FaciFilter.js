@@ -297,21 +297,21 @@ const SubmitButton = styled.button`
 `;
 const FilterText = styled.span`
 	margin-left: 10px;
-	font-size: 20px;
+	font-size: 15px;
 	color: #9b4de3;
-	font-weight: 500;
+	font-weight: 1000;
 `;
 const FilterButton = styled.button`
-	border: 2px solid #9b4de3;
-	width: 130px;
-	height: 55px;
-	cursor: pointer;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 25px;
-	font-weight: 1000;
-	background-color: #fff;
-	border-radius: 30px;
-	margin-left: auto;
+border: 2px solid #9b4de3;
+width: 90px;
+height: 50px;
+cursor: pointer;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 25px;
+font-weight: 1000;
+background-color: #fff;
+border-radius: 30px;
+margin-left: auto;
 `;

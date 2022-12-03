@@ -46,7 +46,10 @@ function Mypage(props) {
 
     return (
         <div>
-            <h2 style={{ textAlign: 'center' }}>프로필 관리</h2>
+            <h2 style={{
+                textAlign: 'center',
+                fontWeight: 'bold'
+            }}>프로필 관리</h2>
             <div id='wrapper'>
                 <div class='content'>
                     <div id='menu'>

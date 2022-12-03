@@ -52,8 +52,10 @@ div.my-menu-wrapper {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	border: 1px solid gray;
+	border: 1px solid rgb(183, 183, 183);
 	margin-top: 100px;
+	background-color: #fff;
+	border-radius: 10px;
 }
 
 div.my-profile {
@@ -81,7 +83,7 @@ div.my-menu-top {
 	margin-bottom: 30px;
 }
 
-div.my-menu>div>a {
+div.my-menu>div a {
 	display: block;
 	margin: 5px;
 	font-size: 17px;
@@ -93,6 +95,7 @@ div.my-menu>div>a {
 a.menu-select:hover {
 	color: #000;
 	font-weight: 1000;
+	text-decoration-line: none;
 }
 
 /* content */
@@ -105,7 +108,9 @@ div.my-content-wrapper {
 	flex-direction: column;
 	/* justify-content: center; */
 	margin-top: 100px;
-	border: 1px solid gray;
+	border: 1px solid rgb(183, 183, 183);
+	background-color: #fff;
+	border-radius: 10px;
 }
 
 div.my-content-profile {

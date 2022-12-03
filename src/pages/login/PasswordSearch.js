@@ -26,7 +26,7 @@ function PasswordSearch(props) {
     console.log(emailSocial)
     if (emailSocial == 'social') {
       alert('소셜로 가입한 경우에는 비밀번호 변경이 불가합니다.')
-      navi('/')
+      navi('/login')
     } else {
       navi('/passwordsearch2', {
         state: {

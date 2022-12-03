@@ -5,13 +5,65 @@ import { Button } from '@material-ui/core';
 import ProfileUpdate from './ProfileUpdate';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
+// const useStyles = makeStyles((theme) => ({
+//     // margin: {
+//     //     // margin: theme.spacing(1),
+//     // },
+// }));
 
 function MyContent(props) {
+    // const classes = useStyles();
     const token = jwt_decode(localStorage.getItem('token'));
     const memberNum = jwt_decode(localStorage.getItem('token')).idx;
     // const memberList = props;
-    const [email, setEmail] = useState(`${token.email}`);
+    const [email, setEmail] = useState('');
+    const [nickname, setNickname] = useState('');
+    // 닉네임 변경 이벤트
+    const [changeStatus, setChangeStatus] = useState(0);
+    const [changeButton, setChangeButton] = useState(0);
 
+    const getMemberInfo = () => {
+        let url = localStorage.url + '/member/getMemberInfo?idx=' + memberNum;
+
+        axios.get(url).then((res) => {
+            setNickname(res.data.nickname);
+            setEmail(res.data.email);
+        });
+    }
+    const nicknameChange = () => {
+        setChangeStatus(1);
+        setChangeButton(1);
+    }
+
+    const nicknameChangeEvent = () => {
+        let url = localStorage.url + '/member/updateNickname';
+        //formData로 한번에 보내기
+        const updateData = new FormData();
+        updateData.append('idx', memberNum);
+        updateData.append('nickname', nickname);
+
+        axios({
+            method: 'post',
+            url: url, //BackEnd로 보낼 url
+            data: updateData,
+            headers: { 'Content-Type': 'multipart/form-data' },
+        }).then((res) => {
+            console.log('res.data=' + res.data);
+            alert('수정 완료되었습니다.');
+
+            //성공하고 화면 리로드
+            window.location.reload();
+        });
+    }
     const hideEmail = () => {
         let splitName = email.split('')      //입력받은 문자값을 단어하나하나로 쪼갠다.
         splitName.forEach((name, i) => {
@@ -46,7 +98,8 @@ function MyContent(props) {
     };
 
     useEffect(() => {
-        hideEmail()
+        getMemberInfo()
+        // hideEmail()
         // console.log(memberList);
     }, [])
 
@@ -72,7 +125,39 @@ function MyContent(props) {
                         <tbody>
                             <tr>
                                 <td style={{ textAlign: 'left' }}>닉네임</td>
-                                <td style={{ textAlign: 'left' }}>{token.nickname}</td>
+                                <td style={{ textAlign: 'left' }}>{
+                                    changeStatus == 0 ? nickname :
+                                        <TextField
+                                            // className={classes.margin}
+                                            id="input-with-icon-textfield"
+                                            // label=""
+                                            value={nickname}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <AccountCircle />
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            onChange={(e) => {
+                                                setNickname(e.target.value);
+                                            }}
+                                        />
+                                }
+                                </td>
+                                <td style={{ textAlign: 'left' }}>{
+                                    changeButton == 0 ?
+                                        <Button variant="outlined" color="primary" size="small"
+                                            onClick={nicknameChange}>
+                                            변경하기
+                                        </Button>
+                                        :
+                                        <Button variant="outlined" color="primary" size="small"
+                                            onClick={nicknameChangeEvent}>
+                                            확인
+                                        </Button>
+                                }
+                                </td>
                             </tr>
                             <tr>
                                 <td style={{ textAlign: 'left' }}>비밀번호</td>
@@ -82,7 +167,7 @@ function MyContent(props) {
                             </tr>
                             <tr>
                                 <td style={{ textAlign: 'left' }}>이메일</td>
-                                <td style={{ textAlign: 'left' }}>{token.email}</td>
+                                <td style={{ textAlign: 'left' }}>{email}</td>
                                 <td style={{ textAlign: 'left', color: '#ffd014' }}>인증완료</td>
                             </tr>
                             <tr>

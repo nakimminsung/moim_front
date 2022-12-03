@@ -40,12 +40,17 @@ function MyPageMenu(props) {
                     {/* <b className="birth">내 생일은 </b> */}
                 </div>
             </div>
+            <hr />
             <div className="my-menu" style={{ marginTop: '30px', textAlign: "center" }}>
                 <div className="my-menu-top">
                     <h3 style={{ "fontWeight": 1000 }}>나의 정보</h3>
-                    <a className="myreview" href="/review"><TextsmsIcon />나의리뷰</a>
-                    <a className="mylike" href="/like"><FavoriteIcon />찜 목록</a>
-                    <a className="myquestion" href="/"><HelpIcon />문의내역</a>
+                    <div style={{ textAlign: 'left', paddingLeft: '20%' }}>
+                        <a className="myreview" href="/review"><TextsmsIcon />&nbsp;나의리뷰</a>
+                        {/* <br /> */}
+                        <a className="mylike" href="/like"><FavoriteIcon />&nbsp;찜 목록</a>
+                        {/* <br /> */}
+                        <a className="myquestion" href="/"><HelpIcon />&nbsp;문의내역</a>
+                    </div>
                 </div>
             </div>
         </div >

@@ -1,17 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
-import {Box, InputLabel, Typography, Button} from '@mui/material';
+import { Box, InputLabel, Typography, Button } from '@mui/material';
 import styled from '@emotion/styled/macro';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {koKR} from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { koKR } from '@mui/x-date-pickers';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import {
@@ -19,13 +19,13 @@ import {
 	DateTimePickerTabs,
 } from '@mui/x-date-pickers/DateTimePicker';
 import SearchIcon from '@mui/icons-material/Search';
-import {Card} from '@material-ui/core';
+import { Card } from '@material-ui/core';
 import TuneIcon from '@mui/icons-material/Tune';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import Menu from '@mui/material/Menu';
 import Filter from './Filter';
 import FilterContent from './FilterContent';
-import {useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Search from './filter/Search';
 import SpaceFilter from './filter/SpaceFilter';
 import HeadFilter from './filter/HeadFilter';
@@ -36,14 +36,14 @@ import axios from 'axios';
 const CustomTabs = (props) => (
 	<React.Fragment>
 		<DateTimePickerTabs {...props} />
-		<Box sx={{backgroundColor: 'blueviolet', height: 5}} />
+		<Box sx={{ backgroundColor: 'blueviolet', height: 5 }} />
 	</React.Fragment>
 );
 
 function Filtering(props) {
 	const navi = useNavigate();
 	// {num}은 router의 :num의 이름과 같아야 한다.
-	const {categoryNum} = useParams();
+	const { categoryNum } = useParams();
 	const searchRef = useRef('');
 	const [value, setValue] = useState(dayjs(new Date()).locale('ko'));
 	// 부모 컴포넌트의 변수 받기
@@ -74,7 +74,7 @@ function Filtering(props) {
 	const theme = createTheme(
 		{
 			palette: {
-				primary: {main: '#9b4de3'},
+				primary: { main: '#9b4de3' },
 			},
 		},
 		koKR,
@@ -101,26 +101,29 @@ function Filtering(props) {
 	const imgUrl = 'http://localhost:9000/image/';
 	// 예시로 bookingList.thunmailImage 불러옴
 	const [bookingList, setBookingList] = useState([]);
-	const url = `http://localhost:9000/bookingDetail/detail?bookingDetailNum=187`;
+	const [titleName, setTitleName] = useState('');
+	const url = 'http://localhost:9000/category/data?categoryNum=' + categoryNum;
 	const getBookingList = () => {
 		axios.get(url).then((res) => {
-			console.log(res.data);
-			setBookingList(res.data);
+			console.log(url)
+			console.log(res.data.categorybanner);
+			setBookingList(res.data.categorybanner);
+			setTitleName(res.data.cname);
 		});
 	};
-
+	console.log(bookingList);
 	useEffect(() => {
 		getBookingList();
 	}, []);
 	return (
 		<>
 			<RoomImage
-				backgroundImage={`url(${imgUrl}${bookingList.thumbnailImage})`}
+				backgroundImage={`url(${bookingList})`}
 				// className='bkTop'
-				style={{marginBottom: '30px'}}
+				style={{ marginBottom: '30px' }}
 			>
 				<RoomInfo>
-					<>파티룸</>
+					<>{titleName}</>
 				</RoomInfo>
 			</RoomImage>
 			<Wrapper>
@@ -158,7 +161,7 @@ function Filtering(props) {
 							aria-expanded={open ? 'true' : undefined}
 						>
 							<MapOutlinedIcon
-								style={{color: '#9b4de3', fontSize: '15px;'}}
+								style={{ color: '#9b4de3', fontSize: '15px;' }}
 							/>
 							<Typography
 								style={{
@@ -242,7 +245,7 @@ function Filtering(props) {
 							setFacility={setFacility}
 							setAnchorEl={setAnchorEl}
 							setRoomName={setRoomName}
-							// setSearch={setSearch}
+						// setSearch={setSearch}
 						/>
 					</Menu>
 				</Middle>
@@ -318,8 +321,8 @@ const Right = styled(Box)`
 `;
 const FilterButton = styled.button`
 	border: 2px solid #9b4de3;
-	width: 130px;
-	height: 55px;
+	width: 90px;
+	height: 50px;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
@@ -328,7 +331,8 @@ const FilterButton = styled.button`
 	font-weight: 1000;
 	background-color: #fff;
 	border-radius: 30px;
-	margin-left: auto;
+	margin-left: 5px;
+	margin-right: 20px;
 `;
 
 // 사진
@@ -341,7 +345,8 @@ const RoomImage = styled.div`
 	text-align: center;
 	justify-content: center;
 	align-items: center;
-	height: 280px;
+	height: 380px;
+	width:1235px;
 	background-image: ${(props) => props.backgroundImage};
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -355,10 +360,17 @@ const RoomImage = styled.div`
 		${'' /* 마지막은 투명도 */}
 		background-color: rgba(0, 0, 0, 0.4);
 	}
+	background-size: 100% 160%;
+	background-position:center;
+	// object-fit: cover;
+	// object-position: 50% 50%; 
+	// background-size: cover;
 `;
 
 const RoomInfo = styled.h2`
 	font-weight: bold;
+	font-size:40px;
 	color: white;
 	z-index: 100;
+	letter-spacing:10px
 `;
