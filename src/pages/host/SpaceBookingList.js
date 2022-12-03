@@ -150,72 +150,90 @@ function SpaceBookingList(props) {
 												</div>
 											</div>
 											<div className='flex'>
-												<label
-													style={{cursor: 'pointer'}}
+												<div className='inner_width'>
+													<div className='sorting_filter'>
+														<select
+															name='sort'
+															id='sorting'
+															value={sort}
+															onChange={
+																handleChangeSort
+															}
+														>
+															<option
+																value={`num desc`}
+															>
+																예약번호순정렬
+															</option>
+															<option
+																value={`bookingDate desc`}
+															>
+																이용일자순정렬
+															</option>
+														</select>
+													</div>
+												</div>
+												<div className='inner_width inner_width_shallow'>
+													<div className='sorting_filter'>
+														<select
+															name='sort'
+															id='sorting'
+															value={
+																bookingStatus
+															}
+															onChange={
+																handleChange
+															}
+															defaultValue={-1}
+														>
+															<option value={-1}>
+																전체상태
+															</option>
+															<option value={1}>
+																승인대기
+															</option>
+															<option value={2}>
+																결제대기
+															</option>
+															<option value={3}>
+																예약확정
+															</option>
+															<option value={4}>
+																이용완료
+															</option>
+															<option value={5}>
+																취소환불
+															</option>
+														</select>
+													</div>
+												</div>
+												<div
+													className='inner_width inner_width_shallow'
+													style={{
+														backgroundColor:
+															'yellow',
+													}}
 												>
-													<span className='search'>
+													<label
+														style={{
+															cursor: 'pointer',
+														}}
+														onClick={onCalendar}
+													>
 														<span>
-															검색 돋보기
-															(넣어주기)
+															<span>
+																캘린더 보기
+															</span>
 														</span>
-													</span>
-												</label>
+													</label>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div className='filter_area'>
-							<div className='inner_width'>
-								<div className='sorting_filter'>
-									<select
-										name='sort'
-										id='sorting'
-										value={sort}
-										onChange={handleChangeSort}
-									>
-										<option value={`num desc`}>
-											예약번호순정렬
-										</option>
-										<option value={`bookingDate desc`}>
-											이용일자순정렬
-										</option>
-									</select>
-								</div>
-							</div>
-							<div className='inner_width inner_width_shallow'>
-								<div className='sorting_filter'>
-									<select
-										name='sort'
-										id='sorting'
-										value={bookingStatus}
-										onChange={handleChange}
-										defaultValue={-1}
-									>
-										<option value={-1}>전체상태</option>
-										<option value={1}>승인대기</option>
-										<option value={2}>결제대기</option>
-										<option value={3}>예약확정</option>
-										<option value={4}>이용완료</option>
-										<option value={5}>취소환불</option>
-									</select>
-								</div>
-							</div>
-							<div
-								className='inner_width inner_width_shallow'
-								style={{backgroundColor: 'yellow'}}
-							>
-								<label
-									style={{cursor: 'pointer'}}
-									onClick={onCalendar}
-								>
-									<span>
-										<span>캘린더 보기</span>
-									</span>
-								</label>
-							</div>
-						</div>
+						<div className='filter_area'></div>
 						{bookingList.length == 0 ? (
 							<div
 								className='reservaion_state_ment'

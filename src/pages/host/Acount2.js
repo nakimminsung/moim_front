@@ -3,6 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {Calendar} from 'react-calendar';
+import styled from 'styled-components';
 
 function Acount2(props) {
 	const {hostNum} = props;
@@ -117,7 +118,7 @@ function Acount2(props) {
 		sumtotal();
 	}, [acountlist]);
 	return (
-		<div>
+		<div style={{height: '100vh'}}>
 			<div className='box_search'>
 				<div className='box_inner'>
 					<div className='one_search'>
@@ -216,9 +217,11 @@ function Acount2(props) {
 										style={{cursor: 'pointer'}}
 										onClick={onClickSearch}
 									>
-										<span className='search'>
-											<span>검색 돋보기 (넣어주기)</span>
-										</span>
+										<BtnBox>
+											<BtnLabel>
+												<div>검색</div>
+											</BtnLabel>
+										</BtnBox>
 									</label>
 								</div>
 							</div>
@@ -264,40 +267,54 @@ function Acount2(props) {
 					prev2Label={null} //<<없애기
 				/>
 			</div>
-			<div>
-				<span>
-					<b>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					marginTop: '20px',
+				}}
+			>
+				<div>
+					<b style={{color: 'red'}}>
 						{moment(sday).format('YYYY-MM-DD')}
 						&nbsp;~&nbsp;
-						{moment(eday).format('YYYY-MM-DD')} 기간에 정산된
-						내역입니다
+						{moment(eday).format('YYYY-MM-DD')}
 					</b>
-				</span>
-			</div>
-			<div>
-				<span>
-					정산완료금액 :
+					<spna>기간에 정산된 내역입니다</spna>
+				</div>
+				<div>
+					<span>정산예정금액 :</span>
 					<b>
 						총 {acountlist.length}건 / 총 {tot}원
 					</b>
-				</span>
+				</div>
 			</div>
-			<div>
-				<table>
-					<thead>
+			<div
+				className='acountList'
+				style={{marginTop: '20px', width: '100%'}}
+			>
+				<table style={{width: '100%'}}>
+					<thead style={{textAlign: 'center'}}>
 						<tr>
-							<th>정산일</th>
-							<th>예약번호</th>
-							<th>공간명</th>
-							<th>PG</th>
-							<th>예약자명</th>
-							<th>정산금액</th>
-							<th>상태</th>
+							<th style={{width: '10%'}}>결제일</th>
+							<th style={{width: '5%'}}>예약번호</th>
+							<th style={{width: '10%'}}>공간명</th>
+							<th style={{width: '5%'}}>PG</th>
+							<th style={{width: '5%'}}>예약자명</th>
+							<th style={{width: '5%'}}>정산금액</th>
+							<th style={{width: '5%'}}>상태</th>
 						</tr>
 					</thead>
 
-					<tbody>
-						{acountlist &&
+					<tbody style={{textAlign: 'center'}}>
+						{acountlist.length === 0 ? (
+							<tr>
+								<td colSpan={7} style={{textAlign: 'center'}}>
+									<h5>내역이 없습니다</h5>
+								</td>
+							</tr>
+						) : (
+							acountlist &&
 							acountlist.map((item, idx) => {
 								if (
 									item.payStatus == 1 &&
@@ -319,7 +336,8 @@ function Acount2(props) {
 											</td>
 										</tr>
 									);
-							})}
+							})
+						)}
 					</tbody>
 				</table>
 			</div>
@@ -328,3 +346,26 @@ function Acount2(props) {
 }
 
 export default Acount2;
+const BtnBox = styled.div`
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-left: 10px;
+	overflow: hidden;
+	width: 154px;
+	line-height: 50px;
+`;
+
+const BtnLabel = styled.label`
+	cursor: pointer;
+	display: block;
+	background-color: #704de4;
+	border: 0;
+	color: #fff;
+	text-align: center;
+	border-radius: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	line-height: 50px;
+`;
