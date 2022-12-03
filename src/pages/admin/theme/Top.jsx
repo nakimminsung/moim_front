@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import Modal from './Modal';
+import AddTheme from './AddTheme';
 
 function Top(props) {
 	return (
 		<Wrapper>
-			<Modal />
+			<AddTheme />
 		</Wrapper>
 	);
 }
@@ -18,9 +18,4 @@ const Wrapper = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	margin-bottom: 10px;
-`;
-
-const Button = styled.button`
-	border-radius: 10px;
-	background-color: purple;
 `;

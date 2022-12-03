@@ -3,20 +3,45 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import styled from 'styled-components';
-import {IconButton, TextField} from '@material-ui/core';
-import {PhotoCamera} from '@material-ui/icons';
+import {TextField} from '@material-ui/core';
+import axios from 'axios';
+import {useState} from 'react';
 
-export default function AlertDialog() {
+export default function AddTheme() {
 	const [open, setOpen] = React.useState(false);
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+	const [file, setFile] = useState('');
 
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
 
 	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const insertTheme = (e) => {
+		let url = localStorage.url + '/theme/insert';
+		const data = new FormData();
+		data.append('title', title);
+		data.append('description', description);
+		data.append('file', file);
+
+		axios({
+			method: 'post',
+			url: url,
+			data: data,
+			headers: {'Content-Type': 'multipart/form-data'},
+		}).then((res) => {
+			alert('등록이 완료되었습니다.');
+			window.location.reload();
+			setTitle('');
+			setDescription('');
+			setFile([]);
+		});
 		setOpen(false);
 	};
 
@@ -32,41 +57,44 @@ export default function AlertDialog() {
 				<DialogTitle id='alert-dialog-title'>
 					{'기획전 등록'}
 				</DialogTitle>
-				<DialogContent>
+				<DialogContent style={{padding: '10px', width: '500px'}}>
 					<ContentWrapper>
 						<div>
 							<span>타이틀</span>
 							<TextField
 								id='outlined-basic'
-								label='Outlined'
 								variant='outlined'
+								style={{width: '100%'}}
+								onChange={(e) => setTitle(e.target.value)}
 							/>
 						</div>
 						<div>
 							<span>한 줄 설명</span>
 							<TextField
 								id='outlined-basic'
-								label='Outlined'
 								variant='outlined'
+								style={{width: '100%'}}
+								onChange={(e) => setDescription(e.target.value)}
 							/>
 						</div>
 						<div>
-							<span>사진</span>
-							<IconButton
-								color='primary'
-								aria-label='upload picture'
-								component='label'
-							>
-								<input hidden accept='image/*' type='file' />
-								<PhotoCamera />
-							</IconButton>
+							<Button variant='contained' component='label'>
+								사진 업로드
+								<input
+									hidden
+									accept='image/*'
+									multiple
+									type='file'
+									onChange={(e) => setFile(e.target.files[0])}
+								/>
+							</Button>
 						</div>
 					</ContentWrapper>
 				</DialogContent>
 				<DialogActions style={{padding: '0'}}>
 					<ButtonWrapper>
 						<CancelBtn onClick={handleClose}>취소</CancelBtn>
-						<InsertBtn onClick={handleClose} autoFocus>
+						<InsertBtn onClick={insertTheme} autoFocus>
 							등록
 						</InsertBtn>
 					</ButtonWrapper>
@@ -87,10 +115,11 @@ const InsertBtn = styled.button`
 	background-color: purple;
 `;
 const ContentWrapper = styled.div`
+	margin-top: 10px;
 	> div {
 		display: flex;
 		justify-content: space-between;
-		margin-bottom: 10px;
+		margin-top: 10px;
 	}
 	> div > span {
 		width: 30%;
@@ -98,9 +127,14 @@ const ContentWrapper = styled.div`
 		justify-content: center;
 		align-items: center;
 		font-weight: 500;
+		margin-right: 10px;
+		font-size: 15px;
 	}
 	> div > input {
 		width: 70%;
+	}
+	> div > label {
+		width: 100%;
 	}
 `;
 const ButtonWrapper = styled.div`

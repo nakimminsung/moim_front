@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 import Bottom from './Bottom';
-import List from './List';
+import ThemeList from './ThemeList';
 import Top from './Top';
 import {useEffect} from 'react';
 import styled from 'styled-components';
@@ -23,7 +23,7 @@ function Theme(props) {
 	return (
 		<Wrapper>
 			<Top />
-			<List themeList={themeList} />
+			<ThemeList themeList={themeList} />
 			<Bottom />
 		</Wrapper>
 	);
