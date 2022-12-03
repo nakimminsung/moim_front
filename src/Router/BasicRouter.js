@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -33,6 +33,7 @@ import SpaceBookingDetail from '../pages/host/SpaceBookingDetail';
 import PasswordSearch from '../pages/login/PasswordSearch';
 import PasswordSearch2 from '../pages/login/PasswordSearch2';
 import SpaceAcount from '../pages/host/SpaceAcount';
+import HostReviewQna from '../pages/host/HostReviewQna';
 
 function BasicRouter() {
 	return (
@@ -78,6 +79,7 @@ function BasicRouter() {
 						element={<SpaceBookingDetail />}
 					/>
 					<Route path='acount' element={<SpaceAcount />} />
+					<Route path='reviewqna' element={<HostReviewQna />} />
 				</Route>
 				{/* 호스트 끝 */}
 

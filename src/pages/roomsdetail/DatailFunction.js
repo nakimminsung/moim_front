@@ -15,6 +15,7 @@ function DatailFunction(props) {
 	const [roomData, setRoomData] = useState('');
 	const [facility, setFacility] = useState([]);
 	const [category, setCategory] = useState('');
+	const [userNum, setUserNum] = useState('');
 	const token = localStorage.getItem('token');
 
 	//룸관련 데이터 출력
@@ -31,7 +32,7 @@ function DatailFunction(props) {
 	useEffect((e) => {
 		onSelectData(num);
 		if (token) {
-			let userNum = jwt_decode(localStorage.getItem('token')).idx;
+			setUserNum(jwt_decode(localStorage.getItem('token')).idx);
 			let likeUrl =
 				localStorage.url +
 				'/detailLike?num=' +
@@ -113,7 +114,7 @@ function DatailFunction(props) {
 						&nbsp;
 						{/* 911, 신고하기, report */}
 						<div style={{marginTop: '-7px'}}>
-							<ReportInsert roomNum={num} />
+							<ReportInsert roomNum={num} userNum={userNum} />
 						</div>
 					</div>
 				</span>
