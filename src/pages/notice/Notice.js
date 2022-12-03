@@ -65,6 +65,7 @@ function Notice(props) {
 								width: '140px',
 								height: '50px',
 								backgroundColor: '#704de4',
+								// backgroundColor: '#9986b3',
 								color: 'white',
 								border: 'none',
 								borderRadius: '10px',
