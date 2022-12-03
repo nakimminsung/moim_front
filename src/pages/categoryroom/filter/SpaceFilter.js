@@ -72,6 +72,8 @@ export default function SpaceFilter(props) {
 				role={undefined}
 				transition
 				disablePortal
+				placement="bottom"
+
 			>
 				{({ TransitionProps, placement }) => (
 					<Grow

@@ -101,7 +101,7 @@ function BasicRouter() {
 				<Route path='signupEmail' element={<SignUpEmail />} />
 				<Route path='seller' element={<SellerLogin />} />
 				<Route path='sellerJoin' element={<SellerJoin />} />
-				<Route path='mypage' element={<Mypage />} />
+				{/* <Route path='mypage' element={<Mypage />} /> */}
 				<Route path='passwordsearch' element={<PasswordSearch />} />
 				<Route path='passwordsearch2' element={<PasswordSearch2 />} />
 
