@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import Pagination from 'react-js-pagination';
 import {Link} from 'react-router-dom';
 import NoticeUpdate from './NoticeUpdate';
 
@@ -52,9 +53,20 @@ function NoticeListAdmin(props) {
 		}
 	};
 
+	//페이징 처리 - pagenation
+	const [page, setPage] = useState(1);
+
+	//한번에 보여질 아이템 수
+	let items = 10;
+
+	//페이지 변경 이벤트
+	const handlePageChange = (page) => {
+		setPage(page);
+	};
+
 	return (
 		<div className='noticeTable' style={{marginTop: '20px', width: '100%'}}>
-			<table className='table table-bordered' style={{width: '100%'}}>
+			<table className='' style={{width: '100%'}}>
 				<thead>
 					<tr style={{textAlign: 'center'}}>
 						<th style={{width: '5%'}}>번호</th>
@@ -74,56 +86,74 @@ function NoticeListAdmin(props) {
 						</tr>
 					) : (
 						noticeList &&
-						noticeList.map((row, idx) => (
-							<tr style={{verticalAlign: 'middle'}} key={idx}>
-								<td>{idx + 1}</td>
-								<td>{row.type}</td>
-								<td>
-									{/* <Link to={'/notice'}>{row.title}</Link> */}
-									<span
-										style={{
-											textDecoration: 'underLine',
-											cursor: 'pointer',
-										}}
-										onClick={() =>
-											window.open('/notice', '_blank')
-										}
-									>
-										{row.title}
-									</span>
-								</td>
-								<td>{row.writeday}</td>
-								<td>
-									<div
-										style={{
-											display: 'flex',
-											justifyContent: 'center',
-										}}
-									>
-										<NoticeUpdate num={row.num} />
-										&emsp;
-										<button
-											type='button'
-											className='btn btn-outline-danger'
-											// onClick={(e) => {
-											// 	console.log(e.target.value);
-											// }}
-											value={row.num}
-											onClick={(e) => {
-												num = e.target.value;
+						noticeList
 
-												deleteNotice();
+							.map((row, idx) => (
+								<tr style={{verticalAlign: 'middle'}} key={idx}>
+									<td>{idx + 1}</td>
+									<td>{row.type}</td>
+									<td>
+										{/* <Link to={'/notice'}>{row.title}</Link> */}
+										<span
+											style={{
+												textDecoration: 'underLine',
+												cursor: 'pointer',
+											}}
+											onClick={() =>
+												window.open('/notice', '_blank')
+											}
+										>
+											{row.title}
+										</span>
+									</td>
+									<td>{row.writeday}</td>
+									<td>
+										<div
+											style={{
+												display: 'flex',
+												justifyContent: 'center',
 											}}
 										>
-											삭제
-										</button>
-									</div>
-								</td>
-							</tr>
-						))
+											<NoticeUpdate num={row.num} />
+											&emsp;
+											<button
+												type='button'
+												className='btn btn-outline-danger'
+												// onClick={(e) => {
+												// 	console.log(e.target.value);
+												// }}
+												value={row.num}
+												onClick={(e) => {
+													num = e.target.value;
+
+													deleteNotice();
+												}}
+											>
+												삭제
+											</button>
+										</div>
+									</td>
+								</tr>
+							))
+							.slice(
+								items * (page - 1),
+								items * (page - 1) + items,
+							)
 					)}
 				</tbody>
 			</table>
+			{/* 페이지네이션 생기는 위치 */}
+			<div className='pageDiv'>
+				<Pagination
+					activePage={page} // 현재 보고있는 페이지
+					itemsCountPerPage={10} // 한 페이지에 출력할 아이템 수
+					totalItemsCount={noticeList.length} // 총 아이템 수
+					pageRangeDisplayed={5} // 표시할 아이템 수
+					prevPageText={'‹'}
+					nextPageText={'›'}
+					onChange={handlePageChange}
+				/>
+			</div>
 		</div>
 	);
 }
