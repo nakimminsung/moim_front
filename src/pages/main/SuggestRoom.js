@@ -27,10 +27,12 @@ function SuggestRoom(props) {
 
 	return (
 		<div className='themeArea' style={{textAlign: 'center'}}>
-			<h3>
+			<h2>
 				<b>오늘의 추천 공간</b>
-			</h3>
-			<h6 style={{color: 'gray'}}>뜨기 전에 먼저 예약하세요!</h6>
+			</h2>
+			<h6 style={{color: 'gray', fontWeight: '500'}}>
+				뜨기 전에 먼저 예약하세요!
+			</h6>
 			<br />
 
 			<div
