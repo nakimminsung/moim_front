@@ -114,7 +114,7 @@ function Left({bookingList}) {
 
 	stime = _stime;
 	etime = _etime;
-	calTime = _etime - _stime;
+	calTime = _etime - _stime + 1;
 
 	//modal dialogue : OPEN / CLOSE
 	const [open, setOpen] = React.useState(false);

@@ -14,6 +14,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import {useNavigate} from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
 
 function LeftReturn({
 	bookingList,
@@ -85,7 +86,7 @@ function LeftReturn({
 					pg: 'kakaopay',
 					pay_method: 'card', //지불 방법
 					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-					name: bookingList.name, //결제창에 노출될 상품명
+					name: bookingList.roomName, //결제창에 노출될 상품명
 					amount: bookingList.totalPrice, //금액
 					buyer_email: jwt_decode(localStorage.getItem('token'))
 						.email,
@@ -130,7 +131,7 @@ function LeftReturn({
 					pg: 'tosspay',
 					pay_method: 'card', //지불 방법
 					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-					name: bookingList.name, //결제창에 노출될 상품명
+					name: bookingList.roomName, //결제창에 노출될 상품명
 					amount: bookingList.totalPrice, //금액
 					buyer_email: jwt_decode(localStorage.getItem('token'))
 						.email,
@@ -175,7 +176,7 @@ function LeftReturn({
 					pg: 'payco',
 					pay_method: 'card', //지불 방법
 					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-					name: bookingList.name, //결제창에 노출될 상품명
+					name: bookingList.roomName, //결제창에 노출될 상품명
 					amount: bookingList.totalPrice, //금액
 					buyer_email: jwt_decode(localStorage.getItem('token'))
 						.email,
@@ -220,7 +221,7 @@ function LeftReturn({
 					pg: 'html5_inicis',
 					pay_method: 'card', //지불 방법
 					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-					name: bookingList.name, //결제창에 노출될 상품명
+					name: bookingList.roomName, //결제창에 노출될 상품명
 					amount: bookingList.totalPrice, //금액
 					buyer_email: jwt_decode(localStorage.getItem('token'))
 						.email,
@@ -408,6 +409,7 @@ function LeftReturn({
 					<Dialog open={open} onClose={handleClose}>
 						{bookingList.bookingStatus === 4 ? (
 							<>
+								{' '}
 								<DialogTitle
 									style={{
 										backgroundColor: '#704de4',
@@ -416,6 +418,13 @@ function LeftReturn({
 									}}
 								>
 									이용후기 작성
+									<CloseIcon
+										style={{
+											float: 'right',
+											cursor: 'pointer',
+										}}
+										onClick={handleClose}
+									/>
 								</DialogTitle>
 								<DialogContent>
 									<br />
@@ -437,7 +446,7 @@ function LeftReturn({
 									<textarea
 										className='form-control'
 										placeholder='이용후기를 작성해주세요.'
-										style={{height: '300px'}}
+										style={{height: '200px'}}
 										onChange={contentHandler}
 										value={content}
 									/>

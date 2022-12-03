@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -8,7 +8,7 @@ import MenuList from '@material-ui/core/MenuList';
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import styled from 'styled-components';
 import Avatar from '@material-ui/core/Avatar';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import jwt_decode from 'jwt-decode';
 
@@ -19,9 +19,7 @@ export default function MyMenu() {
 
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);
-		console.log(jwt_decode(
-			localStorage.getItem('token')
-		))
+		console.log(jwt_decode(localStorage.getItem('token')));
 	};
 
 	const handleClose = (event) => {
@@ -80,6 +78,9 @@ export default function MyMenu() {
 		}
 	};
 
+	// 예약 리스트 연결(idx 뽑아오기)
+	let idx = jwt_decode(localStorage.getItem('token')).idx;
+
 	return (
 		<>
 			<MyButton
@@ -90,12 +91,13 @@ export default function MyMenu() {
 			>
 				<MyButtonIcon />
 				{loginCheck == 1 ? (
-					< Avatar
+					<Avatar
 						className='loginAvatar'
 						alt='Remy Sharp'
-						src={jwt_decode(
-							localStorage.getItem('token'),
-						).profile_image}
+						src={
+							jwt_decode(localStorage.getItem('token'))
+								.profile_image
+						}
 					/>
 				) : loginCheck == 2 ? (
 					<AccountCircleIcon className='noneIcon' />
@@ -110,7 +112,7 @@ export default function MyMenu() {
 				transition
 				disablePortal
 			>
-				{({ TransitionProps, placement }) => (
+				{({TransitionProps, placement}) => (
 					<Grow
 						{...TransitionProps}
 						style={{
@@ -140,7 +142,9 @@ export default function MyMenu() {
 											</MenuItem>
 											<MenuItem
 												onClick={() => {
-													navi('/booking/list');
+													navi(
+														`/booking/list/${idx}`,
+													);
 													handleClose(false);
 												}}
 											>
@@ -189,10 +193,7 @@ export default function MyMenu() {
 									) : loginCheck == 2 ? (
 										<>
 											<MenuItem>
-												{
-													sessionStorage.name
-												}
-												님
+												{sessionStorage.name}님
 											</MenuItem>
 											<hr
 												style={{

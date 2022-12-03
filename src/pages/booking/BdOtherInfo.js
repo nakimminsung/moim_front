@@ -195,6 +195,18 @@ function BdOtherInfo(props) {
 							&nbsp;(필수)
 						</span>
 					</AccordionSummary>
+					<AccordionDetails>
+						<Typography>
+							<p
+								style={{
+									color: 'gray',
+									fontSize: 'small',
+								}}
+							>
+								위 공간의 예약조건 확인 및 결제진행 동의
+							</p>
+						</Typography>
+					</AccordionDetails>
 				</Accordion>
 				{agreement.map((item, idx) => (
 					<Accordion key={idx}>
