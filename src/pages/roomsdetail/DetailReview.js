@@ -116,7 +116,12 @@ function DetailReview(props) {
 															item.profile_image ==
 															null
 																? 'https://ssl.pstatic.net/static/pwe/address/img_profile.png'
-																: item.profile_image
+																: item.profile_image.startsWith(
+																		'http',
+																  )
+																? item.profile_image
+																: imgUrl +
+																  item.profile_image
 														}
 														className='qnaImg'
 													/>
@@ -173,8 +178,12 @@ function DetailReview(props) {
 																	<img
 																		alt=''
 																		src={
-																			imgUrl +
-																			item.reviewImageUrl
+																			item.reviewImageUrl.startsWith(
+																				'http',
+																			)
+																				? item.reviewImageUrl
+																				: imgUrl +
+																				  item.reviewImageUrl
 																		}
 																		className='reviewImg'
 																	/>

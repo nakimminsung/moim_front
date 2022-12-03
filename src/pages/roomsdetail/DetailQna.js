@@ -26,10 +26,13 @@ function DetailQna(props) {
 	const titleRef = useRef('');
 
 	//페이징처리
-	const [limit, setLimit] = useState(3);
+	//pagenation
 	const [page, setPage] = useState(1);
-	const offset = (page - 1) * limit;
+	let items = 3;
 
+	const handlePageChange = (page) => {
+		setPage(page);
+	};
 	//모달
 	const [open, setOpen] = React.useState(false);
 
@@ -75,10 +78,6 @@ function DetailQna(props) {
 					window.location.reload();
 				});
 		}
-	};
-
-	const handlePageChange = (page) => {
-		setPage(page);
 	};
 
 	useEffect(() => {
@@ -236,7 +235,10 @@ function DetailQna(props) {
 							<tbody>
 								{qna &&
 									qna
-										.slice(offset, offset + limit)
+										.slice(
+											items * (page - 1),
+											items * (page - 1) + items,
+										)
 										.map((item, idx) => (
 											<tr key={idx}>
 												<td
@@ -318,7 +320,7 @@ function DetailQna(props) {
 					<div>
 						<Pagination
 							activePage={page}
-							itemsCountPerPage={6}
+							itemsCountPerPage={3}
 							totalItemsCount={qna.length}
 							pageRangeDisplayed={5}
 							prevPageText={'‹'}

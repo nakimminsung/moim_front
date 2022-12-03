@@ -153,22 +153,43 @@ function QNA(props) {
 											</SpaceWriteday>
 										</Typography>
 									</CardContent>
-									<div
-										style={{
-											display: 'flex',
-											width: '100%',
-											flexDirection: 'row',
-											flexWrap: 'wrap',
-											justifyContent: 'space-evenly',
-											marginBottom: '20px',
-										}}
-									>
-										<QnaUpdate
-											qnaNum={item.num}
-											status={item.status}
-										/>
-										<QnaContent qnaNum={item.num} />
-									</div>
+									{item.status == '답변대기중' ? (
+										<div
+											style={{
+												display: 'flex',
+												width: '100%',
+												flexDirection: 'row',
+												flexWrap: 'wrap',
+												justifyContent: 'space-evenly',
+												marginBottom: '20px',
+											}}
+										>
+											<QnaUpdate
+												qnaNum={item.num}
+												status={item.status}
+											/>
+											<QnaContent
+												qnaNum={item.num}
+												status={item.status}
+											/>
+										</div>
+									) : (
+										<div
+											style={{
+												display: 'flex',
+												width: '100%',
+												flexDirection: 'row',
+												flexWrap: 'wrap',
+												justifyContent: 'space-evenly',
+												marginBottom: '20px',
+											}}
+										>
+											<QnaContent
+												qnaNum={item.num}
+												status={item.status}
+											/>
+										</div>
+									)}
 								</CardActionArea>
 							</Card>
 						))

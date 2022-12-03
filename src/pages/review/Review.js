@@ -7,10 +7,8 @@ import React, {useEffect, useState} from 'react';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import Rating from '@mui/material/Rating';
-import InfoIcon from '@mui/icons-material/Info';
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-
 import {
 	Card,
 	CardActionArea,
@@ -21,7 +19,6 @@ import {
 	Typography,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import {set} from 'date-fns';
 
 function Review(props) {
 	const [memberReviewList, setMemberReviewList] = useState([]);
@@ -233,7 +230,7 @@ function Review(props) {
 												readOnly
 											/>
 											<SpaceContent>
-												<pre style={{height: '50px'}}>
+												<pre style={{height: '63px'}}>
 													{item.content}
 												</pre>
 											</SpaceContent>

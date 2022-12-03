@@ -13,12 +13,12 @@ span.reviewGuest {
 	padding-top: 2%;
 	padding-left: 5%;
 }
-.qnaWriteday {
+.qnaHostWriteday {
 	color: #b2b2b2;
 	font-size: 13px;
 	margin-right: 10px;
-	text-align: right;
-	margin-top: 50px;
+	position: absolute;
+	right: 24px;
 }
 .qnaContent1 {
 	width: 400px;
@@ -28,4 +28,18 @@ span.reviewGuest {
 }
 .hostReviewName {
 	font-size: 30px;
+}
+.qnaAnswerday {
+	color: #b2b2b2;
+	font-size: 13px;
+	margin-right: 10px;
+	position: absolute;
+	right: 23px;
+	bottom: 65px;
+}
+.qnaHostInfo {
+	color: red;
+	font-size: 12px;
+	margin-top: -5px;
+	padding-bottom: 5px;
 }

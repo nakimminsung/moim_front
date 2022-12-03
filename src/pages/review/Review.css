@@ -17,12 +17,20 @@ span.reviewGuest {
 	color: #b2b2b2;
 	font-size: 13px;
 	margin-right: 10px;
-	text-align: right;
-	margin-top: 50px;
+	position: absolute;
+	right: 24px;
 }
 .qnaContent1 {
 	width: 400px;
 	height: 100px;
 	padding-left: 10px;
 	border: 1px solid black;
+}
+.qnaAnswerday {
+	color: #b2b2b2;
+	font-size: 13px;
+	margin-right: 10px;
+	position: absolute;
+	right: 23px;
+	bottom: 40px;
 }

@@ -18,6 +18,7 @@ function HostQnaUpdate(props) {
 
 	const handleClose = () => {
 		setOpen(false);
+		setQnaLength(0);
 	};
 
 	// Qna내용 수정

@@ -8,7 +8,7 @@ import axios from 'axios';
 import './Review.css';
 
 function QnaContent(props) {
-	const {qnaNum} = props;
+	const {qnaNum, status} = props;
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [answer, setAnswer] = useState('');
@@ -23,7 +23,7 @@ function QnaContent(props) {
 	};
 
 	return (
-		<div style={{width: '47%'}}>
+		<div style={{width: status == '답변완료' ? '93%' : '47%'}}>
 			<Button
 				variant='contained'
 				style={{
@@ -71,7 +71,7 @@ function QnaContent(props) {
 						</span>
 					</DialogTitle>
 
-					<DialogContent style={{paddingTop: '8px'}}>
+					<DialogContent style={{paddingTop: '12px'}}>
 						<div>
 							<h5>
 								<b>문의제목 : {title}</b>
@@ -86,7 +86,17 @@ function QnaContent(props) {
 						<DialogContentText>
 							<pre className='qnaContent1'>
 								{content}
-								<div className='qnaWriteday'>{writeday}</div>
+								<div
+									className='qnaWriteday'
+									style={{
+										bottom:
+											status == '답변완료'
+												? '245px'
+												: '220px',
+									}}
+								>
+									{writeday}
+								</div>
 							</pre>
 						</DialogContentText>
 
@@ -108,12 +118,19 @@ function QnaContent(props) {
 									호스트의 답변이 아직 없습니다
 								</pre>
 							) : (
-								<pre className='qnaContent1'>
-									{answer}
-									<div className='qnaWriteday'>
-										{answerday}
+								<div>
+									<pre className='qnaContent1'>
+										{answer}
+										<div className='qnaAnswerday'>
+											{answerday}
+										</div>
+									</pre>
+									<div className='qnaHostInfo'>
+										<ErrorOutlineIcon />
+										문의에 대한 답변이 아닌 비방글 등은 신고
+										할 수 있습니다.
 									</div>
-								</pre>
+								</div>
 							)}
 						</DialogContentText>
 					</DialogContent>

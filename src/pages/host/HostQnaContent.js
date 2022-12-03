@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import {DialogContent, DialogContentText} from '@mui/material';
-import {Dialog, DialogActions, DialogTitle} from '@material-ui/core';
+import {Dialog, DialogTitle} from '@material-ui/core';
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import axios from 'axios';
@@ -85,7 +85,17 @@ function HostQnaContent(props) {
 						<DialogContentText>
 							<pre className='qnaContent1'>
 								{content}
-								<div className='qnaWriteday'>{writeday}</div>
+								<div
+									className='qnaHostWriteday'
+									style={{
+										bottom:
+											status == '답변완료'
+												? '210px'
+												: '40px',
+									}}
+								>
+									{writeday}
+								</div>
 							</pre>
 						</DialogContentText>
 						{status == '답변완료' ? (
@@ -98,10 +108,15 @@ function HostQnaContent(props) {
 								<DialogContentText>
 									<pre className='qnaContent1'>
 										{answer}
-										<div className='qnaWriteday'>
+										<div className='qnaAnswerday'>
 											{answerday}
 										</div>
 									</pre>
+									<div className='qnaHostInfo'>
+										<ErrorOutlineIcon />
+										단, 고객들에게 문의 답변이 아닌
+										비방글등은 신고 받을 수 있습니다.
+									</div>
 								</DialogContentText>
 							</div>
 						) : (
