@@ -21,7 +21,7 @@ function HostTotalPlace(props) {
 
 	return (
 		<div>
-			<div style={{marginTop: '30px', textAlign: 'center'}}>
+			<div style={{marginTop: '40px', textAlign: 'center'}}>
 				<b
 					style={{
 						borderBottom: '2px solid #ffd014',
@@ -29,7 +29,7 @@ function HostTotalPlace(props) {
 						paddingBottom: '5px',
 					}}
 				>
-					{hostInfo.companyName} 호스트의 공간
+					{hostInfo.companyName} 호스트의 공간들
 				</b>
 			</div>
 			<HostList />
