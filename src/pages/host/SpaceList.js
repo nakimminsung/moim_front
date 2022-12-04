@@ -23,7 +23,7 @@ function SpaceList(props) {
 	const offset = (page - 1) * limit;
 
 	useEffect(() => {
-		let listUrl = localStorage.url + '/host/list';
+		let listUrl = localStorage.url + '/host/list?hostNum=' + hostNum;
 		// console.log(listUrl);
 		fetch(listUrl)
 			.then((res) => res.json())
