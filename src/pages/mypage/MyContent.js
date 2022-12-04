@@ -13,7 +13,10 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 // const useStyles = makeStyles((theme) => ({
 //     // margin: {
 //     //     // margin: theme.spacing(1),
@@ -22,14 +25,43 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 
 function MyContent(props) {
     // const classes = useStyles();
+    const navi = useNavigate();
     const token = jwt_decode(localStorage.getItem('token'));
     const memberNum = jwt_decode(localStorage.getItem('token')).idx;
     // const memberList = props;
     const [email, setEmail] = useState('');
     const [nickname, setNickname] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     // 닉네임 변경 이벤트
     const [changeStatus, setChangeStatus] = useState(0);
     const [changeButton, setChangeButton] = useState(0);
+    // 비밀번호 변경 이벤트
+    const [changepwStatus, setChangepwStatus] = useState(0);
+    const [changepwButton, setChangepwButton] = useState(0);
+
+    // 비밀번호 변경 mui
+    const [values, setValues] = React.useState({
+        amount: '',
+        password: '',
+        weight: '',
+        weightRange: '',
+        showPassword: false,
+    });
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
+
+    const handleClickShowPassword = () => {
+        setValues({
+            ...values,
+            showPassword: !values.showPassword,
+        });
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     const getMemberInfo = () => {
         let url = localStorage.url + '/member/getMemberInfo?idx=' + memberNum;
@@ -73,6 +105,24 @@ function MyContent(props) {
         let filterName = splitName.join().replace(/,/g, '')
         setEmail(filterName.substring(0, 8)) //정규식
     }
+
+    const passwordChange = () => {
+        axios.post(
+            // url: 
+            // RequestParan으로 key value 받기
+            'http://localhost:9000/member/updatePassword?password=' +
+            newPassword + '&email=' + email
+        ).then((res) => {
+            console.log(res.data)
+            alert('정상적으로 비밀번호가 변경되었습니다.')
+            window.location.reload();
+        });
+    }
+
+    const passwordsearch = () => {
+        setChangepwButton(1);
+    }
+
 
     const deleteMember = () => {
         //confirm alert
@@ -162,7 +212,34 @@ function MyContent(props) {
                             <tr>
                                 <td style={{ textAlign: 'left' }}>비밀번호</td>
                                 <td style={{ textAlign: 'left' }}>
-                                    {props.memberList.password !== 'kakao' ? <Button variant="outlined" color="primary" size="small">비밀번호 변경하기</Button> : <b style={{ color: 'red' }}>소셜로그인은 비밀번호 변경 불가</b>}
+                                    {(props.memberList.password !== 'kakao' && changepwButton == 0) ? <Button variant="outlined" color="primary" size="small"
+                                        onClick={passwordsearch}>비밀번호 변경하기</Button> : (props.memberList.password !== 'kakao' && changepwButton == 1) ?
+                                        <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                                            <Input
+                                                id="standard-adornment-password"
+                                                type={values.showPassword ? 'text' : 'password'}
+                                                value={values.password}
+                                                onChange={handleChange('password')}
+                                                endAdornment={
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                        >
+                                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                }
+                                            />
+                                        </FormControl>
+                                        : <b style={{ color: 'red' }}>소셜로그인은 비밀번호 변경 불가</b>}
+                                </td>
+                                <td style={{ textAlign: 'left' }}>
+                                    {changepwButton == 1 ? <Button variant="outlined" color="primary" size="small"
+                                        onClick={passwordChange}>확인</Button> :
+                                        <></>}
                                 </td>
                             </tr>
                             <tr>

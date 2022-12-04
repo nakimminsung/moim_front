@@ -34,6 +34,7 @@ import PasswordSearch from '../pages/login/PasswordSearch';
 import PasswordSearch2 from '../pages/login/PasswordSearch2';
 import SpaceAcount from '../pages/host/SpaceAcount';
 import HostReviewQna from '../pages/host/HostReviewQna';
+import SearchRoom from '../pages/search/SearchRoom';
 
 function BasicRouter() {
 	return (
@@ -113,7 +114,11 @@ function BasicRouter() {
 				</Route>
 
 				{/* 공간 통합검색 */}
-				<Route path='searchroom' element={<Search name={'React'} />}>
+				{/* <Route path='searchroom' element={<Search name={'React'} />}> */}
+				<Route
+					path='searchroom'
+					element={<SearchRoom name={'React'} />}
+				>
 					{/* <Route path=':searchWord' element={<Search />} /> */}
 				</Route>
 
