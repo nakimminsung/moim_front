@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import jwt_decode from 'jwt-decode';
 function PasswordSearch2(props) {
 
   // 자동 focus ref
@@ -14,6 +15,7 @@ function PasswordSearch2(props) {
 
   const location = useLocation();
   // const form = new FormData();
+  // const { idx } = jwt_decode(localStorage.getItem('token')).idx;
   // 인증메일 보낼 이메일 주소
   const { email } = location.state.email;
   // 인증번호
@@ -51,9 +53,23 @@ function PasswordSearch2(props) {
       // setThumbnailImage(res.data);
       setConfirmEmail(res.data);
       setNumcheck('1');
-      console.log(confirmEmail)
+      // console.log(confirmEmail)
     });
   };
+
+  const passwordChange = () => {
+    axios.post(
+      // url: 
+      // RequestParan으로 key value 받기
+      'http://localhost:9000/member/updatePassword?password=' +
+      newPassword + '&email=' + email
+    ).then((res) => {
+      // alert('인증코드를 전송했습니다.')
+      // setConfirmEmail(res.data);
+      // setNumcheck('1');
+      console.log(res.data)
+    });
+  }
 
   const confirmNumCheck = () => {
     console.log(confirmEmail)
@@ -65,9 +81,10 @@ function PasswordSearch2(props) {
   }
 
   const confirmNewPassword = () => {
-    console.log(newPassword)
-    console.log(newPassword2)
+    // console.log(newPassword)
+    // console.log(newPassword2)
     if (newPassword == newPassword2) {
+      passwordChange()
       alert('비밀번호가 변경되었습니다. 다시 로그인 해주세요')
       navi('/');
     } else {
