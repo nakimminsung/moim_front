@@ -207,6 +207,7 @@ function SpaceUpdateForm2(props) {
 		const imageFile = new FormData();
 		imageFile.append('uploadFile', uploadFile); //백엔드 컨트롤러에서 MultipartUpload uploadFile 과 일치해야함
 		console.log(uploadFile);
+		setOnload(true);
 
 		axios({
 			method: 'post',
@@ -238,6 +239,7 @@ function SpaceUpdateForm2(props) {
 		NameRef.current.value = '';
 		PriceRef.current.value = '';
 		setOimageUrl('');
+		setOnload(false);
 	};
 
 	// 방 이미지 담을 배열
