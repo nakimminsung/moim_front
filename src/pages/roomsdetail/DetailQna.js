@@ -3,7 +3,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 import DetailReview from './DetailReview';
-import Pagenation from './DetailPaging';
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import jwt_decode from 'jwt-decode';
