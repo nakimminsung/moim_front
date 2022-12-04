@@ -42,6 +42,10 @@ function Header(props) {
 					/>
 				</SearchBox>
 				<RightWrapper>
+					<NoticeLink onClick={() => navi('/notice')}>
+						공지사항
+					</NoticeLink>
+
 					<HostLink onClick={() => navi('/')}>
 						내 공간 등록하기
 					</HostLink>
@@ -148,6 +152,14 @@ const HostLink = styled.div`
 	font-size: 18px;
 	cursor: pointer;
 `;
+
+const NoticeLink = styled.div`
+	width: 150px;
+	font-size: 18px;
+	cursor: pointer;
+	color: gray;
+`;
+
 const RightWrapper = styled.div`
 	display: flex;
 	align-items: center;
