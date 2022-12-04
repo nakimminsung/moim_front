@@ -42,6 +42,7 @@ function AdminMain(props) {
 							더보기 +
 						</NavLink>
 					</div>
+					<div>굉장히 좋은데?</div>
 				</div>
 
 				<div

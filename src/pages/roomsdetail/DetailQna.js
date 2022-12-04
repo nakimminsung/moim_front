@@ -7,6 +7,7 @@ import Pagenation from './DetailPaging';
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import jwt_decode from 'jwt-decode';
+import Pagination from 'react-js-pagination';
 import {
 	Button,
 	Dialog,
@@ -20,13 +21,18 @@ function DetailQna(props) {
 	const {num} = useParams();
 	const [qna, setQna] = useState([]);
 	const [qnaLength, setQnaLength] = useState(0);
+	const [qnaTitleLength, setQnaTitleLength] = useState(0);
 	const contentRef = useRef('');
+	const titleRef = useRef('');
 
 	//페이징처리
-	const [limit, setLimit] = useState(3);
+	//pagenation
 	const [page, setPage] = useState(1);
-	const offset = (page - 1) * limit;
+	let items = 3;
 
+	const handlePageChange = (page) => {
+		setPage(page);
+	};
 	//모달
 	const [open, setOpen] = React.useState(false);
 
@@ -57,16 +63,20 @@ function DetailQna(props) {
 		let insertQna = localStorage.url + '/detail/insertQna';
 		let userNum = jwt_decode(localStorage.getItem('token')).idx;
 		const question = contentRef.current.value;
+		const title = titleRef.current.value;
 
 		if (qnaLength == 0) {
 			alert('질문사항 작성해주시기 바랍니다.');
 		} else {
-			axios.post(insertQna, {question, userNum, num}).then((res) => {
-				alert('등록되었습니다');
-				contentRef.current.value = '';
-				setQnaLength(0);
-				window.location.reload();
-			});
+			axios
+				.post(insertQna, {question, userNum, num, title})
+				.then((res) => {
+					alert('등록되었습니다');
+					contentRef.current.value = '';
+					titleRef.current.value = '';
+					setQnaLength(0);
+					window.location.reload();
+				});
 		}
 	};
 
@@ -135,6 +145,36 @@ function DetailQna(props) {
 												fontSize: '18px',
 											}}
 										>
+											제목
+										</b>
+										<span style={{float: 'right'}}>
+											{qnaTitleLength}/45자
+										</span>
+									</div>
+									<textarea
+										maxLength={45}
+										placeholder='제목을 입력해주세요'
+										style={{
+											width: ' 430px',
+											height: '50px',
+											border: '1px solid lightgray',
+										}}
+										ref={titleRef}
+										onChange={(e) => {
+											setQnaTitleLength(
+												e.target.value.length,
+											);
+										}}
+									/>
+
+									<br />
+									<div>
+										<b
+											style={{
+												color: 'black',
+												fontSize: '18px',
+											}}
+										>
 											질문
 										</b>
 										<span style={{float: 'right'}}>
@@ -195,7 +235,10 @@ function DetailQna(props) {
 							<tbody>
 								{qna &&
 									qna
-										.slice(offset, offset + limit)
+										.slice(
+											items * (page - 1),
+											items * (page - 1) + items,
+										)
 										.map((item, idx) => (
 											<tr key={idx}>
 												<td
@@ -275,11 +318,14 @@ function DetailQna(props) {
 					''
 				) : (
 					<div>
-						<Pagenation
-							total={qna.length}
-							limit={limit}
-							page={page}
-							setPage={setPage}
+						<Pagination
+							activePage={page}
+							itemsCountPerPage={3}
+							totalItemsCount={qna.length}
+							pageRangeDisplayed={5}
+							prevPageText={'‹'}
+							nextPageText={'›'}
+							onChange={handlePageChange}
 						/>
 					</div>
 				)}

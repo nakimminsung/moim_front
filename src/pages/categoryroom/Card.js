@@ -285,7 +285,7 @@ const LikeCount = styled(Typography)`
 `;
 const CardWrapper = styled(Typography)`
 	@media (max-width: 1920px) {
-		width:33%;
+		width:25%;
 		padding: 5px;
 	}
 	@media (max-width: 1680px) {

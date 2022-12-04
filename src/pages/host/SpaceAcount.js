@@ -1,20 +1,21 @@
 import React, {useState} from 'react';
 import Acount1 from './Acount1';
 import Acount2 from './Acount2';
+import '../review/Review.css';
 
 function SpaceAcount(props) {
 	const [show, setShow] = useState(1);
-	const hostNum = 1;
+	const hostNum = sessionStorage.num;
 	return (
 		<div>
 			<div className='reviewQnaGuest' style={{width: '100%'}}>
 				<div style={{width: '100%', textAlign: 'center'}}>
 					<h4>
-						정산 예정 내역
+						정산내역
 						{/* {show === 1 ? <b>정산 예정</b> : <b> 정산 완료 </b>} */}
 					</h4>
 					<br />
-					<div className='input-group' style={{paddingLeft: '17%'}}>
+					<div className='input-group'>
 						<span
 							className='reviewGuest'
 							style={{

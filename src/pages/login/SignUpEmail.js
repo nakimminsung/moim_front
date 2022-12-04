@@ -252,6 +252,7 @@ function SignUpEmail() {
                   type="button"
                   onClick={() => {
                     onSubmit();
+                    alert('회원가입이 완료되었습니다! 로그인하여 서비스를 이용해보세요')
                     navigate('/login');
                   }}
                 >

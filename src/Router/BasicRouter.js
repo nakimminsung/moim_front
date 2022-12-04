@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -33,6 +33,8 @@ import SpaceBookingDetail from '../pages/host/SpaceBookingDetail';
 import PasswordSearch from '../pages/login/PasswordSearch';
 import PasswordSearch2 from '../pages/login/PasswordSearch2';
 import SpaceAcount from '../pages/host/SpaceAcount';
+import HostReviewQna from '../pages/host/HostReviewQna';
+import SearchRoom from '../pages/search/SearchRoom';
 
 function BasicRouter() {
 	return (
@@ -78,6 +80,7 @@ function BasicRouter() {
 						element={<SpaceBookingDetail />}
 					/>
 					<Route path='acount' element={<SpaceAcount />} />
+					<Route path='reviewqna' element={<HostReviewQna />} />
 				</Route>
 				{/* 호스트 끝 */}
 
@@ -101,7 +104,7 @@ function BasicRouter() {
 				<Route path='signupEmail' element={<SignUpEmail />} />
 				<Route path='seller' element={<SellerLogin />} />
 				<Route path='sellerJoin' element={<SellerJoin />} />
-				<Route path='mypage' element={<Mypage />} />
+				{/* <Route path='mypage' element={<Mypage />} /> */}
 				<Route path='passwordsearch' element={<PasswordSearch />} />
 				<Route path='passwordsearch2' element={<PasswordSearch2 />} />
 
@@ -111,7 +114,11 @@ function BasicRouter() {
 				</Route>
 
 				{/* 공간 통합검색 */}
-				<Route path='searchroom' element={<Search name={'React'} />}>
+				{/* <Route path='searchroom' element={<Search name={'React'} />}> */}
+				<Route
+					path='searchroom'
+					element={<SearchRoom name={'React'} />}
+				>
 					{/* <Route path=':searchWord' element={<Search />} /> */}
 				</Route>
 
