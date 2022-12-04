@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import {useState} from 'react';
 import AddThemeRoomList from './AddThemeRoomList';
+import Button from '@mui/material/Button';
 
 export default function AddThemeRoom(props) {
 	const [open, setOpen] = React.useState(false);
@@ -35,7 +36,13 @@ export default function AddThemeRoom(props) {
 
 	return (
 		<>
-			<ModalBtn onClick={handleClickOpen}>공간 추가하기</ModalBtn>
+			<Button
+				variant='outlined'
+				color='inherit'
+				onClick={handleClickOpen}
+			>
+				공간 추가하기
+			</Button>
 			<Dialog
 				open={open}
 				onClose={handleClose}
@@ -65,10 +72,6 @@ export default function AddThemeRoom(props) {
 	);
 }
 
-const ModalBtn = styled.button`
-	background-color: purple;
-	border-radius: 5px;
-`;
 const CancelBtn = styled.button`
 	background-color: gray;
 `;
