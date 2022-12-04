@@ -39,6 +39,10 @@ function Mainpage(props) {
 						<NavLink to={'/host/bookinglist'}>예약리스트</NavLink>
 					</li>
 					<li>
+						<NavLink to={'/chat/chat'}>채팅 (호스트)</NavLink>
+					</li>
+					<li>
+						<NavLink to={'/chat/chat'}>채팅 (유저)</NavLink>
 						<NavLink to={'/passwordsearch'}>비밀번호변경</NavLink>
 						<NavLink to={'/host/acount'}>정산페이지</NavLink>
 					</li>
