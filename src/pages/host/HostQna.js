@@ -85,7 +85,7 @@ function HostQna(props) {
 						hostQna &&
 						hostQna.map((item, index) => (
 							<Card style={{width: '100%'}}>
-								<CardActionArea>
+								<CardActionArea style={{cursor: 'auto'}}>
 									<CardContent>
 										<Typography
 											gutterBottom

@@ -1,24 +1,12 @@
 import styled from '@emotion/styled/macro';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {Box, DialogContent, DialogContentText} from '@mui/material';
+import {Box} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import React, {useEffect, useState} from 'react';
-import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import Rating from '@mui/material/Rating';
-import CloseIcon from '@mui/icons-material/Close';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import {
-	Card,
-	CardActionArea,
-	CardContent,
-	Dialog,
-	DialogActions,
-	DialogTitle,
-	Typography,
-} from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import {Card, CardActionArea, CardContent, Typography} from '@material-ui/core';
 
 function HostReview(props) {
 	const [hostReviewList, setHostReviewList] = useState([]);
@@ -98,27 +86,24 @@ function HostReview(props) {
 												paddingBottom: '10px',
 											}}
 										>
-											예약번호 :
-											<span
-												style={{
-													textDecoration: 'underline',
-													color: '#7b68ee',
-													cursor: 'pointer',
-												}}
-												onClick={() => {
-													window.location.href =
-														'http://localhost:3000/detail/' +
-														item.roomNum;
-												}}
-											>
-												{item.num}
-											</span>
+											<Space>
+												작성자 :
+												<span
+													onClick={() => {
+														window.location.href =
+															'http://localhost:3000/detail/' +
+															item.roomNum;
+													}}
+												>
+													&nbsp;{item.nickname}
+												</span>
+											</Space>
 										</Typography>
 										<Typography
 											variant='body1'
 											component='div'
 											color='text.secondary'
-											style={{marginTop: '25px'}}
+											style={{marginTop: '15px'}}
 										>
 											<Space>
 												공간명 :{' '}

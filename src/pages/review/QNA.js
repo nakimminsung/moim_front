@@ -97,7 +97,7 @@ function QNA(props) {
 						memberQna &&
 						memberQna.map((item, index) => (
 							<Card style={{width: '100%'}}>
-								<CardActionArea>
+								<CardActionArea style={{cursor: 'auto'}}>
 									<CardContent>
 										<Typography
 											gutterBottom
