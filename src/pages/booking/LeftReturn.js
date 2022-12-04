@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -39,6 +39,7 @@ function LeftReturn({
 	let userNum = bookingList.userNum;
 	let roomNum = bookingList.roomNum;
 	let num = bookingList.num;
+	let bookingDetailNum = bookingList.num;
 	const navigate = useNavigate();
 
 	// 결제 modal checkbox
@@ -261,6 +262,21 @@ function LeftReturn({
 		}
 	}
 
+	// 리뷰 작성했는지 체크
+	//url
+	const reviewUrl = `http://localhost:9000/review/check?bookingDetailNum=${bookingDetailNum}`;
+	const [review, setReview] = useState([]);
+
+	const checkReview = () => {
+		axios.get(reviewUrl).then((res) => {
+			setReview(res.data);
+		});
+	};
+	console.log('review' + review.content);
+	useEffect(() => {
+		checkReview();
+	}, []);
+
 	return (
 		<>
 			<div className='BKItem'>
@@ -380,7 +396,20 @@ function LeftReturn({
 								결제하기
 							</Button>
 						</>
-					) : Number(bookingList.bookingStatus) === 4 ? (
+					) : Number(bookingList.bookingStatus) === 4 &&
+					  review.content !== undefined ? (
+						<>
+							<Button
+								class='bookingBtnn'
+								type='button'
+								id='btn_submit'
+								variant='outlined'
+							>
+								이용후기작성완료
+							</Button>
+						</>
+					) : Number(bookingList.bookingStatus) === 4 &&
+					  review.content === undefined ? (
 						<>
 							<Button
 								class='bookingBtnn'
