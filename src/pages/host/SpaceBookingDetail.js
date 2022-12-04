@@ -10,7 +10,7 @@ function SpaceBookingDetail(props) {
 	const {bookingDetailNum} = useParams();
 	const [bookingList, setBookingList] = useState([]);
 
-	const hostNum = 1; // 여기에 호스트넘버 받아야합니다
+	const hostNum = sessionStorage.num;
 	console.log(hostNum);
 
 	const url = `http://localhost:9000/host/bookingdetail?bookingDetailNum=${bookingDetailNum}`;
