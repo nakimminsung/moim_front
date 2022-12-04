@@ -76,6 +76,7 @@ function SellerJoin(props) {
             // if (response.data.code === 1000) {
             //     window.location.href = "/";
             // }
+            alert('호스트 회원가입이 되었습니다. 로그인하여 서비스를 이용해보세요')
         } catch (e) {
             console.log(e);
         }
@@ -417,7 +418,7 @@ function SellerJoin(props) {
                                     type="button"
                                     onClick={() => {
                                         onSubmit();
-                                        navigate('/login');
+                                        navigate('/seller');
                                     }}
                                 >
                                     회원가입하기
