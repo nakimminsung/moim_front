@@ -1,7 +1,7 @@
 import {FormControl, MenuItem, Select, TextField} from '@mui/material';
 import axios from 'axios';
 import moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Calendar} from 'react-calendar';
 import styled from 'styled-components';
 
@@ -117,155 +117,213 @@ function Acount2(props) {
 	useEffect(() => {
 		sumtotal();
 	}, [acountlist]);
+
+	const scalendarRef = useRef(null);
+	useEffect(() => {
+		function handleClickOutside(event) {
+			//@ts-ignore
+			if (
+				scalendarRef.current &&
+				!scalendarRef.current.contains(event.target)
+			) {
+				setSShowCalendar(false);
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [scalendarRef]);
+
+	const calendarRef = useRef(null);
+	useEffect(() => {
+		function handleClickOutside(event) {
+			//@ts-ignore
+			if (
+				calendarRef.current &&
+				!calendarRef.current.contains(event.target)
+			) {
+				setEShowCalendar(false);
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [calendarRef]);
 	return (
 		<div style={{height: '100vh'}}>
 			<div className='box_search'>
 				<div className='box_inner'>
 					<div className='one_search'>
 						<div className='flex_wrap'>
-							<div className='flex_box'>
-								<div className='flex'>
-									<span>결제기간</span>
-									<div style={{display: 'flex'}}>
-										<div>
-											<TextField
-												value={moment(sday).format(
-													'YYYY-MM-DD',
-												)}
-												id='outlined-full-width'
-												title='이용시작일'
-												InputProps={{
-													readOnly: true,
-												}}
-												size='small'
-												onClick={() => {
-													setSShowCalendar(true);
-												}}
-											/>
-										</div>
-										<span>-</span>
-										<div>
-											<TextField
-												value={moment(eday).format(
-													'YYYY-MM-DD',
-												)}
-												id='outlined-full-width'
-												title='이용종료일'
-												InputProps={{
-													readOnly: true,
-												}}
-												size='small'
-												onClick={() => {
-													setEShowCalendar(true);
-												}}
-											/>
+							<div>결제기간</div>
+							<div className='flex_box' style={{display: 'flex'}}>
+								<div>
+									<div
+										className='flex'
+										style={{width: '400px'}}
+									>
+										<div style={{display: 'flex'}}>
+											<div>
+												<TextField
+													value={moment(sday).format(
+														'YYYY-MM-DD',
+													)}
+													id='outlined-full-width'
+													title='이용시작일'
+													InputProps={{
+														readOnly: true,
+													}}
+													size='small'
+													onClick={() => {
+														setSShowCalendar(true);
+													}}
+												/>
+											</div>
+											<span>-</span>
+											<div style={{position: 'relative'}}>
+												<TextField
+													value={moment(eday).format(
+														'YYYY-MM-DD',
+													)}
+													id='outlined-full-width'
+													title='이용종료일'
+													InputProps={{
+														readOnly: true,
+													}}
+													size='small'
+													onClick={() => {
+														setEShowCalendar(true);
+													}}
+												/>
+											</div>
 										</div>
 									</div>
-								</div>
-								<div className='flex'>
-									<div className='input'>
-										<FormControl
-											sx={{m: 1, minWidth: 120}}
-											size='small'
-										>
-											<Select
-												labelId='demo-select-small'
-												id='demo-select-small'
-												onChange={getRoomName}
-												defaultValue={'전체보기'}
+									<div className='flex'>
+										<div className='input'>
+											<FormControl
+												sx={{m: 1, minWidth: 200}}
+												size='small'
 											>
-												<MenuItem
-													value='전체보기'
-													selected
+												<Select
+													labelId='demo-select-small'
+													id='demo-select-small'
+													onChange={getRoomName}
+													defaultValue={'전체보기'}
 												>
-													<em>전체보기</em>
-												</MenuItem>
-												{roomlist &&
-													roomlist
-														.filter(
-															(
-																arr,
-																index,
-																callback,
-															) =>
-																index ===
-																callback.findIndex(
-																	(loc) =>
-																		loc.roomName ===
-																		arr.roomName,
+													<MenuItem
+														value='전체보기'
+														selected
+													>
+														<em>전체보기</em>
+													</MenuItem>
+													{roomlist &&
+														roomlist
+															.filter(
+																(
+																	arr,
+																	index,
+																	callback,
+																) =>
+																	index ===
+																	callback.findIndex(
+																		(loc) =>
+																			loc.roomName ===
+																			arr.roomName,
+																	),
+															)
+															.map(
+																(item, idx) => (
+																	<MenuItem
+																		value={
+																			item.roomName
+																		}
+																	>
+																		<em
+																			key={
+																				idx
+																			}
+																		>
+																			{
+																				item.roomName
+																			}
+																		</em>
+																	</MenuItem>
 																),
-														)
-														.map((item, idx) => (
-															<MenuItem
-																value={
-																	item.roomName
-																}
-															>
-																<em key={idx}>
-																	{
-																		item.roomName
-																	}
-																</em>
-															</MenuItem>
-														))}
-											</Select>
-										</FormControl>
+															)}
+												</Select>
+											</FormControl>
+										</div>
 									</div>
 								</div>
 								<div className='flex'>
-									<label
+									<BtnBox
 										style={{cursor: 'pointer'}}
 										onClick={onClickSearch}
 									>
-										<BtnBox>
-											<BtnLabel>
-												<div>검색</div>
-											</BtnLabel>
-										</BtnBox>
-									</label>
+										<BtnLabel>
+											<div>검색</div>
+										</BtnLabel>
+									</BtnBox>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			{/* 캘린더 */}
-			<div style={{display: sshowCalendar ? 'block' : 'none'}}>
-				<Calendar
-					id='sday'
-					onChange={changeStartDay}
-					value={sday}
-					locale='en-EN'
-					formatMonthYear={(locale, date) =>
-						date
-							.toLocaleString('ko', {
-								year: 'numeric',
-								month: 'numeric',
-							})
-							.replace(/.$/, '')
-					}
-					next2Label={null} //>>없애기
-					prev2Label={null} //<<없애기
-				/>
-			</div>
-			<div style={{display: eshowCalendar ? 'block' : 'none'}}>
-				<Calendar
-					id='eday'
-					onChange={changeEndDay}
-					value={eday}
-					locale='en-EN'
-					defaultActiveStartDate={new Date()} //금일 날짜 표시
-					formatMonthYear={(locale, date) =>
-						date
-							.toLocaleString('ko', {
-								year: 'numeric',
-								month: 'numeric',
-							})
-							.replace(/.$/, '')
-					}
-					next2Label={null} //>>없애기
-					prev2Label={null} //<<없애기
-				/>
+			<div style={{position: 'relative'}}>
+				{/* 캘린더 */}
+				<div
+					style={{
+						display: sshowCalendar ? 'block' : 'none',
+						position: 'absolute',
+					}}
+					ref={calendarRef}
+				>
+					<Calendar
+						id='sday'
+						onChange={changeStartDay}
+						value={sday}
+						locale='en-EN'
+						formatMonthYear={(locale, date) =>
+							date
+								.toLocaleString('ko', {
+									year: 'numeric',
+									month: 'numeric',
+								})
+								.replace(/.$/, '')
+						}
+						next2Label={null} //>>없애기
+						prev2Label={null} //<<없애기
+					/>
+				</div>
+				<div
+					style={{
+						display: eshowCalendar ? 'block' : 'none',
+						position: 'absolute',
+						left: '220px',
+					}}
+					ref={scalendarRef}
+				>
+					<Calendar
+						id='eday'
+						onChange={changeEndDay}
+						value={eday}
+						locale='en-EN'
+						defaultActiveStartDate={new Date()} //금일 날짜 표시
+						formatMonthYear={(locale, date) =>
+							date
+								.toLocaleString('ko', {
+									year: 'numeric',
+									month: 'numeric',
+								})
+								.replace(/.$/, '')
+						}
+						next2Label={null} //>>없애기
+						prev2Label={null} //<<없애기
+					/>
+				</div>
 			</div>
 			<div
 				style={{

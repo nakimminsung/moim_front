@@ -11,6 +11,7 @@ function SpaceOption(props) {
 		NameRef,
 		PriceRef,
 		oimageUrl,
+		onload,
 	} = props;
 	// console.log('optionroomNum=' + roomNum);
 	localStorage.url = 'http://localhost:9000';
@@ -29,7 +30,7 @@ function SpaceOption(props) {
 				<tbody>
 					<td style={{textAlign: 'center'}}>
 						<label style={{cursor: 'pointer'}}>
-							<div>파일첨부</div>
+							{!onload && <div>파일첨부</div>}
 							<input
 								type='file'
 								id='roption1'
