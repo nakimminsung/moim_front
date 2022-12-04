@@ -48,10 +48,7 @@ function Detail(props) {
 	};
 
 	return (
-		<div
-			className='detailContainer'
-			style={{width: '100%', marginTop: '40px'}}
-		>
+		<div className='detailContainer' style={{width: '100%'}}>
 			<div className='detailHeader' style={{width: '100%'}}>
 				<h2>
 					<b>{roomData.name}</b>
