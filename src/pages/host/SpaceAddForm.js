@@ -131,6 +131,7 @@ function SpaceAddForm(props) {
 				fullIntroduction,
 				lat,
 				lng,
+				hostNum,
 				// locationobj,
 			})
 			.then((res) => {
