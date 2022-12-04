@@ -87,7 +87,9 @@ function footer(props) {
 								}}
 							>
 								<span className='footer-link'>
-									<a>고객센터</a>
+									<NavLink to={'/host/list'}>
+										호스트센터
+									</NavLink>
 									&nbsp;|&nbsp;
 									<a>이용약관</a>
 									&nbsp;|&nbsp;

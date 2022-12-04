@@ -50,16 +50,15 @@ function SuggestRoom(props) {
 	};
 
 	return (
-		<div className='themeArea'>
+		<div className='themeArea' style={{textAlign: 'center'}}>
 			{/* 상단 출력 문구 */}
-			<div style={{textAlign: 'center'}}>
-				<h2>
-					<b>오늘의 추천 공간</b>
-				</h2>
-				<h6 style={{color: 'gray', fontWeight: '500'}}>
-					뜨기 전에 먼저 예약하세요!
-				</h6>
-			</div>
+			<h2>
+				<b>오늘의 추천 공간</b>
+			</h2>
+			<h6 style={{color: 'gray', fontWeight: '500'}}>
+				뜨기 전에 먼저 예약하세요!
+			</h6>
+
 			<br />
 
 			{/* 슬라이더 1 출력 부분 */}
@@ -162,21 +161,24 @@ function SuggestRoom(props) {
 										cursor: 'pointer',
 										// marginBottom: '30px',
 										display: 'flex',
+										justifyContent: 'space-between',
 									}}
 									key={idx}
 									onClick={() => {
 										navi('/detail/' + data.num);
 									}}
 								>
-									<img
-										alt=''
-										src={data.thumbnailImage}
-										style={{
-											width: '35%',
-											height: '250px',
-											borderRadius: '5px',
-										}}
-									/>
+									<div style={{width: '30%'}}>
+										<img
+											alt=''
+											src={data.thumbnailImage}
+											style={{
+												width: '100%',
+												height: '250px',
+												borderRadius: '5px',
+											}}
+										/>
+									</div>
 
 									<div
 										style={{
