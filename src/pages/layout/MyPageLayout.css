@@ -1,0 +1,45 @@
+.layContent {
+    height: 100%;
+    min-height: 730px;
+    padding-top: 100px;
+    margin-top: 10px;
+    margin-left: 17%;
+    margin-right: 17%;
+    /* background-color: gray; */
+}
+
+.layFooter {
+    height: 180px;
+    background-color: #f5f5f5;
+}
+
+:root {
+    /*========== Colors ==========*/
+    --first: #266bff;
+    --second: #588dff;
+    --black: #161212;
+    --black-second: #262624;
+    --white: #ffffff;
+    --white-second: #f7f7f7;
+    --grey: #5b5757;
+    --grey-light: #c1c1c1;
+    --grey-lighter: #959595;
+    --shadow: #c8c8c8;
+    --grey-background: #e5e5e5;
+    --purple: #9a30ae;
+    --blue-light: #588dff
+        /*========== Font Weights ==========*/
+        --bold: 700;
+
+    /*========== Font Size ==========*/
+    --small: 0.813rem;
+}
+
+
+/* /* input {
+	all: unset;  나김민성 매우쳐라!!
+} */
+
+body {
+    font-size: var(--normal);
+}

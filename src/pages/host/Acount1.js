@@ -1,8 +1,11 @@
 import {FormControl, MenuItem, Select, TextField} from '@mui/material';
 import axios from 'axios';
+import {lastDayOfMonth} from 'date-fns';
 import moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Calendar} from 'react-calendar';
+import styled from 'styled-components';
+import './Acount1.css';
 
 function Acount1(props) {
 	const {hostNum} = props;
@@ -14,7 +17,10 @@ function Acount1(props) {
 		new Date(new Date().getFullYear(), new Date().getMonth(), 1),
 	);
 	console.log('sday=' + sday);
-	const [eday, setEday] = useState(new Date());
+	//const [eday, setEday] = useState(new Date());
+	const [eday, setEday] = useState(
+		new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
+	);
 	const [sshowCalendar, setSShowCalendar] = useState(false);
 	const [eshowCalendar, setEShowCalendar] = useState(false);
 
@@ -63,6 +69,7 @@ function Acount1(props) {
 		});
 	};
 
+	const [payStatus, setPayStatus] = useState(0);
 	//리스트 호출하는 것
 	const [acountlist, setAcountList] = useState([]);
 	//검색 버튼 눌렀을때 발생하는 이벤트
@@ -79,14 +86,15 @@ function Acount1(props) {
 			'&roomName=' +
 			roomName +
 			'&hostNum=' +
-			hostNum;
+			hostNum +
+			'&payStatus=' +
+			payStatus;
 		console.log(searchUrl);
 		axios.get(searchUrl).then((res) => {
 			console.log(res.data);
 			setAcountList(res.data);
 		});
 	};
-	//검색 버튼 눌렀을때 발생하는 이벤트
 
 	// // --테스트용
 	useEffect(() => {
@@ -99,8 +107,11 @@ function Acount1(props) {
 
 	const sumtotal = () => {
 		let a = 0;
-		acountlist.map((price, i) => (a += price.totalPrice));
-
+		acountlist.map((price, i) => {
+			if (price.bookingStatus == 4 && price.payStatus == 0) {
+				a += price.totalPrice;
+			}
+		});
 		console.log('a=' + a);
 		setTot(a);
 		console.log(tot);
@@ -109,208 +120,285 @@ function Acount1(props) {
 		sumtotal();
 	}, [acountlist]);
 
+	const scalendarRef = useRef(null);
+	useEffect(() => {
+		function handleClickOutside(event) {
+			//@ts-ignore
+			if (
+				scalendarRef.current &&
+				!scalendarRef.current.contains(event.target)
+			) {
+				setSShowCalendar(false);
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [scalendarRef]);
+
+	const calendarRef = useRef(null);
+	useEffect(() => {
+		function handleClickOutside(event) {
+			//@ts-ignore
+			if (
+				calendarRef.current &&
+				!calendarRef.current.contains(event.target)
+			) {
+				setEShowCalendar(false);
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [calendarRef]);
+
 	return (
-		<div>
+		<div style={{height: '100vh'}}>
 			<div className='box_search'>
 				<div className='box_inner'>
 					<div className='one_search'>
 						<div className='flex_wrap'>
-							<div className='flex_box'>
-								<div className='flex'>
-									<span>결제기간</span>
-									<div style={{display: 'flex'}}>
-										<div>
-											<TextField
-												value={moment(sday).format(
-													'YYYY-MM-DD',
-												)}
-												id='outlined-full-width'
-												title='이용시작일'
-												InputProps={{
-													readOnly: true,
-												}}
-												size='small'
-												onClick={() => {
-													setSShowCalendar(true);
-												}}
-											/>
-										</div>
-										<span>-</span>
-										<div>
-											<TextField
-												value={moment(eday).format(
-													'YYYY-MM-DD',
-												)}
-												id='outlined-full-width'
-												title='이용종료일'
-												InputProps={{
-													readOnly: true,
-												}}
-												size='small'
-												onClick={() => {
-													setEShowCalendar(true);
-												}}
-											/>
+							<div>결제기간</div>
+							<div className='flex_box' style={{display: 'flex'}}>
+								<div>
+									<div
+										className='flex'
+										style={{width: '400px'}}
+									>
+										<div style={{display: 'flex'}}>
+											<div>
+												<TextField
+													value={moment(sday).format(
+														'YYYY-MM-DD',
+													)}
+													id='outlined-full-width'
+													title='이용시작일'
+													InputProps={{
+														readOnly: true,
+													}}
+													size='small'
+													onClick={() => {
+														setSShowCalendar(true);
+													}}
+												/>
+											</div>
+											<span>-</span>
+											<div style={{position: 'relative'}}>
+												<TextField
+													value={moment(eday).format(
+														'YYYY-MM-DD',
+													)}
+													id='outlined-full-width'
+													title='이용종료일'
+													InputProps={{
+														readOnly: true,
+													}}
+													size='small'
+													onClick={() => {
+														setEShowCalendar(true);
+													}}
+												/>
+											</div>
 										</div>
 									</div>
-								</div>
-								<div className='flex'>
-									<div className='input'>
-										<FormControl
-											sx={{m: 1, minWidth: 120}}
-											size='small'
-										>
-											<Select
-												labelId='demo-select-small'
-												id='demo-select-small'
-												onChange={getRoomName}
-												defaultValue={'전체보기'}
+									<div className='flex'>
+										<div className='input'>
+											<FormControl
+												sx={{m: 1, minWidth: 200}}
+												size='small'
 											>
-												<MenuItem
-													value='전체보기'
-													selected
+												<Select
+													labelId='demo-select-small'
+													id='demo-select-small'
+													onChange={getRoomName}
+													defaultValue={'전체보기'}
 												>
-													<em>전체보기</em>
-												</MenuItem>
-												{roomlist &&
-													roomlist
-														.filter(
-															(
-																arr,
-																index,
-																callback,
-															) =>
-																index ===
-																callback.findIndex(
-																	(loc) =>
-																		loc.roomName ===
-																		arr.roomName,
+													<MenuItem
+														value='전체보기'
+														selected
+													>
+														<em>전체보기</em>
+													</MenuItem>
+													{roomlist &&
+														roomlist
+															.filter(
+																(
+																	arr,
+																	index,
+																	callback,
+																) =>
+																	index ===
+																	callback.findIndex(
+																		(loc) =>
+																			loc.roomName ===
+																			arr.roomName,
+																	),
+															)
+															.map(
+																(item, idx) => (
+																	<MenuItem
+																		value={
+																			item.roomName
+																		}
+																	>
+																		<em
+																			key={
+																				idx
+																			}
+																		>
+																			{
+																				item.roomName
+																			}
+																		</em>
+																	</MenuItem>
 																),
-														)
-														.map((item, idx) => (
-															<MenuItem
-																value={
-																	item.roomName
-																}
-															>
-																<em key={idx}>
-																	{
-																		item.roomName
-																	}
-																</em>
-															</MenuItem>
-														))}
-											</Select>
-										</FormControl>
+															)}
+												</Select>
+											</FormControl>
+										</div>
 									</div>
 								</div>
 								<div className='flex'>
-									<label
+									<BtnBox
 										style={{cursor: 'pointer'}}
 										onClick={onClickSearch}
 									>
-										<span className='search'>
-											<span>검색 돋보기 (넣어주기)</span>
-										</span>
-									</label>
+										<BtnLabel>
+											<div>검색</div>
+										</BtnLabel>
+									</BtnBox>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			{/* 캘린더 */}
-			<div style={{display: sshowCalendar ? 'block' : 'none'}}>
-				<Calendar
-					id='sday'
-					onChange={changeStartDay}
-					value={sday}
-					locale='en-EN'
-					// defaultActiveStartDate={new Date()} //금일 날짜 표시
-					// ctiveStartDate={new Date()}
-					// defaultValue={sday}
-					formatMonthYear={(locale, date) =>
-						date
-							.toLocaleString('ko', {
-								year: 'numeric',
-								month: 'numeric',
-							})
-							.replace(/.$/, '')
-					}
-					next2Label={null} //>>없애기
-					prev2Label={null} //<<없애기
-				/>
+			<div style={{position: 'relative'}}>
+				{/* 캘린더 */}
+				<div
+					style={{
+						display: sshowCalendar ? 'block' : 'none',
+						position: 'absolute',
+					}}
+					ref={calendarRef}
+				>
+					<Calendar
+						id='sday'
+						onChange={changeStartDay}
+						value={sday}
+						locale='en-EN'
+						formatMonthYear={(locale, date) =>
+							date
+								.toLocaleString('ko', {
+									year: 'numeric',
+									month: 'numeric',
+								})
+								.replace(/.$/, '')
+						}
+						next2Label={null} //>>없애기
+						prev2Label={null} //<<없애기
+					/>
+				</div>
+				<div
+					style={{
+						display: eshowCalendar ? 'block' : 'none',
+						position: 'absolute',
+						left: '220px',
+					}}
+					ref={scalendarRef}
+				>
+					<Calendar
+						id='eday'
+						onChange={changeEndDay}
+						value={eday}
+						locale='en-EN'
+						defaultActiveStartDate={new Date()} //금일 날짜 표시
+						formatMonthYear={(locale, date) =>
+							date
+								.toLocaleString('ko', {
+									year: 'numeric',
+									month: 'numeric',
+								})
+								.replace(/.$/, '')
+						}
+						next2Label={null} //>>없애기
+						prev2Label={null} //<<없애기
+					/>
+				</div>
 			</div>
-			<div style={{display: eshowCalendar ? 'block' : 'none'}}>
-				<Calendar
-					id='eday'
-					onChange={changeEndDay}
-					value={eday}
-					locale='en-EN'
-					defaultActiveStartDate={new Date()} //금일 날짜 표시
-					formatMonthYear={(locale, date) =>
-						date
-							.toLocaleString('ko', {
-								year: 'numeric',
-								month: 'numeric',
-							})
-							.replace(/.$/, '')
-					}
-					next2Label={null} //>>없애기
-					prev2Label={null} //<<없애기
-				/>
-			</div>
-			<div>
-				<span>
-					<b>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					marginTop: '20px',
+				}}
+			>
+				<div>
+					<b style={{color: 'red'}}>
 						{moment(sday).format('YYYY-MM-DD')}
 						&nbsp;~&nbsp;
-						{moment(eday).format('YYYY-MM-DD')} 기간에 정산된
-						내역입니다
+						{moment(eday).format('YYYY-MM-DD')}
 					</b>
-				</span>
-			</div>
-			<div>
-				<span>
-					정산예정금액 :
+					<spna>기간에 정산될 내역입니다</spna>
+				</div>
+				<div>
+					<span>정산예정금액 :</span>
 					<b>
 						총 {acountlist.length}건 / 총 {tot}원
 					</b>
-				</span>
+				</div>
 			</div>
-			<div>
-				<table>
-					<thead>
+			<div
+				className='acountList'
+				style={{marginTop: '20px', width: '100%'}}
+			>
+				<table style={{width: '100%'}}>
+					<thead style={{textAlign: 'center'}}>
 						<tr>
-							<th>결제일</th>
-							<th>예약번호</th>
-							<th>공간명</th>
-							<th>PG</th>
-							<th>예약자명</th>
-							<th>정산금액</th>
-							<th>상태</th>
+							<th style={{width: '10%'}}>결제일</th>
+							<th style={{width: '5%'}}>예약번호</th>
+							<th style={{width: '10%'}}>공간명</th>
+							<th style={{width: '5%'}}>PG</th>
+							<th style={{width: '5%'}}>예약자명</th>
+							<th style={{width: '5%'}}>정산금액</th>
+							<th style={{width: '5%'}}>상태</th>
 						</tr>
 					</thead>
-					{acountlist &&
-						acountlist.map((item, idx) => (
-							<tbody>
-								<tr>
-									<td>{item.createdAt}</td>
-									<td>{item.merchantUid}</td>
-									<td>{item.roomName}</td>
-									<td>{item.pg}</td>
-									<td>{item.name}</td>
-									<td>{item.totalPrice}</td>
-									<td>
-										{Number(item.bookingStatus) === 4 ? (
-											<span>이용완료</span>
-										) : Number(item.bookingStatus) === 5 ? (
-											<span>취소/환불</span>
-										) : null}
-									</td>
-								</tr>
-							</tbody>
-						))}
+					<tbody style={{textAlign: 'center'}}>
+						{acountlist.length === 0 ? (
+							<tr>
+								<td colSpan={7} style={{textAlign: 'center'}}>
+									<h5>내역이 없습니다</h5>
+								</td>
+							</tr>
+						) : (
+							acountlist &&
+							acountlist.map((item, idx) => {
+								if (
+									item.payStatus == 0 &&
+									item.bookingStatus == 4
+								)
+									return (
+										<tr key={idx}>
+											<td>{item.createdAt}</td>
+											<td>{item.merchantUid}</td>
+											<td>{item.roomName}</td>
+											<td>{item.pg}</td>
+											<td>{item.name}</td>
+											<td>{item.totalPrice}</td>
+											<td>
+												{Number(item.payStatus) ===
+												0 ? (
+													<span>정산예정</span>
+												) : null}
+											</td>
+										</tr>
+									);
+							})
+						)}
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -318,3 +406,26 @@ function Acount1(props) {
 }
 
 export default Acount1;
+const BtnBox = styled.div`
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-left: 10px;
+	overflow: hidden;
+	width: 154px;
+	line-height: 50px;
+`;
+
+const BtnLabel = styled.label`
+	cursor: pointer;
+	display: block;
+	background-color: #704de4;
+	border: 0;
+	color: #fff;
+	text-align: center;
+	border-radius: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	line-height: 50px;
+`;
