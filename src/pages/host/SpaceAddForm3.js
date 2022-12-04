@@ -152,97 +152,103 @@ function SpaceAddForm3(props) {
 						}}
 					>
 						<div className='headcount'>
-							<span
-								style={{fontSize: '20px', fontWeight: 'bold'}}
-							>
+							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 								인원수
-							</span>
-							<IcoRequired>*</IcoRequired>
-							<br />
-							<br />
-							<TextField
-								id='outlined-full-width'
-								style={{margin: 8, width: '400px'}}
-								placeholder='최대 인원수를 입력해주세요'
-								required
-								type={'number'}
-								margin='normal'
-								InputProps={{inputProps: {min: 0, max: 500}}}
-								variant='outlined'
-								size='small'
-								inputRef={HeadcountRef}
-							/>
-							명
+								<IcoRequired>*</IcoRequired>
+							</div>
+							<div
+								style={{display: 'flex', alignItems: 'center'}}
+							>
+								<TextField
+									id='outlined-full-width'
+									style={{width: '400px'}}
+									placeholder='최대 인원수를 입력해주세요'
+									required
+									type={'number'}
+									margin='normal'
+									InputProps={{
+										inputProps: {min: 0, max: 500},
+									}}
+									variant='outlined'
+									size='small'
+									inputRef={HeadcountRef}
+								/>
+								<b>명</b>
+							</div>
 						</div>
 						<div style={{marginLeft: '300px'}}>
 							<div className='operating'>
-								<span
+								<div
 									style={{
 										fontSize: '20px',
 										fontWeight: 'bold',
 									}}
 								>
-									이용 시간
-								</span>
-								<IcoRequired>*</IcoRequired>
-								<br />
-								<br />
-								<FormControl
-									variant='outlined'
-									className={ClassNames.formControl}
-									size='small'
-								>
-									<Select
-										native
-										defaultValue={0}
-										onChange={stiemeOnchange}
-										inputProps={{
-											id: 'outlined-age-native-simple',
-										}}
-									>
-										{timeArr.map((stime, i) => (
-											<option
-												aria-label='None'
-												value={stime}
-												key={i}
+									이용시간
+									<IcoRequired>*</IcoRequired>
+								</div>
+								<div style={{display: 'flex'}}>
+									<div>
+										<FormControl
+											variant='outlined'
+											className={ClassNames.formControl}
+											size='small'
+										>
+											<Select
+												native
+												defaultValue={0}
+												onChange={stiemeOnchange}
+												inputProps={{
+													id: 'outlined-age-native-simple',
+												}}
 											>
-												{stime < 10
-													? '0' + stime
-													: stime}
-												시
-											</option>
-										))}
-									</Select>
-								</FormControl>
-								<b>부터</b>
-								<FormControl
-									variant='outlined'
-									className={ClassNames.formControl}
-									size='small'
-								>
-									<Select
-										native
-										defaultValue={24}
-										onChange={etiemeOnchange}
-										inputProps={{
-											id: 'outlined-age-native-simple',
-										}}
-									>
-										{timeArr.map((etime, i) => (
-											<option
-												aria-label='None'
-												value={etime}
-												key={i}
+												{timeArr.map((stime, i) => (
+													<option
+														aria-label='None'
+														value={stime}
+														key={i}
+													>
+														{stime < 10
+															? '0' + stime
+															: stime}
+														시
+													</option>
+												))}
+											</Select>
+										</FormControl>
+										<b>부터</b>
+									</div>
+									<div>
+										<FormControl
+											variant='outlined'
+											className={ClassNames.formControl}
+											size='small'
+										>
+											<Select
+												native
+												defaultValue={24}
+												onChange={etiemeOnchange}
+												inputProps={{
+													id: 'outlined-age-native-simple',
+												}}
 											>
-												{etime < 10
-													? '0' + etime
-													: etime}
-												시
-											</option>
-										))}
-									</Select>
-								</FormControl>
-								<b>까지</b>
+												{timeArr.map((etime, i) => (
+													<option
+														aria-label='None'
+														value={etime}
+														key={i}
+													>
+														{etime < 10
+															? '0' + etime
+															: etime}
+														시
+													</option>
+												))}
+											</Select>
+										</FormControl>
+										<b>까지</b>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -332,7 +338,6 @@ function SpaceAddForm3(props) {
 								<TextField
 									id='textFloor'
 									style={{margin: 8, width: '450px'}}
-									// placeholder='최대 인원수를 입력해주세요'
 									InputProps={{inputProps: {min: 4}}}
 									required
 									type={'number'}
@@ -416,41 +421,46 @@ function SpaceAddForm3(props) {
 							<br />
 						</div>
 						<div>
-							<div>
-								<button
-									onClick={(e) => onClick(e, 1, 'elevator')}
-									className={elevator === 1 ? 'selected' : ''}
-								>
-									있음
-								</button>
-								<button
-									onClick={(e) => onClick(e, 0, 'elevator')}
-									className={elevator === 0 ? 'selected' : ''}
-								>
-									없음
-								</button>
+							<div style={{display: 'flex'}}>
+								<div>
+									<button
+										className={
+											elevator === 1 ? 'selected' : ''
+										}
+										type='button'
+										onClick={(e) =>
+											onClick(e, 1, 'elevator')
+										}
+										style={{
+											width: '200px',
+											height: '35px',
+											borderStyle: 'solid',
+											border: '1px solid #704de4',
+										}}
+									>
+										있음
+									</button>
+								</div>
+								<div>
+									<button
+										type='button'
+										onClick={(e) =>
+											onClick(e, 0, 'elevator')
+										}
+										className={
+											elevator === 0 ? 'selected' : ''
+										}
+										style={{
+											width: '200px',
+											height: '35px',
+											borderStyle: 'solid',
+											border: '1px solid #704de4',
+										}}
+									>
+										없음
+									</button>
+								</div>
 							</div>
-							{/* <label>
-								<input
-									style={{display: 'none'}}
-									type={'radio'}
-									value='1'
-									checked={elevator === '1'}
-									onChange={elevatorCheck}
-								/>
-								있음
-							</label>
-							<b>///////</b>
-							<label>
-								<input
-									style={{display: 'none'}}
-									type={'radio'}
-									value='0'
-									checked={elevator === '0'}
-									onChange={elevatorCheck}
-								/>
-								없음
-							</label> */}
 						</div>
 					</div>
 				</Space>
@@ -461,19 +471,32 @@ function SpaceAddForm3(props) {
 						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
 							가격 정보 입력
 						</span>
-						<br />
-						<br />
 						<div
-							style={{display: 'flex', justifyContent: 'center'}}
+							style={{
+								display: 'flex',
+								justifyContent: 'center',
+								marginTop: '20px',
+							}}
 						>
-							<table>
-								<tbody>
+							<table
+								style={{width: '100%'}}
+								className='table table-bordered'
+							>
+								<thead
+									style={{textAlign: 'center'}}
+									className='table table-info'
+								>
 									<tr>
 										<th>주간 오전 가격</th>
 										<th>가격 오후 가격</th>
 										<th>주말 오전 가격</th>
 										<th>주말 오후 가격</th>
 									</tr>
+								</thead>
+								<tbody
+									style={{textAlign: 'center'}}
+									className='table table-Light'
+								>
 									<tr>
 										<td>
 											<input
@@ -516,24 +539,48 @@ function SpaceAddForm3(props) {
 						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
 							바로결제/승인결제
 						</span>
-						<br />
-						<br />
-						<button
-							onClick={(e) => onClick(e, '바로결제', 'payment')}
-							className={
-								payment === '바로결제' ? 'selected1' : ''
-							}
-						>
-							바로결제
-						</button>
-						<button
-							onClick={(e) => onClick(e, '승인결제', 'payment')}
-							className={
-								payment === '승인결제' ? 'selected1' : ''
-							}
-						>
-							승인결제
-						</button>
+						<div style={{display: 'flex', marginTop: '20px'}}>
+							<div>
+								<button
+									onClick={(e) =>
+										onClick(e, '바로결제', 'payment')
+									}
+									className={
+										payment === '바로결제'
+											? 'selected1'
+											: ''
+									}
+									style={{
+										width: '200px',
+										height: '35px',
+										borderStyle: 'solid',
+										border: '1px solid #704de4',
+									}}
+								>
+									바로결제
+								</button>
+							</div>
+							<div>
+								<button
+									onClick={(e) =>
+										onClick(e, '승인결제', 'payment')
+									}
+									className={
+										payment === '승인결제'
+											? 'selected1'
+											: ''
+									}
+									style={{
+										width: '200px',
+										height: '35px',
+										borderStyle: 'solid',
+										border: '1px solid #704de4',
+									}}
+								>
+									승인결제
+								</button>
+							</div>
+						</div>
 						{/* <label>
 							<input
 								style={{display: 'none'}}
