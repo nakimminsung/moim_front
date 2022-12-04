@@ -1,3 +1,12 @@
+import {
+	AccountBalance,
+	AccountBox,
+	AccountCircle,
+	Info,
+	MonetizationOn,
+	ViewCarousel,
+	Warning,
+} from '@material-ui/icons';
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
@@ -57,6 +66,8 @@ function AdminMenu(props) {
 				{/* 메뉴 */}
 				<ul className='adminMenu'>
 					<li>
+						<i class='fas fa-crown'></i>
+						&emsp;
 						<NavLink
 							to={'/admin'}
 							className='NavLink'
@@ -67,6 +78,8 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 					<li>
+						<AccountCircle />
+						&emsp;
 						<NavLink
 							to={'/admin/member'}
 							className='NavLink'
@@ -77,6 +90,8 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 					<li>
+						<AccountBox />
+						&emsp;
 						<NavLink
 							to={'/admin/host'}
 							className='NavLink'
@@ -87,6 +102,8 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 					<li>
+						<AccountBalance />
+						&emsp;
 						<NavLink
 							to={'/admin/space'}
 							className='NavLink'
@@ -97,6 +114,8 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 					<li>
+						<Info />
+						&emsp;
 						<NavLink
 							to={'/admin/notice'}
 							className='NavLink'
@@ -107,6 +126,8 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 					<li>
+						<ViewCarousel />
+						&emsp;
 						<NavLink
 							to={'/admin/theme'}
 							className='NavLink'
@@ -117,6 +138,8 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 					<li>
+						<Warning />
+						&emsp;
 						<NavLink
 							to={'/admin/report'}
 							className='NavLink'
@@ -127,6 +150,8 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 					<li>
+						<MonetizationOn />
+						&emsp;
 						<NavLink
 							to={'/admin/settlement'}
 							className='NavLink'

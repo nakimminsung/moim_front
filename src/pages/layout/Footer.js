@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import './Footer.css';
 
 function footer(props) {
@@ -43,9 +43,11 @@ function footer(props) {
 						>
 							<div>
 								<div>
-									<b style={{ fontSize: 20 }}>MoiM</b>
+									<b style={{fontSize: 20}}>MoiM</b>
 									<br />
-									<span>(주)모임 : 윤명국</span>&nbsp;&nbsp;
+									<span>(주) 모임</span>
+									&emsp;&emsp;
+									<span>대표이사 : 윤명국</span>&emsp;&emsp;
 									<span>
 										주소 : 서울특별시 강남구 역삼동
 										테헤란로5길 7 위워크
@@ -61,15 +63,16 @@ function footer(props) {
 									&nbsp;&nbsp;
 									<span>호스팅 사업자 : (주)모임</span>
 								</div>
-								<span style={{ display: 'block' }}>
+								<span style={{display: 'block'}}>
 									구매안전서비스 : 가입사실확인이메일 :
 									cs@moim.com
 								</span>
-								<span style={{ display: 'block' }}>
+
+								<span style={{display: 'block'}}>
 									고객센터 : 1544-2431 (통화료 발생 / 평일
 									09:00~19:00) 톡상담하기 (평일 09:00~19:00)
 								</span>
-								<span style={{ display: 'block' }}>
+								<span style={{display: 'block'}}>
 									©moim Corp. All rights reserved
 								</span>
 							</div>
@@ -84,7 +87,9 @@ function footer(props) {
 								}}
 							>
 								<span className='footer-link'>
-									<a>고객센터</a>
+									<NavLink to={'/host/list'}>
+										호스트센터
+									</NavLink>
 									&nbsp;|&nbsp;
 									<a>이용약관</a>
 									&nbsp;|&nbsp;
