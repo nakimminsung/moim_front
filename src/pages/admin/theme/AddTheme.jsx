@@ -9,7 +9,7 @@ import {TextField} from '@material-ui/core';
 import axios from 'axios';
 import {useState} from 'react';
 
-export default function AddTheme() {
+export default function AddTheme(props) {
 	const [open, setOpen] = React.useState(false);
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
@@ -37,7 +37,7 @@ export default function AddTheme() {
 			headers: {'Content-Type': 'multipart/form-data'},
 		}).then((res) => {
 			alert('등록이 완료되었습니다.');
-			window.location.reload();
+			props.selectThemeList();
 			setTitle('');
 			setDescription('');
 			setFile([]);
@@ -106,7 +106,7 @@ export default function AddTheme() {
 
 const ModalBtn = styled.button`
 	background-color: purple;
-	border-radius: 10px;
+	border-radius: 5px;
 `;
 const CancelBtn = styled.button`
 	background-color: gray;

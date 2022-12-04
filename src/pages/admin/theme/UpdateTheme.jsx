@@ -53,7 +53,7 @@ export default function UpdateTheme(props) {
 			headers: {'Content-Type': 'multipart/form-data'},
 		}).then((res) => {
 			alert('수정 되었습니다.');
-			window.location.reload();
+			props.selectThemeList();
 			setTitle('');
 			setDescription('');
 			setFile([]);
@@ -124,7 +124,7 @@ export default function UpdateTheme(props) {
 
 const ModalBtn = styled.button`
 	background-color: gray;
-	border-radius: 10px;
+	border-radius: 5px;
 	color: white;
 `;
 const CancelBtn = styled.button`

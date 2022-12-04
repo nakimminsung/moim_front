@@ -24,7 +24,6 @@ function RoomList(props) {
 	const [holiday, setHoliday] = useState('');
 	const [themeNum, setThemeNum] = useState(props.num);
 	const navi = useNavigate();
-	const [expanded, setExpanded] = React.useState(false);
 
 	const selectThemeRoomList = () => {
 		let facilityCount = facility.length;
@@ -58,8 +57,20 @@ function RoomList(props) {
 	};
 
 	const deleteThemeRoom = (num) => {
-		let url = localStorage.url + '/theme/delete/room?roomNum=' + num;
-		console.log(url);
+		let url =
+			localStorage.url +
+			'/theme/delete/room?roomNum=' +
+			num +
+			'&themeNum=' +
+			themeNum;
+		alert('삭제되었습니다');
+		axios.delete(url).then((res) => {
+			selectThemeRoomList();
+		});
+	};
+
+	const linkSpace = (e) => {
+		navi('/detail/' + e);
 	};
 
 	useEffect(() => {
@@ -101,7 +112,16 @@ function RoomList(props) {
 				{data.map((item, i) => (
 					<TableRow key={i}>
 						<TableCell component='th' scope='row' align='center'>
-							{item.name}
+							<span
+								num={item.num}
+								onClick={(e) => linkSpace(e.target.num)}
+								style={{
+									cursor: 'pointer',
+									textDecoration: 'underline',
+								}}
+							>
+								{item.name}
+							</span>
 						</TableCell>
 						<TableCell component='th' scope='row' align='center'>
 							<Tag num={item.num} />
@@ -142,9 +162,8 @@ const StyledTableCell = styled(TableCell)`
 		font-size: 15px;
 	}
 `;
-
 const RoomDeleteBtn = styled.button`
 	background-color: black;
 	color: white;
-	border-radius: 10px;
+	border-radius: 5px;
 `;

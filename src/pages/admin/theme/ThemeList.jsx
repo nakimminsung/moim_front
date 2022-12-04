@@ -24,8 +24,8 @@ function Row(props) {
 	const deleteTheme = (num) => {
 		let url = localStorage.url + '/theme/delete?num=' + num;
 		axios.delete(url).then((res) => {
+			props.selectThemeList();
 			alert('삭제 되었습니다.');
-			window.location.reload();
 		});
 	};
 
@@ -51,9 +51,12 @@ function Row(props) {
 				<TableCell align='right'>
 					<AddThemeRoom themeNum={row.num} themeTitle={row.title} />
 					&nbsp;
-					<UpdateTheme themeNum={row.num} />
+					<UpdateTheme
+						themeNum={row.num}
+						selectThemeList={props.selectThemeList}
+					/>
 					&nbsp;
-					<DeleteTheme onClick={deleteTheme(row.num)}>
+					<DeleteTheme onClick={() => deleteTheme(row.num)}>
 						기획전 삭제
 					</DeleteTheme>
 				</TableCell>
@@ -80,7 +83,11 @@ export default function ThemeList(props) {
 			<Table aria-label='collapsible table'>
 				<TableBody>
 					{props.themeList.map((row, i) => (
-						<Row key={i} row={row} />
+						<Row
+							key={i}
+							row={row}
+							selectThemeList={props.selectThemeList}
+						/>
 					))}
 				</TableBody>
 			</Table>
@@ -89,7 +96,7 @@ export default function ThemeList(props) {
 }
 
 const DeleteTheme = styled.button`
-	border-radius: 10px;
+	border-radius: 5px;
 	background-color: black;
 	color: white;
 `;

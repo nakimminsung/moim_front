@@ -67,7 +67,7 @@ export default function AddThemeRoom(props) {
 
 const ModalBtn = styled.button`
 	background-color: purple;
-	border-radius: 10px;
+	border-radius: 5px;
 `;
 const CancelBtn = styled.button`
 	background-color: gray;

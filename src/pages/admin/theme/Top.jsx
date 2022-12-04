@@ -5,7 +5,7 @@ import AddTheme from './AddTheme';
 function Top(props) {
 	return (
 		<Wrapper>
-			<AddTheme />
+			<AddTheme selectThemeList={props.selectThemeList} />
 		</Wrapper>
 	);
 }

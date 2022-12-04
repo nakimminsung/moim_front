@@ -6,14 +6,12 @@ function Tag(props) {
 	const [tagData, setTagData] = useState([]);
 	const selectTagList = (num) => {
 		let url = localStorage.url + '/tag/list?num=' + num;
-		console.log(url);
 		axios.get(url).then((res) => {
 			setTagData(res.data.tagData);
 		});
 	};
 	useEffect(() => {
 		selectTagList(num);
-		console.log(num);
 	}, []);
 	return (
 		<>

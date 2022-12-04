@@ -43,7 +43,7 @@ function ScrollTop(props) {
 			<Box
 				onClick={handleClick}
 				role='presentation'
-				sx={{position: 'fixed', bottom: 16, right: 16}}
+				sx={{position: 'fixed', bottom: 33, right: 90}}
 			>
 				{children}
 			</Box>
@@ -64,11 +64,19 @@ export default function BasicSpeedDial(props) {
 				</Fab>
 			</ScrollTop>
 			<Wrapper
-				sx={{height: 320, transform: 'translateZ(0px)', flexGrow: 1}}
+				sx={{
+					height: 320,
+					transform: 'translateZ(0px)',
+					flexGrow: 1,
+				}}
 			>
 				<SpeedDial
 					ariaLabel='SpeedDial basic example'
-					sx={{position: 'absolute', bottom: 20, right: 20}}
+					sx={{
+						position: 'absolute',
+						bottom: 5,
+						right: 5,
+					}}
 					icon={<MoreVertIcon />}
 				>
 					{actions.map((action) => (
@@ -89,4 +97,10 @@ const Wrapper = styled(Box)`
 	bottom: 20px;
 	right: 20px;
 	z-index: 1;
+	> div > button {
+		background-color: #704de4;
+	}
+	> div > button:hover {
+		background-color: #704de4;
+	}
 `;

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, {useState} from 'react';
-import Bottom from './Bottom';
 import ThemeList from './ThemeList';
 import Top from './Top';
 import {useEffect} from 'react';
@@ -11,9 +10,7 @@ function Theme(props) {
 
 	const selectThemeList = () => {
 		let url = localStorage.url + '/main/theme';
-		console.log(url);
 		axios.get(url).then((res) => setThemeList(res.data));
-		console.log(themeList.length);
 	};
 
 	useEffect(() => {
@@ -22,9 +19,11 @@ function Theme(props) {
 
 	return (
 		<Wrapper>
-			<Top />
-			<ThemeList themeList={themeList} />
-			<Bottom />
+			<Top selectThemeList={selectThemeList} />
+			<ThemeList
+				themeList={themeList}
+				selectThemeList={selectThemeList}
+			/>
 		</Wrapper>
 	);
 }
