@@ -67,9 +67,10 @@ function footer(props) {
 									구매안전서비스 : 가입사실확인이메일 :
 									cs@moim.com
 								</span>
+
 								<span style={{display: 'block'}}>
-									고객센터 : 1544-0701 (통화료 발생 / 평일
-									09:30~18:30) 톡상담하기 (평일 09:30~18:30)
+									고객센터 : 1544-2431 (통화료 발생 / 평일
+									09:00~19:00) 톡상담하기 (평일 09:00~19:00)
 								</span>
 								<span style={{display: 'block'}}>
 									©moim Corp. All rights reserved

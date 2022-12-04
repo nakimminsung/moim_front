@@ -1,0 +1,9 @@
+.selected {
+	background-color: red;
+}
+.close {
+}
+.close:hover {
+	color: red;
+	background-color: blue;
+}
