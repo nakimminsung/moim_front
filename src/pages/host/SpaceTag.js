@@ -8,34 +8,29 @@ function SpaceTag(props) {
 	// console.log('optionroomNum=' + roomNum);
 
 	return (
-		<div>
-			<div className='input-group'>
-				<TextField
-					id='tag'
-					style={{margin: 8, width: '800px'}}
-					placeholder='게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요'
-					InputLabelProps={{
-						shrink: true,
-					}}
-					variant='outlined'
-					size='small'
-					onKeyUp={onchange2}
-				/>
-				<BtnBox>
-					<BtnLabel>
-						<div onClick={onchange1}>추가</div>
-					</BtnLabel>
-				</BtnBox>
-			</div>
+		<div style={{display: 'flex', alignItems: 'center'}}>
+			<TextField
+				id='tag'
+				style={{marginTop: '5px', width: '100%'}}
+				placeholder='게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요'
+				InputLabelProps={{
+					shrink: true,
+				}}
+				variant='outlined'
+				size='small'
+				onKeyUp={onchange2}
+			/>
+			<BtnBox>
+				<BtnLabel>
+					<div onClick={onchange1}>추가</div>
+				</BtnLabel>
+			</BtnBox>
 		</div>
 	);
 }
 
 export default SpaceTag;
 const BtnBox = styled.div`
-	position: absolute;
-	top: 0;
-	right: 0;
 	margin-left: 10px;
 	overflow: hidden;
 	width: 154px;
@@ -44,7 +39,6 @@ const BtnBox = styled.div`
 
 const BtnLabel = styled.label`
 	cursor: pointer;
-	display: block;
 	background-color: #704de4;
 	border: 0;
 	color: #fff;

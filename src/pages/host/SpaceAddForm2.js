@@ -9,6 +9,7 @@ import SpaceOption from './SpaceOption';
 import SpaceTag from './SpaceTag';
 import SpaceWarning from './SpaceWarning';
 import styled from 'styled-components';
+import './SpaceAddForm2.css';
 
 function SpaceAddForm2(props) {
 	const {num} = useParams();
@@ -147,6 +148,7 @@ function SpaceAddForm2(props) {
 	const PriceRef = React.useRef('');
 	// 옵션 이미지
 	const [oimageUrl, setOimageUrl] = useState('');
+	const [onload, setOnload] = useState(false);
 
 	//옵션 이미지 업로드 이벤트
 	const photoUploadEvent3 = (e) => {
@@ -155,6 +157,7 @@ function SpaceAddForm2(props) {
 		const imageFile = new FormData();
 		imageFile.append('uploadFile', uploadFile); //백엔드 컨트롤러에서 MultipartUpload uploadFile 과 일치해야함
 		console.log(uploadFile);
+		setOnload(true);
 
 		axios({
 			method: 'post',
@@ -186,6 +189,7 @@ function SpaceAddForm2(props) {
 		NameRef.current.value = '';
 		PriceRef.current.value = '';
 		setOimageUrl('');
+		setOnload(false);
 	};
 
 	// 방 이미지 담을 배열
@@ -340,12 +344,23 @@ function SpaceAddForm2(props) {
 																className='depth_2'
 															>
 																<label
+																	className={
+																		checkedArr.includes(
+																			c.num,
+																		)
+																			? 'selected'
+																			: ''
+																	}
 																	style={{
 																		cursor: 'pointer',
 																	}}
 																>
 																	<span>
 																		<Checkbox
+																			style={{
+																				display:
+																					'none',
+																			}}
 																			inputProps={{
 																				'aria-label':
 																					'uncontrolled-checkbox',
@@ -398,72 +413,71 @@ function SpaceAddForm2(props) {
 						<div
 							className='previewimg'
 							style={{
+								width: '100%',
 								border: '1px solid black',
 								backgroundColor: '#d3d3d3',
-								height: '200px',
+								minHeight: '200px',
+								height: 'auto',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'flex-start',
+								flexWrap: 'wrap',
+								position: 'relative',
 							}}
 						>
-							{rimageUrl == 0
-								? null
-								: rimageUrl &&
-								  rimageUrl.map((room, idx) => (
-										<>
-											{idx % 5 === 0 ? (
-												<div
-													style={{
-														position: 'relative',
-													}}
-												>
-													<img
-														alt=''
-														src={`${imageUrl}${room}`}
-														className='roomImge'
-														style={{
-															width: '170px',
-															height: '170px',
-															maxWidth: '170px',
-															maxHeight: '170px',
-															marginLeft: '5px',
-														}}
-													/>
+							{rimageUrl &&
+								rimageUrl.map((room, idx) => (
+									<>
+										<div
+											style={{
+												width: '20%',
+												height: '230px',
+												position: 'relative',
+											}}
+										>
+											<img
+												alt=''
+												src={`${imageUrl}${room}`}
+												className='roomImge'
+												style={{
+													width: '100%',
+													height: '100%',
+												}}
+											/>
 
-													<CloseOutlined
-														style={{
-															color: '#b2b2b2',
-															cursor: 'pointer',
-															width: '20px',
-															height: '20px',
-															border: '1px solid #e0e0e0',
-															backgroundColor:
-																'f6f6f6',
-															position:
-																'absolute',
-															zIndex: '1',
-														}}
-														onClick={() => {
-															const delUrl =
-																localStorage.url +
-																'/host/delphoto?idx=' +
-																idx;
-															axios
-																.get(delUrl)
-																.then((res) => {
-																	//DB는 삭제되지 않음
-																});
+											<CloseOutlined
+												className='close'
+												style={{
+													cursor: 'pointer',
+													width: '30px',
+													height: '30px',
+													border: '1px solid transparent',
+													backgroundColor: 'f6f6f6',
+													position: 'absolute',
+													zIndex: '1',
+													right: '0',
+												}}
+												onClick={() => {
+													const delUrl =
+														localStorage.url +
+														'/host/delphoto?idx=' +
+														idx;
+													axios
+														.get(delUrl)
+														.then((res) => {
+															//DB는 삭제되지 않음
+														});
 
-															setRoomImage(
-																rimageUrl.filter(
-																	(a, i) =>
-																		i !==
-																		idx,
-																),
-															);
-														}}
-													/>
-												</div>
-											) : null}
-										</>
-								  ))}
+													setRoomImage(
+														rimageUrl.filter(
+															(a, i) => i !== idx,
+														),
+													);
+												}}
+											/>
+										</div>
+									</>
+								))}
 						</div>
 					</Space>
 					<br />
@@ -483,24 +497,26 @@ function SpaceAddForm2(props) {
 							NameRef={NameRef}
 							PriceRef={PriceRef}
 							oimageUrl={oimageUrl}
+							onload={onload}
+							setOnload={setOnload}
 						/>
 						<div style={{marginTop: '20px', width: '100%'}}>
-							{roptionList &&
-								roptionList.map((rotion, idx) => (
-									<table
-										className='table table-bordered'
-										style={{
-											border: '1px solid black',
-											width: '80%',
-											marginLeft: '100px',
-										}}
-									>
-										<tbody
-											style={{
-												width: '80%',
-												textAlign: 'center',
-											}}
-										>
+							<table
+								className='table table-bordered'
+								style={{
+									border: '1px solid black',
+									width: '80%',
+									marginLeft: '100px',
+								}}
+							>
+								<tbody
+									style={{
+										width: '80%',
+										textAlign: 'center',
+									}}
+								>
+									{roptionList &&
+										roptionList.map((rotion, idx) => (
 											<tr
 												key={idx}
 												style={{
@@ -552,9 +568,9 @@ function SpaceAddForm2(props) {
 													</button>
 												</td>
 											</tr>
-										</tbody>
-									</table>
-								))}
+										))}
+								</tbody>
+							</table>
 						</div>
 					</Space>
 
@@ -563,9 +579,9 @@ function SpaceAddForm2(props) {
 
 					{/* ---------------태그--------------- */}
 					<Space>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 							공간 태그
-						</span>
+						</div>
 						<SpaceTag
 							roomNum={roomNum}
 							onchange1={onchange1}

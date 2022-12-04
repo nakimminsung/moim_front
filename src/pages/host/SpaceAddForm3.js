@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import styled from 'styled-components';
+import './SpaceAddForm3.css';
 
 function SpaceAddForm3(props) {
 	localStorage.url = 'http://localhost:9000';
@@ -22,23 +23,13 @@ function SpaceAddForm3(props) {
 	// const [parking, setParking] = useState('');
 	const parkingRef = React.useRef('');
 	const [parkinghide, setParkingHide] = useState(false);
-	const [elevator, setElevator] = useState([]);
-	const [payment, setPayment] = useState([]);
+	const [elevator, setElevator] = useState(2);
+	const [payment, setPayment] = useState('');
 	const HeadcountRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
 	const weekAmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
 	const weekPmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
 	const holiAmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
 	const holiPmPriceRef = React.useRef(''); // 저장 클릭시 curent로 값 가져오기
-
-	const payCheck = (e) => {
-		setPayment(e.target.value);
-		// console.log(e.target.value);
-	};
-
-	const elevatorCheck = (e) => {
-		setElevator(e.target.value);
-		// console.log(e.target.value);
-	};
 
 	const stiemeOnchange = (e) => {
 		setStime(e.target.value);
@@ -64,14 +55,16 @@ function SpaceAddForm3(props) {
 		}
 	};
 
-	// useEffect(() => {
-	// 	console.log('headcount=' + headcount);
-	// 	console.log('floor=' + floor);
-	// 	console.log('weekAmPrice=' + weekAmPrice);
-	// 	// console.log('stime=' + stime);
-	// 	// console.log('etime=' + etime);
-	// 	// console.log('holiday=' + holiday);
-	// }, [stime, etime, floor]);
+	const onClick = (e, key, type) => {
+		e.preventDefault();
+		if (type === 'elevator') {
+			setElevator(key);
+		} else {
+			setPayment(key);
+		}
+		console.log(elevator);
+		console.log(payment);
+	};
 
 	//저장 버튼
 	const onSubmitEvent = (e) => {
@@ -174,7 +167,7 @@ function SpaceAddForm3(props) {
 								required
 								type={'number'}
 								margin='normal'
-								InputProps={{inputProps: {min: 0, max: 10}}}
+								InputProps={{inputProps: {min: 0, max: 500}}}
 								variant='outlined'
 								size='small'
 								inputRef={HeadcountRef}
@@ -423,7 +416,21 @@ function SpaceAddForm3(props) {
 							<br />
 						</div>
 						<div>
-							<label>
+							<div>
+								<button
+									onClick={(e) => onClick(e, 1, 'elevator')}
+									className={elevator === 1 ? 'selected' : ''}
+								>
+									있음
+								</button>
+								<button
+									onClick={(e) => onClick(e, 0, 'elevator')}
+									className={elevator === 0 ? 'selected' : ''}
+								>
+									없음
+								</button>
+							</div>
+							{/* <label>
 								<input
 									style={{display: 'none'}}
 									type={'radio'}
@@ -443,7 +450,7 @@ function SpaceAddForm3(props) {
 									onChange={elevatorCheck}
 								/>
 								없음
-							</label>
+							</label> */}
 						</div>
 					</div>
 				</Space>
@@ -511,7 +518,23 @@ function SpaceAddForm3(props) {
 						</span>
 						<br />
 						<br />
-						<label>
+						<button
+							onClick={(e) => onClick(e, '바로결제', 'payment')}
+							className={
+								payment === '바로결제' ? 'selected1' : ''
+							}
+						>
+							바로결제
+						</button>
+						<button
+							onClick={(e) => onClick(e, '승인결제', 'payment')}
+							className={
+								payment === '승인결제' ? 'selected1' : ''
+							}
+						>
+							승인결제
+						</button>
+						{/* <label>
 							<input
 								style={{display: 'none'}}
 								type={'radio'}
@@ -531,7 +554,7 @@ function SpaceAddForm3(props) {
 								onChange={payCheck}
 							/>
 							승인결제
-						</label>
+						</label> */}
 					</div>
 				</Space>
 				<br />
