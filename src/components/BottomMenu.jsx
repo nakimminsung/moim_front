@@ -44,6 +44,7 @@ function ScrollTop(props) {
 				onClick={handleClick}
 				role='presentation'
 				sx={{position: 'fixed', bottom: 33, right: 90}}
+				style={{zIndex: '999'}}
 			>
 				{children}
 			</Box>
@@ -96,7 +97,7 @@ const Wrapper = styled(Box)`
 	position: fixed;
 	bottom: 20px;
 	right: 20px;
-	z-index: 1;
+	z-index: 999;
 	> div > button {
 		background-color: #704de4;
 	}
