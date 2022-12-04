@@ -36,52 +36,54 @@ function List(props) {
 
     return (
         <>
-            {/* 검색 여부에 따른 삼항 연산자 */}
-            <div style={{ marginLeft: '10px', marginTop: '30px', paddingTop: '5px' }}>
-                {searchWord !== '' ? (
-                    //검색단어 있으면서, 결과가 있을때
-                    roomData.length !== 0 ? (
-                        <b>
-                            '{{ searchWord }.searchWord}' (으)로 검색된 공간 :{' '}
-                            {roomData.length} 개
-                        </b>
-                    ) : (
-                        //검색단어 있으면서, 결과가 없을때
-                        <b>
-                            '{{ searchWord }.searchWord}' (으)로 검색된 공간이
-                            없습니다.
-                        </b>
-                    )
-                ) : //삼항 연산자 중첩 시작
-                    //검색단어 없으면서, 결과가 있을때
-                    roomData.length !== 0 ? (
-                        <b>조회된 공간 : {roomData.length} 개</b>
-                    ) : (
-                        //검색단어 없으면서, 결과가 없을때
-                        <b>등록된 공간이 없습니다.</b>
-                    )}
+            <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                {/* 검색 여부에 따른 삼항 연산자 */}
+                <div style={{ marginLeft: '10px', marginTop: '60px', paddingTop: '5px', marginRight: 'auto' }}>
+                    {searchWord !== '' ? (
+                        //검색단어 있으면서, 결과가 있을때
+                        roomData.length !== 0 ? (
+                            <b>
+                                '{{ searchWord }.searchWord}' (으)로 검색된 공간 :{' '}
+                                {roomData.length} 개
+                            </b>
+                        ) : (
+                            //검색단어 있으면서, 결과가 없을때
+                            <b>
+                                '{{ searchWord }.searchWord}' (으)로 검색된 공간이
+                                없습니다.
+                            </b>
+                        )
+                    ) : //삼항 연산자 중첩 시작
+                        //검색단어 없으면서, 결과가 있을때
+                        roomData.length !== 0 ? (
+                            <b>조회된 공간 : {roomData.length} 개</b>
+                        ) : (
+                            //검색단어 없으면서, 결과가 없을때
+                            <b>등록된 공간이 없습니다.</b>
+                        )}
+                </div>
+                <ListWrapper>
+                    <SelectDiv>
+                        <FormControl sx={{ m: 1, minWidth: 110 }} size='small'>
+                            <Select
+                                labelId='demo-select-small'
+                                id='demo-select-small'
+                                value={sort}
+                                onChange={handleChange}
+                                defaultValue={'a.readCount desc'}
+                            >
+                                <MenuItem value={'a.readCount desc'}>인기순</MenuItem>
+                                <MenuItem value={'a.weekAmPrice asc'}>
+                                    낮은 가격순
+                                </MenuItem>
+                                <MenuItem value={'a.weekAmPrice desc'}>
+                                    높은 가격순
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
+                    </SelectDiv>
+                </ListWrapper>
             </div>
-            <ListWrapper>
-                <SelectDiv>
-                    <FormControl sx={{ m: 1, minWidth: 110 }} size='small'>
-                        <Select
-                            labelId='demo-select-small'
-                            id='demo-select-small'
-                            value={sort}
-                            onChange={handleChange}
-                            defaultValue={'a.readCount desc'}
-                        >
-                            <MenuItem value={'a.readCount desc'}>인기순</MenuItem>
-                            <MenuItem value={'a.weekAmPrice asc'}>
-                                낮은 가격순
-                            </MenuItem>
-                            <MenuItem value={'a.weekAmPrice desc'}>
-                                높은 가격순
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
-                </SelectDiv>
-            </ListWrapper>
             {/* <hr /> */}
             <RoomList>
                 {roomData &&
