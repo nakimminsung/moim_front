@@ -4,12 +4,10 @@ import LikeList from './LikeList';
 function Like(props) {
 	return (
 		<div>
-			<div style={{marginTop: '30px', textAlign: 'center'}}>
+			<div style={{marginTop: '40px', textAlign: 'center'}}>
 				<b
 					style={{
-						borderBottom: '2px solid #ffd014',
 						fontSize: '30px',
-						paddingBottom: '5px',
 					}}
 				>
 					찜한 공간

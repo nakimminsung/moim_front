@@ -4,52 +4,38 @@ import Select from '@mui/material/Select';
 import {Box} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import React, {useEffect, useState} from 'react';
-import jwt_decode from 'jwt-decode';
 import axios from 'axios';
+import Rating from '@mui/material/Rating';
 import {Card, CardActionArea, CardContent, Typography} from '@material-ui/core';
-import QnaContent from './QnaContent';
-import './Review.css';
-import QnaUpdate from './QnaUpdate';
 
-function QNA(props) {
-	const [memberQna, setMemberQna] = useState([]);
+function HostReview(props) {
+	const [hostReviewList, setHostReviewList] = useState([]);
 	const [sort, setSort] = useState('order by writeday desc');
 
-	// theme의 space list select
-	const selectHostRoomList = () => {
-		let userNum = jwt_decode(localStorage.getItem('token')).idx;
+	const imgUrl = 'http://localhost:9000/image/';
+
+	//전체 리뷰 가져오기
+	const selectReviewList = () => {
+		let hostNum = 1;
 		let url =
 			localStorage.url +
-			'/reviewQna/qnaList?userNum=' +
-			userNum +
+			'/reviewQna/reviewHostList?hostNum=' +
+			hostNum +
 			'&sort=' +
 			sort;
-		axios.get(url).then((res) => setMemberQna(res.data));
-	};
 
-	const handleSortChange = (e) => {
+		axios.get(url).then((res) => setHostReviewList(res.data));
+	};
+	//정렬순
+	const handleChange = (e) => {
 		setSort(e.target.value);
 	};
 
-	//modal dialogue : OPEN / CLOSE
-	const [open, setOpen] = React.useState(false);
-
-	const handleClose = () => {
-		setOpen(false);
-	};
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		selectHostRoomList();
-		console.log(memberQna);
+		selectReviewList();
 	}, [sort]);
 
-	// 아코디언 setting
-
-	const [expanded, setExpanded] = React.useState(false);
-
-	const handleChange = (panel) => (event, isExpanded) => {
-		setExpanded(isExpanded ? panel : false);
-	};
 	return (
 		<ListWrapper>
 			<SelectDiv>
@@ -58,29 +44,20 @@ function QNA(props) {
 						labelId='demo-select-small'
 						id='demo-select-small'
 						value={sort}
-						onChange={handleSortChange}
+						onChange={handleChange}
 					>
 						<MenuItem value={'order by writeday desc'}>
 							최신순
 						</MenuItem>
-						<MenuItem
-							value={
-								'and answer is not null order by writeday asc'
-							}
-						>
-							답글있음
-						</MenuItem>
-						<MenuItem
-							value={'and answer is null order by writeday asc'}
-						>
-							답글없음
+						<MenuItem value={'order by writeday asc'}>
+							과거순
 						</MenuItem>
 					</Select>
 				</FormControl>
 			</SelectDiv>
 			<ReviewList>
 				<CardWrapper>
-					{memberQna.length == 0 ? (
+					{hostReviewList.length == 0 ? (
 						<Wrapper>
 							<h5
 								style={{
@@ -90,15 +67,15 @@ function QNA(props) {
 									textAlign: 'center',
 								}}
 							>
-								<b>현재 등록된 Q&A가 없습니다.</b>
+								<b>현재 등록된 이용후기가 없습니다.</b>
 							</h5>
 						</Wrapper>
 					) : (
-						memberQna &&
-						memberQna.map((item, index) => (
+						hostReviewList &&
+						hostReviewList.map((item, index) => (
 							<Card style={{width: '100%'}}>
-								<CardActionArea style={{cursor: 'auto'}}>
-									<CardContent>
+								<CardActionArea>
+									<CardContent style={{cursor: 'auto'}}>
 										<Typography
 											gutterBottom
 											component='div'
@@ -109,26 +86,27 @@ function QNA(props) {
 												paddingBottom: '10px',
 											}}
 										>
-											<Status
-												style={{
-													backgroundColor:
-														item.status ==
-														'답변완료'
-															? '#afafaf'
-															: '#704de4',
-												}}
-											>
-												{item.status}
-											</Status>
+											<Space>
+												작성자 :
+												<span
+													onClick={() => {
+														window.location.href =
+															'http://localhost:3000/detail/' +
+															item.roomNum;
+													}}
+												>
+													&nbsp;{item.nickname}
+												</span>
+											</Space>
 										</Typography>
 										<Typography
 											variant='body1'
 											component='div'
 											color='text.secondary'
-											style={{marginTop: '25px'}}
+											style={{marginTop: '15px'}}
 										>
 											<Space>
-												공간명 :
+												공간명 :{' '}
 												<span
 													style={{
 														textDecoration:
@@ -145,51 +123,50 @@ function QNA(props) {
 													{item.name}
 												</span>
 											</Space>
+											<Rating
+												name='half-rating-read'
+												style={{
+													color: '#704de4',
+													paddingTop: '5px',
+												}}
+												value={item.rating}
+												precision={1}
+												readOnly
+											/>
 											<SpaceContent>
-												{item.title}
+												<pre style={{height: '63px'}}>
+													{item.content}
+												</pre>
 											</SpaceContent>
+											<ImageDiv>
+												<ImageBox
+													component='img'
+													sx={{
+														height: '150px',
+														display: 'block',
+														overflow: 'hidden',
+														width: '40%',
+													}}
+													id='image'
+													src={
+														item.reviewImageUrl ==
+														null
+															? 'https://github.com/MoiM-Project/data/blob/main/icon/%EC%BA%A1%EC%B2%98.JPG?raw=true'
+															: item.reviewImageUrl.startsWith(
+																	'http',
+															  )
+															? item.reviewImageUrl
+															: imgUrl +
+															  item.reviewImageUrl
+													}
+													alt={item.label}
+												/>
+											</ImageDiv>
 											<SpaceWriteday>
 												{item.writeday}
 											</SpaceWriteday>
 										</Typography>
 									</CardContent>
-									{item.status == '답변대기중' ? (
-										<div
-											style={{
-												display: 'flex',
-												width: '100%',
-												flexDirection: 'row',
-												flexWrap: 'wrap',
-												justifyContent: 'space-evenly',
-												marginBottom: '20px',
-											}}
-										>
-											<QnaUpdate
-												qnaNum={item.num}
-												status={item.status}
-											/>
-											<QnaContent
-												qnaNum={item.num}
-												status={item.status}
-											/>
-										</div>
-									) : (
-										<div
-											style={{
-												display: 'flex',
-												width: '100%',
-												flexDirection: 'row',
-												flexWrap: 'wrap',
-												justifyContent: 'space-evenly',
-												marginBottom: '20px',
-											}}
-										>
-											<QnaContent
-												qnaNum={item.num}
-												status={item.status}
-											/>
-										</div>
-									)}
 								</CardActionArea>
 							</Card>
 						))
@@ -200,7 +177,7 @@ function QNA(props) {
 	);
 }
 
-export default QNA;
+export default HostReview;
 const ListWrapper = styled(Box)`
 	padding-bottom: 100px;
 	display: flex;
@@ -227,27 +204,31 @@ const Wrapper = styled(Typography)`
 	grid-column: span 3;
 `;
 
+const ImageBox = styled(Box)`
+	transform: scale(1);
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
+	:hover {
+		transform: scale(1.1);
+		-webkit-transform: scale(1.1);
+		-moz-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		-o-transform: scale(1.1);
+	}
+`;
+const ImageDiv = styled(Box)`
+	overflow: hidden;
+	text-align: center;
+`;
 const Space = styled(Typography)`
 	font-weight: bold;
 `;
-const SpaceContent = styled(Typography)`
-	font-size: 16px;
-	margin-top: 10px;
-`;
+const SpaceContent = styled(Typography)``;
 const SpaceWriteday = styled(Typography)`
 	color: #b2b2b2;
 	font-size: 13px;
 	margin-top: 10px;
-`;
-const Status = styled(Typography)`
-	width: auto;
-	margin: 7px 7px 7px 0;
-	padding: 0 15px;
-	height: 29px;
-	font-size: 12px;
-	line-height: 29px;
-	border-radius: 29px;
-	display: inline-block;
-	border: 1px solid #e0e0e0;
-	color: #fff;
 `;
