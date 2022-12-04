@@ -87,7 +87,10 @@ function footer(props) {
 								}}
 							>
 								<span className='footer-link'>
-									<NavLink to={'/host/slist'}>
+									<NavLink
+										to={'/host/slist'}
+										style={{textDecoration: 'none'}}
+									>
 										호스트센터
 									</NavLink>
 									&nbsp;|&nbsp;

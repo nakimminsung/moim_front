@@ -54,9 +54,7 @@ function Mainpage(props) {
 			<hr /> */}
 
 			{/* 시작 지점 */}
-			<br />
-			<br />
-			<br />
+
 			<br />
 
 			{/* 카테고리 영역 */}
