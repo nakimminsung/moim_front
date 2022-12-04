@@ -9,6 +9,7 @@ import SpaceInfo from './SpaceInfo';
 import SpaceOption from './SpaceOption';
 import SpaceTag from './SpaceTag';
 import SpaceWarning from './SpaceWarning';
+import './SpaceAddForm2.css';
 
 function SpaceUpdateForm2(props) {
 	const {num} = useParams();
@@ -197,6 +198,7 @@ function SpaceUpdateForm2(props) {
 	const PriceRef = React.useRef('');
 	// 옵션 이미지
 	const [oimageUrl, setOimageUrl] = useState('');
+	const [onload, setOnload] = useState(false);
 
 	//옵션 이미지 업로드 이벤트
 	const photoUploadEvent3 = (e) => {
@@ -205,6 +207,7 @@ function SpaceUpdateForm2(props) {
 		const imageFile = new FormData();
 		imageFile.append('uploadFile', uploadFile); //백엔드 컨트롤러에서 MultipartUpload uploadFile 과 일치해야함
 		console.log(uploadFile);
+		setOnload(true);
 
 		axios({
 			method: 'post',
@@ -236,6 +239,7 @@ function SpaceUpdateForm2(props) {
 		NameRef.current.value = '';
 		PriceRef.current.value = '';
 		setOimageUrl('');
+		setOnload(false);
 	};
 
 	// 방 이미지 담을 배열
@@ -379,17 +383,29 @@ function SpaceUpdateForm2(props) {
 																		className='depth_2'
 																	>
 																		<label
+																			className={
+																				checkedArr.includes(
+																					c.num,
+																				)
+																					? 'selected'
+																					: ''
+																			}
 																			style={{
 																				cursor: 'pointer',
 																			}}
 																		>
 																			<span>
-																				<input
+																				<Checkbox
+																					style={{
+																						display:
+																							'none',
+																					}}
+																					inputProps={{
+																						'aria-label':
+																							'uncontrolled-checkbox',
+																					}}
 																					name='space'
-																					type={
-																						'checkbox'
-																					}
-																					onChange={(
+																					onClick={(
 																						e,
 																					) =>
 																						handleSingleCheck(
@@ -400,7 +416,7 @@ function SpaceUpdateForm2(props) {
 																						)
 																					}
 																					checked={
-																						callCategory.includes(
+																						checkedArr.includes(
 																							c.num,
 																						)
 																							? true
@@ -437,16 +453,24 @@ function SpaceUpdateForm2(props) {
 						<div
 							className='previewimg'
 							style={{
-								display: 'flex',
+								width: '100%',
 								border: '1px solid black',
 								backgroundColor: '#d3d3d3',
-								height: '200px',
+								minHeight: '200px',
+								height: 'auto',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'flex-start',
+								flexWrap: 'wrap',
+								position: 'relative',
 							}}
 						>
 							{callRoomImage &&
 								callRoomImage.map((images, idx) => (
 									<div
 										style={{
+											width: '20%',
+											height: '230px',
 											position: 'relative',
 										}}
 									>
@@ -456,24 +480,22 @@ function SpaceUpdateForm2(props) {
 											src={`${imageUrl}${images.rimageUrl}`}
 											className='roomImge'
 											style={{
-												width: '170px',
-												height: '170px',
-												maxWidth: '170px',
-												maxHeight: '170px',
-												marginLeft: '5px',
+												width: '100%',
+												height: '100%',
 											}}
 										/>
 
 										<CloseOutlined
+											className='close'
 											style={{
-												color: '#b2b2b2',
 												cursor: 'pointer',
-												width: '20px',
-												height: '20px',
-												border: '1px solid #e0e0e0',
+												width: '30px',
+												height: '30px',
+												border: '1px solid transparent',
 												backgroundColor: 'f6f6f6',
 												position: 'absolute',
 												zIndex: '1',
+												right: '0',
 											}}
 											onClick={() => {
 												const imagesdelUrl =
@@ -494,55 +516,56 @@ function SpaceUpdateForm2(props) {
 								))}
 							{rimageUrl &&
 								rimageUrl.map((room, idx) => (
-									<div
-										style={{
-											position: 'relative',
-										}}
-									>
-										<img
-											key={idx}
-											alt=''
-											src={`${imageUrl}${room.rimageUrl}`}
-											className='roomImge'
+									<>
+										<div
 											style={{
-												width: '170px',
-												height: '170px',
-												maxWidth: '170px',
-												maxHeight: '170px',
-												marginLeft: '5px',
+												width: '20%',
+												height: '230px',
+												position: 'relative',
 											}}
-										/>
+										>
+											<img
+												alt=''
+												src={`${imageUrl}${room}`}
+												className='roomImge'
+												style={{
+													width: '100%',
+													height: '100%',
+												}}
+											/>
 
-										<CloseOutlined
-											style={{
-												color: '#b2b2b2',
-												cursor: 'pointer',
-												width: '20px',
-												height: '20px',
-												border: '1px solid #e0e0e0',
-												backgroundColor: 'f6f6f6',
-												position: 'absolute',
-												zIndex: '1',
-											}}
-											onClick={() => {
-												const delUrl =
-													localStorage.url +
-													'/host/delphoto?idx=' +
-													idx;
-												axios
-													.get(delUrl)
-													.then((res) => {
-														//DB는 삭제되지 않음
-													});
+											<CloseOutlined
+												className='close'
+												style={{
+													cursor: 'pointer',
+													width: '30px',
+													height: '30px',
+													border: '1px solid transparent',
+													backgroundColor: 'f6f6f6',
+													position: 'absolute',
+													zIndex: '1',
+													right: '0',
+												}}
+												onClick={() => {
+													const delUrl =
+														localStorage.url +
+														'/host/delphoto?idx=' +
+														idx;
+													axios
+														.get(delUrl)
+														.then((res) => {
+															//DB는 삭제되지 않음
+														});
 
-												setRoomImage(
-													rimageUrl.filter(
-														(a, i) => i !== idx,
-													),
-												);
-											}}
-										/>
-									</div>
+													setRoomImage(
+														rimageUrl.filter(
+															(a, i) => i !== idx,
+														),
+													);
+												}}
+											/>
+										</div>
+									</>
 								))}
 						</div>
 					</Space>
@@ -563,17 +586,42 @@ function SpaceUpdateForm2(props) {
 							NameRef={NameRef}
 							PriceRef={PriceRef}
 							oimageUrl={oimageUrl}
+							onload={onload}
+							setOnload={setOnload}
 						/>
-						<div>
-							<table>
-								<tbody>
+						<div style={{marginTop: '20px', width: '100%'}}>
+							<table
+								className='table table-bordered'
+								style={{
+									border: '1px solid black',
+									width: '80%',
+									marginLeft: '100px',
+								}}
+							>
+								<tbody
+									style={{
+										width: '80%',
+										textAlign: 'center',
+									}}
+								>
 									{callRoption &&
 										callRoption.map((rotion, idx) => (
-											<tr key={idx}>
+											<tr
+												key={idx}
+												style={{
+													verticalAlign: 'middle',
+												}}
+											>
+												<td style={{width: '5%'}}>
+													{idx + 1}
+												</td>
 												<td>
 													<img
 														style={{
-															width: '150px',
+															height: '120px',
+															width: '120px',
+															maxWidth: '150px',
+															maxHeight: '150px',
 														}}
 														alt=''
 														src={
@@ -582,10 +630,16 @@ function SpaceUpdateForm2(props) {
 														}
 													/>
 												</td>
-												<td>{rotion.oname}</td>
-												<td>{rotion.price}</td>
-												<td>
-													<CloseOutlined
+												<td style={{width: '20%'}}>
+													{rotion.oname}
+												</td>
+												<td style={{width: '20%'}}>
+													{rotion.price}
+												</td>
+												<td style={{width: '20%'}}>
+													<button
+														type='button'
+														className='btn btn-danger'
 														style={{
 															cursor: 'pointer',
 														}}
@@ -610,17 +664,30 @@ function SpaceUpdateForm2(props) {
 																	);
 																});
 														}}
-													/>
+													>
+														삭제
+													</button>
 												</td>
 											</tr>
 										))}
 									{roptionList &&
 										roptionList.map((roption2, idx) => (
-											<tr key={idx}>
-												<td>
+											<tr
+												key={idx}
+												style={{
+													verticalAlign: 'middle',
+												}}
+											>
+												<td style={{width: '5%'}}>
+													{idx + 1}
+												</td>
+												<td style={{width: '20%'}}>
 													<img
 														style={{
-															width: '150px',
+															height: '120px',
+															width: '120px',
+															maxWidth: '150px',
+															maxHeight: '150px',
 														}}
 														alt=''
 														src={
@@ -629,10 +696,16 @@ function SpaceUpdateForm2(props) {
 														}
 													/>
 												</td>
-												<td>{roption2.oname}</td>
-												<td>{roption2.price}</td>
-												<td>
-													<CloseOutlined
+												<td style={{width: '20%'}}>
+													{roption2.oname}
+												</td>
+												<td style={{width: '20%'}}>
+													{roption2.price}
+												</td>
+												<td style={{width: '20%'}}>
+													<button
+														type='button'
+														className='btn btn-danger'
 														style={{
 															cursor: 'pointer',
 														}}
@@ -645,7 +718,9 @@ function SpaceUpdateForm2(props) {
 																),
 															);
 														}}
-													/>
+													>
+														삭제
+													</button>
 												</td>
 											</tr>
 										))}

@@ -306,9 +306,25 @@ function SpaceList1(props) {
 													: data.name}
 											</b>
 										</h5>
-										<p>{data.companyName}</p>
+										<br />
+										<span>{data.companyName}</span>
+										<br />
+										<span>
+											<b
+												style={{
+													color: '#6f42c1',
+													fontSize: '20px',
+												}}
+											>
+												{data.weekAmPrice.toLocaleString(
+													'ko-KR',
+												)}
+											</b>
+											&nbsp;원/시간
+										</span>
 									</div>
 									{/* 카드 > 방 정보 > 글자 출력 종료 */}
+									<br />
 								</div>
 								{/* 카드 > 방 정보 출력 종료 */}
 

@@ -15,7 +15,11 @@ function DatailFunction(props) {
 	const [roomData, setRoomData] = useState('');
 	const [facility, setFacility] = useState([]);
 	const [category, setCategory] = useState('');
-	const token = localStorage.getItem('token');
+	// const [userNum, setUserNum] = useState('');
+	const token = localStorage.getItem('token')
+		? jwt_decode(localStorage.getItem('token')).idx
+		: '';
+	let userNum = '';
 
 	//룸관련 데이터 출력
 	const onSelectData = () => {
@@ -29,9 +33,9 @@ function DatailFunction(props) {
 
 	//로그인시 찜목록 리스트 하트 체크(false=찜 존재(채워진 하트)/true=찜 없음(비워진 하트))
 	useEffect((e) => {
-		onSelectData(num);
+		onSelectData();
 		if (token) {
-			let userNum = jwt_decode(localStorage.getItem('token')).idx;
+			userNum = jwt_decode(localStorage.getItem('token')).idx;
 			let likeUrl =
 				localStorage.url +
 				'/detailLike?num=' +
@@ -96,7 +100,6 @@ function DatailFunction(props) {
 						&nbsp;&nbsp;
 						<span
 							onClick={clickedToggle}
-							toggle={btnLike}
 							style={{
 								color: btnLike === false ? '#704de4' : 'black',
 								cursor: 'pointer',
@@ -113,7 +116,7 @@ function DatailFunction(props) {
 						&nbsp;
 						{/* 911, 신고하기, report */}
 						<div style={{marginTop: '-7px'}}>
-							<ReportInsert roomNum={num} />
+							<ReportInsert roomNum={num} userNum={userNum} />
 						</div>
 					</div>
 				</span>
