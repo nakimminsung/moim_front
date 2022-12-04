@@ -9,7 +9,7 @@ import './SpaceCalendar.css';
 
 function SpaceCalendar(props) {
 	localStorage.url = 'http://localhost:9000';
-	const hostNum = 1; // 여기에 호스트넘버 받아야합니다
+	const hostNum = sessionStorage.num; // 여기에 호스트넘버 받아야합니다
 	console.log(hostNum);
 	// const {hostNum} = useParams();
 
@@ -59,20 +59,22 @@ function SpaceCalendar(props) {
 	console.log(data);
 
 	return (
-		<div>
+		<div style={{height: '100vh'}}>
 			{/* <h1>예약리스트에서 캘린더보기 누르면 오는 페이지</h1> */}
-			<FullCalendar
-				id={'calendar'}
-				locale={'ko'}
-				defaultView='dayGridMonth'
-				plugins={[dayGridPlugin]}
-				// events={[
-				// 	{title: 'event 1', date: '2022-11-24'},
-				// 	{title: 'event 2', date: '2022-11-28'},
-				// ]}
-				events={data}
-				// eventTextColor='black'
-			/>
+			<div>
+				<FullCalendar
+					id={'calendar'}
+					locale={'ko'}
+					defaultView='dayGridMonth'
+					plugins={[dayGridPlugin]}
+					// events={[
+					// 	{title: 'event 1', date: '2022-11-24'},
+					// 	{title: 'event 2', date: '2022-11-28'},
+					// ]}
+					events={data}
+					// eventTextColor='black'
+				/>
+			</div>
 		</div>
 	);
 }

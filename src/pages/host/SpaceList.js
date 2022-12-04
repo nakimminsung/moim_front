@@ -9,6 +9,9 @@ import {data} from 'autoprefixer';
 import Pagenation from './Pagenation';
 
 function SpaceList(props) {
+	// 호스트넘버 받아서 보내기
+	const hostNum = sessionStorage.num;
+	console.log(hostNum);
 	localStorage.url = 'http://localhost:9000';
 
 	let imageUrl = localStorage.url + '/image/';
