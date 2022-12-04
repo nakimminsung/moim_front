@@ -9,7 +9,7 @@ import './SpaceCalendar.css';
 
 function SpaceCalendar(props) {
 	localStorage.url = 'http://localhost:9000';
-	const hostNum = 1; // 여기에 호스트넘버 받아야합니다
+	const hostNum = sessionStorage.num; // 여기에 호스트넘버 받아야합니다
 	console.log(hostNum);
 	// const {hostNum} = useParams();
 
