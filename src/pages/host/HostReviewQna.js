@@ -1,33 +1,22 @@
 import React, {useState} from 'react';
-import QNA from './QNA';
-import Review from './Review';
-import './Review.css';
+import HostQna from './HostQna';
+import HostReview from './HostReview';
 
-function ReviewList(props) {
+function HostReviewQna(props) {
 	const [show, setShow] = useState(1);
 	return (
-		<div className='reviewQnaGuest' style={{width: '100%'}}>
+		<div
+			className='reviewQnaGuest'
+			style={{width: '100%', marginTop: '30px'}}
+		>
 			<div style={{width: '100%', textAlign: 'center'}}>
-				<div style={{marginTop: '40px'}}>
+				<h3>
 					{show === 1 ? (
-						<b
-							style={{
-								fontSize: '30px',
-							}}
-						>
-							이용후기관리
-						</b>
+						<b className='hostReviewName'>이용후기관리</b>
 					) : (
-						<b
-							style={{
-								fontSize: '30px',
-							}}
-						>
-							{' '}
-							Q & A 관리{' '}
-						</b>
+						<b className='hostReviewName'> Q & A 관리 </b>
 					)}
-				</div>
+				</h3>
 				<br />
 				<div className='input-group' style={{height: '40px'}}>
 					<span
@@ -59,10 +48,9 @@ function ReviewList(props) {
 				</div>
 			</div>
 			<br />
-
-			{show === 1 ? <Review /> : <QNA />}
+			{show === 1 ? <HostReview /> : <HostQna />}
 		</div>
 	);
 }
 
-export default ReviewList;
+export default HostReviewQna;

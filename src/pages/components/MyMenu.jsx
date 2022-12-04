@@ -175,7 +175,7 @@ export default function MyMenu() {
 													handleClose(false);
 												}}
 											>
-												회원정보관리
+												마이페이지
 											</MenuItem>
 											<MenuItem
 												onClick={() => {

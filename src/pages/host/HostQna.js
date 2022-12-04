@@ -7,24 +7,20 @@ import React, {useEffect, useState} from 'react';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {Card, CardActionArea, CardContent, Typography} from '@material-ui/core';
-import QnaContent from './QnaContent';
-import './Review.css';
-import QnaUpdate from './QnaUpdate';
+import HostQnaContent from './HostQnaContent';
+import HostQnaUpdate from './HostQnaUpdate';
+import './HostRQ.css';
 
-function QNA(props) {
-	const [memberQna, setMemberQna] = useState([]);
+function HostQna(props) {
+	const [hostQna, setHostQna] = useState([]);
 	const [sort, setSort] = useState('order by writeday desc');
 
-	// theme의 space list select
+	//해당 호스트 Qna 리스트
 	const selectHostRoomList = () => {
-		let userNum = jwt_decode(localStorage.getItem('token')).idx;
+		let hostNum = 1;
 		let url =
-			localStorage.url +
-			'/reviewQna/qnaList?userNum=' +
-			userNum +
-			'&sort=' +
-			sort;
-		axios.get(url).then((res) => setMemberQna(res.data));
+			localStorage.url + '/hostQna?hostNum=' + hostNum + '&sort=' + sort;
+		axios.get(url).then((res) => setHostQna(res.data));
 	};
 
 	const handleSortChange = (e) => {
@@ -40,16 +36,8 @@ function QNA(props) {
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		selectHostRoomList();
-		console.log(memberQna);
 	}, [sort]);
 
-	// 아코디언 setting
-
-	const [expanded, setExpanded] = React.useState(false);
-
-	const handleChange = (panel) => (event, isExpanded) => {
-		setExpanded(isExpanded ? panel : false);
-	};
 	return (
 		<ListWrapper>
 			<SelectDiv>
@@ -80,7 +68,7 @@ function QNA(props) {
 			</SelectDiv>
 			<ReviewList>
 				<CardWrapper>
-					{memberQna.length == 0 ? (
+					{hostQna.length == 0 ? (
 						<Wrapper>
 							<h5
 								style={{
@@ -94,8 +82,8 @@ function QNA(props) {
 							</h5>
 						</Wrapper>
 					) : (
-						memberQna &&
-						memberQna.map((item, index) => (
+						hostQna &&
+						hostQna.map((item, index) => (
 							<Card style={{width: '100%'}}>
 								<CardActionArea style={{cursor: 'auto'}}>
 									<CardContent>
@@ -164,14 +152,11 @@ function QNA(props) {
 												marginBottom: '20px',
 											}}
 										>
-											<QnaUpdate
+											<HostQnaUpdate
 												qnaNum={item.num}
 												status={item.status}
 											/>
-											<QnaContent
-												qnaNum={item.num}
-												status={item.status}
-											/>
+											<HostQnaContent qnaNum={item.num} />
 										</div>
 									) : (
 										<div
@@ -184,7 +169,7 @@ function QNA(props) {
 												marginBottom: '20px',
 											}}
 										>
-											<QnaContent
+											<HostQnaContent
 												qnaNum={item.num}
 												status={item.status}
 											/>
@@ -200,7 +185,7 @@ function QNA(props) {
 	);
 }
 
-export default QNA;
+export default HostQna;
 const ListWrapper = styled(Box)`
 	padding-bottom: 100px;
 	display: flex;
