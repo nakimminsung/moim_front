@@ -128,6 +128,9 @@ function RoomCard(props) {
 							variant='h6'
 							component='div'
 							style={{fontWeight: 'bold'}}
+							onClick={() => {
+								navi('/detail/' + roomData.num);
+							}}
 						>
 							{String(roomData.name).length > 11
 								? roomData.name.substr(0, 12) + '...'
@@ -153,7 +156,7 @@ function RoomCard(props) {
 										<Tag key={i}>#{item.tname}</Tag>
 									))}
 							</TagDiv>
-							<RoomInfoBottom>
+							<RoomInfoBottom style={{cursor: 'auto'}}>
 								<PriceDiv>
 									<Price>
 										{roomData.weekAmPrice.toLocaleString(

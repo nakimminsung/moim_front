@@ -7,10 +7,8 @@ import React, {useEffect, useState} from 'react';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import Rating from '@mui/material/Rating';
-import InfoIcon from '@mui/icons-material/Info';
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-
 import {
 	Card,
 	CardActionArea,
@@ -21,7 +19,6 @@ import {
 	Typography,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import {set} from 'date-fns';
 
 function Review(props) {
 	const [memberReviewList, setMemberReviewList] = useState([]);
@@ -36,7 +33,7 @@ function Review(props) {
 
 	const imgUrl = 'http://localhost:9000/image/';
 
-	// theme의 space list select
+	//전체 리뷰 가져오기
 	const selectReviewList = () => {
 		let userNum = jwt_decode(localStorage.getItem('token')).idx;
 		let url =
@@ -233,7 +230,7 @@ function Review(props) {
 												readOnly
 											/>
 											<SpaceContent>
-												<pre style={{height: '50px'}}>
+												<pre style={{height: '63px'}}>
 													{item.content}
 												</pre>
 											</SpaceContent>
@@ -318,7 +315,7 @@ function Review(props) {
 						textAlign: 'center',
 					}}
 				>
-					이용후기 작성
+					이용후기 수정/삭제
 					<span onClick={handleClose}>
 						<CloseIcon
 							style={{

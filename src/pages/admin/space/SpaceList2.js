@@ -241,17 +241,8 @@ function SpaceList2(props) {
 											{data.name}
 										</b>
 									</h5>
-									<span>
-										<RoomIcon
-											style={{
-												fontSize: '20px',
-												marginBottom: '5px',
-											}}
-										/>
-										{/* {data.address.split(' ')[1]} */}
-									</span>
 									<br />
-									<span>room tag list</span>
+									<span>{data.companyName}</span>
 									<br />
 									<span>
 										<b
@@ -266,10 +257,20 @@ function SpaceList2(props) {
 										</b>
 										&nbsp;원/시간
 									</span>
-									&emsp;&emsp;
+									<br />
 									<span>
 										<Person style={{fontSize: '20px'}} />{' '}
 										최대 {data.headcount}인{' '}
+									</span>
+									&emsp;
+									<span>
+										<RoomIcon
+											style={{
+												fontSize: '20px',
+												// marginBottom: '5px',
+											}}
+										/>
+										{data.address.split(' ')[1]}
 									</span>
 									<br />
 									<br />

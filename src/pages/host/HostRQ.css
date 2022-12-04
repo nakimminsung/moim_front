@@ -1,0 +1,45 @@
+span.reviewGuest {
+	width: 50%;
+	height: 40p;
+	line-height: 35px;
+	text-align: center;
+	border-top: 3px solid #7b68ee;
+	cursor: pointer;
+}
+.searchBNum {
+	width: 100%;
+	height: 80px;
+	border: 3px solid #7b68ee;
+	padding-top: 2%;
+	padding-left: 5%;
+}
+.qnaHostWriteday {
+	color: #b2b2b2;
+	font-size: 13px;
+	margin-right: 10px;
+	position: absolute;
+	right: 24px;
+}
+.qnaContent1 {
+	width: 400px;
+	height: 100px;
+	padding-left: 10px;
+	border: 1px solid lightgray;
+}
+.hostReviewName {
+	font-size: 30px;
+}
+.qnaAnswerday {
+	color: #b2b2b2;
+	font-size: 13px;
+	margin-right: 10px;
+	position: absolute;
+	right: 23px;
+	bottom: 65px;
+}
+.qnaHostInfo {
+	color: red;
+	font-size: 12px;
+	margin-top: -5px;
+	padding-bottom: 5px;
+}
