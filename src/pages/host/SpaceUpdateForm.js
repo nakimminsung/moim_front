@@ -353,8 +353,7 @@ function SpaceUpdateForm(props) {
 								>
 									<img
 										alt=''
-										src={imageUrl + thumbnailImage}
-										// src={thumbnailImage}
+										src={thumbnailImage}
 										style={{
 											width: '100%',
 											height: '100%',
