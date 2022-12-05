@@ -53,7 +53,12 @@ function BDTop({price, roomData, date, head, num}) {
 				<div className='bdSpaceInfo'>
 					<img
 						alt=''
-						src={imgUrl + roomData.thumbnailImage}
+						// src={imgUrl + roomData.thumbnailImage}
+						src={
+							roomData.thumbnailImage.startsWith('http')
+								? roomData.thumbnailImage
+								: imgUrl + roomData.thumbnailImage
+						}
 						width='200'
 						height={200}
 						onError={onErrorImg}

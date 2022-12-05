@@ -12,7 +12,8 @@ function Top({bookingList}) {
 	return (
 		<>
 			<RoomImage
-				backgroundImage={`url(${imgUrl}${bookingList.thumbnailImage})`}
+				//backgroundImage={`url(${imgUrl}${bookingList.thumbnailImage})`}
+				backgroundImage={`url(${bookingList.thumbnailImage})`}
 				className='bkTop'
 			>
 				<RoomInfo>{bookingList.roomName}</RoomInfo>
