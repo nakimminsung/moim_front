@@ -32,6 +32,7 @@ function ReviewTag(props) {
 							color: '#6f42c1',
 							fontSize: '12px',
 						}}
+						key={idx}
 					>
 						#{data.tname}
 					</span>

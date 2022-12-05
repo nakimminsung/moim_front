@@ -112,8 +112,6 @@ function QnaContent(props) {
 							</h5>
 							{/* jhwon 신고하기 기능 추가 */}
 							<ReportInsert roomNum={roomNum} />
-
-							{/* const {roomNum, userNum} = props; 필요 */}
 						</div>
 
 						<DialogContentText>

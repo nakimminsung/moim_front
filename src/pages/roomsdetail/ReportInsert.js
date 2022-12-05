@@ -24,7 +24,7 @@ function ReportInsert(props) {
 		? jwt_decode(localStorage.getItem('token')).idx
 		: '';
 
-	//DetailFunction 상위에서 roomNum 가져오기
+	//DetailFunction 상위(QnaContent)에서 roomNum 가져오기
 	const {roomNum} = props;
 
 	//변수 선언

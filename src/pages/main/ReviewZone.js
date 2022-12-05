@@ -73,7 +73,7 @@ function ReviewZone(props) {
 	};
 
 	return (
-		<div className='reviewArea'>
+		<div className='reviewArea' style={{marginTop: '40px'}}>
 			<div style={{textAlign: 'center'}}>
 				<h2>
 					<b>리뷰 ZONE</b>
