@@ -158,7 +158,7 @@ function MyContent(props) {
         <div className="my-content-wrapper">
             <div className="my-content-profile" style={{ textAlign: "center" }}>
                 <div className="my-profile-update" style={{ display: "flex", display: "inline-block", marginTop: '30px', marginBottom: '5px' }}>
-                    <img alt="updateprofileImage" src={`http://localhost:9000/image/${props.memberList.profile_image}`} className="updateprofileImage" />
+                    <img alt="updateprofileImage" src={`${props.memberList.profile_image}`} className="updateprofileImage" />
                     {/* } */}
                 </div>
                 <div>

@@ -69,7 +69,7 @@ function ProfileUpdate(props) {
             data: updateData,
             headers: { 'Content-Type': 'multipart/form-data' },
         }).then((res) => {
-            console.log('res.data=' + res.data);
+            console.log('res.data=' + res.profile_image);
             alert('수정 완료되었습니다.');
 
             //성공하고 비워주기

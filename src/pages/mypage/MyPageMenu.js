@@ -28,7 +28,7 @@ function MyPageMenu(props) {
             {/* <input type="hidden" name="birth" value="${sessionScope.loginBirth}" /> */}
             <div className="my-profile" style={{ textAlign: "center" }}>
                 <div className="my-pofile-left" style={{ display: "flex", display: "inline-block", marginBottom: '20px' }}>
-                    <img alt="updateprofileImage" src={`http://localhost:9000/image/${props.memberList.profile_image}`} className="updateprofileImage" />
+                    <img alt="updateprofileImage" src={`${props.memberList.profile_image}`} className="updateprofileImage" />
                 </div>
                 <div>
                     <b>{email}</b>

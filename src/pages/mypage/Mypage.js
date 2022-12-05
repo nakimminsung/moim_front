@@ -17,7 +17,8 @@ function Mypage(props) {
             // console.log(res.data)
             setMemberList(res.data);
             // memberList = res.data;
-            // console.log(res.data);
+            console.log(url);
+            console.log(res.data);
             // console.log(memberList);
         });
     };
