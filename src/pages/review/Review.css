@@ -34,3 +34,9 @@ span.reviewGuest {
 	right: 23px;
 	bottom: 40px;
 }
+.memberCount {
+	font-weight: bold;
+	font-size: 17px;
+	padding-top: 15px;
+	padding-left: 10px;
+}

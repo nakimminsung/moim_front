@@ -25,6 +25,8 @@ function SmCard(props) {
 	const [reviewCount, setReviewCount] = useState('');
 	const [likeCount, setLikeCount] = useState('');
 
+	const imgUrl = 'http://localhost:9000/image/';
+
 	// room tag list select function
 	const selectTagList = (num) => {
 		let url = localStorage.url + '/tag/list?num=' + num;
@@ -74,7 +76,14 @@ function SmCard(props) {
 													width: '100%',
 												}}
 												id='image'
-												src={step.rimageUrl}
+												src={
+													step.rimageUrl.startsWith(
+														'http',
+													)
+														? step.rimageUrl
+														: imgUrl +
+														  step.rimageUrl
+												}
 												alt={step.label}
 												onClick={() => {
 													window.location.href =

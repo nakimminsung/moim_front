@@ -35,6 +35,27 @@ function LikeList(props) {
 	return (
 		<ListWrapper>
 			<SelectDiv>
+				{likeListInfo.length == 0 ? (
+					<span
+						style={{
+							fontWeight: 'bold',
+							fontSize: '17px',
+							paddingTop: '30px',
+							paddingLeft: '10px',
+						}}
+					></span>
+				) : (
+					<span
+						style={{
+							fontWeight: 'bold',
+							fontSize: '17px',
+							paddingTop: '26px',
+							paddingLeft: '10px',
+						}}
+					>
+						총 {likeListInfo.length}개
+					</span>
+				)}
 				<FormControl sx={{m: 1, minWidth: 120}} size='small'>
 					<Select
 						labelId='demo-select-small'
@@ -85,9 +106,11 @@ const ListWrapper = styled(Box)`
 `;
 const SelectDiv = styled(Box)`
 	display: flex;
-	justify-content: flex-end;
 	width: 100%;
 	margin: 20px 0;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
 `;
 const RoomList = styled(Box)`
 	display: flex;

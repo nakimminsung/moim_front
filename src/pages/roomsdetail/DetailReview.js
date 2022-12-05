@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import Pagenation from './DetailPaging';
 import Rating from '@material-ui/lab/Rating';
 import {FormControlLabel, Switch} from '@material-ui/core';
 import DetailHost from './DetailHost';
-import DetailSm from './DetailSm';
+import Pagination from 'react-js-pagination';
 
 function DetailReview(props) {
 	const {num} = useParams();
@@ -19,9 +18,13 @@ function DetailReview(props) {
 	const imgUrl = 'http://localhost:9000/image/';
 
 	//페이징처리
-	const [limit, setLimit] = useState(3);
+	//pagenation
 	const [page, setPage] = useState(1);
-	const offset = (page - 1) * limit;
+	let items = 3;
+
+	const handlePageChange = (page) => {
+		setPage(page);
+	};
 
 	//Qna데이터 가져오기
 	const onSelectData = () => {
@@ -102,7 +105,10 @@ function DetailReview(props) {
 							<tbody>
 								{review &&
 									review
-										.slice(offset, offset + limit)
+										.slice(
+											items * (page - 1),
+											items * (page - 1) + items,
+										)
 										.map((item, idx) => (
 											<tr key={idx}>
 												<td
@@ -219,11 +225,14 @@ function DetailReview(props) {
 					''
 				) : (
 					<div>
-						<Pagenation
-							total={review.length}
-							limit={limit}
-							page={page}
-							setPage={setPage}
+						<Pagination
+							activePage={page}
+							itemsCountPerPage={3}
+							totalItemsCount={review.length}
+							pageRangeDisplayed={5}
+							prevPageText={'‹'}
+							nextPageText={'›'}
+							onChange={handlePageChange}
 						/>
 					</div>
 				)}
