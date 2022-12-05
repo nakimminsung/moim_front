@@ -496,6 +496,7 @@ export default SpaceUpdateForm;
 const ButtonEvent = styled1.div`
 	margin: 0 auto 100px;
 	width: 1380;
+	margin-top: 50px;
 `;
 
 const BtnWrap = styled1.span`

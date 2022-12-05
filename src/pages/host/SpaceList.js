@@ -115,11 +115,7 @@ function SpaceList(props) {
 												<ImgBox>
 													<Img
 														style={{
-															backgroundImage: `url(${
-																imageUrl +
-																r.thumbnailImage
-															})`,
-															// `url(${r.thumbnailImage})`,
+															backgroundImage: `url(${r.thumbnailImage})`,
 														}}
 													>
 														{r.approvalStatus ==

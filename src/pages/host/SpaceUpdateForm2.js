@@ -351,170 +351,131 @@ function SpaceUpdateForm2(props) {
 					{/* ---------------유형--------------- */}
 
 					<Space>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
-							공간유형
-						</span>
-						<IcoRequired>*</IcoRequired>
-
-						<div className='row'>
-							<table>
-								<tbody>
-									<>
-										{maincategorylist &&
-											maincategorylist.map((mc, idx) => (
-												<tr>
-													<th
-														className='depth_1'
-														key={idx}
-													>
-														<span>{mc.mcname}</span>
-														<span className='pointer'></span>
-													</th>
-													{categorylist &&
-														categorylist.map(
-															(c, idx) =>
-																mc.num ===
-																c.mainCategoryNum ? (
-																	<td
-																		key={
-																			idx
-																		}
-																		className='depth_2'
-																	>
-																		<label
-																			className={
-																				checkedArr.includes(
-																					c.num,
-																				)
-																					? 'selected'
-																					: ''
-																			}
-																			style={{
-																				cursor: 'pointer',
-																			}}
-																		>
-																			<span>
-																				<Checkbox
-																					style={{
-																						display:
-																							'none',
-																					}}
-																					inputProps={{
-																						'aria-label':
-																							'uncontrolled-checkbox',
-																					}}
-																					name='space'
-																					onClick={(
-																						e,
-																					) =>
-																						handleSingleCheck(
-																							e
-																								.target
-																								.checked,
-																							c.num,
-																						)
-																					}
-																					checked={
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
+							공간 유형
+							<IcoRequired>*</IcoRequired>
+						</div>
+						<div style={{marginTop: '5px'}}>
+							<div className='row'>
+								<table className='table table-borderless'>
+									<tbody>
+										<>
+											{maincategorylist &&
+												maincategorylist.map(
+													(mc, idx) => (
+														<tr
+															style={{
+																textAlign:
+																	'center',
+															}}
+														>
+															<th
+																className='depth_1'
+																key={idx}
+															>
+																<span>
+																	{mc.mcname}
+																</span>
+																<span className='pointer'></span>
+															</th>
+															{categorylist &&
+																categorylist.map(
+																	(c, idx) =>
+																		mc.num ===
+																		c.mainCategoryNum ? (
+																			<td
+																				key={
+																					idx
+																				}
+																				className='depth_2'
+																			>
+																				<label
+																					className={
 																						checkedArr.includes(
 																							c.num,
 																						)
-																							? true
-																							: false
+																							? 'selected'
+																							: ''
 																					}
-																				/>
-																				{
-																					c.cname
-																				}
-																			</span>
-																		</label>
-																	</td>
-																) : null,
-														)}
-												</tr>
-											))}
-									</>
-								</tbody>
-							</table>
+																					style={{
+																						cursor: 'pointer',
+																					}}
+																				>
+																					<span>
+																						<Checkbox
+																							style={{
+																								display:
+																									'none',
+																							}}
+																							inputProps={{
+																								'aria-label':
+																									'uncontrolled-checkbox',
+																							}}
+																							name='space'
+																							onClick={(
+																								e,
+																							) =>
+																								handleSingleCheck(
+																									e
+																										.target
+																										.checked,
+																									c.num,
+																								)
+																							}
+																							checked={
+																								checkedArr.includes(
+																									c.num,
+																								)
+																									? true
+																									: false
+																							}
+																						/>
+																						{
+																							c.cname
+																						}
+																					</span>
+																				</label>
+																			</td>
+																		) : null,
+																)}
+														</tr>
+													),
+												)}
+										</>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</Space>
 
 					{/* ---------------사진--------------- */}
 					<Space>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 							방에 대한 사진을 등록해주세요
-						</span>
-						<IcoRequired>*</IcoRequired>
-						<SpaceImages
-							roomNum={roomNum}
-							photoUploadEvent2={photoUploadEvent2}
-						/>
-						<div
-							className='previewimg'
-							style={{
-								width: '100%',
-								border: '1px solid black',
-								backgroundColor: '#d3d3d3',
-								minHeight: '200px',
-								height: 'auto',
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'flex-start',
-								flexWrap: 'wrap',
-								position: 'relative',
-							}}
-						>
-							{callRoomImage &&
-								callRoomImage.map((images, idx) => (
-									<div
-										style={{
-											width: '20%',
-											height: '230px',
-											position: 'relative',
-										}}
-									>
-										<img
-											key={idx}
-											alt=''
-											src={`${imageUrl}${images.rimageUrl}`}
-											className='roomImge'
-											style={{
-												width: '100%',
-												height: '100%',
-											}}
-										/>
-
-										<CloseOutlined
-											className='close'
-											style={{
-												cursor: 'pointer',
-												width: '30px',
-												height: '30px',
-												border: '1px solid transparent',
-												backgroundColor: 'f6f6f6',
-												position: 'absolute',
-												zIndex: '1',
-												right: '0',
-											}}
-											onClick={() => {
-												const imagesdelUrl =
-													localStorage.url +
-													'/host/imagesdel?num=' +
-													images.num;
-												axios
-													.delete(imagesdelUrl)
-													.then((res) => {
-														alert('삭제되었습니다');
-														window.location.replace(
-															`/host/updateform2/${roomNum}`,
-														);
-													});
-											}}
-										/>
-									</div>
-								))}
-							{rimageUrl &&
-								rimageUrl.map((room, idx) => (
-									<>
+							<IcoRequired>*</IcoRequired>
+						</div>
+						<div>
+							<SpaceImages
+								roomNum={roomNum}
+								photoUploadEvent2={photoUploadEvent2}
+							/>
+							<div
+								className='previewimg'
+								style={{
+									width: '100%',
+									border: '1px solid black',
+									backgroundColor: '#d3d3d3',
+									minHeight: '200px',
+									height: 'auto',
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'flex-start',
+									flexWrap: 'wrap',
+									position: 'relative',
+								}}
+							>
+								{callRoomImage &&
+									callRoomImage.map((images, idx) => (
 										<div
 											style={{
 												width: '20%',
@@ -523,8 +484,9 @@ function SpaceUpdateForm2(props) {
 											}}
 										>
 											<img
+												key={idx}
 												alt=''
-												src={`${imageUrl}${room}`}
+												src={`${imageUrl}${images.rimageUrl}`}
 												className='roomImge'
 												style={{
 													width: '100%',
@@ -545,26 +507,80 @@ function SpaceUpdateForm2(props) {
 													right: '0',
 												}}
 												onClick={() => {
-													const delUrl =
+													const imagesdelUrl =
 														localStorage.url +
-														'/host/delphoto?idx=' +
-														idx;
+														'/host/imagesdel?num=' +
+														images.num;
 													axios
-														.get(delUrl)
+														.delete(imagesdelUrl)
 														.then((res) => {
-															//DB는 삭제되지 않음
+															alert(
+																'삭제되었습니다',
+															);
+															window.location.replace(
+																`/host/updateform2/${roomNum}`,
+															);
 														});
-
-													setRoomImage(
-														rimageUrl.filter(
-															(a, i) => i !== idx,
-														),
-													);
 												}}
 											/>
 										</div>
-									</>
-								))}
+									))}
+								{rimageUrl &&
+									rimageUrl.map((room, idx) => (
+										<>
+											<div
+												style={{
+													width: '20%',
+													height: '230px',
+													position: 'relative',
+												}}
+											>
+												<img
+													alt=''
+													src={`${imageUrl}${room}`}
+													className='roomImge'
+													style={{
+														width: '100%',
+														height: '100%',
+													}}
+												/>
+
+												<CloseOutlined
+													className='close'
+													style={{
+														cursor: 'pointer',
+														width: '30px',
+														height: '30px',
+														border: '1px solid transparent',
+														backgroundColor:
+															'f6f6f6',
+														position: 'absolute',
+														zIndex: '1',
+														right: '0',
+													}}
+													onClick={() => {
+														const delUrl =
+															localStorage.url +
+															'/host/delphoto?idx=' +
+															idx;
+														axios
+															.get(delUrl)
+															.then((res) => {
+																//DB는 삭제되지 않음
+															});
+
+														setRoomImage(
+															rimageUrl.filter(
+																(a, i) =>
+																	i !== idx,
+															),
+														);
+													}}
+												/>
+											</div>
+										</>
+									))}
+							</div>
 						</div>
 					</Space>
 
@@ -1056,6 +1072,7 @@ export default SpaceUpdateForm2;
 
 const ButtonEvent = styled.div`
 	margin: 0 auto 100px;
+	margin-top: 50px;
 	width: 1380;
 `;
 

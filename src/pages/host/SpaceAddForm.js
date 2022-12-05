@@ -342,8 +342,7 @@ function SpaceAddForm(props) {
 								>
 									<img
 										alt=''
-										src={imageUrl + thumbnailImage}
-										// src={thumbnailImage}
+										src={thumbnailImage}
 										style={{
 											width: '100%',
 											height: '100%',
@@ -483,6 +482,7 @@ export default SpaceAddForm;
 
 const ButtonEvent = styled1.div`
 	margin: 0 auto 100px;
+	margin-top: 50px;
 	width: 1380;
 `;
 
