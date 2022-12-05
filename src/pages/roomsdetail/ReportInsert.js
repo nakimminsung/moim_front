@@ -125,17 +125,23 @@ function ReportInsert(props) {
 
 	return (
 		<div>
-			<span
-				class='material-symbols-outlined'
-				style={{
-					fontSize: 'xx-large',
-					cursor: 'pointer',
-				}}
+			<div
+				style={{marginTop: '6px', cursor: 'pointer'}}
 				onClick={handleClickOpen}
 			>
-				e911_emergency
-			</span>
-
+				<span
+					class='material-symbols-outlined'
+					style={{
+						fontSize: 'x-large',
+						color: 'red',
+						position: 'relative',
+						top: '5px',
+					}}
+				>
+					e911_emergency
+				</span>
+				&nbsp;<span>신고하기</span>
+			</div>
 			{/* Dialogue Modal 화면 : 신고 작성 INSERT 폼 */}
 			{/* Dialogue Modal 화면 : 공지사항 작성 INSERT 폼 */}
 			<div>

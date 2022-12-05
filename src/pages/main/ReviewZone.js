@@ -11,6 +11,7 @@ import {red} from '@material-ui/core/colors';
 //스타일 컴포넌트 관련
 import styled from '@emotion/styled/macro';
 import {Box, Typography} from '@mui/material';
+import ReviewTag from './ReviewTag';
 
 function ReviewZone(props) {
 	const [review, setReview] = useState('');
@@ -18,6 +19,7 @@ function ReviewZone(props) {
 	//db의 src가 톰캣일때
 	const imgUrl = 'http://localhost:9000/image/';
 
+	//리뷰 리스트 가져오기
 	const getReviewList = () => {
 		let url = localStorage.url + '/reviewList';
 
@@ -101,7 +103,7 @@ function ReviewZone(props) {
 										width: '30%',
 										height: '390px',
 										padding: '10px',
-										marginBottom: '20px',
+										marginBottom: '30px',
 										border: '1px solid lightgray',
 										cursor: 'pointer',
 									}}
@@ -110,7 +112,11 @@ function ReviewZone(props) {
 										navi('/detail/' + data.roomNum);
 									}}
 								>
-									<b style={{fontSize: '1.2em'}}>
+									{/* 태그 출력 */}
+									<div>
+										<ReviewTag num={data.roomNum} />
+									</div>
+									<b style={{fontSize: '1.3em'}}>
 										{data.roomName.length > 11
 											? data.roomName.substr(0, 16) +
 											  '...'
@@ -119,15 +125,20 @@ function ReviewZone(props) {
 										{/* {data.roomName} */}
 									</b>
 									<br />
+
 									<div
 										style={{
 											display: 'flex',
 											justifyContent: 'space-between',
-											marginTop: '5px',
 										}}
 									>
 										<div>
-											<span style={{color: 'gray'}}>
+											<span
+												style={{
+													color: 'gray',
+													fontSize: '16px',
+												}}
+											>
 												별점
 											</span>
 											&nbsp;
@@ -135,18 +146,31 @@ function ReviewZone(props) {
 												name='half-rating-read'
 												style={{
 													color: '#704de4',
-													fontSize: '14px',
+													fontSize: '18px',
+													position: 'relative',
+													top: '3px',
 												}}
 												value={data.rating}
 												precision={1}
 												readOnly
 											/>
 										</div>
-										<div>
-											{data.weekAmPrice.toLocaleString(
-												'ko-KR',
-											)}{' '}
-											<span style={{color: 'gray'}}>
+										<div style={{fontSize: '16px'}}>
+											<b
+												style={{
+													color: '#6f42c1',
+													fontSize: '16px',
+												}}
+											>
+												{data.weekAmPrice.toLocaleString(
+													'ko-KR',
+												)}{' '}
+											</b>
+											<span
+												style={{
+													color: 'gray',
+												}}
+											>
 												원/시간
 											</span>
 										</div>

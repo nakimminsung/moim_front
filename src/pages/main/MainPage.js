@@ -75,7 +75,6 @@ function Mainpage(props) {
 
 			{/* 오늘의 추천 공간 영역 */}
 			<SuggestRoom />
-
 			<br />
 			<br />
 			<br />

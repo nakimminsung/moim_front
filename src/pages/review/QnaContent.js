@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import axios from 'axios';
 import './Review.css';
+import ReportInsert from '../roomsdetail/ReportInsert';
 
 function QnaContent(props) {
 	const {qnaNum, status} = props;
@@ -77,7 +78,6 @@ function QnaContent(props) {
 								<b>문의제목 : {title}</b>
 							</h5>
 						</div>
-
 						<div style={{marginTop: '30px'}}>
 							<h5>
 								<b>Q. 질문내용</b>
@@ -99,13 +99,22 @@ function QnaContent(props) {
 								</div>
 							</pre>
 						</DialogContentText>
-
 						<br />
-						<div>
+						<div
+							style={{
+								display: 'flex',
+								justifyContent: 'space-between',
+							}}
+						>
 							<h5>
 								<b>A. 답변</b>
 							</h5>
+							{/* jhwon 신고하기 기능 추가 */}
+							<ReportInsert />
+
+							{/* const {roomNum, userNum} = props; 필요 */}
 						</div>
+
 						<DialogContentText>
 							{answer == null ? (
 								<pre

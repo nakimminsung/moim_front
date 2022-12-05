@@ -171,6 +171,8 @@ function QNA(props) {
 											<QnaContent
 												qnaNum={item.num}
 												status={item.status}
+												// reportInsert
+												roomNum={item.roomNum}
 											/>
 										</div>
 									) : (
@@ -187,6 +189,8 @@ function QNA(props) {
 											<QnaContent
 												qnaNum={item.num}
 												status={item.status}
+												// reportInsert
+												roomNum={item.roomNum}
 											/>
 										</div>
 									)}
