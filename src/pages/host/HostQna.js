@@ -10,6 +10,7 @@ import {Card, CardActionArea, CardContent, Typography} from '@material-ui/core';
 import HostQnaContent from './HostQnaContent';
 import HostQnaUpdate from './HostQnaUpdate';
 import './HostRQ.css';
+import Pagination from 'react-js-pagination';
 
 function HostQna(props) {
 	const [hostQna, setHostQna] = useState([]);
@@ -17,7 +18,7 @@ function HostQna(props) {
 
 	//해당 호스트 Qna 리스트
 	const selectHostRoomList = () => {
-		let hostNum = 1;
+		const hostNum = sessionStorage.num;
 		let url =
 			localStorage.url + '/hostQna?hostNum=' + hostNum + '&sort=' + sort;
 		axios.get(url).then((res) => setHostQna(res.data));
@@ -33,6 +34,14 @@ function HostQna(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
+	//페이징처리
+	//pagenation
+	const [page, setPage] = useState(1);
+	let items = 6;
+
+	const handlePageChange = (page) => {
+		setPage(page);
+	};
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		selectHostRoomList();
@@ -41,6 +50,7 @@ function HostQna(props) {
 	return (
 		<ListWrapper>
 			<SelectDiv>
+				<span className='memberCount'>총 {hostQna.length}개</span>
 				<FormControl sx={{m: 1, minWidth: 120}} size='small'>
 					<Select
 						labelId='demo-select-small'
@@ -83,104 +93,124 @@ function HostQna(props) {
 						</Wrapper>
 					) : (
 						hostQna &&
-						hostQna.map((item, index) => (
-							<Card style={{width: '100%'}}>
-								<CardActionArea style={{cursor: 'auto'}}>
-									<CardContent>
-										<Typography
-											gutterBottom
-											component='div'
-											style={{
-												fontWeight: 'bold',
-												borderBottom:
-													'1px solid #7b68ee',
-												paddingBottom: '10px',
-											}}
-										>
-											<Status
+						hostQna
+							.slice(
+								items * (page - 1),
+								items * (page - 1) + items,
+							)
+							.map((item, index) => (
+								<Card style={{width: '100%'}}>
+									<CardActionArea style={{cursor: 'auto'}}>
+										<CardContent>
+											<Typography
+												gutterBottom
+												component='div'
 												style={{
-													backgroundColor:
-														item.status ==
-														'답변완료'
-															? '#afafaf'
-															: '#704de4',
+													fontWeight: 'bold',
+													borderBottom:
+														'1px solid #7b68ee',
+													paddingBottom: '10px',
 												}}
 											>
-												{item.status}
-											</Status>
-										</Typography>
-										<Typography
-											variant='body1'
-											component='div'
-											color='text.secondary'
-											style={{marginTop: '25px'}}
-										>
-											<Space>
-												공간명 :
-												<span
+												<Status
 													style={{
-														textDecoration:
-															'underline',
-														color: '#7b68ee',
-														cursor: 'pointer',
-													}}
-													onClick={() => {
-														window.location.href =
-															'http://localhost:3000/detail/' +
-															item.roomNum;
+														backgroundColor:
+															item.status ==
+															'답변완료'
+																? '#afafaf'
+																: '#704de4',
 													}}
 												>
-													{item.name}
-												</span>
-											</Space>
-											<SpaceContent>
-												{item.title}
-											</SpaceContent>
-											<SpaceWriteday>
-												{item.writeday}
-											</SpaceWriteday>
-										</Typography>
-									</CardContent>
-									{item.status == '답변대기중' ? (
-										<div
-											style={{
-												display: 'flex',
-												width: '100%',
-												flexDirection: 'row',
-												flexWrap: 'wrap',
-												justifyContent: 'space-evenly',
-												marginBottom: '20px',
-											}}
-										>
-											<HostQnaUpdate
-												qnaNum={item.num}
-												status={item.status}
-											/>
-											<HostQnaContent qnaNum={item.num} />
-										</div>
-									) : (
-										<div
-											style={{
-												display: 'flex',
-												width: '100%',
-												flexDirection: 'row',
-												flexWrap: 'wrap',
-												justifyContent: 'space-evenly',
-												marginBottom: '20px',
-											}}
-										>
-											<HostQnaContent
-												qnaNum={item.num}
-												status={item.status}
-											/>
-										</div>
-									)}
-								</CardActionArea>
-							</Card>
-						))
+													{item.status}
+												</Status>
+											</Typography>
+											<Typography
+												variant='body1'
+												component='div'
+												color='text.secondary'
+												style={{marginTop: '25px'}}
+											>
+												<Space>
+													공간명 :
+													<span
+														style={{
+															textDecoration:
+																'underline',
+															color: '#7b68ee',
+															cursor: 'pointer',
+														}}
+														onClick={() => {
+															window.location.href =
+																'http://localhost:3000/detail/' +
+																item.roomNum;
+														}}
+													>
+														{item.name}
+													</span>
+												</Space>
+												<SpaceContent>
+													{item.title}
+												</SpaceContent>
+												<SpaceWriteday>
+													{item.writeday}
+												</SpaceWriteday>
+											</Typography>
+										</CardContent>
+										{item.status == '답변대기중' ? (
+											<div
+												style={{
+													display: 'flex',
+													width: '100%',
+													flexDirection: 'row',
+													flexWrap: 'wrap',
+													justifyContent:
+														'space-evenly',
+													marginBottom: '20px',
+												}}
+											>
+												<HostQnaUpdate
+													qnaNum={item.num}
+													status={item.status}
+												/>
+												<HostQnaContent
+													qnaNum={item.num}
+												/>
+											</div>
+										) : (
+											<div
+												style={{
+													display: 'flex',
+													width: '100%',
+													flexDirection: 'row',
+													flexWrap: 'wrap',
+													justifyContent:
+														'space-evenly',
+													marginBottom: '20px',
+												}}
+											>
+												<HostQnaContent
+													qnaNum={item.num}
+													status={item.status}
+												/>
+											</div>
+										)}
+									</CardActionArea>
+								</Card>
+							))
 					)}
 				</CardWrapper>
 			</ReviewList>
+			<div>
+				<Pagination
+					activePage={page}
+					itemsCountPerPage={6}
+					totalItemsCount={hostQna.length}
+					pageRangeDisplayed={5}
+					prevPageText={'‹'}
+					nextPageText={'›'}
+					onChange={handlePageChange}
+				/>
+			</div>
 		</ListWrapper>
 	);
 }
@@ -192,12 +222,15 @@ const ListWrapper = styled(Box)`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	margin-top: 10px;
 `;
 const SelectDiv = styled(Box)`
 	display: flex;
 	justify-content: flex-end;
 	width: 100%;
-	margin-bottom: 20px;
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: 10px;
 `;
 const ReviewList = styled(Box)`
 	// display: grid;
@@ -214,10 +247,12 @@ const Wrapper = styled(Typography)`
 
 const Space = styled(Typography)`
 	font-weight: bold;
+	font-family: 'NanumSquareRound';
 `;
 const SpaceContent = styled(Typography)`
 	font-size: 16px;
 	margin-top: 10px;
+	font-family: 'NanumSquareRound';
 `;
 const SpaceWriteday = styled(Typography)`
 	color: #b2b2b2;
