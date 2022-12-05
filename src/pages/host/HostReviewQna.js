@@ -5,10 +5,7 @@ import HostReview from './HostReview';
 function HostReviewQna(props) {
 	const [show, setShow] = useState(1);
 	return (
-		<div
-			className='reviewQnaGuest'
-			style={{width: '100%', marginTop: '30px'}}
-		>
+		<div className='reviewQnaGuest' style={{width: '100%'}}>
 			<div style={{width: '100%', textAlign: 'center'}}>
 				<h3>
 					{show === 1 ? (
@@ -47,7 +44,7 @@ function HostReviewQna(props) {
 					</span>
 				</div>
 			</div>
-			<br />
+
 			{show === 1 ? <HostReview /> : <HostQna />}
 		</div>
 	);
