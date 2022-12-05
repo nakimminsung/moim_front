@@ -1,6 +1,5 @@
 import React from 'react';
 import NoneRouter from '../../Router/NoneRouter';
-import './ChatLayout.css';
 
 function NoneLayout(props) {
 	return (

@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import Tag from './Tag';
 import styled from 'styled-components';
+import Button from '@mui/material/Button';
 
 function RoomList(props) {
 	const headCount = 1,
@@ -123,10 +124,15 @@ function RoomList(props) {
 								{item.name}
 							</span>
 						</TableCell>
-						<TableCell component='th' scope='row' align='center'>
+						<TableCell
+							component='th'
+							scope='row'
+							align='center'
+							width={'300px'}
+						>
 							<Tag num={item.num} />
 						</TableCell>
-						<TableCell>
+						<TableCell width={'300px'}>
 							{item.address + ' ' + item.address2}
 						</TableCell>
 						<TableCell align='center'>
@@ -139,12 +145,14 @@ function RoomList(props) {
 							{item.weekAmPrice.toLocaleString('ko-KR') + '원'}
 						</TableCell>
 						<TableCell align='center'>
-							<RoomDeleteBtn
+							<Button
 								value={item.num}
+								variant='outlined'
+								color='error'
 								onClick={(e) => deleteThemeRoom(e.target.value)}
 							>
 								삭제
-							</RoomDeleteBtn>
+							</Button>
 						</TableCell>
 					</TableRow>
 				))}

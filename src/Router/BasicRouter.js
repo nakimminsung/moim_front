@@ -57,6 +57,7 @@ function BasicRouter() {
 				</Route>
 				{/* 호스트 */}
 				<Route path='host'>
+					{/* 공간리스트 */}
 					<Route path='slist' element={<SpaceList />} />
 					<Route path='addform/' element={<SpaceAddForm />} />
 					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
@@ -73,12 +74,14 @@ function BasicRouter() {
 						path='updateform3/:num'
 						element={<SpaceUpdateForm3 />}
 					/>
+					{/* 예약리스트 */}
 					<Route path='bookinglist' element={<SpaceBookingList />} />
 					<Route path='bookingcalendar' element={<SpaceCalendar />} />
 					<Route
 						path='bookingdetail/:bookingDetailNum'
 						element={<SpaceBookingDetail />}
 					/>
+					{/* 정산 */}
 					<Route path='acount' element={<SpaceAcount />} />
 					<Route path='reviewqna' element={<HostReviewQna />} />
 				</Route>

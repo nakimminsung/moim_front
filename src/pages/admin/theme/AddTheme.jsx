@@ -13,7 +13,7 @@ export default function AddTheme(props) {
 	const [open, setOpen] = React.useState(false);
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [file, setFile] = useState('');
+	const [file, setFile] = useState([]);
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -30,24 +30,32 @@ export default function AddTheme(props) {
 		data.append('description', description);
 		data.append('file', file);
 
-		axios({
-			method: 'post',
-			url: url,
-			data: data,
-			headers: {'Content-Type': 'multipart/form-data'},
-		}).then((res) => {
-			alert('등록이 완료되었습니다.');
-			props.selectThemeList();
-			setTitle('');
-			setDescription('');
-			setFile([]);
-		});
-		setOpen(false);
+		title === '' || description === '' || file.length === 0
+			? alert('데이터 모두 입력해주세요')
+			: axios({
+					method: 'post',
+					url: url,
+					data: data,
+					headers: {'Content-Type': 'multipart/form-data'},
+			  }).then((res) => {
+					alert('등록이 완료되었습니다.');
+					props.selectThemeList();
+					setTitle('');
+					setDescription('');
+					setFile([]);
+					setOpen(false);
+			  });
 	};
 
 	return (
 		<>
-			<ModalBtn onClick={handleClickOpen}>기획전 등록하기</ModalBtn>
+			<Button
+				variant='contained'
+				style={{backgroundColor: '#704de4'}}
+				onClick={handleClickOpen}
+			>
+				기획전 등록하기
+			</Button>
 			<Dialog
 				open={open}
 				onClose={handleClose}
@@ -78,12 +86,15 @@ export default function AddTheme(props) {
 							/>
 						</div>
 						<div>
-							<Button variant='contained' component='label'>
+							<Button
+								variant='outlined'
+								component='label'
+								color='inherit'
+							>
 								사진 업로드
 								<input
 									hidden
 									accept='image/*'
-									multiple
 									type='file'
 									onChange={(e) => setFile(e.target.files[0])}
 								/>
@@ -104,15 +115,11 @@ export default function AddTheme(props) {
 	);
 }
 
-const ModalBtn = styled.button`
-	background-color: purple;
-	border-radius: 5px;
+const CancelBtn = styled.div`
+	background-color: #b0b0b0;
 `;
-const CancelBtn = styled.button`
-	background-color: gray;
-`;
-const InsertBtn = styled.button`
-	background-color: purple;
+const InsertBtn = styled.div`
+	background-color: #704de4;
 `;
 const ContentWrapper = styled.div`
 	margin-top: 10px;
@@ -141,7 +148,12 @@ const ButtonWrapper = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	> button {
+	> div {
 		width: 50%;
+		color: white;
+		text-align: center;
+		height: 50px;
+		line-height: 50px;
+		cursor: pointer;
 	}
 `;
