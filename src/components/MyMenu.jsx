@@ -30,16 +30,16 @@ export default function MyMenu() {
 		setOpen(false);
 	};
 	// const goMypage = () => {
-	// 	try {
-	// 		if (localStorage.getItem('token') === null) {
-	// 			alert('로그인 해주세요.');
-	// 			document.location.href = '/login';
-	// 		} else {
-	// 			document.location.href = '/mypage';
-	// 		}
-	// 	} catch (e) {
-	// 		console.log(e);
-	// 	}
+	//    try {
+	//       if (localStorage.getItem('token') === null) {
+	//          alert('로그인 해주세요.');
+	//          document.location.href = '/login';
+	//       } else {
+	//          document.location.href = '/mypage';
+	//       }
+	//    } catch (e) {
+	//       console.log(e);
+	//    }
 	// };
 
 	useEffect(() => {
@@ -72,10 +72,6 @@ export default function MyMenu() {
 			console.log(e);
 		}
 	};
-
-	// 예약 리스트 연결(idx 뽑아오기)
-	let idx = jwt_decode(localStorage.getItem('token')).idx;
-
 	return (
 		<>
 			<MyButton
