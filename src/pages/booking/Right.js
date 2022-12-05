@@ -48,7 +48,7 @@ function Right({bookingList}) {
 
 	stime = _stime;
 	etime = _etime;
-	calTime = _etime - _stime;
+	calTime = _etime - _stime + 1;
 	console.log(stime);
 	console.log(calTime);
 	let options = new Array();
@@ -153,8 +153,8 @@ function Right({bookingList}) {
 						<p>예약내용</p>
 						<p style={{marginLeft: 'auto'}}>
 							{bookingDate}&nbsp;({bookingDay})&nbsp;{stime}
-							&nbsp;~
-							{etime},&nbsp;{calTime}시간
+							&nbsp;~&nbsp;
+							{Number(etime) + 1}시,&nbsp;{calTime}시간
 						</p>
 					</div>
 					<div
@@ -344,7 +344,10 @@ function Right({bookingList}) {
 					<p>{bookingList.address}</p>
 					<p>{bookingList.address2}</p>
 					<div style={{display: 'flex'}}>
-						<button className='mapButton'>
+						<button
+							className='mapButton'
+							style={{marginRight: '20px'}}
+						>
 							<ChatIcon />
 							톡하기
 						</button>

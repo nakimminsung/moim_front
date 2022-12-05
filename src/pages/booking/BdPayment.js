@@ -10,6 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 import './booking.css';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import CloseIcon from '@mui/icons-material/Close';
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
@@ -488,7 +489,9 @@ function BdPayment({
 												getCheckboxValue(e);
 											}}
 										/>{' '}
-										일반결제&nbsp;&nbsp;
+										<label for='check_btn'>
+											일반결제&nbsp;&nbsp;
+										</label>
 										<input
 											type='checkbox'
 											name='payment'

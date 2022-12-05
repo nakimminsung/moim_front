@@ -72,6 +72,10 @@ export default function MyMenu() {
 			console.log(e);
 		}
 	};
+
+	// 예약 리스트 연결(idx 뽑아오기)
+	let idx = jwt_decode(localStorage.getItem('token')).idx;
+
 	return (
 		<>
 			<MyButton
