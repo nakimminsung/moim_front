@@ -816,6 +816,7 @@ function SpaceAddForm2(props) {
 }
 
 export default SpaceAddForm2;
+
 const ButtonEvent = styled.div`
 	margin: 0 auto 100px;
 	margin-top: 50px;

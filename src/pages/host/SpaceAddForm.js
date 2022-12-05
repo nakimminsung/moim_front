@@ -178,302 +178,319 @@ function SpaceAddForm(props) {
 
 	return (
 		<div>
-			<form onSubmit={onSubmitEvent}>
-				<div>
-					<div
-						className='input-group'
-						style={{
-							position: 'relative',
-							width: '100%',
-							borderBottom: '3px solid #704de4',
-							borderBottomWidth: '4px',
-							fontSize: '16px',
-							lineHeight: '20px',
-							paddingBottom: '26px',
-						}}
-					>
-						<h3
+			<div style={{height: '100%vh'}}>
+				<form onSubmit={onSubmitEvent}>
+					<div>
+						<div
+							className='input-group'
 							style={{
-								fontSize: '26px',
-								lineHeight: '26px',
-								fontWeight: '400',
-							}}
-						>
-							공간 정보를 입력해주세요.
-						</h3>
-						<span
-							style={{
-								verticalAlign: 'top',
-								position: 'absolute',
-								color: '#656565',
-								right: '0',
-								lineHeight: '14px',
+								position: 'relative',
+								width: '100%',
+								borderBottom: '3px solid #704de4',
+								borderBottomWidth: '4px',
 								fontSize: '16px',
-								top: '1px',
+								lineHeight: '20px',
+								paddingBottom: '26px',
 							}}
 						>
-							<span
-								style={{verticalAlign: 'top', color: '#ff3a48'}}
+							<h3
+								style={{
+									fontSize: '26px',
+									lineHeight: '26px',
+									fontWeight: '400',
+								}}
 							>
-								<IcoRequired>*</IcoRequired> 필수입력
+								공간 정보를 입력해주세요.
+							</h3>
+							<span
+								style={{
+									verticalAlign: 'top',
+									position: 'absolute',
+									color: '#656565',
+									right: '0',
+									lineHeight: '14px',
+									fontSize: '16px',
+									top: '1px',
+								}}
+							>
+								<span
+									style={{
+										verticalAlign: 'top',
+										color: '#ff3a48',
+									}}
+								>
+									<IcoRequired>*</IcoRequired> 필수입력
+								</span>
 							</span>
-						</span>
-					</div>
-					<Space>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
-							공간명
-						</span>
-						<IcoRequired>*</IcoRequired>
-						<br />
-						<br />
-						<TextField
-							id='outlined-full-width'
-							style={{margin: 8}}
-							placeholder='고유 업체명을 입력해주세요. (예시) 비트캠프 701호 강의실'
-							fullWidth
-							required
-							margin='normal'
-							InputLabelProps={{
-								shrink: true,
-							}}
-							variant='outlined'
-							size='small'
-							value={name}
-							onChange={(e) => setName(e.target.value)}
-						/>
-					</Space>
-
-					<Space className='oneInfo'>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
-							공간 한 줄 소개
-						</span>
-						<IcoRequired>*</IcoRequired>
-						<TextField
-							id='outlined-full-width'
-							style={{margin: 8}}
-							placeholder='공간의 특장점을 한 문장으로 작성해주세요.'
-							fullWidth
-							required
-							margin='normal'
-							InputLabelProps={{
-								shrink: true,
-							}}
-							variant='outlined'
-							size='small'
-							value={oneIntroduction}
-							onChange={(e) => setOneIntroduction(e.target.value)}
-						/>
-					</Space>
-
-					<Space>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
-							공간 소개
-						</span>
-						<IcoRequired>*</IcoRequired>
-						<TextField
-							id='outlined-multiline-static'
-							placeholder='게스트들에게 필요한 공간 정보를 상세하게 소개해주세요.'
-							style={{margin: 8}}
-							fullWidth
-							required
-							rows={4}
-							variant='outlined'
-							size='small'
-							value={fullIntroduction}
-							onChange={(e) =>
-								setFullIntroduction(e.target.value)
-							}
-						/>
-					</Space>
-
-					<Space>
-						<div style={{display: 'flex'}}>
+						</div>
+						<Space>
 							<span
 								style={{fontSize: '20px', fontWeight: 'bold'}}
 							>
-								대표 이미지
+								공간명
 							</span>
 							<IcoRequired>*</IcoRequired>
-							<BtnBox>
-								<BtnLabel>
-									<div>파일첨부</div>
-									<input
-										type='file'
-										id='filephoto'
-										style={{
-											visibility: 'hidden',
-											display: 'none',
-										}}
-										onChange={photoUploadEvent}
-										required
-										onClick={() => {
-											document
-												.getElementById('filephoto')
-												.click();
-										}}
-									/>
-								</BtnLabel>
-							</BtnBox>
-						</div>
-						{/* 사진출력 */}
-						<div
-							className='previewimg'
-							style={{
-								width: '100%',
-								border: '1px solid black',
-								backgroundColor: '#d3d3d3',
-								minHeight: '200px',
-								height: 'auto',
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'flex-start',
-								flexWrap: 'wrap',
-								position: 'relative',
-								marginTop: '30px',
-							}}
-						>
-							{thumbnailImage && (
-								<div
-									style={{
-										width: '20%',
-										height: '230px',
-										position: 'relative',
-									}}
-								>
-									<img
-										alt=''
-										src={thumbnailImage}
-										style={{
-											width: '100%',
-											height: '100%',
-										}}
-									/>
-									<CloseOutlined
-										className='close'
-										style={{
-											cursor: 'pointer',
-											width: '30px',
-											height: '30px',
-											border: '1px solid transparent',
-											backgroundColor: 'f6f6f6',
-											position: 'absolute',
-											zIndex: '1',
-											right: '0',
-										}}
-										onClick={() => {
-											setThumbnailImage('');
-										}}
-									/>
-								</div>
-							)}
-						</div>
-					</Space>
-
-					<Space>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
-							주소 (위치)
-						</span>
-						<IcoRequired>*</IcoRequired>
-						<div className='input-group'>
+							<br />
+							<br />
 							<TextField
 								id='outlined-full-width'
-								style={{margin: 8, width: '950px'}}
-								margin='normal'
+								style={{margin: 8}}
+								placeholder='고유 업체명을 입력해주세요. (예시) 비트캠프 701호 강의실'
+								fullWidth
 								required
-								placeholder='실제 서비스되는 공간의 주소를 입력해주세요.'
+								margin='normal'
 								InputLabelProps={{
 									shrink: true,
 								}}
 								variant='outlined'
 								size='small'
-								value={address}
+								value={name}
+								onChange={(e) => setName(e.target.value)}
 							/>
+						</Space>
 
-							<BtnBox>
-								<BtnLabel>
-									<div onClick={handle.clickButton}>
-										주소검색
+						<Space className='oneInfo'>
+							<span
+								style={{fontSize: '20px', fontWeight: 'bold'}}
+							>
+								공간 한 줄 소개
+							</span>
+							<IcoRequired>*</IcoRequired>
+							<TextField
+								id='outlined-full-width'
+								style={{margin: 8}}
+								placeholder='공간의 특장점을 한 문장으로 작성해주세요.'
+								fullWidth
+								required
+								margin='normal'
+								InputLabelProps={{
+									shrink: true,
+								}}
+								variant='outlined'
+								size='small'
+								value={oneIntroduction}
+								onChange={(e) =>
+									setOneIntroduction(e.target.value)
+								}
+							/>
+						</Space>
+
+						<Space>
+							<span
+								style={{fontSize: '20px', fontWeight: 'bold'}}
+							>
+								공간 소개
+							</span>
+							<IcoRequired>*</IcoRequired>
+							<TextField
+								id='outlined-multiline-static'
+								placeholder='게스트들에게 필요한 공간 정보를 상세하게 소개해주세요.'
+								style={{margin: 8}}
+								fullWidth
+								required
+								multiline
+								rows={5}
+								variant='outlined'
+								size='small'
+								value={fullIntroduction}
+								onChange={(e) =>
+									setFullIntroduction(e.target.value)
+								}
+							/>
+						</Space>
+
+						<Space>
+							<div style={{display: 'flex'}}>
+								<span
+									style={{
+										fontSize: '20px',
+										fontWeight: 'bold',
+									}}
+								>
+									대표 이미지
+								</span>
+								<IcoRequired>*</IcoRequired>
+								<BtnBox>
+									<BtnLabel>
+										<div>파일첨부</div>
+										<input
+											type='file'
+											id='filephoto'
+											style={{
+												visibility: 'hidden',
+												display: 'none',
+											}}
+											onChange={photoUploadEvent}
+											required
+											onClick={() => {
+												document
+													.getElementById('filephoto')
+													.click();
+											}}
+										/>
+									</BtnLabel>
+								</BtnBox>
+							</div>
+							{/* 사진출력 */}
+							<div
+								className='previewimg'
+								style={{
+									width: '100%',
+									border: '1px solid black',
+									backgroundColor: '#d3d3d3',
+									minHeight: '200px',
+									height: 'auto',
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'flex-start',
+									flexWrap: 'wrap',
+									position: 'relative',
+									marginTop: '30px',
+								}}
+							>
+								{thumbnailImage && (
+									<div
+										style={{
+											width: '20%',
+											height: '230px',
+											position: 'relative',
+										}}
+									>
+										<img
+											alt=''
+											src={thumbnailImage}
+											style={{
+												width: '100%',
+												height: '100%',
+											}}
+										/>
+										<CloseOutlined
+											className='close'
+											style={{
+												cursor: 'pointer',
+												width: '30px',
+												height: '30px',
+												border: '1px solid transparent',
+												backgroundColor: 'f6f6f6',
+												position: 'absolute',
+												zIndex: '1',
+												right: '0',
+											}}
+											onClick={() => {
+												setThumbnailImage('');
+											}}
+										/>
 									</div>
-								</BtnLabel>
-							</BtnBox>
-						</div>
-
-						<TextField
-							id='outlined-full-width'
-							style={{margin: 8}}
-							margin='normal'
-							placeholder='상세주소를 입력해주세요.'
-							fullWidth
-							required
-							InputLabelProps={{
-								shrink: true,
-							}}
-							variant='outlined'
-							size='small'
-							value={address2}
-							onChange={(e) => setAddress2(e.target.value)}
-						/>
-					</Space>
-					{/* 다이얼로그 */}
-					<BootstrapDialog
-						onClose={handleClose}
-						aria-labelledby='customized-dialog-title'
-						open={open}
-					>
-						<BootstrapDialogTitle
-							id='customized-dialog-title'
-							onClose={handleClose}
-							style={{width: '500px'}}
-						>
-							카카오 주소 검색
-						</BootstrapDialogTitle>
-						<DialogContent dividers>
-							<Typography gutterBottom>
-								{openPostcode && (
-									<DaumPostcode
-										onComplete={handle.selectAddress} // 값을 선택할 경우 실행되는 이벤트
-										autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
-										// defaultQuery='강남대로 24길' // 팝업을 열때 기본적으로 입력되는 검색어
-									/>
 								)}
-							</Typography>
-						</DialogContent>
-						<DialogActions>
-							<Button autoFocus onClick={handleClose}>
-								Close
-							</Button>
-						</DialogActions>
-					</BootstrapDialog>
-				</div>
-				<br />
-				<br />
-				<br />
-				<ButtonEvent>
-					<BtnEventWrap>
-						<BtnWrap
-							typy='button'
-							style={{
-								cursor: 'pointer',
-								backgroundColor: '#4d4d4d',
-							}}
-							onClick={() => {
-								navi(-1);
-							}}
+							</div>
+						</Space>
+
+						<Space>
+							<span
+								style={{fontSize: '20px', fontWeight: 'bold'}}
+							>
+								주소 (위치)
+							</span>
+							<IcoRequired>*</IcoRequired>
+							<div className='input-group'>
+								<TextField
+									id='outlined-full-width'
+									style={{margin: 8, width: '950px'}}
+									margin='normal'
+									required
+									placeholder='실제 서비스되는 공간의 주소를 입력해주세요.'
+									InputLabelProps={{
+										shrink: true,
+									}}
+									variant='outlined'
+									size='small'
+									value={address}
+								/>
+
+								<BtnBox>
+									<BtnLabel>
+										<div onClick={handle.clickButton}>
+											주소검색
+										</div>
+									</BtnLabel>
+								</BtnBox>
+							</div>
+
+							<TextField
+								id='outlined-full-width'
+								style={{margin: 8}}
+								margin='normal'
+								placeholder='상세주소를 입력해주세요.'
+								fullWidth
+								required
+								InputLabelProps={{
+									shrink: true,
+								}}
+								variant='outlined'
+								size='small'
+								value={address2}
+								onChange={(e) => setAddress2(e.target.value)}
+							/>
+						</Space>
+						{/* 다이얼로그 */}
+						<BootstrapDialog
+							onClose={handleClose}
+							aria-labelledby='customized-dialog-title'
+							open={open}
 						>
-							이전
-						</BtnWrap>
-					</BtnEventWrap>
-					<BtnEventWrap>
-						<BtnWrap
-							type='submit'
-							style={{backgroundColor: '#ff3a48'}}
-							onClick={onSubmitEvent}
-						>
-							다음
-						</BtnWrap>
-					</BtnEventWrap>
-				</ButtonEvent>
-			</form>
+							<BootstrapDialogTitle
+								id='customized-dialog-title'
+								onClose={handleClose}
+								style={{width: '500px'}}
+							>
+								카카오 주소 검색
+							</BootstrapDialogTitle>
+							<DialogContent dividers>
+								<Typography gutterBottom>
+									{openPostcode && (
+										<DaumPostcode
+											onComplete={handle.selectAddress} // 값을 선택할 경우 실행되는 이벤트
+											autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
+											// defaultQuery='강남대로 24길' // 팝업을 열때 기본적으로 입력되는 검색어
+										/>
+									)}
+								</Typography>
+							</DialogContent>
+							<DialogActions>
+								<Button autoFocus onClick={handleClose}>
+									Close
+								</Button>
+							</DialogActions>
+						</BootstrapDialog>
+					</div>
+
+					<ButtonEvent>
+						<BtnEventWrap>
+							<BtnWrap
+								typy='button'
+								style={{
+									cursor: 'pointer',
+									backgroundColor: '#4d4d4d',
+								}}
+								onClick={() => {
+									navi(-1);
+								}}
+							>
+								이전
+							</BtnWrap>
+						</BtnEventWrap>
+						<BtnEventWrap>
+							<BtnWrap
+								type='submit'
+								style={{backgroundColor: '#ff3a48'}}
+								onClick={onSubmitEvent}
+							>
+								다음
+							</BtnWrap>
+						</BtnEventWrap>
+					</ButtonEvent>
+				</form>
+			</div>
 		</div>
 	);
 }
@@ -524,15 +541,15 @@ const BtnBox = styled1.div`
 `;
 
 const BtnLabel = styled1.label`
-cursor: pointer;
-display: block;
-background-color: #704de4;
-border: 0;
-color: #fff;
-text-align: center;
-border-radius: 0;
-width: 100%;
-height: 100%;
-font-size: 20px;
-line-height: 50px;
+	cursor: pointer;
+	display: block;
+	background-color: #704de4;
+	border: 0;
+	color: #fff;
+	text-align: center;
+	border-radius: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	line-height: 50px;
 `;
