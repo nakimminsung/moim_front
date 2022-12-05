@@ -111,9 +111,7 @@ function BookingMain() {
 		});
 	};
 
-	const onErrorImg = (e) => {
-		e.target.src = defaultImg;
-	};
+	const onErrorImg = (event) => (event.target.src = defaultImg);
 
 	let options = new Array();
 
@@ -206,6 +204,15 @@ function BookingMain() {
 	useEffect(() => {
 		priceSum();
 	}, [roomData, price]);
+
+	// input value 값 넣기
+	// const change = (e) => {
+	// 	// optionInsertList[
+	// 	// 	idx
+	// 	// ].count
+	// 	let {value} = {...e.target};
+	// 	setOptionInsertList(value);
+	// };
 
 	return (
 		<>
@@ -301,7 +308,10 @@ function BookingMain() {
 																	textAlign:
 																		'center',
 																}}
-															></input>
+																// onChenge={
+																// 	change
+																// }
+															/>
 
 															<Button
 																variant='outlined'
