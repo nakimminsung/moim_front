@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -14,6 +14,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import {useNavigate} from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
 
 function LeftReturn({
 	bookingList,
@@ -38,6 +39,7 @@ function LeftReturn({
 	let userNum = bookingList.userNum;
 	let roomNum = bookingList.roomNum;
 	let num = bookingList.num;
+	let bookingDetailNum = bookingList.num;
 	const navigate = useNavigate();
 
 	// 결제 modal checkbox
@@ -85,7 +87,7 @@ function LeftReturn({
 					pg: 'kakaopay',
 					pay_method: 'card', //지불 방법
 					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-					name: bookingList.name, //결제창에 노출될 상품명
+					name: bookingList.roomName, //결제창에 노출될 상품명
 					amount: bookingList.totalPrice, //금액
 					buyer_email: jwt_decode(localStorage.getItem('token'))
 						.email,
@@ -130,7 +132,7 @@ function LeftReturn({
 					pg: 'tosspay',
 					pay_method: 'card', //지불 방법
 					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-					name: bookingList.name, //결제창에 노출될 상품명
+					name: bookingList.roomName, //결제창에 노출될 상품명
 					amount: bookingList.totalPrice, //금액
 					buyer_email: jwt_decode(localStorage.getItem('token'))
 						.email,
@@ -175,7 +177,7 @@ function LeftReturn({
 					pg: 'payco',
 					pay_method: 'card', //지불 방법
 					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-					name: bookingList.name, //결제창에 노출될 상품명
+					name: bookingList.roomName, //결제창에 노출될 상품명
 					amount: bookingList.totalPrice, //금액
 					buyer_email: jwt_decode(localStorage.getItem('token'))
 						.email,
@@ -220,7 +222,7 @@ function LeftReturn({
 					pg: 'html5_inicis',
 					pay_method: 'card', //지불 방법
 					merchant_uid: `mid_${new Date().getTime()}`, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-					name: bookingList.name, //결제창에 노출될 상품명
+					name: bookingList.roomName, //결제창에 노출될 상품명
 					amount: bookingList.totalPrice, //금액
 					buyer_email: jwt_decode(localStorage.getItem('token'))
 						.email,
@@ -259,6 +261,21 @@ function LeftReturn({
 			);
 		}
 	}
+
+	// 리뷰 작성했는지 체크
+	//url
+	const reviewUrl = `http://localhost:9000/review/check?bookingDetailNum=${bookingDetailNum}`;
+	const [review, setReview] = useState([]);
+
+	const checkReview = () => {
+		axios.get(reviewUrl).then((res) => {
+			setReview(res.data);
+		});
+	};
+	console.log('review' + review.content);
+	useEffect(() => {
+		checkReview();
+	}, []);
 
 	return (
 		<>
@@ -379,7 +396,20 @@ function LeftReturn({
 								결제하기
 							</Button>
 						</>
-					) : Number(bookingList.bookingStatus) === 4 ? (
+					) : Number(bookingList.bookingStatus) === 4 &&
+					  review.content !== undefined ? (
+						<>
+							<Button
+								class='bookingBtnn'
+								type='button'
+								id='btn_submit'
+								variant='outlined'
+							>
+								이용후기작성완료
+							</Button>
+						</>
+					) : Number(bookingList.bookingStatus) === 4 &&
+					  review.content === undefined ? (
 						<>
 							<Button
 								class='bookingBtnn'
@@ -408,6 +438,7 @@ function LeftReturn({
 					<Dialog open={open} onClose={handleClose}>
 						{bookingList.bookingStatus === 4 ? (
 							<>
+								{' '}
 								<DialogTitle
 									style={{
 										backgroundColor: '#704de4',
@@ -416,6 +447,13 @@ function LeftReturn({
 									}}
 								>
 									이용후기 작성
+									<CloseIcon
+										style={{
+											float: 'right',
+											cursor: 'pointer',
+										}}
+										onClick={handleClose}
+									/>
 								</DialogTitle>
 								<DialogContent>
 									<br />
@@ -437,7 +475,7 @@ function LeftReturn({
 									<textarea
 										className='form-control'
 										placeholder='이용후기를 작성해주세요.'
-										style={{height: '300px'}}
+										style={{height: '200px'}}
 										onChange={contentHandler}
 										value={content}
 									/>
