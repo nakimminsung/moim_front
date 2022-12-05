@@ -316,9 +316,22 @@ function SpaceAddForm2(props) {
 					{/* ---------------유형--------------- */}
 
 					<Space>
-						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
-							공간 유형
-							<IcoRequired>*</IcoRequired>
+						<div style={{display: 'flex', alignItems: 'center'}}>
+							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
+								공간 유형
+							</div>
+							<div>
+								<IcoRequired>
+									<div
+										style={{
+											fontSize: '14px',
+											fontWeight: 'bold',
+										}}
+									>
+										(수정 불가/삭제 후 다시 등록해주세요)
+									</div>
+								</IcoRequired>
+							</div>
 						</div>
 						<div style={{marginTop: '5px'}}>
 							<div className='row'>
@@ -334,9 +347,21 @@ function SpaceAddForm2(props) {
 													<th
 														className='depth_1'
 														key={idx}
+														style={{
+															lineHeight: '30px',
+														}}
 													>
-														<span>{mc.mcname}</span>
-														<span className='pointer'></span>
+														<div
+															style={{
+																backgroundColor:
+																	'#dcdcdc',
+																borderRadius:
+																	'20px',
+																height: '30px',
+															}}
+														>
+															{mc.mcname}
+														</div>
 													</th>
 													{categorylist &&
 														categorylist.map(
@@ -348,6 +373,10 @@ function SpaceAddForm2(props) {
 																			idx
 																		}
 																		className='depth_2'
+																		style={{
+																			lineHeight:
+																				'30px',
+																		}}
 																	>
 																		<label
 																			className={
@@ -358,10 +387,15 @@ function SpaceAddForm2(props) {
 																					: ''
 																			}
 																			style={{
+																				width: '100px',
+																				height: '30px',
+																				border: '1px solid black',
+																				borderRadius:
+																					'5px',
 																				cursor: 'pointer',
 																			}}
 																		>
-																			<span>
+																			<div>
 																				<Checkbox
 																					style={{
 																						display:
@@ -393,7 +427,7 @@ function SpaceAddForm2(props) {
 																				{
 																					c.cname
 																				}
-																			</span>
+																			</div>
 																		</label>
 																	</td>
 																) : null,
@@ -491,8 +525,20 @@ function SpaceAddForm2(props) {
 					</Space>
 					{/* ---------------옵션--------------- */}
 					<Space>
-						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
-							공간 옵션
+						<div style={{display: 'flex', alignItems: 'center'}}>
+							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
+								공간 옵션
+							</div>
+							<IcoRequired>
+								<div
+									style={{
+										fontSize: '14px',
+										fontWeight: 'bold',
+									}}
+								>
+									(파일선택시 입력창)
+								</div>
+							</IcoRequired>
 						</div>
 						<div style={{marginTop: '5px'}}>
 							<SpaceOption
