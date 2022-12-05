@@ -24,7 +24,8 @@ span.reviewGuest {
 	width: 400px;
 	height: 100px;
 	padding-left: 10px;
-	border: 1px solid black;
+	color: black;
+	font-family: 'NanumSquareRound';
 }
 .qnaAnswerday {
 	color: #b2b2b2;
