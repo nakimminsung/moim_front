@@ -13,7 +13,7 @@ export default function UpdateTheme(props) {
 	const [open, setOpen] = React.useState(false);
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [file, setFile] = useState('');
+	const [file, setFile] = useState([]);
 	const [num, setNum] = useState('');
 
 	const handleClickOpen = () => {
@@ -63,7 +63,13 @@ export default function UpdateTheme(props) {
 
 	return (
 		<>
-			<ModalBtn onClick={handleClickOpen}>기획전 편집</ModalBtn>
+			<Button
+				variant='outlined'
+				color='inherit'
+				onClick={handleClickOpen}
+			>
+				기획전 편집
+			</Button>
 			<Dialog
 				open={open}
 				onClose={handleClose}
@@ -96,12 +102,15 @@ export default function UpdateTheme(props) {
 							/>
 						</div>
 						<div>
-							<Button variant='contained' component='label'>
+							<Button
+								variant='outlined'
+								component='label'
+								color='inherit'
+							>
 								사진 업로드
 								<input
 									hidden
 									accept='image/*'
-									multiple
 									type='file'
 									onChange={(e) => setFile(e.target.files[0])}
 								/>
@@ -122,16 +131,11 @@ export default function UpdateTheme(props) {
 	);
 }
 
-const ModalBtn = styled.button`
-	background-color: gray;
-	border-radius: 5px;
-	color: white;
+const CancelBtn = styled.div`
+	background-color: #b0b0b0;
 `;
-const CancelBtn = styled.button`
-	background-color: gray;
-`;
-const InsertBtn = styled.button`
-	background-color: purple;
+const InsertBtn = styled.div`
+	background-color: #704de4;
 `;
 const ContentWrapper = styled.div`
 	margin-top: 10px;
@@ -160,7 +164,12 @@ const ButtonWrapper = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	> button {
+	> div {
 		width: 50%;
+		color: white;
+		text-align: center;
+		height: 50px;
+		line-height: 50px;
+		cursor: pointer;
 	}
 `;

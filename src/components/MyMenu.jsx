@@ -138,7 +138,12 @@ export default function MyMenu() {
 											<MenuItem
 												onClick={() => {
 													navi(
-														`/booking/list/${idx}`,
+														'/booking/list/' +
+															jwt_decode(
+																localStorage.getItem(
+																	'token',
+																),
+															).idx,
 													);
 													handleClose(false);
 												}}
@@ -151,7 +156,7 @@ export default function MyMenu() {
 													handleClose(false);
 												}}
 											>
-												이용후기
+												이용후기 | QnA
 											</MenuItem>
 											<MenuItem
 												onClick={() => {
@@ -204,6 +209,30 @@ export default function MyMenu() {
 												}}
 											>
 												호스트페이지
+											</MenuItem>
+											<MenuItem
+												onClick={() => {
+													navi('/host/reviewqna');
+													handleClose(false);
+												}}
+											>
+												이용후기 | QnA
+											</MenuItem>
+											<MenuItem
+												onClick={() => {
+													navi('/host/bookinglist');
+													handleClose(false);
+												}}
+											>
+												예약리스트
+											</MenuItem>
+											<MenuItem
+												onClick={() => {
+													navi('/host/acount');
+													handleClose(false);
+												}}
+											>
+												정산
 											</MenuItem>
 											<MenuItem
 												onClick={() => {
