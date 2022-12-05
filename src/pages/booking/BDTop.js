@@ -54,11 +54,7 @@ function BDTop({price, roomData, date, head, num}) {
 					<img
 						alt=''
 						// src={imgUrl + roomData.thumbnailImage}
-						src={
-							roomData.thumbnailImage.startsWith('http')
-								? roomData.thumbnailImage
-								: imgUrl + roomData.thumbnailImage
-						}
+						src={roomData.thumbnailImage}
 						width='200'
 						height={200}
 						onError={onErrorImg}
