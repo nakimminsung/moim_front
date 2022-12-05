@@ -20,8 +20,10 @@ function SpaceAddForm3(props) {
 	// const [floor, setFloor] = useState('1');
 	const floorRef = React.useRef('');
 	const [floorhide, setFloorHide] = useState(false);
+	console.log(floorRef.current.value);
 	// const [parking, setParking] = useState('');
 	const parkingRef = React.useRef('');
+	console.log(parkingRef.current.value);
 	const [parkinghide, setParkingHide] = useState(false);
 	const [elevator, setElevator] = useState(2);
 	const [payment, setPayment] = useState('');
@@ -42,16 +44,16 @@ function SpaceAddForm3(props) {
 	};
 	const floorOnchange = (e) => {
 		floorRef.current = e.target.value;
-		console.log(e.target.value);
 		if (e.target.value != '직접입력') {
 			setFloorHide(false);
+			console.log(e.target.value);
 		}
 	};
 	const parkingOnchange = (e) => {
 		parkingRef.current = e.target.value;
-		console.log(e.target.value);
 		if (e.target.value != '직접입력') {
 			setParkingHide(false);
+			console.log(e.target.value);
 		}
 	};
 
@@ -79,6 +81,8 @@ function SpaceAddForm3(props) {
 		let holiPmPrice = weekAmPriceRef.current.value;
 		let floor = floorRef.current.value;
 		let parking = parkingRef.current.value;
+		console.log('parking=' + parking);
+		console.log('floor=' + floor);
 
 		axios
 			.post(insertUpdateUrl, {
@@ -348,7 +352,8 @@ function SpaceAddForm3(props) {
 										<Select
 											labelId='demo-simple-select-outlined-label'
 											id='demo-simple-select-outlined'
-											ref={floorRef}
+											inputRef={floorRef}
+											//ref={floorRef}
 											// value={floorRef.current}
 											onChange={floorOnchange}
 											defaultValue={1}
@@ -398,13 +403,14 @@ function SpaceAddForm3(props) {
 											margin='normal'
 											variant='outlined'
 											size='small'
-											onChange={(e) => {
-												floorRef.current =
-													e.target.value;
-												console.log(
-													'floor=' + floorRef.current,
-												);
-											}}
+											inputRef={floorRef}
+											// onChange={(e) => {
+											// 	floorRef.current =
+											// 		e.target.value;
+											// 	console.log(
+											// 		'floor=' + floorRef.current,
+											// 	);
+											// }}
 										/>
 									) : null}
 								</div>
@@ -420,15 +426,16 @@ function SpaceAddForm3(props) {
 							>
 								<div style={{marginTop: '15px'}}>
 									<FormControl
+										style={{width: '150px'}}
 										variant='outlined'
 										className={ClassNames.formControl}
 										size='small'
 									>
 										<Select
-											style={{width: '150px'}}
 											labelId='demo-simple-select-outlined-label'
 											id='demo-simple-select-outlined'
-											ref={parkingRef}
+											inputRef={parkingRef}
+											// ref={parkingRef}
 											onChange={parkingOnchange}
 											defaultValue={1}
 										>
@@ -460,13 +467,21 @@ function SpaceAddForm3(props) {
 												width: '150px',
 												marginTop: '0px',
 											}}
-											// placeholder='최대 인원수를 입력해주세요'
 											InputProps={{inputProps: {min: 5}}}
 											required
 											type={'number'}
 											margin='normal'
 											variant='outlined'
 											size='small'
+											inputRef={parkingRef}
+											// onChange={(e) => {
+											// 	parkingRef.current =
+											// 		e.target.value;
+											// 	console.log(
+											// 		'floor=' +
+											// 			parkingRef.current,
+											// 	);
+											// }}
 										/>
 									) : null}
 								</div>
