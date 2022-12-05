@@ -355,8 +355,7 @@ function SpaceUpdateForm2(props) {
 							공간유형
 						</span>
 						<IcoRequired>*</IcoRequired>
-						<br />
-						<br />
+
 						<div className='row'>
 							<table>
 								<tbody>
@@ -438,8 +437,7 @@ function SpaceUpdateForm2(props) {
 							</table>
 						</div>
 					</Space>
-					<br />
-					<br />
+
 					{/* ---------------사진--------------- */}
 					<Space>
 						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
@@ -569,8 +567,7 @@ function SpaceUpdateForm2(props) {
 								))}
 						</div>
 					</Space>
-					<br />
-					<br />
+
 					{/* ---------------옵션--------------- */}
 					<Space>
 						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
@@ -729,14 +726,11 @@ function SpaceUpdateForm2(props) {
 						</div>
 					</Space>
 
-					<br />
-					<br />
-
 					{/* ---------------태그--------------- */}
 					<Space>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 							공간 태그
-						</span>
+						</div>
 						<SpaceTag
 							roomNum={roomNum}
 							onchange1={onchange1}
@@ -752,28 +746,32 @@ function SpaceUpdateForm2(props) {
 											backgroundColor: '#efefef',
 										}}
 									>
-										<span>
+										<span
+											className='close'
+											style={{
+												cursor: 'pointer',
+												width: '30px',
+												height: '30px',
+												border: '1px solid transparent',
+												backgroundColor: 'f6f6f6',
+											}}
+											onClick={() => {
+												const tagdelUrl =
+													localStorage.url +
+													'/host/updatedel?num=' +
+													t.num;
+												console.log(tagdelUrl);
+												axios
+													.delete(tagdelUrl)
+													.then((res) => {
+														alert('삭제되었습니다');
+														window.location.replace(
+															`/host/updateform2/${roomNum}`,
+														);
+													});
+											}}
+										>
 											#{t.tname}
-											<CloseOutlined
-												style={{cursor: 'pointer'}}
-												onClick={() => {
-													const tagdelUrl =
-														localStorage.url +
-														'/host/updatedel?num=' +
-														t.num;
-													console.log(tagdelUrl);
-													axios
-														.delete(tagdelUrl)
-														.then((res) => {
-															alert(
-																'삭제되었습니다',
-															);
-															window.location.replace(
-																`/host/updateform2/${roomNum}`,
-															);
-														});
-												}}
-											/>
 										</span>
 									</b>
 								))}
@@ -786,25 +784,30 @@ function SpaceUpdateForm2(props) {
 											backgroundColor: '#efefef',
 										}}
 									>
-										<span>
+										<span
+											className='close'
+											style={{
+												cursor: 'pointer',
+												width: '30px',
+												height: '30px',
+												border: '1px solid transparent',
+												backgroundColor: 'f6f6f6',
+											}}
+											onClick={() => {
+												setTag(
+													tname.filter(
+														(a, i) => i !== idx,
+													),
+												);
+											}}
+										>
 											#{t1}
-											<CloseOutlined
-												style={{cursor: 'pointer'}}
-												onClick={() => {
-													setTag(
-														tname.filter(
-															(a, i) => i !== idx,
-														),
-													);
-												}}
-											/>
 										</span>
 									</b>
 								))}
 						</div>
 					</Space>
-					<br />
-					<br />
+
 					{/* ---------------인포--------------- */}
 					<Space className='info'>
 						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
@@ -816,50 +819,110 @@ function SpaceUpdateForm2(props) {
 							onchange4={onchange4}
 						/>
 						<div>
-							{callInfo &&
-								callInfo.map((info, idx3) => (
-									<h5 key={idx3}>
-										<b>{info.icontent}</b>
-										<CloseOutlined
-											style={{cursor: 'pointer'}}
-											onClick={() => {
-												const infodelUrl =
-													localStorage.url +
-													'/host/updatedel?num=' +
-													info.num;
-												console.log(infodelUrl);
-												axios
-													.delete(infodelUrl)
-													.then((res) => {
-														alert('삭제되었습니다');
-														window.location.replace(
-															`/host/updateform2/${roomNum}`,
+							<div>
+								{callInfo &&
+									callInfo.map((info, idx3) => (
+										<div
+											style={{
+												display: 'flex',
+												justifyContent: 'space-between',
+												alignItems: 'center',
+											}}
+										>
+											<div>
+												<h5 key={idx3}>
+													<b
+														style={{
+															border: '1px solid pink',
+															backgroundColor:
+																'#efefef',
+														}}
+													>
+														{info.icontent}
+													</b>
+												</h5>
+											</div>
+											<div style={{textAlign: 'center'}}>
+												<button
+													type='button'
+													className='btn btn-danger'
+													style={{
+														cursor: 'pointer',
+														height: '30px',
+													}}
+													onClick={() => {
+														const infodelUrl =
+															localStorage.url +
+															'/host/updatedel?num=' +
+															info.num;
+														console.log(infodelUrl);
+														axios
+															.delete(infodelUrl)
+															.then((res) => {
+																alert(
+																	'삭제되었습니다',
+																);
+																window.location.replace(
+																	`/host/updateform2/${roomNum}`,
+																);
+															});
+													}}
+												>
+													<span>삭제</span>
+												</button>
+											</div>
+										</div>
+									))}
+							</div>
+							<div>
+								{icontent &&
+									icontent.map((info1, idx) => (
+										<div
+											style={{
+												display: 'flex',
+												justifyContent: 'space-between',
+												alignItems: 'center',
+											}}
+										>
+											<div>
+												<h5 key={idx}>
+													<b
+														style={{
+															border: '1px solid pink',
+															backgroundColor:
+																'#efefef',
+														}}
+													>
+														{info1}
+													</b>
+												</h5>
+											</div>
+											<div style={{textAlign: 'center'}}>
+												<button
+													type='button'
+													className='btn btn-danger'
+													style={{
+														cursor: 'pointer',
+														height: '30px',
+													}}
+													onClick={() => {
+														setInfo(
+															icontent.filter(
+																(a, i) =>
+																	i !== idx,
+															),
 														);
-													});
-											}}
-										/>
-									</h5>
-								))}
-							{icontent &&
-								icontent.map((info1, idx) => (
-									<h5 key={idx}>
-										<b>{info1}</b>
-										<CloseOutlined
-											style={{cursor: 'pointer'}}
-											onClick={() => {
-												setInfo(
-													icontent.filter(
-														(a, i) => i !== idx,
-													),
-												);
-											}}
-										/>
-									</h5>
-								))}
+													}}
+												>
+													<span>삭제</span>
+												</button>
+											</div>
+										</div>
+									))}
+							</div>
 						</div>
 					</Space>
-					<br />
-					<br />
+
 					{/* --------------주의사항--------------- */}
 					<Space className='warning'>
 						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
@@ -873,52 +936,92 @@ function SpaceUpdateForm2(props) {
 						<div>
 							{callPre &&
 								callPre.map((pre, idx4) => (
-									<h5 key={idx4}>
-										<b>{pre.pcontent}</b>
-										<CloseOutlined
-											style={{cursor: 'pointer'}}
-											onClick={() => {
-												const predelUrl =
-													localStorage.url +
-													'/host/updatedel?num=' +
-													pre.num;
-												console.log(predelUrl);
-												axios
-													.delete(predelUrl)
-													.then((res) => {
-														alert('삭제되었습니다');
-														window.location.replace(
-															`/host/updateform2/${roomNum}`,
+									<div
+										style={{
+											display: 'flex',
+											justifyContent: 'space-between',
+											alignItems: 'center',
+										}}
+									>
+										<div>
+											<h5 key={idx4}>
+												<b>{pre.pcontent}</b>
+											</h5>
+										</div>
+										<div>
+											<button
+												type='button'
+												className='btn btn-danger'
+												style={{
+													cursor: 'pointer',
+													height: '30px',
+												}}
+												onClick={() => {
+													const predelUrl =
+														localStorage.url +
+														'/host/updatedel?num=' +
+														pre.num;
+													console.log(predelUrl);
+													axios
+														.delete(predelUrl)
+														.then((res) => {
+															alert(
+																'삭제되었습니다',
+															);
+															window.location.replace(
+																`/host/updateform2/${roomNum}`,
+															);
+														});
+												}}
+											>
+												<span>삭제</span>
+											</button>
+										</div>
+									</div>
+								))}
+							<div>
+								{pcontent &&
+									pcontent.map((pre1, idx) => (
+										<div
+											style={{
+												display: 'flex',
+												justifyContent: 'space-between',
+												alignItems: 'center',
+											}}
+										>
+											<div>
+												<h5 key={idx}>
+													<b>{pre1}</b>
+												</h5>
+											</div>
+											<div>
+												<button
+													type='button'
+													className='btn btn-danger'
+													style={{
+														cursor: 'pointer',
+														height: '30px',
+													}}
+													onClick={() => {
+														setPrecautions(
+															pcontent.filter(
+																(a, i) =>
+																	i !== idx,
+															),
 														);
-													});
-											}}
-										/>
-									</h5>
-								))}
-							{icontent &&
-								pcontent.map((pre1, idx) => (
-									<h5 key={idx}>
-										<b>{pre1}</b>
-										<CloseOutlined
-											style={{cursor: 'pointer'}}
-											onClick={() => {
-												setPrecautions(
-													pcontent.filter(
-														(a, i) => i !== idx,
-													),
-												);
-											}}
-										/>
-									</h5>
-								))}
+													}}
+												>
+													<span>삭제</span>
+												</button>
+											</div>
+										</div>
+									))}
+							</div>
 						</div>
 					</Space>
 				</div>
 				{/* --------------다음 버튼 이벤트--------------- */}
 
-				<br />
-				<br />
-				<br />
 				<ButtonEvent>
 					<BtnEventWrap>
 						<BtnWrap

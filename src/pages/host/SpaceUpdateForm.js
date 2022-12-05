@@ -13,6 +13,7 @@ import styled1 from 'styled-components';
 import {useNavigate} from 'react-router-dom';
 import {styled, TextField} from '@material-ui/core';
 import axios from 'axios';
+import {CloseOutlined} from '@material-ui/icons';
 
 //다이얼로그에 필요한 코드들
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -296,7 +297,7 @@ function SpaceUpdateForm(props) {
 					</Space>
 
 					<Space>
-						<div className='input-group'>
+						<div style={{display: 'flex'}}>
 							<span
 								style={{fontSize: '20px', fontWeight: 'bold'}}
 							>
@@ -326,32 +327,56 @@ function SpaceUpdateForm(props) {
 							</BtnBox>
 						</div>
 						{/* 사진출력 */}
-						<br />
 						<div
 							className='previewimg'
 							style={{
+								width: '100%',
 								border: '1px solid black',
 								backgroundColor: '#d3d3d3',
-								height: '200px',
+								minHeight: '200px',
+								height: 'auto',
 								display: 'flex',
-								flexDirection: 'column',
-								alignContent: 'flex-start',
-								justifyContent: 'space-around',
-								alignItems: 'flex-start',
+								alignItems: 'center',
+								justifyContent: 'flex-start',
+								flexWrap: 'wrap',
+								position: 'relative',
+								marginTop: '30px',
 							}}
 						>
 							{thumbnailImage && (
-								<img
-									alt=''
-									// src={thumbnailImage}
-									src={imageUrl + thumbnailImage}
+								<div
 									style={{
-										width: '170px',
-										height: '170px',
-										maxWidth: '170px',
-										maxHeight: '170px',
+										width: '20%',
+										height: '230px',
+										position: 'relative',
 									}}
-								/>
+								>
+									<img
+										alt=''
+										src={imageUrl + thumbnailImage}
+										// src={thumbnailImage}
+										style={{
+											width: '100%',
+											height: '100%',
+										}}
+									/>
+									<CloseOutlined
+										className='close'
+										style={{
+											cursor: 'pointer',
+											width: '30px',
+											height: '30px',
+											border: '1px solid transparent',
+											backgroundColor: 'f6f6f6',
+											position: 'absolute',
+											zIndex: '1',
+											right: '0',
+										}}
+										onClick={() => {
+											setThumbnailImage('');
+										}}
+									/>
+								</div>
 							)}
 						</div>
 					</Space>

@@ -320,8 +320,6 @@ function SpaceAddForm2(props) {
 							공간유형
 						</span>
 						<IcoRequired>*</IcoRequired>
-						<br />
-						<br />
 						<div className='row'>
 							<table>
 								<tbody>
@@ -398,8 +396,6 @@ function SpaceAddForm2(props) {
 							</table>
 						</div>
 					</Space>
-					<br />
-					<br />
 					{/* ---------------사진--------------- */}
 					<Space>
 						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
@@ -480,8 +476,6 @@ function SpaceAddForm2(props) {
 								))}
 						</div>
 					</Space>
-					<br />
-					<br />
 					{/* ---------------옵션--------------- */}
 					<Space>
 						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
@@ -574,9 +568,6 @@ function SpaceAddForm2(props) {
 						</div>
 					</Space>
 
-					<br />
-					<br />
-
 					{/* ---------------태그--------------- */}
 					<Space>
 						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
@@ -596,25 +587,29 @@ function SpaceAddForm2(props) {
 										backgroundColor: '#efefef',
 									}}
 								>
-									<span>
+									<span
+										className='close'
+										style={{
+											cursor: 'pointer',
+											width: '30px',
+											height: '30px',
+											border: '1px solid transparent',
+											backgroundColor: 'f6f6f6',
+										}}
+										onClick={() => {
+											setTag(
+												tname.filter(
+													(a, i) => i !== idx2,
+												),
+											);
+										}}
+									>
 										#{t}
-										<CloseOutlined
-											style={{cursor: 'pointer'}}
-											onClick={() => {
-												setTag(
-													tname.filter(
-														(a, i) => i !== idx2,
-													),
-												);
-											}}
-										/>
 									</span>
 								</b>
 							))}
 						</div>
 					</Space>
-					<br />
-					<br />
 					{/* ---------------인포--------------- */}
 					<Space className='info'>
 						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
@@ -627,24 +622,48 @@ function SpaceAddForm2(props) {
 						/>
 						<div>
 							{icontent.map((info, idx3) => (
-								<h5 key={idx3}>
-									<b>{info}</b>
-									<CloseOutlined
-										style={{cursor: 'pointer'}}
-										onClick={() => {
-											setInfo(
-												icontent.filter(
-													(a, i) => i !== idx3,
-												),
-											);
-										}}
-									/>
-								</h5>
+								<div
+									style={{
+										display: 'flex',
+										justifyContent: 'space-between',
+										alignItems: 'center',
+									}}
+								>
+									<div>
+										<h5 key={idx3}>
+											<b
+												style={{
+													border: '1px solid pink',
+													backgroundColor: '#efefef',
+												}}
+											>
+												{info}
+											</b>
+										</h5>
+									</div>
+									<div style={{textAlign: 'center'}}>
+										<button
+											type='button'
+											className='btn btn-danger'
+											style={{
+												cursor: 'pointer',
+												height: '30px',
+											}}
+											onClick={() => {
+												setInfo(
+													icontent.filter(
+														(a, i) => i !== idx3,
+													),
+												);
+											}}
+										>
+											<span>삭제</span>
+										</button>
+									</div>
+								</div>
 							))}
 						</div>
 					</Space>
-					<br />
-					<br />
 					{/* --------------주의사항--------------- */}
 					<Space className='warning'>
 						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
@@ -657,28 +676,43 @@ function SpaceAddForm2(props) {
 						/>
 						<div>
 							{pcontent.map((pre, idx4) => (
-								<h5 key={idx4}>
-									<b>{pre}</b>
-									<CloseOutlined
-										style={{cursor: 'pointer'}}
-										onClick={() => {
-											setPrecautions(
-												pcontent.filter(
-													(a, i) => i !== idx4,
-												),
-											);
-										}}
-									/>
-								</h5>
+								<div
+									style={{
+										display: 'flex',
+										justifyContent: 'space-between',
+										alignItems: 'center',
+									}}
+								>
+									<div>
+										<h5 key={idx4}>
+											<b>{pre}</b>
+										</h5>
+									</div>
+									<div>
+										<button
+											type='button'
+											className='btn btn-danger'
+											style={{
+												cursor: 'pointer',
+												height: '30px',
+											}}
+											onClick={() => {
+												setPrecautions(
+													pcontent.filter(
+														(a, i) => i !== idx4,
+													),
+												);
+											}}
+										>
+											<span>삭제</span>
+										</button>
+									</div>
+								</div>
 							))}
 						</div>
 					</Space>
 				</div>
 				{/* --------------다음 버튼 이벤트--------------- */}
-
-				<br />
-				<br />
-				<br />
 				<ButtonEvent>
 					<BtnEventWrap>
 						<BtnWrap
