@@ -120,39 +120,39 @@ function Acount1(props) {
 		sumtotal();
 	}, [acountlist]);
 
-	const scalendarRef = useRef(null);
-	useEffect(() => {
-		function handleClickOutside(event) {
-			//@ts-ignore
-			if (
-				scalendarRef.current &&
-				!scalendarRef.current.contains(event.target)
-			) {
-				setSShowCalendar(false);
-			}
-		}
-		document.addEventListener('mousedown', handleClickOutside);
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, [scalendarRef]);
+	// const scalendarRef = useRef(null);
+	// useEffect(() => {
+	// 	function handleClickOutside(event) {
+	// 		//@ts-ignore
+	// 		if (
+	// 			scalendarRef.current &&
+	// 			!scalendarRef.current.contains(event.target)
+	// 		) {
+	// 			setSShowCalendar(false);
+	// 		}
+	// 	}
+	// 	document.addEventListener('mousedown', handleClickOutside);
+	// 	return () => {
+	// 		document.removeEventListener('mousedown', handleClickOutside);
+	// 	};
+	// }, [scalendarRef]);
 
-	const calendarRef = useRef(null);
-	useEffect(() => {
-		function handleClickOutside(event) {
-			//@ts-ignore
-			if (
-				calendarRef.current &&
-				!calendarRef.current.contains(event.target)
-			) {
-				setEShowCalendar(false);
-			}
-		}
-		document.addEventListener('mousedown', handleClickOutside);
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, [calendarRef]);
+	// const calendarRef = useRef(null);
+	// useEffect(() => {
+	// 	function handleClickOutside(event) {
+	// 		//@ts-ignore
+	// 		if (
+	// 			calendarRef.current &&
+	// 			!calendarRef.current.contains(event.target)
+	// 		) {
+	// 			setEShowCalendar(false);
+	// 		}
+	// 	}
+	// 	document.addEventListener('mousedown', handleClickOutside);
+	// 	return () => {
+	// 		document.removeEventListener('mousedown', handleClickOutside);
+	// 	};
+	// }, [calendarRef]);
 
 	return (
 		<div style={{height: '100vh'}}>
@@ -282,7 +282,7 @@ function Acount1(props) {
 						display: sshowCalendar ? 'block' : 'none',
 						position: 'absolute',
 					}}
-					ref={calendarRef}
+					// ref={calendarRef}
 				>
 					<Calendar
 						id='sday'
@@ -307,7 +307,7 @@ function Acount1(props) {
 						position: 'absolute',
 						left: '220px',
 					}}
-					ref={scalendarRef}
+					// ref={scalendarRef}
 				>
 					<Calendar
 						id='eday'
@@ -328,14 +328,8 @@ function Acount1(props) {
 					/>
 				</div>
 			</div>
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'space-between',
-					marginTop: '20px',
-				}}
-			>
-				<div>
+			<div style={{textAlign: 'center', marginTop: '30px'}}>
+				<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 					<b style={{color: 'red'}}>
 						{moment(sday).format('YYYY-MM-DD')}
 						&nbsp;~&nbsp;
@@ -343,19 +337,29 @@ function Acount1(props) {
 					</b>
 					<spna>기간에 정산될 내역입니다</spna>
 				</div>
-				<div>
-					<span>정산예정금액 :</span>
-					<b>
-						총 {acountlist.length}건 / 총 {tot}원
-					</b>
+				<div
+					style={{
+						marginTop: '30px',
+						fontSize: '20px',
+						fontWeight: 'bold',
+					}}
+				>
+					<span>정산예정금액: </span>
+					<b style={{color: '#ffd014'}}>{acountlist.length}건</b>
+					&nbsp; / &nbsp;
+					<b>총</b>&nbsp;
+					<b style={{color: '#704de4'}}>{tot}원</b>
 				</div>
 			</div>
 			<div
 				className='acountList'
-				style={{marginTop: '20px', width: '100%'}}
+				style={{marginTop: '50px', width: '100%'}}
 			>
-				<table style={{width: '100%'}}>
-					<thead style={{textAlign: 'center'}}>
+				<table style={{width: '100%'}} className='table table-bordered'>
+					<thead
+						style={{textAlign: 'center'}}
+						className='table table-dark'
+					>
 						<tr>
 							<th style={{width: '10%'}}>결제일</th>
 							<th style={{width: '5%'}}>예약번호</th>
@@ -366,7 +370,10 @@ function Acount1(props) {
 							<th style={{width: '5%'}}>상태</th>
 						</tr>
 					</thead>
-					<tbody style={{textAlign: 'center'}}>
+					<tbody
+						style={{textAlign: 'center'}}
+						className='table table-Light'
+					>
 						{acountlist.length === 0 ? (
 							<tr>
 								<td colSpan={7} style={{textAlign: 'center'}}>

@@ -2833,9 +2833,9 @@
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
 "@yaireo/tagify@^4.16.4":
-  version "4.17.5"
-  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-4.17.5.tgz#1f424d711cace160a3ab50a65e892a85b231f3d4"
-  integrity sha512-KQTj18pXEby7Zw79KwFJ/4Cwg5B2BNZrIrS/deLQ5ISoFT1we+00QfphwDLFH0upiT9scWdfKM45hUO9Kpmb1Q==
+  version "4.17.6"
+  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-4.17.6.tgz#505e8d5e8fb0421c36870ac29c551c488ca8693b"
+  integrity sha512-W3rQLGO+1lczk/8Lh0nGCu6IlFrTeq3F8ofymmM7mfZWwYqLyDZyt4hRZdU9YAKPb26z1Chjl8g1J1hZZ3nmOw==
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
@@ -4117,9 +4117,9 @@ debug@^3.2.7:
     ms "^2.1.1"
 
 decimal.js@^10.2.1:
-  version "10.4.2"
-  resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-10.4.2.tgz#0341651d1d997d86065a2ce3a441fbd0d8e8b98e"
-  integrity sha512-ic1yEvwT6GuvaYwBLLY6/aFFgjZdySKTE8en/fkU3QICTmRtgtSlFn0u0BXN06InZwtfCelR7j8LRiDI/02iGA==
+  version "10.4.3"
+  resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-10.4.3.tgz#1044092884d245d1b7f65725fa4ad4c6f781cc23"
+  integrity sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==
 
 decode-uri-component@^0.2.2:
   version "0.2.2"

@@ -5,7 +5,7 @@ import '../review/Review.css';
 
 function SpaceAcount(props) {
 	const [show, setShow] = useState(1);
-	const hostNum = 1;
+	const hostNum = sessionStorage.num;
 	return (
 		<div>
 			<div className='reviewQnaGuest' style={{width: '100%'}}>

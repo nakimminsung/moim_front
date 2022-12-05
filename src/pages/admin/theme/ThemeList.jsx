@@ -11,11 +11,11 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RoomList from './RoomList';
-import styled from 'styled-components';
 import {useState} from 'react';
 import AddThemeRoom from './AddThemeRoom';
 import UpdateTheme from './UpdateTheme';
 import axios from 'axios';
+import Button from '@mui/material/Button';
 
 function Row(props) {
 	const {row} = props;
@@ -56,9 +56,13 @@ function Row(props) {
 						selectThemeList={props.selectThemeList}
 					/>
 					&nbsp;
-					<DeleteTheme onClick={() => deleteTheme(row.num)}>
+					<Button
+						variant='outlined'
+						color='error'
+						onClick={() => deleteTheme(row.num)}
+					>
 						기획전 삭제
-					</DeleteTheme>
+					</Button>
 				</TableCell>
 			</TableRow>
 			<TableRow>
@@ -94,9 +98,3 @@ export default function ThemeList(props) {
 		</TableContainer>
 	);
 }
-
-const DeleteTheme = styled.button`
-	border-radius: 5px;
-	background-color: black;
-	color: white;
-`;

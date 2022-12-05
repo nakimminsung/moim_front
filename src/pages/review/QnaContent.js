@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import axios from 'axios';
 import './Review.css';
+import jwt_decode from 'jwt-decode';
 
 function QnaContent(props) {
 	const {qnaNum, status} = props;
@@ -14,6 +15,10 @@ function QnaContent(props) {
 	const [answer, setAnswer] = useState('');
 	const [writeday, setWriteday] = useState('');
 	const [answerday, setAnswerday] = useState('');
+
+	const userNum = localStorage.getItem('token')
+		? jwt_decode(localStorage.getItem('token')).idx
+		: '';
 
 	//modal dialogue : OPEN / CLOSE
 	const [open, setOpen] = React.useState(false);

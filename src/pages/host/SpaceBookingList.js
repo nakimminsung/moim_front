@@ -24,7 +24,7 @@ function SpaceBookingList(props) {
 	localStorage.url = 'http://localhost:9000';
 	let imageUrl = localStorage.url + '/image/';
 	// const {hostNum} = useParams();
-	const hostNum = 1; // 여기에 호스트넘버 받아야합니다
+	const hostNum = sessionStorage.num; // 여기에 호스트넘버 받아야합니다
 	console.log(hostNum);
 
 	const [sort, setSort] = useState('');

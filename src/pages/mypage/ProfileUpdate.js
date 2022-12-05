@@ -64,7 +64,7 @@ function ProfileUpdate(props) {
 
         //url로 body 데이터를 보낸다
         axios({
-            method: 'post',
+            method: 'patch',
             url: url, //BackEnd로 보낼 url
             data: updateData,
             headers: { 'Content-Type': 'multipart/form-data' },

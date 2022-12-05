@@ -48,6 +48,8 @@ function BootstrapDialogTitle(props) {
 }
 
 function SpaceAddForm(props) {
+	const {hostNum} = sessionStorage.num;
+	console.log(hostNum);
 	//주소 검색
 	const [openPostcode, setOpenPostcode] = useState(false);
 	const [address, setAddress] = useState('');
@@ -129,6 +131,7 @@ function SpaceAddForm(props) {
 				fullIntroduction,
 				lat,
 				lng,
+				hostNum,
 				// locationobj,
 			})
 			.then((res) => {
