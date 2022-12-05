@@ -58,13 +58,13 @@ function SuggestRoom(props) {
 			<h2>
 				<b>오늘의 추천 공간</b>
 			</h2>
-			<h6 style={{color: 'gray', fontWeight: '500'}}>
+			<span style={{color: 'gray', fontWeight: '500', fontSize: '16px'}}>
 				뜨기 전에 먼저 예약하세요!
-			</h6>
+			</span>
 			<br />
 
 			{/* 슬라이더 1 출력 부분 */}
-			<div className='sliderBox'>
+			<div className='sliderBox' style={{marginTop: '40px'}}>
 				<Slider {...slickSetting}>
 					{roomList &&
 						roomList.map((data, idx) => (

@@ -78,11 +78,12 @@ function ReviewZone(props) {
 				<h2>
 					<b>리뷰 ZONE</b>
 				</h2>
-				<h6 style={{color: 'gray', fontWeight: '500'}}>
+				<span
+					style={{color: 'gray', fontWeight: '500', fontSize: '16px'}}
+				>
 					이용자들의 생생한 후기를 만나보세요!
-				</h6>
+				</span>
 			</div>
-			<br />
 
 			{/* 리스트 전체 div */}
 			<div
@@ -91,6 +92,7 @@ function ReviewZone(props) {
 					display: 'flex',
 					justifyContent: 'space-between',
 					flexWrap: 'wrap',
+					marginTop: '40px',
 				}}
 			>
 				{review &&
