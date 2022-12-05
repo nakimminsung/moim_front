@@ -45,7 +45,6 @@ function RoomCard(props) {
 	//x 클릭시 찜목록 삭제
 	const deleteLike = () => {
 		let deleteLikeUrl = localStorage.url + '/detail/deleteLike';
-		console.log(deleteLikeUrl);
 		let userNum = jwt_decode(localStorage.getItem('token')).idx;
 		axios.post(deleteLikeUrl, {userNum, num}).then((res) => {
 			alert('찜목록에서 삭제되었습니다');
@@ -72,7 +71,7 @@ function RoomCard(props) {
 	return (
 		<CardWrapper>
 			<Card>
-				<CardActionArea>
+				<CardActionArea style={{cursor: 'auto'}}>
 					<Box>
 						<CardAction className='cardImg'>
 							<Slider {...settings}>
@@ -88,9 +87,17 @@ function RoomCard(props) {
 													maxWidth: '100%',
 													overflow: 'hidden',
 													width: '100%',
+													cursor: 'pointer',
 												}}
 												id='image'
-												src={imgUrl + step.rimageUrl}
+												src={
+													step.rimageUrl.startsWith(
+														'http',
+													)
+														? step.rimageUrl
+														: imgUrl +
+														  step.rimageUrl
+												}
 												alt={step.label}
 												onClick={() => {
 													navi(
@@ -128,24 +135,18 @@ function RoomCard(props) {
 							variant='h6'
 							component='div'
 							style={{fontWeight: 'bold'}}
-							onClick={() => {
-								navi('/detail/' + roomData.num);
-							}}
 						>
 							{String(roomData.name).length > 11
 								? roomData.name.substr(0, 12) + '...'
 								: roomData.name}
 							<span style={{float: 'right'}}>
-								<CloseIcon onClick={deleteLike} />
+								<CloseIcon
+									onClick={deleteLike}
+									style={{cursor: 'pointer'}}
+								/>
 							</span>
 						</Typography>
-						<Typography
-							variant='body2'
-							color='text.secondary'
-							onClick={() => {
-								navi('/detail/' + roomData.num);
-							}}
-						>
+						<Typography variant='body2' color='text.secondary'>
 							<Address>
 								<RoomIcon />
 								{roomData.address.split(' ')[1]}
@@ -156,7 +157,7 @@ function RoomCard(props) {
 										<Tag key={i}>#{item.tname}</Tag>
 									))}
 							</TagDiv>
-							<RoomInfoBottom style={{cursor: 'auto'}}>
+							<RoomInfoBottom>
 								<PriceDiv>
 									<Price>
 										{roomData.weekAmPrice.toLocaleString(
