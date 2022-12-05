@@ -477,12 +477,11 @@ function SpaceAddForm3(props) {
 				{/* 3번째 줄 시작 */}
 				<Space>
 					<div className='elevator'>
-						<div>
-							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
-								엘리베이터 여부
-							</div>
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
+							엘리베이터 유무
+							<IcoRequired>*</IcoRequired>
 						</div>
-						<div>
+						<div style={{marginTop: '20px'}}>
 							<div style={{display: 'flex'}}>
 								<div>
 									<button
@@ -532,65 +531,68 @@ function SpaceAddForm3(props) {
 					<div className='price'>
 						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 							가격 정보 입력
+							<IcoRequired>*</IcoRequired>
 						</div>
-						<div
-							style={{
-								display: 'flex',
-								justifyContent: 'center',
-								marginTop: '20px',
-							}}
-						>
-							<table
-								style={{width: '100%'}}
-								className='table table-bordered'
+						<div style={{marginTop: '20px'}}>
+							<div
+								style={{
+									display: 'flex',
+									justifyContent: 'center',
+									marginTop: '20px',
+								}}
 							>
-								<thead
-									style={{textAlign: 'center'}}
-									className='table table-info'
+								<table
+									style={{width: '100%'}}
+									className='table table-bordered'
 								>
-									<tr>
-										<th>주간 오전 가격</th>
-										<th>가격 오후 가격</th>
-										<th>주말 오전 가격</th>
-										<th>주말 오후 가격</th>
-									</tr>
-								</thead>
-								<tbody
-									style={{textAlign: 'center'}}
-									className='table table-Light'
-								>
-									<tr>
-										<td>
-											<input
-												type='number'
-												ref={weekAmPriceRef}
-												min='0'
-											/>
-										</td>
-										<td>
-											<input
-												type='number'
-												ref={weekPmPriceRef}
-												min='0'
-											/>
-										</td>
-										<td>
-											<input
-												type='number'
-												ref={holiAmPriceRef}
-												min='0'
-											/>
-										</td>
-										<td>
-											<input
-												type='number'
-												ref={holiPmPriceRef}
-												min='0'
-											/>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+									<thead
+										style={{textAlign: 'center'}}
+										className='table table-info'
+									>
+										<tr>
+											<th>주간 오전 가격</th>
+											<th>가격 오후 가격</th>
+											<th>주말 오전 가격</th>
+											<th>주말 오후 가격</th>
+										</tr>
+									</thead>
+									<tbody
+										style={{textAlign: 'center'}}
+										className='table table-Light'
+									>
+										<tr>
+											<td>
+												<input
+													type='number'
+													ref={weekAmPriceRef}
+													min='0'
+												/>
+											</td>
+											<td>
+												<input
+													type='number'
+													ref={weekPmPriceRef}
+													min='0'
+												/>
+											</td>
+											<td>
+												<input
+													type='number'
+													ref={holiAmPriceRef}
+													min='0'
+												/>
+											</td>
+											<td>
+												<input
+													type='number'
+													ref={holiPmPriceRef}
+													min='0'
+												/>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</Space>
@@ -600,6 +602,7 @@ function SpaceAddForm3(props) {
 					<div className='payment'>
 						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 							바로결제/승인결제
+							<IcoRequired>*</IcoRequired>
 						</div>
 						<div style={{display: 'flex', marginTop: '20px'}}>
 							<div>
@@ -645,27 +648,6 @@ function SpaceAddForm3(props) {
 								</button>
 							</div>
 						</div>
-						{/* <label>
-							<input
-								style={{display: 'none'}}
-								type={'radio'}
-								value='바로결제'
-								checked={payment === '바로결제'}
-								onChange={payCheck}
-							/>
-							바로결제
-						</label>
-						<b>////////////</b>
-						<label>
-							<input
-								style={{display: 'none'}}
-								type={'radio'}
-								value='승인결제'
-								checked={payment === '승인결제'}
-								onChange={payCheck}
-							/>
-							승인결제
-						</label> */}
 					</div>
 				</Space>
 				<ButtonEvent>
