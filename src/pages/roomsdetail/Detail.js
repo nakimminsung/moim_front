@@ -16,6 +16,8 @@ function Detail(props) {
 	const [tag, setTag] = useState(''); //태그
 	const [img, setImg] = useState(''); //방이미지
 
+	const imgUrl = 'http://localhost:9000/image/';
+
 	//룸관련 데이터 출력
 	const onSelectData = () => {
 		let url = localStorage.url + '/detailroom?num=' + num;
@@ -48,10 +50,7 @@ function Detail(props) {
 	};
 
 	return (
-		<div
-			className='detailContainer'
-			style={{width: '100%', marginTop: '40px'}}
-		>
+		<div className='detailContainer' style={{width: '100%'}}>
 			<div className='detailHeader' style={{width: '100%'}}>
 				<h2>
 					<b>{roomData.name}</b>
@@ -73,7 +72,11 @@ function Detail(props) {
 								<div>
 									<img
 										alt=''
-										src={row}
+										src={
+											row.startsWith('http')
+												? row
+												: imgUrl + row
+										}
 										style={{
 											width: '100%',
 											height: '430px',
