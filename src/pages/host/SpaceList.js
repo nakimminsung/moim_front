@@ -94,7 +94,7 @@ function SpaceList(props) {
 								color='primary'
 								className='btn_newadd'
 								style={{border: '1px solid blueviolet'}}
-								onClick={() => navi(`/host/addform`)}
+								onClick={() => navi(`/host/addform/`)}
 							>
 								<h5>
 									<b style={{color: 'blueviolet'}}>
@@ -115,11 +115,7 @@ function SpaceList(props) {
 												<ImgBox>
 													<Img
 														style={{
-															backgroundImage: `url(${
-																imageUrl +
-																r.thumbnailImage
-															})`,
-															// `url(${r.thumbnailImage})`,
+															backgroundImage: `url(${r.thumbnailImage})`,
 														}}
 													>
 														{r.approvalStatus ==

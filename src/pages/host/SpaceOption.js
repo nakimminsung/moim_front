@@ -47,7 +47,7 @@ function SpaceOption(props) {
 						</label>
 						<img
 							alt=''
-							src={imageUrl + oimageUrl}
+							src={oimageUrl}
 							style={{maxWidth: '150px'}}
 						/>
 					</td>
