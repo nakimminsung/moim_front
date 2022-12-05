@@ -132,6 +132,9 @@ function Review(props) {
 	return (
 		<ListWrapper>
 			<SelectDiv>
+				<span className='memberCount'>
+					총 {memberReviewList.length}개
+				</span>
 				<FormControl sx={{m: 1, minWidth: 120}} size='small'>
 					<Select
 						labelId='demo-select-small'
@@ -188,8 +191,8 @@ function Review(props) {
 												}}
 												onClick={() => {
 													window.location.href =
-														'http://localhost:3000/detail/' +
-														item.roomNum;
+														'http://localhost:3000/booking/detail/' +
+														item.num;
 												}}
 											>
 												{item.num}
@@ -409,12 +412,15 @@ const ListWrapper = styled(Box)`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	margin-top: 10px;
 `;
 const SelectDiv = styled(Box)`
 	display: flex;
-	justify-content: flex-end;
 	width: 100%;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
 `;
 const ReviewList = styled(Box)`
 	// display: grid;

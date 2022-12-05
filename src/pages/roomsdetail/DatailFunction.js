@@ -21,6 +21,8 @@ function DatailFunction(props) {
 		: '';
 	let userNum = '';
 
+	const imgUrl = 'http://localhost:9000/image/';
+
 	//룸관련 데이터 출력
 	const onSelectData = () => {
 		let url = localStorage.url + '/detailInfo?num=' + num;
@@ -206,7 +208,13 @@ function DatailFunction(props) {
 										>
 											<img
 												alt=''
-												src={item.imageUrl}
+												src={
+													item.imageUrl.startsWith(
+														'http',
+													)
+														? item.imageUrl
+														: imgUrl + item.imageUrl
+												}
 												width='35'
 												height={35}
 											/>

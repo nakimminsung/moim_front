@@ -3,8 +3,8 @@ import LikeList from './LikeList';
 
 function Like(props) {
 	return (
-		<div>
-			<div style={{marginTop: '40px', textAlign: 'center'}}>
+		<div style={{paddingBottom: '60px'}}>
+			<div style={{textAlign: 'center'}}>
 				<b
 					style={{
 						fontSize: '30px',

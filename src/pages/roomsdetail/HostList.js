@@ -10,8 +10,7 @@ import {Box} from '@mui/material';
 import Card from './Card';
 
 function HostList(props) {
-	const hostNum = sessionStorage.num;
-	// const {hostNum} = useParams();
+	const {hostNum} = useParams();
 	const [hostInfo, setHostInfo] = useState([]);
 	const [sort, setSort] = useState('readCount desc');
 
