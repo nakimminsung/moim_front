@@ -71,6 +71,7 @@ function Filter(props) {
 		spriceRef.current = 0;
 		epriceRef.current = 500000;
 		// 편의시설
+		setFacilityList([]);
 	};
 	// 필터 적용하기 버튼 이벤트
 	const filterRun = () => {

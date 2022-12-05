@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import AdminMain from '../pages/admin/AdminMain';
 import BannerManagement from '../pages/admin/BannerManagement';
@@ -7,9 +7,11 @@ import MemberManagement from '../pages/admin/MemberManagement';
 import NoticeManagement from '../pages/admin/notice/NoticeManagement';
 import PopUpManagement from '../pages/admin/PopUpManagement';
 import ReportManagement from '../pages/admin/ReportManagement';
+import SettlementManagement from '../pages/admin/SettlementManagement';
 import SpaceManagement from '../pages/admin/space/SpaceManagement';
 
 import ThemeManagement from '../pages/admin/ThemeManagement';
+import Theme from '../pages/admin/theme/Theme';
 
 function AdminRouter() {
 	return (
@@ -22,9 +24,15 @@ function AdminRouter() {
 				<Route path='space' element={<SpaceManagement />} />
 				<Route path='report' element={<ReportManagement />} />
 				<Route path='notice' element={<NoticeManagement />} />
-				<Route path='theme' element={<ThemeManagement />} />
 				<Route path='popup' element={<PopUpManagement />} />
 				<Route path='banner' element={<BannerManagement />} />
+				<Route path='theme' element={<Theme />} />
+				<Route path='theme' element={<ThemeManagement />} />
+				{/* 
+				<Route path='popup' element={<PopUpManagement />} />
+				<Route path='banner' element={<BannerManagement />} />
+				 */}
+				<Route path='settlement' element={<SettlementManagement />} />
 			</Routes>
 		</>
 	);

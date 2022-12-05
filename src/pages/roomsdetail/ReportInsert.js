@@ -20,10 +20,10 @@ import jwt_decode from 'jwt-decode';
 
 function ReportInsert(props) {
 	//token 에서 userInfo 가져오기
-	let userNum = jwt_decode(localStorage.getItem('token')).idx;
+	// let userNum = jwt_decode(localStorage.getItem('token')).idx;
 
 	//DetailFunction 상위에서 roomNum 가져오기
-	const {roomNum} = props;
+	const {roomNum, userNum} = props;
 
 	//변수 선언
 	const [reportType, setReportType] = useState('');
@@ -114,6 +114,8 @@ function ReportInsert(props) {
 				//성공하고 비워주기
 				setReportType('');
 				setReportContent('');
+
+				window.location.reload();
 			});
 
 			//성공하고 modal 창 닫기

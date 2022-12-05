@@ -36,7 +36,7 @@ function Left({bookingList}) {
 	//modal submit 이벤트 (이용완료 - 리뷰작성)
 	const submitHandler = (e) => {
 		e.preventDefault();
-
+		console.log('dd' + bookingDetailNum);
 		// BackEnd로 보낼 url
 		let url = localStorage.url + '/review/insert';
 
@@ -46,6 +46,7 @@ function Left({bookingList}) {
 		formData.append('uploadFile', uploadFile);
 		formData.append('userNum', userNum);
 		formData.append('roomNum', roomNum);
+		formData.append('bookingDetailNum', bookingDetailNum);
 
 		axios({
 			method: 'post',
@@ -114,7 +115,7 @@ function Left({bookingList}) {
 
 	stime = _stime;
 	etime = _etime;
-	calTime = _etime - _stime;
+	calTime = _etime - _stime + 1;
 
 	//modal dialogue : OPEN / CLOSE
 	const [open, setOpen] = React.useState(false);

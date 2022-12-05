@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import Category from './Category';
 import './MainPage.css';
-import NoticeEvent from './NoticeEvent';
+
 import ReviewZone from './ReviewZone';
 import SuggestRoom from './SuggestRoom';
 import Theme from './Theme';
@@ -13,10 +13,10 @@ function Mainpage(props) {
 
 	return (
 		<div>
-			<div className='directButton'>
+			{/* <div className='directButton'>
 				<ul
 					className='main'
-					style={{ display: 'flex', justifyContent: 'center' }}
+					style={{display: 'flex', justifyContent: 'center'}}
 				>
 					<li>
 						<NavLink to={'/admin'}>관리자🐹</NavLink>
@@ -39,6 +39,10 @@ function Mainpage(props) {
 						<NavLink to={'/host/bookinglist'}>예약리스트</NavLink>
 					</li>
 					<li>
+						<NavLink to={'/chat/chat'}>채팅 (호스트)</NavLink>
+					</li>
+					<li>
+						<NavLink to={'/chat/chat'}>채팅 (유저)</NavLink>
 						<NavLink to={'/passwordsearch'}>비밀번호변경</NavLink>
 						<NavLink to={'/host/acount'}>정산페이지</NavLink>
 					</li>
@@ -47,8 +51,12 @@ function Mainpage(props) {
 					</li>
 				</ul>
 			</div>
+			<hr /> */}
 
-			<hr />
+			{/* 시작 지점 */}
+			<br />
+			<br />
+			<br />
 			<br />
 
 			{/* 카테고리 영역 */}
@@ -58,14 +66,6 @@ function Mainpage(props) {
 			<br />
 			<br />
 			<br />
-
-			{/* 공지&이벤트 영역 */}
-			{/* 
-			<NoticeEvent />
-			<br />
-			<br />
-			<br />
-			 */}
 
 			{/* 기획전 영역 */}
 			<Theme />

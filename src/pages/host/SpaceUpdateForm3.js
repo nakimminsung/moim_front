@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import styled from 'styled-components';
+import './SpaceAddForm3.css';
 
 function SpaceUpdateForm3(props) {
 	localStorage.url = 'http://localhost:9000';
@@ -67,18 +68,6 @@ function SpaceUpdateForm3(props) {
 		console.log('호출');
 	}, []);
 
-	const payCheck = (e) => {
-		setPayment(e.target.value);
-		// console.log(e.target.value);
-	};
-
-	const radioCheck = (e) => {
-		setElevator(e.target.value);
-		// console.log(elevator);
-		// setElevator(e.target.value);
-		// console.log(e.target.value);
-	};
-
 	const stiemeOnchange = (e) => {
 		setStime(e.target.value);
 	};
@@ -103,6 +92,16 @@ function SpaceUpdateForm3(props) {
 		}
 	};
 
+	const onClick = (e, key, type) => {
+		e.preventDefault();
+		if (type === 'elevator') {
+			setElevator(key);
+		} else {
+			setPayment(key);
+		}
+		console.log(elevator);
+		console.log(payment);
+	};
 	// useEffect(() => {
 	// 	console.log('headcount=' + headcount);
 	// 	console.log('floor=' + floor);
@@ -213,7 +212,7 @@ function SpaceUpdateForm3(props) {
 								type={'number'}
 								margin='normal'
 								value={headcount}
-								InputProps={{inputProps: {min: 0, max: 10}}}
+								InputProps={{inputProps: {min: 0, max: 500}}}
 								variant='outlined'
 								size='small'
 								onChange={(e) => setHeadCount(e.target.value)}
@@ -465,27 +464,20 @@ function SpaceUpdateForm3(props) {
 							<br />
 						</div>
 						<div>
-							<label>
-								<input
-									// style={{display: 'none'}}
-									type={'radio'}
-									value={'1'}
-									checked={elevator == '1'}
-									onChange={radioCheck}
-								/>
-								있음
-							</label>
-							<b>///////</b>
-							<label>
-								<input
-									// style={{display: 'none'}}
-									type={'radio'}
-									value={'0'}
-									checked={elevator == '0'}
-									onChange={radioCheck}
-								/>
-								없음
-							</label>
+							<div>
+								<button
+									onClick={(e) => onClick(e, 1, 'elevator')}
+									className={elevator === 1 ? 'selected' : ''}
+								>
+									있음
+								</button>
+								<button
+									onClick={(e) => onClick(e, 0, 'elevator')}
+									className={elevator === 0 ? 'selected' : ''}
+								>
+									없음
+								</button>
+							</div>
 						</div>
 					</div>
 				</Space>
@@ -577,27 +569,22 @@ function SpaceUpdateForm3(props) {
 						</span>
 						<br />
 						<br />
-						<label>
-							<input
-								// style={{display: 'none'}}
-								type={'radio'}
-								value={'바로결제'}
-								checked={payment == '바로결제'}
-								onChange={payCheck}
-							/>
+						<button
+							onClick={(e) => onClick(e, '바로결제', 'payment')}
+							className={
+								payment === '바로결제' ? 'selected1' : ''
+							}
+						>
 							바로결제
-						</label>
-						<b>////////////</b>
-						<label>
-							<input
-								// style={{display: 'none'}}
-								type={'radio'}
-								value={'승인결제'}
-								checked={payment == '승인결제'}
-								onChange={payCheck}
-							/>
+						</button>
+						<button
+							onClick={(e) => onClick(e, '승인결제', 'payment')}
+							className={
+								payment === '승인결제' ? 'selected1' : ''
+							}
+						>
 							승인결제
-						</label>
+						</button>
 					</div>
 				</Space>
 				<br />

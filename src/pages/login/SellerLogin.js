@@ -32,6 +32,7 @@ function SellerLogin() {
           // localStorage.myname = res.data.myname
           sessionStorage.loginok = 'yes';
           sessionStorage.email = email;
+          sessionStorage.num = res.data.num;
           sessionStorage.name = res.data.name;
           sessionStorage.password = res.data.password;
 
@@ -81,7 +82,7 @@ function SellerLogin() {
                 />
                 <EmailLoginInput
                   id="password"
-                  // type="password"
+                  type="password"
                   value={password}
                   placeholder="비밀번호"
                   required

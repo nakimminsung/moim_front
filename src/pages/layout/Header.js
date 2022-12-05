@@ -1,15 +1,14 @@
-import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { SearchRounded } from '@material-ui/icons';
+import React, {useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {SearchRounded} from '@material-ui/icons';
 import mlogo from '../../asset/logo/m_logo.png';
-import MyMenu from '../components/MyMenu';
+import MyMenu from '../../components/MyMenu';
 import styled from 'styled-components';
 
 function Header(props) {
 	//useState 가 아닌 버튼 클릭 시 searchWord에 저장되도록 Ref 사용
 	const input = useRef(null);
 	const navi = useNavigate();
-	const [searchWord, setSearchWord] = useState('');
 
 	//input text 에 엔터키 적용시키기
 	const handleOnKeyPress = (e) => {
@@ -29,8 +28,8 @@ function Header(props) {
 		<HeaderWrapper>
 			<InnerWrapper>
 				<Home onClick={() => navi('/')}>
-					<img alt='' src={mlogo} />
-					<b>MoiM</b>
+					{/* <img alt='' src={mlogo} /> */}
+					<b style={{fontFamily: 'Happiness-Sans-Title'}}>MoiM</b>
 				</Home>
 				<SearchBox>
 					<SearchRounded onClick={handleClick} />
@@ -42,6 +41,12 @@ function Header(props) {
 					/>
 				</SearchBox>
 				<RightWrapper>
+					<NoticeLink>
+						<span onClick={() => navi('/admin')}>관리자</span>
+						&emsp;
+						<span onClick={() => navi('/notice')}>공지사항</span>
+					</NoticeLink>
+					&emsp;
 					<HostLink onClick={() => navi('/')}>
 						내 공간 등록하기
 					</HostLink>
@@ -62,6 +67,8 @@ const HeaderWrapper = styled.header`
 	width: 100%;
 	display: flex;
 	align-items: center;
+
+	border-bottom: 0.5px solid lightgray;
 `;
 const InnerWrapper = styled.div`
 	display: flex;
@@ -146,6 +153,14 @@ const HostLink = styled.div`
 	font-size: 18px;
 	cursor: pointer;
 `;
+
+const NoticeLink = styled.div`
+	width: 150px;
+	font-size: 18px;
+	cursor: pointer;
+	color: gray;
+`;
+
 const RightWrapper = styled.div`
 	display: flex;
 	align-items: center;

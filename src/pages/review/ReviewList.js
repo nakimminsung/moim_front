@@ -8,9 +8,26 @@ function ReviewList(props) {
 	return (
 		<div className='reviewQnaGuest' style={{width: '100%'}}>
 			<div style={{width: '100%', textAlign: 'center'}}>
-				<h3>
-					{show === 1 ? <b>이용후기관리</b> : <b> Q & A 관리 </b>}
-				</h3>
+				<div style={{marginTop: '40px'}}>
+					{show === 1 ? (
+						<b
+							style={{
+								fontSize: '30px',
+							}}
+						>
+							이용후기관리
+						</b>
+					) : (
+						<b
+							style={{
+								fontSize: '30px',
+							}}
+						>
+							{' '}
+							Q & A 관리{' '}
+						</b>
+					)}
+				</div>
 				<br />
 				<div className='input-group' style={{height: '40px'}}>
 					<span
