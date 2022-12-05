@@ -48,7 +48,8 @@ function Mypage(props) {
         <div>
             <h2 style={{
                 textAlign: 'center',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                marginTop: '50px'
             }}>프로필 관리</h2>
             <div id='wrapper'>
                 <div class='content'>

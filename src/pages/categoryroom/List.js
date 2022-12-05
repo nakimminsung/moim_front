@@ -57,7 +57,7 @@ function List(props) {
 
 const ListWrapper = styled(Box)`
 	margin-bottom: -20px;
-	padding-Top: 20px;
+	padding-Top: 5px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

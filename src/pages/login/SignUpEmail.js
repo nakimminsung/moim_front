@@ -115,7 +115,7 @@ function SignUpEmail() {
                 <li>1</li>
                 <IsActive>2</IsActive>
               </ul>
-              <Title>가입 정보 입력하기</Title>
+              <Title>MoiM 회원가입</Title>
             </SignupStep>
             <FormBlock>
               <FormBlockHead>

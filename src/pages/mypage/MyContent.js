@@ -149,10 +149,11 @@ function MyContent(props) {
 
     useEffect(() => {
         getMemberInfo()
-        // hideEmail()
+        hideEmail()
         // console.log(memberList);
     }, [])
 
+    console.log(email)
     return (
         <div className="my-content-wrapper">
             <div className="my-content-profile" style={{ textAlign: "center" }}>
@@ -261,7 +262,7 @@ function MyContent(props) {
                                 <td style={{ textAlign: 'left' }}>
                                     {props.memberList.password !== 'kakao' ? <b style={{ color: 'red' }}>연동 정보 없음</b> :
                                         <div>
-                                            <img src={`image/카카오로고.png`} alt="copy url" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+                                            <img src={"image/kakao.png"} alt="카카오" style={{ width: '25px', height: '25px', marginRight: '5px' }} />
                                             <b>카카오연동</b>
                                         </div>}
                                 </td>
