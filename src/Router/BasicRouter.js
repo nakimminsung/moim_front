@@ -58,7 +58,7 @@ function BasicRouter() {
 				{/* 호스트 */}
 				<Route path='host'>
 					<Route path='slist' element={<SpaceList />} />
-					<Route path='addform' element={<SpaceAddForm />} />
+					<Route path='addform/' element={<SpaceAddForm />} />
 					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
 					<Route path='addform3/:num' element={<SpaceAddForm3 />} />
 					<Route

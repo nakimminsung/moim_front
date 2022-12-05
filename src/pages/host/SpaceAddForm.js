@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Button from '@material-ui/core/Button';
 import styled1 from 'styled-components';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 //다이얼로그에 필요한 코드들
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
@@ -48,7 +48,8 @@ function BootstrapDialogTitle(props) {
 }
 
 function SpaceAddForm(props) {
-	const {hostNum} = sessionStorage.num;
+	// const hostNum = useParams();
+	const hostNum = sessionStorage.num;
 	console.log(hostNum);
 	//주소 검색
 	const [openPostcode, setOpenPostcode] = useState(false);
