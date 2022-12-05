@@ -486,7 +486,7 @@ function SpaceUpdateForm2(props) {
 											<img
 												key={idx}
 												alt=''
-												src={`${imageUrl}${images.rimageUrl}`}
+												src={`${images.rimageUrl}`}
 												className='roomImge'
 												style={{
 													width: '100%',
@@ -537,7 +537,7 @@ function SpaceUpdateForm2(props) {
 											>
 												<img
 													alt=''
-													src={`${imageUrl}${room}`}
+													src={`${room}`}
 													className='roomImge'
 													style={{
 														width: '100%',
@@ -637,10 +637,7 @@ function SpaceUpdateForm2(props) {
 															maxHeight: '150px',
 														}}
 														alt=''
-														src={
-															imageUrl +
-															rotion.oimageUrl
-														}
+														src={rotion.oimageUrl}
 													/>
 												</td>
 												<td style={{width: '20%'}}>
@@ -703,10 +700,7 @@ function SpaceUpdateForm2(props) {
 															maxHeight: '150px',
 														}}
 														alt=''
-														src={
-															imageUrl +
-															roption2.oimageUrl
-														}
+														src={roption2.oimageUrl}
 													/>
 												</td>
 												<td style={{width: '20%'}}>
