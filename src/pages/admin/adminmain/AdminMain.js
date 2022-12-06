@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import PopularHostSpace from './PopularHostSpace';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -21,6 +21,8 @@ function AdminMain(props) {
 
 	//처리대기 신고 리스트
 	const [waitReport, setWaitReport] = useState('');
+
+	const navi = useNavigate();
 
 	return (
 		// 전체 묶는 div
@@ -61,27 +63,44 @@ function AdminMain(props) {
 					<div
 						style={{
 							display: 'flex',
-							// justifyContent: 'space-between',
+							justifyContent: 'space-between',
 						}}
 					>
+						<div style={{display: 'flex'}}>
+							<div
+								style={{
+									backgroundColor: 'black',
+									color: 'white',
+									width: '60px',
+									height: '30px',
+									borderRadius: '30px',
+									textAlign: 'center',
+									fontWeight: 'bold',
+								}}
+							>
+								TOP 5
+							</div>
+							&emsp;
+							<b style={{fontSize: '20px'}}>
+								인기있는 공간 & 호스트{' '}
+								{/* <ThumbUpIcon style={{color: 'gray'}} /> */}
+							</b>
+						</div>
 						<div
 							style={{
-								backgroundColor: 'black',
+								backgroundColor: 'gray',
 								color: 'white',
-								width: '60px',
+								width: '80px',
 								height: '30px',
 								borderRadius: '30px',
 								textAlign: 'center',
 								fontWeight: 'bold',
+
+								marginTop: '5px',
 							}}
 						>
-							TOP 5
+							바로가기
 						</div>
-						&emsp;
-						<b style={{fontSize: '20px'}}>
-							인기있는 공간 & 호스트{' '}
-							{/* <ThumbUpIcon style={{color: 'gray'}} /> */}
-						</b>
 					</div>
 					<div>
 						<PopularHostSpace />
