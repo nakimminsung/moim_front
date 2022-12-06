@@ -69,9 +69,11 @@ function Acount1(props) {
 		});
 	};
 
+	const [bookingStatus, setBookingStatus] = useState(4);
 	const [payStatus, setPayStatus] = useState(0);
 	//리스트 호출하는 것
 	const [acountlist, setAcountList] = useState([]);
+	console.log(acountlist);
 	//검색 버튼 눌렀을때 발생하는 이벤트
 	const onClickSearch = () => {
 		let sdate = moment(sday).format('YYYY-MM-DD');
@@ -88,7 +90,9 @@ function Acount1(props) {
 			'&hostNum=' +
 			hostNum +
 			'&payStatus=' +
-			payStatus;
+			payStatus +
+			'&bookingStatus=' +
+			bookingStatus;
 		console.log(searchUrl);
 		axios.get(searchUrl).then((res) => {
 			console.log(res.data);
