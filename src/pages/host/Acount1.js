@@ -157,119 +157,106 @@ function Acount1(props) {
 	return (
 		<div style={{height: '100vh'}}>
 			<div className='box_search'>
-				<div className='box_inner'>
-					<div className='one_search'>
-						<div className='flex_wrap'>
-							<div>결제기간</div>
-							<div className='flex_box' style={{display: 'flex'}}>
+				<div className='flex_wrap'>
+					<div>결제기간</div>
+					<div>
+						<div
+							style={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'space-between',
+							}}
+						>
+							<div
+								style={{
+									width: '400px',
+									display: 'flex',
+								}}
+							>
 								<div>
-									<div
-										className='flex'
-										style={{width: '400px'}}
+									<TextField
+										value={moment(sday).format(
+											'YYYY-MM-DD',
+										)}
+										id='outlined-full-width'
+										title='이용시작일'
+										InputProps={{
+											readOnly: true,
+										}}
+										size='small'
+										onClick={() => {
+											setSShowCalendar(true);
+										}}
+									/>
+								</div>
+								<span>-</span>
+								<div
+									style={{
+										position: 'relative',
+									}}
+								>
+									<TextField
+										value={moment(eday).format(
+											'YYYY-MM-DD',
+										)}
+										id='outlined-full-width'
+										title='이용종료일'
+										InputProps={{
+											readOnly: true,
+										}}
+										size='small'
+										onClick={() => {
+											setEShowCalendar(true);
+										}}
+									/>
+								</div>
+							</div>
+							<div>
+								<FormControl
+									sx={{m: 1, minWidth: 200}}
+									size='small'
+								>
+									<Select
+										labelId='demo-select-small'
+										id='demo-select-small'
+										onChange={getRoomName}
+										defaultValue={'전체보기'}
 									>
-										<div style={{display: 'flex'}}>
-											<div>
-												<TextField
-													value={moment(sday).format(
-														'YYYY-MM-DD',
-													)}
-													id='outlined-full-width'
-													title='이용시작일'
-													InputProps={{
-														readOnly: true,
-													}}
-													size='small'
-													onClick={() => {
-														setSShowCalendar(true);
-													}}
-												/>
-											</div>
-											<span>-</span>
-											<div style={{position: 'relative'}}>
-												<TextField
-													value={moment(eday).format(
-														'YYYY-MM-DD',
-													)}
-													id='outlined-full-width'
-													title='이용종료일'
-													InputProps={{
-														readOnly: true,
-													}}
-													size='small'
-													onClick={() => {
-														setEShowCalendar(true);
-													}}
-												/>
-											</div>
-										</div>
-									</div>
-									<div className='flex'>
-										<div className='input'>
-											<FormControl
-												sx={{m: 1, minWidth: 200}}
-												size='small'
-											>
-												<Select
-													labelId='demo-select-small'
-													id='demo-select-small'
-													onChange={getRoomName}
-													defaultValue={'전체보기'}
-												>
+										<MenuItem value='전체보기' selected>
+											<em>전체보기</em>
+										</MenuItem>
+										{roomlist &&
+											roomlist
+												.filter(
+													(arr, index, callback) =>
+														index ===
+														callback.findIndex(
+															(loc) =>
+																loc.roomName ===
+																arr.roomName,
+														),
+												)
+												.map((item, idx) => (
 													<MenuItem
-														value='전체보기'
-														selected
+														value={item.roomName}
 													>
-														<em>전체보기</em>
+														<em key={idx}>
+															{item.roomName}
+														</em>
 													</MenuItem>
-													{roomlist &&
-														roomlist
-															.filter(
-																(
-																	arr,
-																	index,
-																	callback,
-																) =>
-																	index ===
-																	callback.findIndex(
-																		(loc) =>
-																			loc.roomName ===
-																			arr.roomName,
-																	),
-															)
-															.map(
-																(item, idx) => (
-																	<MenuItem
-																		value={
-																			item.roomName
-																		}
-																	>
-																		<em
-																			key={
-																				idx
-																			}
-																		>
-																			{
-																				item.roomName
-																			}
-																		</em>
-																	</MenuItem>
-																),
-															)}
-												</Select>
-											</FormControl>
-										</div>
-									</div>
-								</div>
-								<div className='flex'>
-									<BtnBox
-										style={{cursor: 'pointer'}}
-										onClick={onClickSearch}
-									>
-										<BtnLabel>
-											<div>검색</div>
-										</BtnLabel>
-									</BtnBox>
-								</div>
+												))}
+									</Select>
+								</FormControl>
+							</div>
+							<div>
+								<BtnBox
+									style={{cursor: 'pointer'}}
+									onClick={onClickSearch}
+								>
+									<BtnLabel>
+										<div>검색</div>
+									</BtnLabel>
+								</BtnBox>
 							</div>
 						</div>
 					</div>
@@ -414,9 +401,6 @@ function Acount1(props) {
 
 export default Acount1;
 const BtnBox = styled.div`
-	position: absolute;
-	top: 0;
-	right: 0;
 	margin-left: 10px;
 	overflow: hidden;
 	width: 154px;
