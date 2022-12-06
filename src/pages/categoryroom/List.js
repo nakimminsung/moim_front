@@ -16,10 +16,10 @@ function List(props) {
         setSort,
     } = props;
 
-
     const handleChange = (e) => {
         setSort(e.target.value);
     };
+    console.log(roomData)
 
     return (
         <>
@@ -31,8 +31,9 @@ function List(props) {
                             id='demo-select-small'
                             value={sort}
                             onChange={handleChange}
-                            defaultValue={'a.readCount desc'}
+                            defaultValue={'a.writeday desc'}
                         >
+                            <MenuItem value={'a.writeday desc'}>최신순</MenuItem>
                             <MenuItem value={'a.readCount desc'}>인기순</MenuItem>
                             <MenuItem value={'a.weekAmPrice asc'}>
                                 낮은 가격순
@@ -57,7 +58,7 @@ function List(props) {
 
 const ListWrapper = styled(Box)`
 	margin-bottom: -20px;
-	padding-Top: 20px;
+	padding-Top: 5px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

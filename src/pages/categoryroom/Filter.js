@@ -360,7 +360,7 @@ const RoomImage = styled.div`
 		${'' /* 마지막은 투명도 */}
 		background-color: rgba(0, 0, 0, 0.4);
 	}
-	background-size: 100% 160%;
+	background-size: 100% 165%;
 	background-position:center;
 	// object-fit: cover;
 	// object-position: 50% 50%; 

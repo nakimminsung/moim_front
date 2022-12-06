@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Mainpage from '../pages/main/MainPage';
 import SpaceList from '../pages/host/SpaceList';
 import ReviewList from '../pages/review/ReviewList';
@@ -35,6 +35,7 @@ import PasswordSearch2 from '../pages/login/PasswordSearch2';
 import SpaceAcount from '../pages/host/SpaceAcount';
 import HostReviewQna from '../pages/host/HostReviewQna';
 import SearchRoom from '../pages/search/SearchRoom';
+import Recent from '../pages/mypage/recent/Recent';
 
 function BasicRouter() {
 	return (
@@ -102,14 +103,19 @@ function BasicRouter() {
 					/>
 				</Route>
 
+				{/* 로그인, 회원가입 */}
 				<Route path='login' element={<Login />} />
 				<Route path='signup' element={<SignUp />} />
 				<Route path='signupEmail' element={<SignUpEmail />} />
 				<Route path='seller' element={<SellerLogin />} />
 				<Route path='sellerJoin' element={<SellerJoin />} />
 				{/* <Route path='mypage' element={<Mypage />} /> */}
+				{/* 비밀번호 찾기 */}
 				<Route path='passwordsearch' element={<PasswordSearch />} />
 				<Route path='passwordsearch2' element={<PasswordSearch2 />} />
+
+				{/* 최근 본 상품 */}
+				<Route path='recent' element={<Recent />} />
 
 				{/* 카테고리별 방 페이지 */}
 				<Route path='categoryroomList'>

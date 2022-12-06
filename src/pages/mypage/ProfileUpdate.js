@@ -64,12 +64,12 @@ function ProfileUpdate(props) {
 
         //url로 body 데이터를 보낸다
         axios({
-            method: 'post',
+            method: 'patch',
             url: url, //BackEnd로 보낼 url
             data: updateData,
             headers: { 'Content-Type': 'multipart/form-data' },
         }).then((res) => {
-            console.log('res.data=' + res.data);
+            console.log('res.data=' + res.profile_image);
             alert('수정 완료되었습니다.');
 
             //성공하고 비워주기
