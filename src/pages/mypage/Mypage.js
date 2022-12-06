@@ -17,7 +17,8 @@ function Mypage(props) {
             // console.log(res.data)
             setMemberList(res.data);
             // memberList = res.data;
-            // console.log(res.data);
+            console.log(url);
+            console.log(res.data);
             // console.log(memberList);
         });
     };
@@ -48,7 +49,8 @@ function Mypage(props) {
         <div>
             <h2 style={{
                 textAlign: 'center',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                marginTop: '50px'
             }}>프로필 관리</h2>
             <div id='wrapper'>
                 <div class='content'>

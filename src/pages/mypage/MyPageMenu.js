@@ -4,10 +4,12 @@ import jwt_decode from 'jwt-decode';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import TextsmsIcon from '@material-ui/icons/Textsms';
 import HelpIcon from '@material-ui/icons/Help';
+import HistoryIcon from '@material-ui/icons/History';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 function MyPageMenu(props) {
     const token = jwt_decode(localStorage.getItem('token'));
     const [email, setEmail] = useState(`${token.email}`);
-
+    const userNum = jwt_decode(localStorage.getItem('token')).idx;
     const hideEmail = () => {
         let splitName = email.split('')      //입력받은 문자값을 단어하나하나로 쪼갠다.
         splitName.forEach((name, i) => {
@@ -27,7 +29,7 @@ function MyPageMenu(props) {
             {/* <input type="hidden" name="birth" value="${sessionScope.loginBirth}" /> */}
             <div className="my-profile" style={{ textAlign: "center" }}>
                 <div className="my-pofile-left" style={{ display: "flex", display: "inline-block", marginBottom: '20px' }}>
-                    <img alt="updateprofileImage" src={`http://localhost:9000/image/${props.memberList.profile_image}`} className="updateprofileImage" />
+                    <img alt="updateprofileImage" src={`${props.memberList.profile_image}`} className="updateprofileImage" />
                 </div>
                 <div>
                     <b>{email}</b>
@@ -49,7 +51,8 @@ function MyPageMenu(props) {
                         {/* <br /> */}
                         <a className="mylike" href="/like"><FavoriteIcon />&nbsp;찜 목록</a>
                         {/* <br /> */}
-                        <a className="myquestion" href="/"><HelpIcon />&nbsp;문의내역</a>
+                        <a className="mylist" href={`../booking/list/${userNum}`}><EventAvailableIcon />&nbsp;나의예약</a>
+                        <a className="recent" href={"/recent"}><HistoryIcon />&nbsp;최근 본 장소</a>
                     </div>
                 </div>
             </div>

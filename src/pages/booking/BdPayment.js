@@ -300,12 +300,13 @@ function BdPayment({
 			<div className='bdPrice'>
 				<div>
 					<p>
-						예약날짜&nbsp;&nbsp;<b>{date}</b>
+						<b>예약날짜</b>&nbsp;&nbsp;
+						<b style={{color: 'gray'}}>{date}</b>
 					</p>
 					<div style={{display: 'flex'}}>
 						<p>
-							예약시간&nbsp;&nbsp;
-							<b>
+							<b>예약시간</b>&nbsp;&nbsp;
+							<b style={{color: 'gray'}}>
 								{stime}시~{Number(etime) + 1}시,{' '}
 								{Number(etime) + 1 - stime}시간
 							</b>
@@ -322,13 +323,14 @@ function BdPayment({
 					</div>
 					<div
 						style={{
-							display: 'flex',
+							// display: 'flex',
 							// flexWrap: 'wrap',
-							width: '250px',
+							width: '100%',
+							justifyContent: 'space-between',
 						}}
 					>
 						{optionInsertList.some((elem) => elem.count > 0) ? (
-							<>추가옵션&nbsp;&nbsp;</>
+							<b>추가옵션</b>
 						) : (
 							<></>
 						)}
@@ -338,8 +340,9 @@ function BdPayment({
 									<p
 										key={idx}
 										style={{
-											display: 'inline-block',
-											flexWrap: 'wrap',
+											color: 'gray',
+											// display: 'inline-block',
+											// flexWrap: 'wrap',
 										}}
 									>
 										<b>
@@ -354,14 +357,32 @@ function BdPayment({
 							),
 						)}
 						{optionInsertList.some((elem) => elem.count > 0) ? (
-							<p
+							<div
 								style={{
-									marginLeft: 'auto',
-									color: '#704de4',
+									display: 'flex',
+									width: '100%',
+									justifyContent: 'space-between',
 								}}
 							>
-								<b>₩{optionPrice.toLocaleString('ko-KR')}</b>
-							</p>
+								<p>
+									<b>총 옵션 금액</b>
+								</p>
+								<p
+									style={{
+										// display: 'flex',
+										// justifyContent: 'flex-end',
+										color: '#704de4',
+									}}
+								>
+									<b
+										style={{
+											borderBottom: '2px solid #704de4',
+										}}
+									>
+										₩{optionPrice.toLocaleString('ko-KR')}
+									</b>
+								</p>
+							</div>
 						) : (
 							<></>
 						)}
@@ -372,7 +393,8 @@ function BdPayment({
 							borderBottom: '3px solid #704de4',
 						}}
 					>
-						예약인원&nbsp;&nbsp;<b>{head}명</b>
+						<b>예약인원</b>&nbsp;&nbsp;
+						<b style={{color: 'gray'}}>{head}명</b>
 					</p>
 					<div
 						style={{
@@ -419,25 +441,43 @@ function BdPayment({
 						}}
 					>
 						{roomData.payment === '바로결제' ? (
-							<h4
-								style={{
-									marginBottom: '10px',
-									marginTop: '10px',
-									textAlign: 'center',
-								}}
-							>
-								결제하시겠습니까?
-							</h4>
+							<>
+								<DialogTitle
+									style={{
+										backgroundColor: '#704de4',
+										color: 'white',
+										textAlign: 'center',
+									}}
+								>
+									결제하시겠습니까?
+									<CloseIcon
+										style={{
+											float: 'right',
+											cursor: 'pointer',
+										}}
+										onClick={handleClose}
+									/>
+								</DialogTitle>
+							</>
 						) : (
-							<h4
-								style={{
-									marginBottom: '10px',
-									marginTop: '10px',
-									textAlign: 'center',
-								}}
-							>
-								예약 내용을 확인해주세요
-							</h4>
+							<>
+								<DialogTitle
+									style={{
+										backgroundColor: '#704de4',
+										color: 'white',
+										textAlign: 'center',
+									}}
+								>
+									예약 내용을 확인해주세요
+									<CloseIcon
+										style={{
+											float: 'right',
+											cursor: 'pointer',
+										}}
+										onClick={handleClose}
+									/>
+								</DialogTitle>
+							</>
 						)}
 					</DialogTitle>
 					<DialogContent>
