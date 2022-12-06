@@ -1,3 +1,94 @@
+body {
+	-ms-overflow-style: none;
+}
+
 ::-webkit-scrollbar {
 	display: none;
+}
+
+input:focus {
+	outline: none;
+}
+
+ul.MuiMenu-list {
+	padding-bottom: 0;
+}
+
+.pay-btn {
+	width: 48%;
+	height: 45px;
+	border: 1px solid #eae7e7;
+	border-radius: 10px;
+}
+
+.pay-btn input[type='radio'] {
+	display: none;
+}
+
+.pay-btn label {
+	cursor: pointer;
+	display: block;
+	border-radius: 10px;
+	margin: 0 auto;
+	text-align: center;
+	height: -webkit-fill-available;
+	line-height: 45px;
+}
+
+/* Checked */
+.pay-btn input[type='radio']:checked+label {
+	background: #9b4de3;
+	color: yellow;
+}
+
+/* Hover */
+.pay-btn label:hover {
+	color: #666;
+}
+
+/* Disabled */
+.pay-btn input[type='radio']+label {
+	background: #f9fafc;
+	color: #666;
+}
+
+.facility-btn {
+	width: 30%;
+	height: 45px;
+	border: 1px solid #eae7e7;
+	border-radius: 10px;
+	margin: 2px;
+	margin-top: 10px;
+}
+
+.facility-btn input[type='checkbox'] {
+	display: none;
+}
+
+.facility-btn label {
+	cursor: pointer;
+	display: block;
+	border-radius: 10px;
+	margin: 0 auto;
+	text-align: center;
+	height: -webkit-fill-available;
+	line-height: 45px;
+	font-size: 14px;
+}
+
+/* Checked */
+.facility-btn input[type='checkbox']:checked+label {
+	background: #9b4de3;
+	color: yellow;
+}
+
+/* Hover */
+.facility-btn label:hover {
+	color: #666;
+}
+
+/* Disabled */
+.facility-btn input[type='checkbox']+label {
+	background: #f9fafc;
+	color: #666;
 }

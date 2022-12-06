@@ -44,6 +44,7 @@ function SignUpEmail() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [nickname, setNickname] = useState("");
+  const navi = useNavigate();
 
   let body = {
     email: email,
@@ -52,7 +53,14 @@ function SignUpEmail() {
   };
 
   const onSubmit = async () => {
-    try {
+
+    if (email == '') {
+      alert('이메일을 입력하지 않았습니다. 이메일을 입력해주세요')
+    } else if (password == '') {
+      alert('비밀번호를 입력하지 않았습니다. 비밀번호를 입력해주세요')
+    } else if (nickname == '') {
+      alert('이름을 입력하지 않았습니다. 이름을 입력해주세요')
+    } else {
       const response = await axios.post(
         "http://localhost:9000/member/signup",
         body,
@@ -63,10 +71,12 @@ function SignUpEmail() {
       console.log(response.data.code);
       if (response.data.code === 1000) {
         window.location.href = "/emailcheck";
+        // navi('/emailcheck');
       }
-    } catch (e) {
-      console.log(e);
+      alert('회원가입이 완료되었습니다! 로그인하여 서비스를 이용해보세요')
+      navigate('/login');
     }
+
   };
 
   const emailCheck = async () => {
@@ -252,8 +262,7 @@ function SignUpEmail() {
                   type="button"
                   onClick={() => {
                     onSubmit();
-                    alert('회원가입이 완료되었습니다! 로그인하여 서비스를 이용해보세요')
-                    navigate('/login');
+                    // alert('회원가입이 완료되었습니다! 로그인하여 서비스를 이용해보세요')
                   }}
                 >
                   회원가입하기
