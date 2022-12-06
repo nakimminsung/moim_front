@@ -379,7 +379,15 @@ function Acount2(props) {
 											<td>{item.roomName}</td>
 											<td>{item.pg}</td>
 											<td>{item.name}</td>
-											<td>{item.totalPrice}</td>
+											{/* <td>{item.totalPrice}</td> */}
+											<td>
+												<b>
+													₩
+													{item.totalPrice.toLocaleString(
+														'ko-KR',
+													)}
+												</b>
+											</td>
 											<td>
 												{Number(item.payStatus) ===
 												1 ? (

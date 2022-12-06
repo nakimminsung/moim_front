@@ -565,7 +565,6 @@ function SpaceAddForm3(props) {
 										className='table table-info'
 									>
 										<tr>
-											<th>주간 오전 가격</th>
 											<th>가격 오후 가격</th>
 											<th>주말 오전 가격</th>
 											<th>주말 오후 가격</th>
