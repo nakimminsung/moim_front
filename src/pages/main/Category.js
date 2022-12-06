@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import styled from 'styled-components';
+
 function Category(props) {
 	const [category, setCategory] = useState('');
 	const navi = useNavigate();
@@ -47,10 +49,12 @@ function Category(props) {
 				{/* 카테고리 img + 카테고리 name 을 묶은 div 반복 구간 */}
 				{category &&
 					category.map((row, idx) => (
-						<div
+						<CategoryObject
 							className='categoryCardInfo'
 							key={row.num}
-							style={{cursor: 'pointer', width: '9%'}}
+							style={{
+								cursor: 'pointer',
+							}}
 							onClick={() => {
 								navi('/categoryroomList/' + row.num);
 							}}
@@ -61,11 +65,12 @@ function Category(props) {
 								style={{
 									width: '70px',
 									marginBottom: '10px',
+									minWidth: '70px',
 								}}
 							/>
 							<br />
 							<span style={{}}>{row.cname}</span>
-						</div>
+						</CategoryObject>
 					))}
 				{/* 반복구간 종료 */}
 			</div>
@@ -75,3 +80,18 @@ function Category(props) {
 }
 
 export default Category;
+
+const CategoryObject = styled.div`
+	@media (max-width: 1920px) {
+		width: 9%;
+	}
+	@media (max-width: 1680px) {
+		width: 9%;
+	}
+	@media (max-width: 1000px) {
+		width: 17%;
+	}
+	@media (max-width: 900px) {
+		width: 17%;
+	}
+`;

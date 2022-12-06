@@ -36,8 +36,7 @@ function Content(props) {
 		});
 
 		// marker image setting
-		let imageSrc =
-			'https://img.icons8.com/office/40/000000/place-marker--v2.png';
+		let imageSrc = 'https://img.icons8.com/glyph-neue/512/marker.png';
 		let imageSize = new kakao.maps.Size(40, 40);
 		let imageOption = {offset: new kakao.maps.Point(27, 69)};
 		let markerImage = new kakao.maps.MarkerImage(
@@ -57,10 +56,11 @@ function Content(props) {
 				),
 			});
 			let content =
-				'<div class="card" style="width:300px; z-index:20; margin:-2px;">' +
+				`<a href="http://localhost:3000/detail/${position.num}" style="text-decoration:none">` +
+				`<div class="card" style="width:300px; z-index:20; margin:-2px;">` +
 				`    <img class="card-img-top" src="${position.thumbnailImage}" alt='' style="width:300px; height:180px;" />` +
 				`    <div class="card-body" style="width:300px; height:130px; display:flex; flex-direction:column; justify-content:space-between; padding:10px;">` +
-				`        <h4 class="card-title" style="font-weight:600">${position.name}</h4>` +
+				`        <h4 class="card-title" style="font-weight:600; color:black;">${position.name}</h4>` +
 				`        <div style="width:300px; height:200px; display:flex; align-items:center;">` +
 				`            <i class='fas fa-map-marker-alt' style='font-size:20px; color:gray; margin-right:5px;'></i>` +
 				`            <span class="card-text" style="color:gray;">${
@@ -71,7 +71,8 @@ function Content(props) {
 					position.weekAmPrice,
 				).toLocaleString()}</b> 원/시간</p>` +
 				`    </div>` +
-				'</div>';
+				`</div>` +
+				'</a>';
 
 			let infowindow = new kakao.maps.InfoWindow({
 				content: content, // 인포윈도우에 표시할 내용
@@ -104,7 +105,7 @@ function Content(props) {
 		// 인포윈도우를 닫는 클로저를 만드는 함수입니다
 		function makeOutListener(infowindow) {
 			return function () {
-				infowindow.close();
+				// infowindow.close();
 			};
 		}
 

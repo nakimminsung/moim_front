@@ -3,14 +3,12 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Fade from '@mui/material/Fade';
 import MiniCard from './MiniCard';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import MapIcon from '@mui/icons-material/Map';
 import {useEffect} from 'react';
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 function ScrollTop(props) {
 	const {children, window} = props;
@@ -34,6 +32,7 @@ function ScrollTop(props) {
 			<Box
 				onClick={handleClick}
 				role='presentation'
+				sx={{position: 'fixed'}}
 				style={{zIndex: '999'}}
 			>
 				{children}
@@ -48,103 +47,216 @@ ScrollTop.propTypes = {
 
 export default function BasicSpeedDial(props) {
 	const [data, setData] = useState([]);
+	const navi = useNavigate();
+
 	useEffect(() => {
 		setData(JSON.parse(sessionStorage.getItem('watched')));
-		console.log(sessionStorage.getItem('watched'));
-	}, [sessionStorage.getItem('watched')]);
+	}, []);
 	return (
 		<>
-			<Wrapper
-				sx={{
-					transform: 'translateZ(0px)',
-					flexGrow: 1,
-				}}
-			>
-				<BtnWrapper>
-					<MoimBtn>M</MoimBtn>
-					<WishBtn>
-						<FavoriteIcon style={{fontSize: '30px'}} />
-					</WishBtn>
-					<MapBtn>
-						<MapIcon style={{fontSize: '30px'}} />
-					</MapBtn>
-				</BtnWrapper>
-				<CardWrapper>
-					{data && data.length !== 0
-						? data
-								.slice(0, 3)
-								.map((item, i) => <MiniCard num={item} />)
-						: ''}
-				</CardWrapper>
-				<ScrollTop {...props} aria-label='scroll back to top'>
-					<Fab size='small'>
-						<KeyboardArrowUpIcon />
-					</Fab>
-				</ScrollTop>
-			</Wrapper>
+			{sessionStorage.getItem('watched') !== null ? (
+				<OnWrapper>
+					<Wrapper
+						sx={{
+							transform: 'translateZ(0px)',
+							flexGrow: 1,
+						}}
+					>
+						<div
+							style={{
+								letterSpacing: '-1px',
+								fontWeight: '900',
+								padding: '5px',
+								color: '#707070',
+							}}
+						>
+							최근 본 공간
+						</div>
+						<CardWrapper>
+							{JSON.parse(sessionStorage.getItem('watched'))
+								.slice(0, 4)
+								.reverse()
+								.map((item, i) => (
+									<MiniCard num={item} />
+								))}
+							<MoreBtn onClick={() => navi('/recent')}>
+								More
+							</MoreBtn>
+						</CardWrapper>
+					</Wrapper>
+					<ScrollTop {...props}>
+						<MoreBtn
+							size='small'
+							aria-label='scroll back to top'
+							style={{
+								position: 'relative',
+								top: '42px',
+								height: '30px',
+								width: '80px',
+							}}
+						>
+							<KeyboardArrowUpIcon />
+						</MoreBtn>
+					</ScrollTop>
+				</OnWrapper>
+			) : (
+				<NoneWrapper
+					sx={{
+						transform: 'translateZ(0px)',
+						flexGrow: 1,
+					}}
+				>
+					<ScrollTop {...props}>
+						<TopBtn
+							size='small'
+							aria-label='scroll back to top'
+							style={{backgroundColor: '#f0f0f0'}}
+						>
+							<KeyboardArrowUpIcon />
+						</TopBtn>
+					</ScrollTop>
+					<ScrollTop {...props}>
+						<TopBtn
+							size='small'
+							aria-label='scroll back to top'
+							style={{backgroundColor: '#f0f0f0'}}
+						>
+							<KeyboardArrowUpIcon />
+						</TopBtn>
+					</ScrollTop>
+				</NoneWrapper>
+			)}
 		</>
 	);
 }
 
-const MoimBtn = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #704de4;
-	color: white;
-	border-radius: 100%;
-	width: 70px;
-	height: 70px;
-	cursor: pointer;
+const TopBtn = styled.div`
 	font-weight: 900;
-	font-size: 30px;
+	padding: 5px;
+	color: #707070;
+	border-radius: 50px;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	cursor: pointer;
+	@media (max-width: 1920px) {
+		width: 50px;
+		height: 50px;
+		font-size: 12px;
+	}
+	@media (max-width: 1680px) {
+		width: 50px;
+		height: 50px;
+		font-size: 12px;
+	}
+	@media (max-width: 1000px) {
+		width: 50px;
+		height: 50px;
+		font-size: 12px;
+	}
+	@media (max-width: 900px) {
+		width: 50px;
+		height: 50px;
+		font-size: 12px;
+	}
 `;
-const WishBtn = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #e55682;
-	color: white;
-	border-radius: 100%;
-	width: 70px;
-	height: 70px;
-	cursor: pointer;
+const MoreBtn = styled.div`
 	font-weight: 900;
-`;
-const MapBtn = styled.div`
+	padding: 5px;
+	border: 1px solid #d0d0d0;
+	color: #707070;
+	border-radius: 5px;
+	background-color: white;
 	display: flex;
-	justify-content: center;
 	align-items: center;
-	background-color: #e55682;
-	color: white;
-	border-radius: 100%;
-	width: 70px;
-	height: 70px;
+	justify-content: center;
+	text-align: center;
 	cursor: pointer;
-	font-weight: 900;
+	@media (max-width: 1920px) {
+		width: 100px;
+		height: 20px;
+		font-size: 12px;
+	}
+	@media (max-width: 1680px) {
+		width: 100px;
+		height: 20px;
+		font-size: 12px;
+	}
+	@media (max-width: 1000px) {
+		width: 70px;
+		height: 20px;
+		font-size: 12px;
+	}
+	@media (max-width: 900px) {
+		width: 70px;
+		height: 20px;
+		font-size: 12px;
+	}
 `;
 const CardWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	background-color: #f0f0f0;
+	padding: 10px;
+	border-radius: 0 0 10px 10px;
 `;
-
 const Wrapper = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+`;
+const OnWrapper = styled(Box)`
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	border: 1px solid #d0d0d0;
+	border-radius: 10px;
+	z-index: 10;
+	@media (max-width: 1920px) {
+		bottom: 60px;
+		right: 20px;
+	}
+	@media (max-width: 1680px) {
+		bottom: 60px;
+		right: 20px;
+	}
+	@media (max-width: 1000px) {
+		bottom: 50px;
+		right: 9px;
+	}
+	@media (max-width: 900px) {
+		bottom: 50px;
+		right: 9px;
+	}
+`;
+const NoneWrapper = styled(Box)`
 	position: fixed;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	bottom: 100px;
-	right: 10px;
-	height: 600px;
-	border: 1px solid gray;
-`;
-const BtnWrapper = styled(Box)`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
-	height: 230px;
-	margin-bottom: 20px;
+	border: 1px solid #d0d0d0;
+	z-index: 10;
+	@media (max-width: 1920px) {
+		bottom: 40px;
+		right: 40px;
+	}
+	@media (max-width: 1680px) {
+		bottom: 40px;
+		right: 40px;
+	}
+	@media (max-width: 1000px) {
+		bottom: 40px;
+		right: 40px;
+	}
+	@media (max-width: 900px) {
+		bottom: 40px;
+		right: 40px;
+	}
 `;
