@@ -20,8 +20,10 @@ function SpaceAddForm3(props) {
 	// const [floor, setFloor] = useState('1');
 	const floorRef = React.useRef('');
 	const [floorhide, setFloorHide] = useState(false);
+	console.log(floorRef.current.value);
 	// const [parking, setParking] = useState('');
 	const parkingRef = React.useRef('');
+	console.log(parkingRef.current.value);
 	const [parkinghide, setParkingHide] = useState(false);
 	const [elevator, setElevator] = useState(2);
 	const [payment, setPayment] = useState('');
@@ -42,16 +44,16 @@ function SpaceAddForm3(props) {
 	};
 	const floorOnchange = (e) => {
 		floorRef.current = e.target.value;
-		console.log(e.target.value);
 		if (e.target.value != '직접입력') {
 			setFloorHide(false);
+			console.log(e.target.value);
 		}
 	};
 	const parkingOnchange = (e) => {
 		parkingRef.current = e.target.value;
-		console.log(e.target.value);
 		if (e.target.value != '직접입력') {
 			setParkingHide(false);
+			console.log(e.target.value);
 		}
 	};
 
@@ -79,6 +81,8 @@ function SpaceAddForm3(props) {
 		let holiPmPrice = weekAmPriceRef.current.value;
 		let floor = floorRef.current.value;
 		let parking = parkingRef.current.value;
+		console.log('parking=' + parking);
+		console.log('floor=' + floor);
 
 		axios
 			.post(insertUpdateUrl, {
@@ -105,7 +109,6 @@ function SpaceAddForm3(props) {
 		<div className='contents'>
 			<form onSubmit={onSubmitEvent}>
 				<div
-					className='input-group'
 					style={{
 						position: 'relative',
 						width: '100%',
@@ -148,7 +151,7 @@ function SpaceAddForm3(props) {
 						style={{
 							display: 'flex',
 							alignItems: 'center',
-							justifyContent: 'flex-start',
+							justifyContent: 'space-between',
 						}}
 					>
 						<div className='headcount'>
@@ -187,9 +190,21 @@ function SpaceAddForm3(props) {
 									이용시간
 									<IcoRequired>*</IcoRequired>
 								</div>
-								<div style={{display: 'flex'}}>
-									<div>
+								<div
+									style={{
+										marginTop: '3px',
+										display: 'flex',
+										alignItems: 'center',
+									}}
+								>
+									<div
+										style={{
+											display: 'flex',
+											alignItems: 'center',
+										}}
+									>
 										<FormControl
+											style={{width: '150px'}}
 											variant='outlined'
 											className={ClassNames.formControl}
 											size='small'
@@ -216,10 +231,18 @@ function SpaceAddForm3(props) {
 												))}
 											</Select>
 										</FormControl>
+										&nbsp;&nbsp;
 										<b>부터</b>
+										&nbsp;&nbsp;
 									</div>
-									<div>
+									<div
+										style={{
+											display: 'flex',
+											alignItems: 'center',
+										}}
+									>
 										<FormControl
+											style={{width: '150px'}}
 											variant='outlined'
 											className={ClassNames.formControl}
 											size='small'
@@ -246,6 +269,7 @@ function SpaceAddForm3(props) {
 												))}
 											</Select>
 										</FormControl>
+										&nbsp;&nbsp;
 										<b>까지</b>
 									</div>
 								</div>
@@ -257,170 +281,222 @@ function SpaceAddForm3(props) {
 				{/* 두번째줄 시작 */}
 				<Space>
 					<div
-						style={{display: 'flex', justifyContent: 'flex-start'}}
+						style={{
+							display: 'flex',
+							justifyContent: 'space-between',
+							alignItems: 'center',
+						}}
 					>
 						<div className='holiday'>
-							<span
-								style={{fontSize: '20px', fontWeight: 'bold'}}
-							>
+							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 								휴무일
-							</span>
-							<IcoRequired>*</IcoRequired>
-							<br />
-							<br />
-							<FormControl
-								variant='outlined'
-								className={ClassNames.formControl}
-								size='small'
-							>
-								<Select
-									labelId='demo-simple-select-outlined-label'
-									id='demo-simple-select-outlined'
-									value={holiday}
-									onChange={holidayOnchange}
-									defaultValue={7}
+								<IcoRequired>*</IcoRequired>
+							</div>
+							<div style={{marginTop: '15px'}}>
+								<FormControl
+									style={{width: '150px'}}
+									variant='outlined'
+									className={ClassNames.formControl}
+									size='small'
 								>
-									<MenuItem value={7} selected>
-										휴무없음
-									</MenuItem>
-									<MenuItem value={0}>매주 월요일</MenuItem>
-									<MenuItem value={1}>매주 화요일</MenuItem>
-									<MenuItem value={2}>매주 수요일</MenuItem>
-									<MenuItem value={3}>매주 목요일</MenuItem>
-									<MenuItem value={4}>매주 금요일</MenuItem>
-									<MenuItem value={5}>매주 토요일</MenuItem>
-									<MenuItem value={6}>매주 일요일</MenuItem>
-								</Select>
-							</FormControl>
+									<Select
+										labelId='demo-simple-select-outlined-label'
+										id='demo-simple-select-outlined'
+										value={holiday}
+										onChange={holidayOnchange}
+										defaultValue={7}
+									>
+										<MenuItem value={7} selected>
+											휴무없음
+										</MenuItem>
+										<MenuItem value={0}>
+											매주 월요일
+										</MenuItem>
+										<MenuItem value={1}>
+											매주 화요일
+										</MenuItem>
+										<MenuItem value={2}>
+											매주 수요일
+										</MenuItem>
+										<MenuItem value={3}>
+											매주 목요일
+										</MenuItem>
+										<MenuItem value={4}>
+											매주 금요일
+										</MenuItem>
+										<MenuItem value={5}>
+											매주 토요일
+										</MenuItem>
+										<MenuItem value={6}>
+											매주 일요일
+										</MenuItem>
+									</Select>
+								</FormControl>
+							</div>
 						</div>
-						<div className='floor' style={{marginLeft: '350px'}}>
-							<span
-								style={{fontSize: '20px', fontWeight: 'bold'}}
-							>
+						<div className='floor'>
+							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 								공간 층수
-							</span>
-							<IcoRequired>*</IcoRequired>
-							<br />
-							<br />
-							<FormControl
-								variant='outlined'
-								className={ClassNames.formControl}
-								size='small'
+								<IcoRequired>*</IcoRequired>
+							</div>
+							<div
+								style={{display: 'flex', alignItems: 'center'}}
 							>
-								<Select
-									labelId='demo-simple-select-outlined-label'
-									id='demo-simple-select-outlined'
-									ref={floorRef}
-									// value={floorRef.current}
-									onChange={floorOnchange}
-									defaultValue={1}
-								>
-									<MenuItem value={1}>지상 1층</MenuItem>
-									<MenuItem value={2}>지상 2층</MenuItem>
-									<MenuItem value={3}>지상 3층</MenuItem>
-									<MenuItem value={-1}>지하 1층</MenuItem>
-									<MenuItem value={-2}>지하 2층</MenuItem>
-									<MenuItem value={-3}>지하 3층</MenuItem>
-									<MenuItem
-										value={'직접입력'}
-										onClick={() => {
-											setFloorHide(true);
-											console.log(
-												'floorhide=' + floorhide,
-											);
-										}}
+								<div style={{marginTop: '15px'}}>
+									<FormControl
+										style={{width: '150px'}}
+										variant='outlined'
+										className={ClassNames.formControl}
+										size='small'
 									>
-										직접 입력
-									</MenuItem>
-								</Select>
-							</FormControl>
-							{floorhide == true ? (
-								<TextField
-									id='textFloor'
-									style={{margin: 8, width: '450px'}}
-									InputProps={{inputProps: {min: 4}}}
-									required
-									type={'number'}
-									margin='normal'
-									variant='outlined'
-									size='small'
-									onChange={(e) => {
-										floorRef.current = e.target.value;
-										console.log(
-											'floor=' + floorRef.current,
-										);
-									}}
-								/>
-							) : null}
+										<Select
+											labelId='demo-simple-select-outlined-label'
+											id='demo-simple-select-outlined'
+											inputRef={floorRef}
+											//ref={floorRef}
+											// value={floorRef.current}
+											onChange={floorOnchange}
+											defaultValue={1}
+										>
+											<MenuItem value={1}>
+												지상 1층
+											</MenuItem>
+											<MenuItem value={2}>
+												지상 2층
+											</MenuItem>
+											<MenuItem value={3}>
+												지상 3층
+											</MenuItem>
+											<MenuItem value={-1}>
+												지하 1층
+											</MenuItem>
+											<MenuItem value={-2}>
+												지하 2층
+											</MenuItem>
+											<MenuItem value={-3}>
+												지하 3층
+											</MenuItem>
+											<MenuItem
+												value={'직접입력'}
+												onClick={() => {
+													setFloorHide(true);
+													console.log(
+														'floorhide=' +
+															floorhide,
+													);
+												}}
+											>
+												직접 입력
+											</MenuItem>
+										</Select>
+									</FormControl>
+									{floorhide == true ? (
+										<TextField
+											style={{
+												width: '150px',
+												marginTop: '0px',
+											}}
+											id='textFloor'
+											InputProps={{inputProps: {min: 4}}}
+											required
+											type={'number'}
+											margin='normal'
+											variant='outlined'
+											size='small'
+											inputRef={floorRef}
+											// onChange={(e) => {
+											// 	floorRef.current =
+											// 		e.target.value;
+											// 	console.log(
+											// 		'floor=' + floorRef.current,
+											// 	);
+											// }}
+										/>
+									) : null}
+								</div>
+							</div>
 						</div>
-						<div className='parking' style={{marginLeft: '350px'}}>
-							<span
-								style={{fontSize: '20px', fontWeight: 'bold'}}
-							>
+						<div className='parking'>
+							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 								주차여부
-							</span>
-							<IcoRequired>*</IcoRequired>
-							<br />
-							<br />
-							<FormControl
-								variant='outlined'
-								className={ClassNames.formControl}
-								size='small'
+								<IcoRequired>*</IcoRequired>
+							</div>
+							<div
+								style={{display: 'flex', alignItems: 'center'}}
 							>
-								<Select
-									labelId='demo-simple-select-outlined-label'
-									id='demo-simple-select-outlined'
-									ref={parkingRef}
-									onChange={parkingOnchange}
-									defaultValue={1}
-								>
-									<MenuItem value={0}>주차불가</MenuItem>
-									<MenuItem value={1}>1대</MenuItem>
-									<MenuItem value={2}>2대</MenuItem>
-									<MenuItem value={3}>3대</MenuItem>
-									<MenuItem value={4}>4대</MenuItem>
-									<MenuItem
-										value={'직접입력'}
-										onClick={() => {
-											setParkingHide(true);
-											console.log(
-												'parkinghide=' + parkinghide,
-											);
-										}}
+								<div style={{marginTop: '15px'}}>
+									<FormControl
+										style={{width: '150px'}}
+										variant='outlined'
+										className={ClassNames.formControl}
+										size='small'
 									>
-										직접 입력
-									</MenuItem>
-								</Select>
-							</FormControl>
-							{parkinghide == true ? (
-								<TextField
-									id='textFloor'
-									style={{margin: 8, width: '450px'}}
-									// placeholder='최대 인원수를 입력해주세요'
-									InputProps={{inputProps: {min: 5}}}
-									required
-									type={'number'}
-									margin='normal'
-									variant='outlined'
-									size='small'
-								/>
-							) : null}
+										<Select
+											labelId='demo-simple-select-outlined-label'
+											id='demo-simple-select-outlined'
+											inputRef={parkingRef}
+											// ref={parkingRef}
+											onChange={parkingOnchange}
+											defaultValue={1}
+										>
+											<MenuItem value={0}>
+												주차불가
+											</MenuItem>
+											<MenuItem value={1}>1대</MenuItem>
+											<MenuItem value={2}>2대</MenuItem>
+											<MenuItem value={3}>3대</MenuItem>
+											<MenuItem value={4}>4대</MenuItem>
+											<MenuItem
+												value={'직접입력'}
+												onClick={() => {
+													setParkingHide(true);
+													console.log(
+														'parkinghide=' +
+															parkinghide,
+													);
+												}}
+											>
+												직접 입력
+											</MenuItem>
+										</Select>
+									</FormControl>
+									{parkinghide == true ? (
+										<TextField
+											id='textFloor'
+											style={{
+												width: '150px',
+												marginTop: '0px',
+											}}
+											InputProps={{inputProps: {min: 5}}}
+											required
+											type={'number'}
+											margin='normal'
+											variant='outlined'
+											size='small'
+											inputRef={parkingRef}
+											// onChange={(e) => {
+											// 	parkingRef.current =
+											// 		e.target.value;
+											// 	console.log(
+											// 		'floor=' +
+											// 			parkingRef.current,
+											// 	);
+											// }}
+										/>
+									) : null}
+								</div>
+							</div>
 						</div>
 					</div>
 				</Space>
 				{/* 3번째 줄 시작 */}
 				<Space>
 					<div className='elevator'>
-						<div>
-							<span
-								style={{fontSize: '20px', fontWeight: 'bold'}}
-							>
-								엘리베이터 여부
-							</span>
-							<br />
-							<br />
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
+							엘리베이터 유무
+							<IcoRequired>*</IcoRequired>
 						</div>
-						<div>
+						<div style={{marginTop: '20px'}}>
 							<div style={{display: 'flex'}}>
 								<div>
 									<button
@@ -468,67 +544,70 @@ function SpaceAddForm3(props) {
 				{/* 4번째 줄 시작 */}
 				<Space>
 					<div className='price'>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 							가격 정보 입력
-						</span>
-						<div
-							style={{
-								display: 'flex',
-								justifyContent: 'center',
-								marginTop: '20px',
-							}}
-						>
-							<table
-								style={{width: '100%'}}
-								className='table table-bordered'
+							<IcoRequired>*</IcoRequired>
+						</div>
+						<div style={{marginTop: '20px'}}>
+							<div
+								style={{
+									display: 'flex',
+									justifyContent: 'center',
+									marginTop: '20px',
+								}}
 							>
-								<thead
-									style={{textAlign: 'center'}}
-									className='table table-info'
+								<table
+									style={{width: '100%'}}
+									className='table table-bordered'
 								>
-									<tr>
-										<th>주간 오전 가격</th>
-										<th>가격 오후 가격</th>
-										<th>주말 오전 가격</th>
-										<th>주말 오후 가격</th>
-									</tr>
-								</thead>
-								<tbody
-									style={{textAlign: 'center'}}
-									className='table table-Light'
-								>
-									<tr>
-										<td>
-											<input
-												type='number'
-												ref={weekAmPriceRef}
-												min='0'
-											/>
-										</td>
-										<td>
-											<input
-												type='number'
-												ref={weekPmPriceRef}
-												min='0'
-											/>
-										</td>
-										<td>
-											<input
-												type='number'
-												ref={holiAmPriceRef}
-												min='0'
-											/>
-										</td>
-										<td>
-											<input
-												type='number'
-												ref={holiPmPriceRef}
-												min='0'
-											/>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+									<thead
+										style={{textAlign: 'center'}}
+										className='table table-info'
+									>
+										<tr>
+											<th>주간 오전 가격</th>
+											<th>가격 오후 가격</th>
+											<th>주말 오전 가격</th>
+											<th>주말 오후 가격</th>
+										</tr>
+									</thead>
+									<tbody
+										style={{textAlign: 'center'}}
+										className='table table-Light'
+									>
+										<tr>
+											<td>
+												<input
+													type='number'
+													ref={weekAmPriceRef}
+													min='0'
+												/>
+											</td>
+											<td>
+												<input
+													type='number'
+													ref={weekPmPriceRef}
+													min='0'
+												/>
+											</td>
+											<td>
+												<input
+													type='number'
+													ref={holiAmPriceRef}
+													min='0'
+												/>
+											</td>
+											<td>
+												<input
+													type='number'
+													ref={holiPmPriceRef}
+													min='0'
+												/>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</Space>
@@ -536,12 +615,14 @@ function SpaceAddForm3(props) {
 				{/* 마지막 줄 */}
 				<Space>
 					<div className='payment'>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 							바로결제/승인결제
-						</span>
+							<IcoRequired>*</IcoRequired>
+						</div>
 						<div style={{display: 'flex', marginTop: '20px'}}>
 							<div>
 								<button
+									type='button'
 									onClick={(e) =>
 										onClick(e, '바로결제', 'payment')
 									}
@@ -562,6 +643,7 @@ function SpaceAddForm3(props) {
 							</div>
 							<div>
 								<button
+									type='button'
 									onClick={(e) =>
 										onClick(e, '승인결제', 'payment')
 									}
@@ -581,32 +663,8 @@ function SpaceAddForm3(props) {
 								</button>
 							</div>
 						</div>
-						{/* <label>
-							<input
-								style={{display: 'none'}}
-								type={'radio'}
-								value='바로결제'
-								checked={payment === '바로결제'}
-								onChange={payCheck}
-							/>
-							바로결제
-						</label>
-						<b>////////////</b>
-						<label>
-							<input
-								style={{display: 'none'}}
-								type={'radio'}
-								value='승인결제'
-								checked={payment === '승인결제'}
-								onChange={payCheck}
-							/>
-							승인결제
-						</label> */}
 					</div>
 				</Space>
-				<br />
-				<br />
-				<br />
 				<ButtonEvent>
 					<BtnEventWrap>
 						<BtnWrap
@@ -640,6 +698,7 @@ function SpaceAddForm3(props) {
 export default SpaceAddForm3;
 const ButtonEvent = styled.div`
 	margin: 0 auto 100px;
+	margin-top: 50px;
 	width: 1380;
 `;
 

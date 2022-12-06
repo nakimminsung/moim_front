@@ -74,7 +74,7 @@ function QnaContent(props) {
 					<DialogContent style={{paddingTop: '12px'}}>
 						<div>
 							<h5>
-								<b>문의제목 : {title}</b>
+								<b>{title}</b>
 							</h5>
 						</div>
 						<div style={{marginTop: '30px'}}>

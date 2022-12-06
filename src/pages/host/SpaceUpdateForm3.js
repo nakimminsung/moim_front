@@ -54,6 +54,7 @@ function SpaceUpdateForm3(props) {
 			// console.log(payment);
 			setFloor(res.data.floor);
 			setParking(res.data.parking);
+			console.log(res.data.parking);
 			setHeadCount(res.data.headcount);
 			setWeekAmPrice(res.data.weekAmPrice);
 			setWeekPmPrice(res.data.weekPmPrice);
@@ -192,105 +193,134 @@ function SpaceUpdateForm3(props) {
 						style={{
 							display: 'flex',
 							alignItems: 'center',
-							justifyContent: 'flex-start',
+							justifyContent: 'space-between',
 						}}
 					>
 						<div className='headcount'>
-							<span
-								style={{fontSize: '20px', fontWeight: 'bold'}}
-							>
+							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 								인원수
-							</span>
-							<IcoRequired>*</IcoRequired>
-							<br />
-							<br />
-							<TextField
-								id='outlined-full-width'
-								style={{margin: 8, width: '400px'}}
-								placeholder='최대 인원수를 입력해주세요'
-								required
-								type={'number'}
-								margin='normal'
-								value={headcount}
-								InputProps={{inputProps: {min: 0, max: 500}}}
-								variant='outlined'
-								size='small'
-								onChange={(e) => setHeadCount(e.target.value)}
-								// inputRef={HeadcountRef}
-							/>
-							명
+								<IcoRequired>*</IcoRequired>
+							</div>
+							<div
+								style={{display: 'flex', alignItems: 'center'}}
+							>
+								<TextField
+									id='outlined-full-width'
+									style={{width: '400px'}}
+									placeholder='최대 인원수를 입력해주세요'
+									required
+									type={'number'}
+									margin='normal'
+									value={headcount}
+									InputProps={{
+										inputProps: {min: 0, max: 500},
+									}}
+									variant='outlined'
+									size='small'
+									onChange={(e) =>
+										setHeadCount(e.target.value)
+									}
+									// inputRef={HeadcountRef}
+								/>
+								<b>명</b>
+							</div>
 						</div>
 						<div style={{marginLeft: '300px'}}>
 							<div className='operating'>
-								<span
+								<div
 									style={{
 										fontSize: '20px',
 										fontWeight: 'bold',
 									}}
 								>
-									이용 시간
-								</span>
-								<IcoRequired>*</IcoRequired>
-								<br />
-								<br />
-								<FormControl
-									variant='outlined'
-									className={ClassNames.formControl}
-									size='small'
+									이용시간
+									<IcoRequired>*</IcoRequired>
+								</div>
+								<div
+									style={{
+										marginTop: '3px',
+										display: 'flex',
+										alignItems: 'center',
+									}}
 								>
-									<Select
-										native
-										// defaultValue={0}
-										onChange={stiemeOnchange}
-										value={stime}
-										inputProps={{
-											id: 'outlined-age-native-simple',
+									<div
+										style={{
+											display: 'flex',
+											alignItems: 'center',
 										}}
 									>
-										{timeArr.map((stime, i) => (
-											<option
-												aria-label='None'
+										<FormControl
+											style={{width: '150px'}}
+											variant='outlined'
+											className={ClassNames.formControl}
+											size='small'
+										>
+											<Select
+												native
+												// defaultValue={0}
+												onChange={stiemeOnchange}
 												value={stime}
-												key={i}
+												inputProps={{
+													id: 'outlined-age-native-simple',
+												}}
 											>
-												{stime < 10
-													? '0' + stime
-													: stime}
-												시
-											</option>
-										))}
-									</Select>
-								</FormControl>
-								<b>부터</b>
-								<FormControl
-									variant='outlined'
-									className={ClassNames.formControl}
-									size='small'
-								>
-									<Select
-										native
-										// defaultValue={24}
-										value={etime}
-										onChange={etiemeOnchange}
-										inputProps={{
-											id: 'outlined-age-native-simple',
+												{timeArr.map((stime, i) => (
+													<option
+														aria-label='None'
+														value={stime}
+														key={i}
+													>
+														{stime < 10
+															? '0' + stime
+															: stime}
+														시
+													</option>
+												))}
+											</Select>
+										</FormControl>
+										&nbsp;&nbsp;
+										<b>부터</b>
+										&nbsp;&nbsp;
+									</div>
+									<div
+										style={{
+											display: 'flex',
+											alignItems: 'center',
 										}}
 									>
-										{timeArr.map((etime, i) => (
-											<option
-												aria-label='None'
+										<FormControl
+											style={{width: '150px'}}
+											variant='outlined'
+											className={ClassNames.formControl}
+											size='small'
+										>
+											<Select
+												native
+												// defaultValue={24}
 												value={etime}
-												key={i}
+												onChange={etiemeOnchange}
+												inputProps={{
+													id: 'outlined-age-native-simple',
+												}}
 											>
-												{etime < 10
-													? '0' + etime
-													: etime}
-												시
-											</option>
-										))}
-									</Select>
-								</FormControl>
-								<b>까지</b>
+												{timeArr.map((etime, i) => (
+													<option
+														aria-label='None'
+														value={etime}
+														key={i}
+													>
+														{etime < 10
+															? '0' + etime
+															: etime}
+														시
+													</option>
+												))}
+											</Select>
+										</FormControl>
+										&nbsp;&nbsp;
+										<b>까지</b>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -299,184 +329,252 @@ function SpaceUpdateForm3(props) {
 				{/* 두번째줄 시작 */}
 				<Space>
 					<div
-						style={{display: 'flex', justifyContent: 'flex-start'}}
+						style={{
+							display: 'flex',
+							justifyContent: 'space-between',
+							alignItems: 'center',
+						}}
 					>
 						<div className='holiday'>
-							<span
-								style={{fontSize: '20px', fontWeight: 'bold'}}
-							>
+							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 								휴무일
-							</span>
-							<IcoRequired>*</IcoRequired>
-							<br />
-							<br />
-							<FormControl
-								variant='outlined'
-								className={ClassNames.formControl}
-								size='small'
-							>
-								<Select
-									labelId='demo-simple-select-outlined-label'
-									id='demo-simple-select-outlined'
-									value={holiday}
-									onChange={holidayOnchange}
-									// defaultValue={7}
+								<IcoRequired>*</IcoRequired>
+							</div>
+							<div style={{marginTop: '15px'}}>
+								<FormControl
+									style={{width: '150px'}}
+									variant='outlined'
+									className={ClassNames.formControl}
+									size='small'
 								>
-									<MenuItem value={7} selected>
-										휴무없음
-									</MenuItem>
-									<MenuItem value={0}>매주 월요일</MenuItem>
-									<MenuItem value={1}>매주 화요일</MenuItem>
-									<MenuItem value={2}>매주 수요일</MenuItem>
-									<MenuItem value={3}>매주 목요일</MenuItem>
-									<MenuItem value={4}>매주 금요일</MenuItem>
-									<MenuItem value={5}>매주 토요일</MenuItem>
-									<MenuItem value={6}>매주 일요일</MenuItem>
-								</Select>
-							</FormControl>
+									<Select
+										labelId='demo-simple-select-outlined-label'
+										id='demo-simple-select-outlined'
+										value={holiday}
+										onChange={holidayOnchange}
+										// defaultValue={7}
+									>
+										<MenuItem value={7} selected>
+											휴무없음
+										</MenuItem>
+										<MenuItem value={0}>
+											매주 월요일
+										</MenuItem>
+										<MenuItem value={1}>
+											매주 화요일
+										</MenuItem>
+										<MenuItem value={2}>
+											매주 수요일
+										</MenuItem>
+										<MenuItem value={3}>
+											매주 목요일
+										</MenuItem>
+										<MenuItem value={4}>
+											매주 금요일
+										</MenuItem>
+										<MenuItem value={5}>
+											매주 토요일
+										</MenuItem>
+										<MenuItem value={6}>
+											매주 일요일
+										</MenuItem>
+									</Select>
+								</FormControl>
+							</div>
 						</div>
-						<div className='floor' style={{marginLeft: '350px'}}>
-							<span
-								style={{fontSize: '20px', fontWeight: 'bold'}}
-							>
+						<div className='floor'>
+							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 								공간 층수
-							</span>
-							<IcoRequired>*</IcoRequired>
-							<br />
-							<br />
-							<FormControl
-								variant='outlined'
-								className={ClassNames.formControl}
-								size='small'
+								<IcoRequired>*</IcoRequired>
+							</div>
+							<div
+								style={{display: 'flex', alignItems: 'center'}}
 							>
-								<Select
-									labelId='demo-simple-select-outlined-label'
-									id='demo-simple-select-outlined'
-									value={floor}
-									// ref={floorRef}
-									// value={floorRef.current}
-									onChange={floorOnchange}
-									defaultValue={1}
-								>
-									<MenuItem value={1}>지상 1층</MenuItem>
-									<MenuItem value={2}>지상 2층</MenuItem>
-									<MenuItem value={3}>지상 3층</MenuItem>
-									<MenuItem value={-1}>지하 1층</MenuItem>
-									<MenuItem value={-2}>지하 2층</MenuItem>
-									<MenuItem value={-3}>지하 3층</MenuItem>
-									<MenuItem
-										value={'직접입력'}
-										onClick={() => {
-											setFloorHide(true);
-											console.log(
-												'floorhide=' + floorhide,
-											);
-										}}
+								<div style={{marginTop: '15px'}}>
+									<FormControl
+										style={{width: '150px'}}
+										variant='outlined'
+										className={ClassNames.formControl}
+										size='small'
 									>
-										직접 입력
-									</MenuItem>
-								</Select>
-							</FormControl>
-							{floorhide == true ? (
-								<TextField
-									id='textFloor'
-									style={{margin: 8, width: '450px'}}
-									// placeholder='최대 인원수를 입력해주세요'
-									InputProps={{inputProps: {min: 4}}}
-									required
-									type={'number'}
-									margin='normal'
-									variant='outlined'
-									size='small'
-									onChange={(e) => {
-										setFloor(e.target.value);
-										console.log('floor=' + floor);
-									}}
-								/>
-							) : null}
+										<Select
+											labelId='demo-simple-select-outlined-label'
+											id='demo-simple-select-outlined'
+											//ref={floorRef}
+											// value={floorRef.current}
+											onChange={floorOnchange}
+											defaultValue={1}
+										>
+											<MenuItem value={1}>
+												지상 1층
+											</MenuItem>
+											<MenuItem value={2}>
+												지상 2층
+											</MenuItem>
+											<MenuItem value={3}>
+												지상 3층
+											</MenuItem>
+											<MenuItem value={-1}>
+												지하 1층
+											</MenuItem>
+											<MenuItem value={-2}>
+												지하 2층
+											</MenuItem>
+											<MenuItem value={-3}>
+												지하 3층
+											</MenuItem>
+											<MenuItem
+												value={'직접입력'}
+												onClick={() => {
+													setFloorHide(true);
+													console.log(
+														'floorhide=' +
+															floorhide,
+													);
+												}}
+											>
+												직접 입력
+											</MenuItem>
+										</Select>
+									</FormControl>
+									{floorhide == true ? (
+										<TextField
+											style={{
+												width: '150px',
+												marginTop: '0px',
+											}}
+											id='textFloor'
+											InputProps={{inputProps: {min: 4}}}
+											required
+											type={'number'}
+											margin='normal'
+											variant='outlined'
+											size='small'
+											onChange={(e) => {
+												setFloor(e.target.value);
+												console.log('floor=' + floor);
+											}}
+										/>
+									) : null}
+								</div>
+							</div>
 						</div>
-						<div className='parking' style={{marginLeft: '350px'}}>
-							<span
-								style={{fontSize: '20px', fontWeight: 'bold'}}
-							>
+						<div className='parking'>
+							<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 								주차여부
-							</span>
-							<IcoRequired>*</IcoRequired>
-							<br />
-							<br />
-							<FormControl
-								variant='outlined'
-								className={ClassNames.formControl}
-								size='small'
+								<IcoRequired>*</IcoRequired>
+							</div>
+							<div
+								style={{display: 'flex', alignItems: 'center'}}
 							>
-								<Select
-									labelId='demo-simple-select-outlined-label'
-									id='demo-simple-select-outlined'
-									value={parking}
-									// ref={parkingRef}
-									onChange={parkingOnchange}
-									defaultValue={1}
-								>
-									<MenuItem value={0}>주차불가</MenuItem>
-									<MenuItem value={1}>1대</MenuItem>
-									<MenuItem value={2}>2대</MenuItem>
-									<MenuItem value={3}>3대</MenuItem>
-									<MenuItem value={4}>4대</MenuItem>
-									<MenuItem
-										value={'직접입력'}
-										onClick={() => {
-											setParkingHide(true);
-											console.log(
-												'parkinghide=' + parkinghide,
-											);
-										}}
+								<div style={{marginTop: '15px'}}>
+									<FormControl
+										style={{width: '150px'}}
+										variant='outlined'
+										className={ClassNames.formControl}
+										size='small'
 									>
-										직접 입력
-									</MenuItem>
-								</Select>
-							</FormControl>
-							{parkinghide == true ? (
-								<TextField
-									id='textFloor'
-									style={{margin: 8, width: '450px'}}
-									// placeholder='최대 인원수를 입력해주세요'
-									InputProps={{inputProps: {min: 5}}}
-									required
-									type={'number'}
-									margin='normal'
-									variant='outlined'
-									size='small'
-								/>
-							) : null}
+										<Select
+											labelId='demo-simple-select-outlined-label'
+											id='demo-simple-select-outlined'
+											// ref={parkingRef}
+											onChange={parkingOnchange}
+											defaultValue={1}
+										>
+											<MenuItem value={0}>
+												주차불가
+											</MenuItem>
+											<MenuItem value={1}>1대</MenuItem>
+											<MenuItem value={2}>2대</MenuItem>
+											<MenuItem value={3}>3대</MenuItem>
+											<MenuItem value={4}>4대</MenuItem>
+											<MenuItem
+												value={'직접입력'}
+												onClick={() => {
+													setParkingHide(true);
+													console.log(
+														'parkinghide=' +
+															parkinghide,
+													);
+												}}
+											>
+												직접 입력
+											</MenuItem>
+										</Select>
+									</FormControl>
+									{parkinghide == true ? (
+										<TextField
+											id='textFloor'
+											style={{
+												width: '150px',
+												marginTop: '0px',
+											}}
+											InputProps={{inputProps: {min: 5}}}
+											required
+											type={'number'}
+											margin='normal'
+											variant='outlined'
+											size='small'
+											onChange={(e) => {
+												setParking(e.target.value);
+												console.log(
+													'parking=' + parking,
+												);
+											}}
+										/>
+									) : null}
+								</div>
+							</div>
 						</div>
 					</div>
 				</Space>
 				{/* 3번째 줄 시작 */}
 				<Space>
 					<div className='elevator'>
-						<div>
-							<span
-								style={{fontSize: '20px', fontWeight: 'bold'}}
-							>
-								엘리베이터 여부
-							</span>
-							<br />
-							<br />
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
+							엘리베이터 유무
+							<IcoRequired>*</IcoRequired>
 						</div>
-						<div>
-							<div>
-								<button
-									onClick={(e) => onClick(e, 1, 'elevator')}
-									className={elevator === 1 ? 'selected' : ''}
-								>
-									있음
-								</button>
-								<button
-									onClick={(e) => onClick(e, 0, 'elevator')}
-									className={elevator === 0 ? 'selected' : ''}
-								>
-									없음
-								</button>
+						<div style={{marginTop: '20px'}}>
+							<div style={{display: 'flex'}}>
+								<div>
+									<button
+										type='button'
+										onClick={(e) =>
+											onClick(e, 1, 'elevator')
+										}
+										className={
+											elevator === 1 ? 'selected' : ''
+										}
+										style={{
+											width: '200px',
+											height: '35px',
+											borderStyle: 'solid',
+											border: '1px solid #704de4',
+										}}
+									>
+										있음
+									</button>
+								</div>
+								<div>
+									<button
+										type='button'
+										onClick={(e) =>
+											onClick(e, 0, 'elevator')
+										}
+										className={
+											elevator === 0 ? 'selected' : ''
+										}
+										style={{
+											width: '200px',
+											height: '35px',
+											borderStyle: 'solid',
+											border: '1px solid #704de4',
+										}}
+									>
+										없음
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -485,78 +583,94 @@ function SpaceUpdateForm3(props) {
 				{/* 4번째 줄 시작 */}
 				<Space>
 					<div className='price'>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 							가격 정보 입력
-						</span>
-						<br />
-						<br />
-						<div
-							style={{display: 'flex', justifyContent: 'center'}}
-						>
-							<table>
-								<tbody>
-									<tr>
-										<th>주간 오전 가격</th>
-										<th>가격 오후 가격</th>
-										<th>주말 오전 가격</th>
-										<th>주말 오후 가격</th>
-									</tr>
-									<tr>
-										<td>
-											<input
-												type='number'
-												value={weekAmPrice}
-												// ref={weekAmPriceRef}
-												onChange={(e) =>
-													setWeekAmPrice(
-														e.target.value,
-													)
-												}
-												min='0'
-											/>
-										</td>
-										<td>
-											<input
-												type='number'
-												value={weekPmPrice}
-												// ref={weekPmPriceRef}
-												onChange={(e) =>
-													setWeekPmPrice(
-														e.target.value,
-													)
-												}
-												min='0'
-											/>
-										</td>
-										<td>
-											<input
-												type='number'
-												value={holiAmPrice}
-												// ref={holiAmPriceRef}
-												onChange={(e) =>
-													setHoliAmPrice(
-														e.target.value,
-													)
-												}
-												min='0'
-											/>
-										</td>
-										<td>
-											<input
-												type='number'
-												value={holiPmPrice}
-												// ref={holiPmPriceRef}
-												onChange={(e) =>
-													setHoliPmPrice(
-														e.target.value,
-													)
-												}
-												min='0'
-											/>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+							<IcoRequired>*</IcoRequired>
+						</div>
+						<div style={{marginTop: '20px'}}>
+							<div
+								style={{
+									display: 'flex',
+									justifyContent: 'center',
+									marginTop: '20px',
+								}}
+							>
+								<table
+									style={{width: '100%'}}
+									className='table table-bordered'
+								>
+									<thead
+										style={{textAlign: 'center'}}
+										className='table table-info'
+									>
+										<tr>
+											<th>주간 오전 가격</th>
+											<th>가격 오후 가격</th>
+											<th>주말 오전 가격</th>
+											<th>주말 오후 가격</th>
+										</tr>
+									</thead>
+									<tbody
+										style={{textAlign: 'center'}}
+										className='table table-Light'
+									>
+										<tr>
+											<td>
+												<input
+													type='number'
+													value={weekAmPrice}
+													// ref={weekAmPriceRef}
+													onChange={(e) =>
+														setWeekAmPrice(
+															e.target.value,
+														)
+													}
+													min='0'
+												/>
+											</td>
+											<td>
+												<input
+													type='number'
+													value={weekPmPrice}
+													// ref={weekPmPriceRef}
+													onChange={(e) =>
+														setWeekPmPrice(
+															e.target.value,
+														)
+													}
+													min='0'
+												/>
+											</td>
+											<td>
+												<input
+													type='number'
+													value={holiAmPrice}
+													// ref={holiAmPriceRef}
+													onChange={(e) =>
+														setHoliAmPrice(
+															e.target.value,
+														)
+													}
+													min='0'
+												/>
+											</td>
+											<td>
+												<input
+													type='number'
+													value={holiPmPrice}
+													// ref={holiPmPriceRef}
+													onChange={(e) =>
+														setHoliPmPrice(
+															e.target.value,
+														)
+													}
+													min='0'
+												/>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</Space>
@@ -564,32 +678,57 @@ function SpaceUpdateForm3(props) {
 				{/* 마지막 줄 */}
 				<Space>
 					<div className='payment'>
-						<span style={{fontSize: '20px', fontWeight: 'bold'}}>
+						<div style={{fontSize: '20px', fontWeight: 'bold'}}>
 							바로결제/승인결제
-						</span>
-						<br />
-						<br />
-						<button
-							onClick={(e) => onClick(e, '바로결제', 'payment')}
-							className={
-								payment === '바로결제' ? 'selected1' : ''
-							}
-						>
-							바로결제
-						</button>
-						<button
-							onClick={(e) => onClick(e, '승인결제', 'payment')}
-							className={
-								payment === '승인결제' ? 'selected1' : ''
-							}
-						>
-							승인결제
-						</button>
+							<IcoRequired>*</IcoRequired>
+						</div>
+						<div style={{display: 'flex', marginTop: '20px'}}>
+							<div>
+								<button
+									type='button'
+									onClick={(e) =>
+										onClick(e, '바로결제', 'payment')
+									}
+									className={
+										payment === '바로결제'
+											? 'selected1'
+											: ''
+									}
+									style={{
+										width: '200px',
+										height: '35px',
+										borderStyle: 'solid',
+										border: '1px solid #704de4',
+									}}
+								>
+									바로결제
+								</button>
+							</div>
+							<div>
+								<button
+									type='button'
+									onClick={(e) =>
+										onClick(e, '승인결제', 'payment')
+									}
+									className={
+										payment === '승인결제'
+											? 'selected1'
+											: ''
+									}
+									style={{
+										width: '200px',
+										height: '35px',
+										borderStyle: 'solid',
+										border: '1px solid #704de4',
+									}}
+								>
+									승인결제
+								</button>
+							</div>
+						</div>
 					</div>
 				</Space>
-				<br />
-				<br />
-				<br />
+
 				<ButtonEvent>
 					<BtnEventWrap>
 						<BtnWrap
@@ -624,6 +763,7 @@ export default SpaceUpdateForm3;
 
 const ButtonEvent = styled.div`
 	margin: 0 auto 100px;
+	margin-top: 50px;
 	width: 1380;
 `;
 

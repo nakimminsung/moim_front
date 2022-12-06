@@ -94,6 +94,7 @@ function QNA(props) {
 									width: '100%',
 									lineHeight: '300px',
 									textAlign: 'center',
+									fontFamily: 'NanumSquareRound',
 								}}
 							>
 								<b>현재 등록된 Q&A가 없습니다.</b>
@@ -269,10 +270,12 @@ const Wrapper = styled(Typography)`
 
 const Space = styled(Typography)`
 	font-weight: bold;
+	font-family: 'NanumSquareRound';
 `;
 const SpaceContent = styled(Typography)`
 	font-size: 16px;
 	margin-top: 10px;
+	font-family: 'NanumSquareRound';
 `;
 const SpaceWriteday = styled(Typography)`
 	color: #b2b2b2;
