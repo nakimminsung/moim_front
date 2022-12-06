@@ -136,7 +136,7 @@ function Content(props) {
 					marginRight: '10px',
 				}}
 				ref={container}
-			></div>
+			/>
 		</>
 	);
 }

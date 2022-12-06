@@ -28,6 +28,29 @@ function Detail(props) {
 		});
 	};
 
+	// 최근 본 상품
+	// 1. 상세페이지에 접속하면, 즉 Detail 컴포넌트가 로딩되면...
+	useEffect(() => {
+		// 2. localStorage의 데이터를 꺼낸다.
+		var myArr = sessionStorage.getItem('watched');
+		// 최초 접속시 localStorage에 데이터가 없을 경우 새로운 배열을 생성한다.
+		// ( 혹은 사용자 모두에게 watched 자료형를 localStorage에 넣는 방법도 있다.)
+		if (myArr == null) {
+			myArr = [];
+		} else {
+			// myArr에서 자료를 꺼내 따옴표를 제거하고 다시 myArr에 저장한다.
+			myArr = JSON.parse(myArr);
+		}
+		// 3.현재 상품 id를 myArr에 저장한다.
+		myArr.push(num);
+		// 4.중복된 데이터를 넣지 않는 set 자료형에 myArr를 담아 중복을 제거한다.
+		myArr = new Set(myArr);
+		// 중복 제거된 set 자료형의 myArr를 일반 배열로 변경한다.
+		myArr = [...myArr];
+		// 5.localStorage에 데이터를 JSON 자료형으로 저장한다.
+		sessionStorage.setItem('watched', JSON.stringify(myArr));
+	}, []);
+
 	useEffect(() => {
 		onSelectData(num);
 		window.scrollTo(0, 0);
