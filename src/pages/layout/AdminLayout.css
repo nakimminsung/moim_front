@@ -15,7 +15,7 @@ li {
 }
 
 .adminMenu li {
-	margin-bottom: 30px;
+	margin-bottom: 40px;
 }
 
 .NavLink {
@@ -342,4 +342,8 @@ ul.pagination li.active a {
 	height: 5vh;
 
 	text-align: center;
+}
+
+.memberChartBox .recharts-legend-wrapper {
+	padding-left: 50px;
 }

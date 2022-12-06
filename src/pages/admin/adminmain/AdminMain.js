@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import PopularHostSpace from './PopularHostSpace';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import WaitSpaceList from './WaitSpaceList';
 import WaitReportList from './WaitReportList';
+import MemberChart from './MemberChart';
 
 function AdminMain(props) {
 	const [topMenu, setTopMenu] = useState('관리자 메인화면');
@@ -20,6 +21,8 @@ function AdminMain(props) {
 
 	//처리대기 신고 리스트
 	const [waitReport, setWaitReport] = useState('');
+
+	const navi = useNavigate();
 
 	return (
 		// 전체 묶는 div
@@ -46,16 +49,11 @@ function AdminMain(props) {
 						}}
 					>
 						<h5>최근 가입한 멤버</h5>
-						<NavLink
-							to={'/admin/member'}
-							name='게스트 관리'
-							onClick={menuHandler}
-						>
-							더보기 +
-						</NavLink>
 						<br />
 					</div>
-					<div>굉장히 좋은데?</div>
+					<div>
+						<MemberChart />
+					</div>
 				</div>
 
 				<div
@@ -65,27 +63,50 @@ function AdminMain(props) {
 					<div
 						style={{
 							display: 'flex',
-							// justifyContent: 'space-between',
+							justifyContent: 'space-between',
 						}}
 					>
+						<div style={{display: 'flex'}}>
+							<div
+								style={{
+									backgroundColor: 'black',
+									color: 'white',
+									width: '60px',
+									height: '30px',
+									borderRadius: '30px',
+									textAlign: 'center',
+									fontWeight: 'bold',
+								}}
+							>
+								TOP 5
+							</div>
+							&emsp;
+							<b style={{fontSize: '20px'}}>
+								인기있는 공간 & 호스트{' '}
+								{/* <ThumbUpIcon style={{color: 'gray'}} /> */}
+							</b>
+						</div>
 						<div
 							style={{
-								backgroundColor: 'black',
-								color: 'white',
-								width: '60px',
+								backgroundColor: 'white',
+								color: 'gray',
+								width: '80px',
 								height: '30px',
+
 								borderRadius: '30px',
 								textAlign: 'center',
 								fontWeight: 'bold',
+
+								marginTop: '5px',
+								cursor: 'pointer',
+								border: '1.5px solid gray',
+							}}
+							onClick={() => {
+								navi('/admin/space');
 							}}
 						>
-							TOP 5
+							바로가기
 						</div>
-						&emsp;
-						<b style={{fontSize: '20px'}}>
-							인기있는 공간 & 호스트{' '}
-							{/* <ThumbUpIcon style={{color: 'gray'}} /> */}
-						</b>
 					</div>
 					<div>
 						<PopularHostSpace />
@@ -146,26 +167,55 @@ function AdminMain(props) {
 					<div
 						style={{
 							display: 'flex',
-							// justifyContent: 'space-between',
+							justifyContent: 'space-between',
 						}}
 					>
-						<b style={{fontSize: '20px'}}>
-							접수 대기중인 신고목록{' '}
-							{/* <ThumbUpIcon style={{color: 'gray'}} /> */}
-						</b>
-						&nbsp;
 						<div
 							style={{
-								backgroundColor: 'gray',
-								color: 'white',
-								width: '30px',
+								display: 'flex',
+								justifyContent: 'space-between',
+							}}
+						>
+							<b style={{fontSize: '20px'}}>
+								접수 대기중인 신고목록{' '}
+								{/* <ThumbUpIcon style={{color: 'gray'}} /> */}
+							</b>
+							&nbsp;
+							<div
+								style={{
+									backgroundColor: 'gray',
+									color: 'white',
+									width: '30px',
+									height: '30px',
+									borderRadius: '30px',
+									textAlign: 'center',
+									fontWeight: 'bold',
+								}}
+							>
+								{waitReport.length}
+							</div>
+						</div>
+
+						<div
+							style={{
+								backgroundColor: 'white',
+								color: 'gray',
+								width: '80px',
 								height: '30px',
+
 								borderRadius: '30px',
 								textAlign: 'center',
 								fontWeight: 'bold',
+
+								marginTop: '5px',
+								cursor: 'pointer',
+								border: '1.5px solid gray',
+							}}
+							onClick={() => {
+								navi('/admin/report');
 							}}
 						>
-							{waitReport.length}
+							바로가기
 						</div>
 					</div>
 

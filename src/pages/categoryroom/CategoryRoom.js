@@ -7,7 +7,7 @@ import axios from 'axios';
 function CategoryRoom(props) {
     const [categoryData, setCategoryData] = useState('');
     const [roomData, setRoomData] = useState([]);
-    const [sort, setSort] = useState('a.readCount desc');
+    const [sort, setSort] = useState('a.writeday desc');
     const [roomName, setRoomName] = useState('');
     const [headCount, setHeadCount] = useState(1);
     const [address, setAddress] = useState('');

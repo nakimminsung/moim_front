@@ -19,7 +19,7 @@ export default function MyMenu() {
 	const [loginCheck, setLoginCheck] = useState('');
 	const prevOpen = useRef(open);
 
-	const handleToggle = () => {
+	const handleToggleMenu = () => {
 		setOpen((prevOpen) => !prevOpen);
 		console.log(jwt_decode(localStorage.getItem('token')));
 	};
@@ -78,7 +78,7 @@ export default function MyMenu() {
 				ref={anchorRef}
 				aria-controls={open ? 'menu-list-grow' : undefined}
 				aria-haspopup='true'
-				onClick={handleToggle}
+				onClick={handleToggleMenu}
 			>
 				<MyButtonIcon />
 				{loginCheck === 1 ? (

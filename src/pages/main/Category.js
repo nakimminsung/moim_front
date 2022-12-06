@@ -28,8 +28,8 @@ function Category(props) {
 
 	return (
 		<div className='categoryBox' style={{textAlign: 'center'}}>
-			<h2 style={{marginBottom: '50px', fontWeight: 'bold'}}>
-				어떤 공간을 찾고있나요?
+			<h2 style={{marginBottom: '50px'}}>
+				<b>어떤 공간을 찾고있나요?</b>
 			</h2>
 
 			{/* 카테고리 아이콘 영역 */}

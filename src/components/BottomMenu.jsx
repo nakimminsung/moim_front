@@ -1,25 +1,16 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
 import styled from 'styled-components';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PropTypes from 'prop-types';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Fade from '@mui/material/Fade';
-
-const actions = [
-	{icon: <FileCopyIcon />, name: 'Copy'},
-	{icon: <SaveIcon />, name: 'Save'},
-	{icon: <PrintIcon />, name: 'Print'},
-	{icon: <ShareIcon />, name: 'Share'},
-];
+import MiniCard from './MiniCard';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import MapIcon from '@mui/icons-material/Map';
+import {useEffect} from 'react';
+import {useState} from 'react';
 
 function ScrollTop(props) {
 	const {children, window} = props;
@@ -43,7 +34,6 @@ function ScrollTop(props) {
 			<Box
 				onClick={handleClick}
 				role='presentation'
-				sx={{position: 'fixed', bottom: 33, right: 90}}
 				style={{zIndex: '999'}}
 			>
 				{children}
@@ -57,51 +47,104 @@ ScrollTop.propTypes = {
 };
 
 export default function BasicSpeedDial(props) {
+	const [data, setData] = useState([]);
+	useEffect(() => {
+		setData(JSON.parse(sessionStorage.getItem('watched')));
+		console.log(sessionStorage.getItem('watched'));
+	}, [sessionStorage.getItem('watched')]);
 	return (
 		<>
-			<ScrollTop {...props}>
-				<Fab size='small' aria-label='scroll back to top'>
-					<KeyboardArrowUpIcon />
-				</Fab>
-			</ScrollTop>
 			<Wrapper
 				sx={{
-					height: 320,
 					transform: 'translateZ(0px)',
 					flexGrow: 1,
 				}}
 			>
-				<SpeedDial
-					ariaLabel='SpeedDial basic example'
-					sx={{
-						position: 'absolute',
-						bottom: 5,
-						right: 5,
-					}}
-					icon={<MoreVertIcon />}
-				>
-					{actions.map((action) => (
-						<SpeedDialAction
-							key={action.name}
-							icon={action.icon}
-							tooltipTitle={action.name}
-						/>
-					))}
-				</SpeedDial>
+				<BtnWrapper>
+					<MoimBtn>M</MoimBtn>
+					<WishBtn>
+						<FavoriteIcon style={{fontSize: '30px'}} />
+					</WishBtn>
+					<MapBtn>
+						<MapIcon style={{fontSize: '30px'}} />
+					</MapBtn>
+				</BtnWrapper>
+				<CardWrapper>
+					{data && data.length !== 0
+						? data
+								.slice(0, 3)
+								.map((item, i) => <MiniCard num={item} />)
+						: ''}
+				</CardWrapper>
+				<ScrollTop {...props} aria-label='scroll back to top'>
+					<Fab size='small'>
+						<KeyboardArrowUpIcon />
+					</Fab>
+				</ScrollTop>
 			</Wrapper>
 		</>
 	);
 }
 
+const MoimBtn = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #704de4;
+	color: white;
+	border-radius: 100%;
+	width: 70px;
+	height: 70px;
+	cursor: pointer;
+	font-weight: 900;
+	font-size: 30px;
+`;
+const WishBtn = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #e55682;
+	color: white;
+	border-radius: 100%;
+	width: 70px;
+	height: 70px;
+	cursor: pointer;
+	font-weight: 900;
+`;
+const MapBtn = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #e55682;
+	color: white;
+	border-radius: 100%;
+	width: 70px;
+	height: 70px;
+	cursor: pointer;
+	font-weight: 900;
+`;
+const CardWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
 const Wrapper = styled(Box)`
 	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	z-index: 999;
-	> div > button {
-		background-color: #704de4;
-	}
-	> div > button:hover {
-		background-color: #704de4;
-	}
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	bottom: 100px;
+	right: 10px;
+	height: 600px;
+	border: 1px solid gray;
+`;
+const BtnWrapper = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	height: 230px;
+	margin-bottom: 20px;
 `;
