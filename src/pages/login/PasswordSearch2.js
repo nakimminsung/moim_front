@@ -83,7 +83,9 @@ function PasswordSearch2(props) {
   const confirmNewPassword = () => {
     // console.log(newPassword)
     // console.log(newPassword2)
-    if (newPassword == newPassword2) {
+    if (newPassword == '') {
+      alert('새로운 비밀번호를 입력하지 않았습니다. ')
+    } else if (newPassword == newPassword2) {
       passwordChange()
       alert('비밀번호가 변경되었습니다. 다시 로그인 해주세요')
       navi('/');

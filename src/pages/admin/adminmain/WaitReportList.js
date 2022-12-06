@@ -35,27 +35,24 @@ function WaitReportList(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{waitReport &&
-						waitReport.map((data, idx) =>
-							waitReport.length != 0 ? (
-								<tr key={idx}>
-									<td>{idx + 1}</td>
-									<td>{data.type}</td>
-									<td>{data.status}</td>
-									<td>{data.writeday}</td>
-								</tr>
-							) : (
-								//게시글이 없을때 (length == 0)
-								<tr key={idx}>
-									<td
-										colSpan={4}
-										style={{textAlign: 'center'}}
-									>
-										접수된 게시글이 없습니다.
-									</td>
-								</tr>
-							),
-						)}
+					{waitReport.length === 0 ? (
+						//게시글이 없을때 (length == 0)
+						<tr>
+							<td colSpan={4} style={{textAlign: 'center'}}>
+								<span>접수된 게시글이 없습니다.</span>
+							</td>
+						</tr>
+					) : (
+						waitReport &&
+						waitReport.map((data, idx) => (
+							<tr key={idx}>
+								<td>{idx + 1}</td>
+								<td>{data.type}</td>
+								<td>{data.status}</td>
+								<td>{data.writeday}</td>
+							</tr>
+						))
+					)}
 				</tbody>
 			</table>
 		</div>

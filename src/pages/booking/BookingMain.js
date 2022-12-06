@@ -275,8 +275,11 @@ function BookingMain() {
 													>
 														<h5>{item.oname}</h5>
 														<p>
-															{item.price} / 수량
-															1개
+															₩
+															{item.price.toLocaleString(
+																'ko-KR',
+															)}
+															&nbsp;/ 수량 1개
 														</p>
 														<div>
 															<Button
@@ -303,7 +306,7 @@ function BookingMain() {
 																	].count
 																}
 																style={{
-																	width: '250px',
+																	width: '310px',
 																	height: '36px',
 																	textAlign:
 																		'center',

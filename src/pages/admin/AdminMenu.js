@@ -149,6 +149,8 @@ function AdminMenu(props) {
 							신고 관리
 						</NavLink>
 					</li>
+
+					{/* 
 					<li>
 						<MonetizationOn />
 						&emsp;
@@ -162,7 +164,6 @@ function AdminMenu(props) {
 						</NavLink>
 					</li>
 
-					{/* 
 					<li>
 						<NavLink to={'/admin/popup'} className='NavLink'>
 							팝업 관리

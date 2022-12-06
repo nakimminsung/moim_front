@@ -165,7 +165,8 @@ function HostList(props) {
 																	alert(
 																		'경고 누적 초기화 완료',
 																	);
-																	window.location.reload();
+																	// window.location.reload();
+																	getHostList();
 																});
 														} else {
 															//아니오
