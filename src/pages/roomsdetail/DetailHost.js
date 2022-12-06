@@ -8,6 +8,7 @@ function DetailHost(props) {
 	const {num} = useParams();
 	const [hostInfo, setHostInfo] = useState('');
 	const [roomData, setRoomData] = useState('');
+	const imgUrl = 'http://localhost:9000/image/';
 
 	//호스트관련 데이터 출력
 	const onSelectHost = () => {
@@ -56,7 +57,16 @@ function DetailHost(props) {
 								>
 									<img
 										alt=''
-										src={hostInfo.logoImage}
+										src={
+											hostInfo.logoImageitem == null
+												? 'https://ssl.pstatic.net/static/pwe/address/img_profile.png'
+												: hostInfo.logoImageitem.startsWith(
+														'http',
+												  )
+												? hostInfo.logoImageitem
+												: imgUrl +
+												  hostInfo.logoImageitem
+										}
 										className='qnaImg'
 									/>
 								</td>
