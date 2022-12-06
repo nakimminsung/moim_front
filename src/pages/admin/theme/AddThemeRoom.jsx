@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import styled from 'styled-components';
 import axios from 'axios';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import AddThemeRoomList from './AddThemeRoomList';
 import Button from '@mui/material/Button';
 
@@ -28,10 +28,8 @@ export default function AddThemeRoom(props) {
 			data: data,
 		}).then((res) => {
 			alert('등록이 완료되었습니다.');
-			window.location.reload();
-			setRoomNumList();
+			setOpen(false);
 		});
-		setOpen(false);
 	};
 
 	return (
@@ -59,7 +57,7 @@ export default function AddThemeRoom(props) {
 						setRoomNumList={setRoomNumList}
 					/>
 				</DialogContent>
-				<DialogActions>
+				<DialogActions style={{padding: '0'}}>
 					<ButtonWrapper>
 						<CancelBtn onClick={handleClose}>취소</CancelBtn>
 						<InsertBtn onClick={insertTheme} autoFocus>
@@ -72,17 +70,22 @@ export default function AddThemeRoom(props) {
 	);
 }
 
-const CancelBtn = styled.button`
-	background-color: gray;
+const CancelBtn = styled.div`
+	background-color: #b0b0b0;
 `;
-const InsertBtn = styled.button`
-	background-color: purple;
+const InsertBtn = styled.div`
+	background-color: #704de4;
 `;
 const ButtonWrapper = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	> button {
+	> div {
 		width: 50%;
+		color: white;
+		text-align: center;
+		height: 50px;
+		line-height: 50px;
+		cursor: pointer;
 	}
 `;

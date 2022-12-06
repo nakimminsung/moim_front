@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import styled from '@emotion/styled/macro';
-import {Box, Typography} from '@mui/material';
+import {Box} from '@mui/material';
 
 function Theme(props) {
 	const [data, setData] = useState([]);
@@ -80,17 +80,16 @@ const ThemeTitleWrapper = styled(Box)`
 	flex-direction: column;
 	align-items: center;
 `;
-const Title = styled.h2`
-	font-weight: bold;
+const Title = styled.b`
 	display: block;
 	text-align: center;
+	font-size: 30px;
 `;
-const SubTitle = styled.h6`
+const SubTitle = styled.b`
 	color: gray;
-	font-weight: 500;
 	text-align: center;
 	margin-bottom: 30px;
-	margin-top: 0px;
+	font-size: 16px;
 `;
 const ThemeListWrapper = styled(Box)`
 	display: flex;
@@ -102,24 +101,35 @@ const ThemeContent = styled(Box)`
 	background-repeat: no-repeat;
 	background-size: 100% auto;
 	background-position: top;
-	width: 49%;
 	height: 150px;
 	cursor: pointer;
 	opacity: 0.9;
 	padding: 20px;
 	margin-bottom: 25px;
+	@media (max-width: 1920px) {
+		width: 49%;
+	}
+	@media (max-width: 1680px) {
+		width: 49%;
+	}
+	@media (max-width: 1000px) {
+		width: 100%;
+	}
+	@media (max-width: 900px) {
+		width: 100%;
+	}
 `;
-const ThemeTitle = styled(Typography)`
+const ThemeTitle = styled.span`
 	display: block;
 	font-size: 30px;
 	color: white;
 	font-weight: 1000;
 `;
-const ThemeSubTitle = styled(Typography)`
+const ThemeSubTitle = styled.span`
 	color: white;
 	font-size: 15px;
 `;
-const ViewMoreButton = styled(Typography)`
+const ViewMoreButton = styled.span`
 	border: 1px solid #a0a0a0;
 	width: 100%;
 	height: 60px;

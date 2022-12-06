@@ -12,6 +12,9 @@ import './Review.css';
 import QnaUpdate from './QnaUpdate';
 import Pagination from 'react-js-pagination';
 
+//report 신고하기
+import QnaReportInsert from './QnaReportInsert';
+
 function QNA(props) {
 	const [memberQna, setMemberQna] = useState([]);
 	const [sort, setSort] = useState('order by writeday desc');
@@ -122,17 +125,29 @@ function QNA(props) {
 													paddingBottom: '10px',
 												}}
 											>
-												<Status
+												<div
 													style={{
-														backgroundColor:
-															item.status ==
-															'답변완료'
-																? '#afafaf'
-																: '#704de4',
+														display: 'flex',
+														justifyContent:
+															'space-between',
 													}}
 												>
-													{item.status}
-												</Status>
+													<Status
+														style={{
+															backgroundColor:
+																item.status ==
+																'답변완료'
+																	? '#afafaf'
+																	: '#704de4',
+														}}
+													>
+														{item.status}
+													</Status>
+													<QnaReportInsert
+														qnaNum={item.num}
+														roomNum={item.roomNum}
+													/>
+												</div>
 											</Typography>
 											<Typography
 												variant='body1'

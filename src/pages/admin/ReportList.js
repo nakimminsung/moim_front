@@ -62,8 +62,10 @@ function ReportList(props) {
 						{reportList.length === 0 ? (
 							//데이터가 없을때
 							<tr>
-								<td colSpan={7} style={{textAlign: 'center'}}>
-									<h5>등록된 게시글이 없습니다</h5>
+								<td colSpan={8} style={{textAlign: 'center'}}>
+									<span style={{fontSize: '18px'}}>
+										등록된 게시글이 없습니다
+									</span>
 								</td>
 							</tr>
 						) : (

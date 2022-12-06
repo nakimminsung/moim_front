@@ -118,7 +118,7 @@ function DatailFunction(props) {
 						&nbsp;
 						{/* 911, 신고하기, report */}
 						<div style={{marginTop: '-7px'}}>
-							<ReportInsert roomNum={num} userNum={userNum} />
+							<ReportInsert roomNum={num} />
 						</div>
 					</div>
 				</span>

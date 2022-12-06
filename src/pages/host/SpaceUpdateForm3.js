@@ -54,6 +54,7 @@ function SpaceUpdateForm3(props) {
 			// console.log(payment);
 			setFloor(res.data.floor);
 			setParking(res.data.parking);
+			console.log(res.data.parking);
 			setHeadCount(res.data.headcount);
 			setWeekAmPrice(res.data.weekAmPrice);
 			setWeekPmPrice(res.data.weekPmPrice);
@@ -399,8 +400,7 @@ function SpaceUpdateForm3(props) {
 										<Select
 											labelId='demo-simple-select-outlined-label'
 											id='demo-simple-select-outlined'
-											value={floor}
-											// ref={floorRef}
+											//ref={floorRef}
 											// value={floorRef.current}
 											onChange={floorOnchange}
 											defaultValue={1}
@@ -439,12 +439,11 @@ function SpaceUpdateForm3(props) {
 									</FormControl>
 									{floorhide == true ? (
 										<TextField
-											id='textFloor'
 											style={{
 												width: '150px',
 												marginTop: '0px',
 											}}
-											// placeholder='최대 인원수를 입력해주세요'
+											id='textFloor'
 											InputProps={{inputProps: {min: 4}}}
 											required
 											type={'number'}
@@ -470,15 +469,14 @@ function SpaceUpdateForm3(props) {
 							>
 								<div style={{marginTop: '15px'}}>
 									<FormControl
+										style={{width: '150px'}}
 										variant='outlined'
 										className={ClassNames.formControl}
 										size='small'
 									>
 										<Select
-											style={{width: '150px'}}
 											labelId='demo-simple-select-outlined-label'
 											id='demo-simple-select-outlined'
-											value={parking}
 											// ref={parkingRef}
 											onChange={parkingOnchange}
 											defaultValue={1}
@@ -511,13 +509,18 @@ function SpaceUpdateForm3(props) {
 												width: '150px',
 												marginTop: '0px',
 											}}
-											// placeholder='최대 인원수를 입력해주세요'
 											InputProps={{inputProps: {min: 5}}}
 											required
 											type={'number'}
 											margin='normal'
 											variant='outlined'
 											size='small'
+											onChange={(e) => {
+												setParking(e.target.value);
+												console.log(
+													'parking=' + parking,
+												);
+											}}
 										/>
 									) : null}
 								</div>
