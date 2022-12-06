@@ -30,16 +30,16 @@ export default function MyMenu() {
 		setOpen(false);
 	};
 	// const goMypage = () => {
-	// 	try {
-	// 		if (localStorage.getItem('token') === null) {
-	// 			alert('로그인 해주세요.');
-	// 			document.location.href = '/login';
-	// 		} else {
-	// 			document.location.href = '/mypage';
-	// 		}
-	// 	} catch (e) {
-	// 		console.log(e);
-	// 	}
+	//    try {
+	//       if (localStorage.getItem('token') === null) {
+	//          alert('로그인 해주세요.');
+	//          document.location.href = '/login';
+	//       } else {
+	//          document.location.href = '/mypage';
+	//       }
+	//    } catch (e) {
+	//       console.log(e);
+	//    }
 	// };
 
 	useEffect(() => {

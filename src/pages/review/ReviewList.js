@@ -8,7 +8,7 @@ function ReviewList(props) {
 	return (
 		<div className='reviewQnaGuest' style={{width: '100%'}}>
 			<div style={{width: '100%', textAlign: 'center'}}>
-				<div style={{marginTop: '40px'}}>
+				<div>
 					{show === 1 ? (
 						<b
 							style={{
@@ -58,7 +58,6 @@ function ReviewList(props) {
 					</span>
 				</div>
 			</div>
-			<br />
 
 			{show === 1 ? <Review /> : <QNA />}
 		</div>

@@ -25,6 +25,7 @@ function RoomCard(props) {
 	const [reviewCount, setReviewCount] = useState('');
 	const [likeCount, setLikeCount] = useState('');
 	const navi = useNavigate();
+	const imgUrl = 'http://localhost:9000/image/';
 
 	// room tag list select function
 	const selectTagList = (num) => {
@@ -75,7 +76,14 @@ function RoomCard(props) {
 													width: '100%',
 												}}
 												id='image'
-												src={step.rimageUrl}
+												src={
+													step.rimageUrl.startsWith(
+														'http',
+													)
+														? step.rimageUrl
+														: imgUrl +
+														  step.rimageUrl
+												}
 												alt={step.label}
 												onClick={() => {
 													navi(

@@ -23,9 +23,7 @@ function BDTop({price, roomData, date, head, num}) {
 		});
 	};
 
-	const onErrorImg = (e) => {
-		e.target.src = defaultImg;
-	};
+	const onErrorImg = (event) => (event.target.src = defaultImg);
 
 	useEffect(() => {
 		selectFacilityData();
@@ -55,7 +53,8 @@ function BDTop({price, roomData, date, head, num}) {
 				<div className='bdSpaceInfo'>
 					<img
 						alt=''
-						src={imgUrl + roomData.thumbnailImage}
+						// src={imgUrl + roomData.thumbnailImage}
+						src={roomData.thumbnailImage}
 						width='200'
 						height={200}
 						onError={onErrorImg}

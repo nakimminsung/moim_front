@@ -16,7 +16,7 @@ function HostReview(props) {
 
 	//전체 리뷰 가져오기
 	const selectReviewList = () => {
-		let hostNum = 1;
+		const hostNum = sessionStorage.num;
 		let url =
 			localStorage.url +
 			'/reviewQna/reviewHostList?hostNum=' +
@@ -39,6 +39,9 @@ function HostReview(props) {
 	return (
 		<ListWrapper>
 			<SelectDiv>
+				<span className='memberCount'>
+					총 {hostReviewList.length}개
+				</span>
 				<FormControl sx={{m: 1, minWidth: 120}} size='small'>
 					<Select
 						labelId='demo-select-small'
@@ -86,18 +89,21 @@ function HostReview(props) {
 												paddingBottom: '10px',
 											}}
 										>
-											<Space>
-												작성자 :
-												<span
-													onClick={() => {
-														window.location.href =
-															'http://localhost:3000/detail/' +
-															item.roomNum;
-													}}
-												>
-													&nbsp;{item.nickname}
-												</span>
-											</Space>
+											예약번호 :
+											<span
+												style={{
+													textDecoration: 'underline',
+													color: '#7b68ee',
+													cursor: 'pointer',
+												}}
+												onClick={() => {
+													window.location.href =
+														'http://localhost:3000/host/bookingdetail/' +
+														item.num;
+												}}
+											>
+												{item.num}
+											</span>
 										</Typography>
 										<Typography
 											variant='body1'
@@ -105,7 +111,12 @@ function HostReview(props) {
 											color='text.secondary'
 											style={{marginTop: '15px'}}
 										>
-											<Space>
+											<Space
+												style={{
+													fontWeight: 'bold',
+													marginBottom: '10px',
+												}}
+											>
 												공간명 :{' '}
 												<span
 													style={{
@@ -123,6 +134,13 @@ function HostReview(props) {
 													{item.name}
 												</span>
 											</Space>
+
+											<Space>
+												작성자 :
+												<span>
+													&nbsp;{item.nickname}
+												</span>
+											</Space>
 											<Rating
 												name='half-rating-read'
 												style={{
@@ -134,7 +152,13 @@ function HostReview(props) {
 												readOnly
 											/>
 											<SpaceContent>
-												<pre style={{height: '63px'}}>
+												<pre
+													style={{
+														height: '60px',
+														fontFamily:
+															'NanumSquareRound',
+													}}
+												>
 													{item.content}
 												</pre>
 											</SpaceContent>
@@ -184,12 +208,15 @@ const ListWrapper = styled(Box)`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	margin-top: 10px;
 `;
 const SelectDiv = styled(Box)`
 	display: flex;
-	justify-content: flex-end;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
 	width: 100%;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 `;
 const ReviewList = styled(Box)`
 	// display: grid;
@@ -224,7 +251,7 @@ const ImageDiv = styled(Box)`
 	text-align: center;
 `;
 const Space = styled(Typography)`
-	font-weight: bold;
+	font-family: 'NanumSquareRound';
 `;
 const SpaceContent = styled(Typography)``;
 const SpaceWriteday = styled(Typography)`

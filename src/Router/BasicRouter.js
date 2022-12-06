@@ -7,7 +7,7 @@ import Like from '../pages/like/Like';
 import Detail from '../pages/roomsdetail/Detail';
 import MainTheme from '../pages/main/Theme';
 import Theme from '../pages/theme/Theme';
-import AdminMain from '../pages/admin/AdminMain';
+
 import BookingDetail from '../pages/booking/BookingDetail';
 import BookingList from '../pages/booking/BookingList';
 import BookingMain from '../pages/booking/BookingMain';
@@ -59,7 +59,7 @@ function BasicRouter() {
 				<Route path='host'>
 					{/* 공간리스트 */}
 					<Route path='slist' element={<SpaceList />} />
-					<Route path='addform' element={<SpaceAddForm />} />
+					<Route path='addform/' element={<SpaceAddForm />} />
 					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
 					<Route path='addform3/:num' element={<SpaceAddForm3 />} />
 					<Route

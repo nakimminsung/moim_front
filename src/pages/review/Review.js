@@ -29,7 +29,6 @@ function Review(props) {
 	const [num, setNum] = useState('');
 	const [contentLength, setContentLength] = useState(0);
 	const [review, setReview] = useState('');
-	const [oldPhoto, setoldPhoto] = useState('');
 
 	const imgUrl = 'http://localhost:9000/image/';
 
@@ -87,7 +86,6 @@ function Review(props) {
 		updateReviewData.append('rating', rating);
 		updateReviewData.append('uploadFile', uploadFile);
 		updateReviewData.append('num', num);
-		updateReviewData.append('oldPhoto', oldPhoto);
 
 		for (let key of updateReviewData.keys()) {
 			console.log(key, ':', updateReviewData.get(key));
@@ -108,7 +106,6 @@ function Review(props) {
 			setRating('');
 			setUploadFile([]);
 			setContent('');
-			setoldPhoto('');
 		});
 
 		//성공하고 modal 창 닫기
@@ -132,6 +129,9 @@ function Review(props) {
 	return (
 		<ListWrapper>
 			<SelectDiv>
+				<span className='memberCount'>
+					총 {memberReviewList.length}개
+				</span>
 				<FormControl sx={{m: 1, minWidth: 120}} size='small'>
 					<Select
 						labelId='demo-select-small'
@@ -188,8 +188,8 @@ function Review(props) {
 												}}
 												onClick={() => {
 													window.location.href =
-														'http://localhost:3000/detail/' +
-														item.roomNum;
+														'http://localhost:3000/booking/detail/' +
+														item.num;
 												}}
 											>
 												{item.num}
@@ -230,7 +230,13 @@ function Review(props) {
 												readOnly
 											/>
 											<SpaceContent>
-												<pre style={{height: '63px'}}>
+												<pre
+													style={{
+														height: '63px',
+														fontFamily:
+															'NanumSquareRound',
+													}}
+												>
 													{item.content}
 												</pre>
 											</SpaceContent>
@@ -248,6 +254,10 @@ function Review(props) {
 														item.reviewImageUrl ==
 														null
 															? 'https://github.com/MoiM-Project/data/blob/main/icon/%EC%BA%A1%EC%B2%98.JPG?raw=true'
+															: item.reviewImageUrl.startsWith(
+																	'http',
+															  )
+															? item.reviewImageUrl
 															: imgUrl +
 															  item.reviewImageUrl
 													}
@@ -271,15 +281,17 @@ function Review(props) {
 											}}
 											onClick={() => {
 												setOpen(true);
-												setNum(item.num);
+												setNum(item.reNum);
 												let selectUrl =
 													localStorage.url +
 													'/reviewMember?num=' +
-													item.num;
+													item.reNum;
+												console.log(selectUrl);
 
 												axios
 													.get(selectUrl)
 													.then((res) => {
+														console.log(res.data);
 														setReview(res.data);
 														setRating(
 															res.data.rating,
@@ -287,10 +299,7 @@ function Review(props) {
 														setContent(
 															res.data.content,
 														);
-														setoldPhoto(
-															res.data
-																.reviewImageUrl,
-														);
+
 														setContentLength(
 															res.data.content
 																.length,
@@ -409,12 +418,15 @@ const ListWrapper = styled(Box)`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	margin-top: 10px;
 `;
 const SelectDiv = styled(Box)`
 	display: flex;
-	justify-content: flex-end;
 	width: 100%;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
 `;
 const ReviewList = styled(Box)`
 	// display: grid;
@@ -450,6 +462,7 @@ const ImageDiv = styled(Box)`
 `;
 const Space = styled(Typography)`
 	font-weight: bold;
+	font-family: 'NanumSquareRound';
 `;
 const SpaceContent = styled(Typography)``;
 const SpaceWriteday = styled(Typography)`

@@ -24,7 +24,8 @@ span.reviewGuest {
 	width: 400px;
 	height: 100px;
 	padding-left: 10px;
-	border: 1px solid black;
+	color: black;
+	font-family: 'NanumSquareRound';
 }
 .qnaAnswerday {
 	color: #b2b2b2;
@@ -33,4 +34,10 @@ span.reviewGuest {
 	position: absolute;
 	right: 23px;
 	bottom: 40px;
+}
+.memberCount {
+	font-weight: bold;
+	font-size: 17px;
+	padding-top: 15px;
+	padding-left: 10px;
 }

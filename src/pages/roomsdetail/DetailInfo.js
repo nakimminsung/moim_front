@@ -134,7 +134,7 @@ function DetailInfo(props) {
 				<br />
 				<pre
 					style={{
-						fontFamily: 'normal',
+						fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
 						color: '#656565',
 						fontSize: '15px',
 					}}
@@ -144,7 +144,7 @@ function DetailInfo(props) {
 				<br />
 				<span
 					style={{
-						fontFamily: 'normal',
+						fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
 						color: '#656565',
 						fontSize: '15px',
 						marginRight: '20%',
@@ -155,7 +155,7 @@ function DetailInfo(props) {
 				</span>
 				<span
 					style={{
-						fontFamily: 'normal',
+						fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
 						color: '#656565',
 						fontSize: '15px',
 					}}
@@ -230,7 +230,7 @@ function DetailInfo(props) {
 					roomInfo.map((row, idx) => (
 						<div
 							style={{
-								fontFamily: 'normal',
+								fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
 								color: '#656565',
 								fontSize: '15px',
 								width: '100%',
@@ -263,7 +263,7 @@ function DetailInfo(props) {
 					roomPre.map((row, idx) => (
 						<div
 							style={{
-								fontFamily: 'normal',
+								fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
 								color: '#656565',
 								fontSize: '15px',
 								width: '100%',
@@ -281,7 +281,7 @@ function DetailInfo(props) {
 			<div
 				id='4'
 				style={{
-					fontFamily: 'normal',
+					fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
 					fontSize: '15px',
 					marginTop: '120px',
 				}}

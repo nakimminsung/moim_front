@@ -20,8 +20,8 @@ function HostTotalPlace(props) {
 	}, []);
 
 	return (
-		<div>
-			<div style={{marginTop: '40px', textAlign: 'center'}}>
+		<div style={{paddingBottom: '70px'}}>
+			<div style={{textAlign: 'center'}}>
 				<b
 					style={{
 						borderBottom: '2px solid #ffd014',

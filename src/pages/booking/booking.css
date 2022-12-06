@@ -191,3 +191,8 @@ ul.pagination li a.active {
 	z-index: 100;
 	color: white;
 }
+
+.change input,
+.change progress {
+	accent-color: red;
+}

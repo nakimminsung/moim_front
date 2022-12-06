@@ -36,7 +36,7 @@ function SpaceBookingDetail(props) {
 						<div>
 							<BookingDetailTop bookingList={bookingList} />
 						</div>
-						<div className='BKContainer'>
+						<div className='BKContainer1'>
 							<BookingDetailLeft bookingList={bookingList} />
 							<BookingDetailRight bookingList={bookingList} />
 						</div>
