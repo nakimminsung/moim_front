@@ -50,6 +50,7 @@ function SellerJoin(props) {
     const [logo, setLogo] = useState("");
     const [bank, setBank] = useState("국민");
     const [accountNumber, setAccountNumber] = useState("");
+    const navi = useNavigate();
 
     let body = {
         email: email,
@@ -64,7 +65,13 @@ function SellerJoin(props) {
     };
 
     const onSubmit = async () => {
-        try {
+        if (email == '') {
+            alert('이메일을 입력하지 않았습니다. 이메일을 입력해주세요')
+        } else if (password == '') {
+            alert('비밀번호를 입력하지 않았습니다. 비밀번호를 입력해주세요')
+        } else if (placeName == '') {
+            alert('공간명 입력하지 않았습니다. 이름을 입력해주세요')
+        } else {
             const response = await axios.post(
                 "http://localhost:9000/member/sellersignup",
                 body,
@@ -73,12 +80,12 @@ function SellerJoin(props) {
                 }
             );
             console.log(response.data.code);
-            // if (response.data.code === 1000) {
-            //     window.location.href = "/";
-            // }
+            if (response.data.code === 1000) {
+                window.location.href = "/";
+                // navi('/');
+            }
             alert('호스트 회원가입이 되었습니다. 로그인하여 서비스를 이용해보세요')
-        } catch (e) {
-            console.log(e);
+            navigate('/seller');
         }
     };
     // 이메일 중복 체크
@@ -418,7 +425,6 @@ function SellerJoin(props) {
                                     type="button"
                                     onClick={() => {
                                         onSubmit();
-                                        navigate('/seller');
                                     }}
                                 >
                                     회원가입하기
