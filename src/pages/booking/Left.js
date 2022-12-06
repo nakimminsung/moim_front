@@ -1,20 +1,7 @@
 import React, {useState} from 'react';
-import {Button} from '@mui/material';
-//dialogue 관련
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import {FormControl} from '@material-ui/core';
-import Select from '@material-ui/core/Select';
-import Rating from '@mui/material/Rating';
-import InfoIcon from '@mui/icons-material/Info';
 import axios from 'axios';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
+import jwt_decode from 'jwt-decode';
+import LeftReturn from './LeftReturn';
 
 function Left({bookingList}) {
 	const [rating, setRating] = React.useState(0); // 별점
@@ -25,6 +12,7 @@ function Left({bookingList}) {
 	let userNum = bookingList.userNum;
 	let roomNum = bookingList.roomNum;
 	let num = bookingList.num;
+	let bookingDetailNum = bookingList.num;
 	console.log('ss' + num);
 
 	const contentHandler = (e) => {
@@ -48,7 +36,7 @@ function Left({bookingList}) {
 	//modal submit 이벤트 (이용완료 - 리뷰작성)
 	const submitHandler = (e) => {
 		e.preventDefault();
-
+		console.log('dd' + bookingDetailNum);
 		// BackEnd로 보낼 url
 		let url = localStorage.url + '/review/insert';
 
@@ -58,6 +46,7 @@ function Left({bookingList}) {
 		formData.append('uploadFile', uploadFile);
 		formData.append('userNum', userNum);
 		formData.append('roomNum', roomNum);
+		formData.append('bookingDetailNum', bookingDetailNum);
 
 		axios({
 			method: 'post',
@@ -86,18 +75,26 @@ function Left({bookingList}) {
 		e.preventDefault();
 
 		let updateUrl = localStorage.url + `/bookingDetail/update`;
-		console.log(updateUrl);
-		console.log('num' + num);
 		let data = {
 			num,
 			cancelReason,
 		};
-		console.log(data);
+
+		// booking detail table update
 		axios.patch(updateUrl, data).then((res) => {
 			alert('예약이 취소되었습니다.');
 			window.location.reload();
 		});
 
+		// booking table delete
+		let deleteUrl = localStorage.url + `/booking/delete`;
+		let data2 = {
+			bookingDetailNum,
+		};
+
+		axios.post(deleteUrl, data2).then((res) => {
+			// console.log('booking 삭제 완료');
+		});
 		//성공하고 modal 창 닫기
 		setOpen(false);
 	};
@@ -118,7 +115,7 @@ function Left({bookingList}) {
 
 	stime = _stime;
 	etime = _etime;
-	calTime = _etime - _stime;
+	calTime = _etime - _stime + 1;
 
 	//modal dialogue : OPEN / CLOSE
 	const [open, setOpen] = React.useState(false);
@@ -136,311 +133,49 @@ function Left({bookingList}) {
 		setUploadFile([]);
 	};
 
-	// modal select
-	const [age, setAge] = React.useState('');
+	// 날짜 계산
+	const days = ['일', '월', '화', '수', '목', '금', '토'];
 
-	const handleChange = (event) => {
-		setAge(event.target.value);
-	};
+	function leftPad(value) {
+		if (value >= 10) {
+			return value;
+		}
+
+		return `0${value}`;
+	}
+
+	function toStringByFormatting(source, delimiter = '-') {
+		const year = source.getFullYear();
+		const month = leftPad(source.getMonth() + 1);
+		const day = leftPad(source.getDate());
+
+		return [year, month, day].join(delimiter);
+	}
+	let requestDate = toStringByFormatting(new Date(bookingList.createdAt));
+	let requestDay = days[new Date(bookingList.createdAt).getDay()];
 
 	return (
 		<>
-			<div className='BKItem'>
-				<div
-					style={{
-						display: 'flex',
-						borderBottom: '3px solid #704de4',
-					}}
-				>
-					<h4>결제 예정금액</h4>
-				</div>
-				<div className='bdPrice'>
-					<div>
-						<p>
-							예약날짜&nbsp;&nbsp;<b>{bookingList.bookingDate}</b>
-						</p>
-						<div style={{display: 'flex', marginBottom: '0'}}>
-							<p>
-								예약시간&nbsp;&nbsp;
-								<b>
-									{stime}시~{Number(etime) + 1}시, {calTime}
-									시간
-								</b>
-								&nbsp;&nbsp;
-							</p>
-						</div>
-						<p style={{marginBottom: '0'}}>
-							{options.some((item) => item.length !== 0) ? (
-								<>추가옵션&nbsp;&nbsp;</>
-							) : (
-								<></>
-							)}
-							{options.map((item, idx) => (
-								<>
-									<p
-										key={idx}
-										style={{
-											display: 'inline-block',
-										}}
-									>
-										{options.some(
-											(item) => item.length !== 0,
-										) ? (
-											<b>
-												{item}
-												개&nbsp;&nbsp;
-											</b>
-										) : (
-											<></>
-										)}
-									</p>
-								</>
-							))}
-						</p>
-						<p
-							style={{
-								borderBottom: '3px solid #704de4',
-								marginTop: '0',
-							}}
-						>
-							예약인원&nbsp;&nbsp;<b>{bookingList.headCount}명</b>
-						</p>
-						<div
-							style={{
-								display: 'flex',
-								color: '#704de4',
-							}}
-						>
-							<h4>₩</h4>
-							<h4
-								style={{
-									marginLeft: 'auto',
-								}}
-							>
-								<b>
-									{Number(
-										bookingList.totalPrice,
-									).toLocaleString('ko-KR')}
-								</b>
-							</h4>
-						</div>
-					</div>
-					{Number(bookingList.bookingStatus) === 3 ? (
-						<>
-							<Button
-								class='bookingBtn'
-								type='button'
-								id='btn_submit'
-								variant='outlined'
-								onClick={handleClickOpen}
-							>
-								예약취소
-							</Button>
-						</>
-					) : Number(bookingList.bookingStatus) === 1 ? (
-						<>
-							<Button
-								class='bookingBtn'
-								type='button'
-								id='btn_submit'
-								variant='outlined'
-								onClick={handleClickOpen}
-							>
-								예약취소
-							</Button>
-						</>
-					) : Number(bookingList.bookingStatus) === 2 ? (
-						<>
-							<Button
-								class='bookingBtn'
-								type='button'
-								id='btn_submit'
-								variant='outlined'
-								onClick={handleClickOpen}
-							>
-								예약취소
-							</Button>
-						</>
-					) : Number(bookingList.bookingStatus) === 4 ? (
-						<>
-							<Button
-								class='bookingBtn'
-								type='button'
-								id='btn_submit'
-								variant='outlined'
-								onClick={handleClickOpen}
-							>
-								이용후기작성
-							</Button>
-						</>
-					) : (
-						<>
-							<Button
-								class='bookingBtn'
-								type='button'
-								id='btn_submit'
-								variant='outlined'
-							>
-								예약취소가완료되었습니다.
-							</Button>
-						</>
-					)}
-
-					{/* 모달 */}
-					<Dialog open={open} onClose={handleClose}>
-						{bookingList.bookingStatus === 4 ? (
-							<>
-								<DialogTitle
-									style={{
-										backgroundColor: '#704de4',
-										color: 'white',
-										textAlign: 'center',
-									}}
-								>
-									이용후기 작성
-								</DialogTitle>
-								<DialogContent>
-									<br />
-									<DialogContentText style={{width: '350px'}}>
-										평점
-										<Rating
-											name='simple-controlled'
-											style={{
-												marginLeft: '30px',
-											}}
-											value={rating}
-											onChange={(event, newValue) => {
-												setRating(newValue);
-											}}
-										/>
-									</DialogContentText>
-
-									<br />
-									<textarea
-										className='form-control'
-										placeholder='이용후기를 작성해주세요.'
-										style={{height: '300px'}}
-										onChange={contentHandler}
-										value={content}
-									/>
-									<DialogContentText style={{color: 'red'}}>
-										<InfoIcon style={{color: 'red'}} />
-										이용완료일 기준 30일 이내까지 작성 및
-										수정하실 수 있습니다.
-									</DialogContentText>
-									<br />
-									<input
-										type={'file'}
-										className='form-control'
-										onChange={uploadFileHandler}
-									/>
-									<DialogContentText style={{color: 'red'}}>
-										<InfoIcon style={{color: 'red'}} />
-										운영정책과 맞지 않는 이미지 업로드시
-										무통보 삭제 될 수 있습니다.
-									</DialogContentText>
-								</DialogContent>
-								<DialogActions style={{marginRight: '15px'}}>
-									<button
-										type='button'
-										className='btn btn-outline-secondary'
-										onClick={handleClose}
-									>
-										취소
-									</button>
-									&nbsp;&nbsp;
-									<button
-										type='submit'
-										className='btn btn-dark'
-										onClick={submitHandler}
-									>
-										등록
-									</button>
-								</DialogActions>
-							</>
-						) : (
-							<>
-								<DialogTitle
-									style={{
-										backgroundColor: '#704de4',
-										color: 'white',
-										textAlign: 'center',
-									}}
-								>
-									예약을 취소하시겠습니까?
-								</DialogTitle>
-								<DialogContent>
-									<br />
-									<DialogContentText style={{width: '350px'}}>
-										취소사유{' '}
-										<span style={{color: 'red'}}>
-											(필수)
-										</span>
-									</DialogContentText>
-									<FormControl sx={{m: 1, minWidth: 120}}>
-										<Select
-											value={cancelReason}
-											onChange={contentHandler2}
-											displayEmpty
-											inputProps={{
-												'aria-label': 'Without label',
-											}}
-											style={{
-												width: '350px',
-											}}
-										>
-											<FormHelperText>
-												취소 사유를 선택해 주세요.
-											</FormHelperText>
-											<MenuItem value={`일정 취소/변경`}>
-												일정 취소/변경
-											</MenuItem>
-											<MenuItem value={`예약정보 오입력`}>
-												예약정보 오입력
-											</MenuItem>
-											<MenuItem value={`다른공간 예약`}>
-												다른공간 예약
-											</MenuItem>
-											<MenuItem value={`호스트 연락안됨`}>
-												호스트 연락안됨
-											</MenuItem>
-											<MenuItem value={cancelReason}>
-												기타(직접입력)
-											</MenuItem>
-										</Select>
-									</FormControl>
-									<br />
-									<br />
-									<textarea
-										className='form-control'
-										placeholder='취소사유를 입력해주세요.'
-										style={{height: '100px'}}
-										onChange={contentHandler2}
-										value={cancelReason}
-									/>
-								</DialogContent>
-								<DialogActions style={{marginRight: '15px'}}>
-									<button
-										type='button'
-										className='btn btn-outline-secondary'
-										onClick={handleClose}
-									>
-										취소
-									</button>
-									&nbsp;&nbsp;
-									<button
-										type='submit'
-										className='btn btn-dark'
-										onClick={submitHandler2}
-									>
-										등록
-									</button>
-								</DialogActions>
-							</>
-						)}
-					</Dialog>
-				</div>
-			</div>
+			<LeftReturn
+				bookingList={bookingList}
+				stime={stime}
+				etime={etime}
+				calTime={calTime}
+				options={options}
+				handleClickOpen={handleClickOpen}
+				open={open}
+				handleClose={handleClose}
+				rating={rating}
+				setRating={setRating}
+				contentHandler={contentHandler}
+				content={content}
+				uploadFileHandler={uploadFileHandler}
+				submitHandler={submitHandler}
+				requestDate={requestDate}
+				cancelReason={cancelReason}
+				contentHandler2={contentHandler2}
+				submitHandler2={submitHandler2}
+			/>
 		</>
 	);
 }

@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 import DetailReview from './DetailReview';
-import Pagenation from './DetailPaging';
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import jwt_decode from 'jwt-decode';
+import Pagination from 'react-js-pagination';
 import {
 	Button,
 	Dialog,
@@ -17,17 +17,21 @@ import {
 } from '@material-ui/core';
 
 function DetailQna(props) {
-	const navi = useNavigate();
 	const {num} = useParams();
 	const [qna, setQna] = useState([]);
 	const [qnaLength, setQnaLength] = useState(0);
+	const [qnaTitleLength, setQnaTitleLength] = useState(0);
 	const contentRef = useRef('');
+	const titleRef = useRef('');
 
 	//페이징처리
-	const [limit, setLimit] = useState(3);
+	//pagenation
 	const [page, setPage] = useState(1);
-	const offset = (page - 1) * limit;
+	let items = 3;
 
+	const handlePageChange = (page) => {
+		setPage(page);
+	};
 	//모달
 	const [open, setOpen] = React.useState(false);
 
@@ -58,16 +62,20 @@ function DetailQna(props) {
 		let insertQna = localStorage.url + '/detail/insertQna';
 		let userNum = jwt_decode(localStorage.getItem('token')).idx;
 		const question = contentRef.current.value;
+		const title = titleRef.current.value;
 
 		if (qnaLength == 0) {
 			alert('질문사항 작성해주시기 바랍니다.');
 		} else {
-			axios.post(insertQna, {question, userNum, num}).then((res) => {
-				alert('등록되었습니다');
-				contentRef.current.value = '';
-				setQnaLength(0);
-				window.location.reload();
-			});
+			axios
+				.post(insertQna, {question, userNum, num, title})
+				.then((res) => {
+					alert('등록되었습니다');
+					contentRef.current.value = '';
+					titleRef.current.value = '';
+					setQnaLength(0);
+					window.location.reload();
+				});
 		}
 	};
 
@@ -77,8 +85,14 @@ function DetailQna(props) {
 
 	return (
 		<div>
-			<div id='5' style={{marginTop: '100px'}}>
-				<b style={{borderBottom: '2px solid #ffd014'}}>
+			<div id='5' style={{marginTop: '150px'}}>
+				<b
+					style={{
+						borderBottom: '2px solid #ffd014',
+						fontSize: '18px',
+						paddingBottom: '5px',
+					}}
+				>
 					Q&A <span style={{color: '#704de4'}}>({qna.length}개)</span>
 				</b>
 				<span className='qnabtn'>
@@ -123,6 +137,36 @@ function DetailQna(props) {
 								<div
 									style={{marginTop: '25px', width: '430px'}}
 								>
+									<div>
+										<b
+											style={{
+												color: 'black',
+												fontSize: '18px',
+											}}
+										>
+											제목
+										</b>
+										<span style={{float: 'right'}}>
+											{qnaTitleLength}/45자
+										</span>
+									</div>
+									<textarea
+										maxLength={45}
+										placeholder='제목을 입력해주세요'
+										style={{
+											width: ' 430px',
+											height: '50px',
+											border: '1px solid lightgray',
+										}}
+										ref={titleRef}
+										onChange={(e) => {
+											setQnaTitleLength(
+												e.target.value.length,
+											);
+										}}
+									/>
+
+									<br />
 									<div>
 										<b
 											style={{
@@ -190,7 +234,10 @@ function DetailQna(props) {
 							<tbody>
 								{qna &&
 									qna
-										.slice(offset, offset + limit)
+										.slice(
+											items * (page - 1),
+											items * (page - 1) + items,
+										)
 										.map((item, idx) => (
 											<tr key={idx}>
 												<td
@@ -200,7 +247,12 @@ function DetailQna(props) {
 												>
 													<img
 														alt=''
-														src='https://ssl.pstatic.net/static/pwe/address/img_profile.png'
+														src={
+															item.profile_image ==
+															null
+																? 'https://ssl.pstatic.net/static/pwe/address/img_profile.png'
+																: item.profile_image
+														}
 														className='qnaImg'
 													/>
 												</td>
@@ -265,11 +317,14 @@ function DetailQna(props) {
 					''
 				) : (
 					<div>
-						<Pagenation
-							total={qna.length}
-							limit={limit}
-							page={page}
-							setPage={setPage}
+						<Pagination
+							activePage={page}
+							itemsCountPerPage={3}
+							totalItemsCount={qna.length}
+							pageRangeDisplayed={5}
+							prevPageText={'‹'}
+							nextPageText={'›'}
+							onChange={handlePageChange}
 						/>
 					</div>
 				)}

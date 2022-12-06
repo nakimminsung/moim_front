@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 //dialogue 관련
 import TextField from '@mui/material/TextField';
@@ -7,9 +7,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {FormControl} from '@material-ui/core';
+import { FormControl } from '@material-ui/core';
 
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
@@ -114,7 +114,7 @@ function NoticeUpdate(props) {
 				method: 'post',
 				url: url, //BackEnd로 보낼 url
 				data: updateData,
-				headers: {'Content-Type': 'multipart/form-data'},
+				headers: { 'Content-Type': 'multipart/form-data' },
 			}).then((res) => {
 				console.log('res.data=' + res.data);
 				alert('수정 완료되었습니다.');
@@ -176,7 +176,7 @@ function NoticeUpdate(props) {
 							공지사항 수정
 						</DialogTitle>
 						<DialogContent>
-							<DialogContentText style={{width: '600px'}}>
+							<DialogContentText style={{ width: '600px' }}>
 								'유형'을 선택한 후 제목과 내용을 수정해주시기
 								바랍니다.
 								<br /> 작성이 완료되면 '완료' 버튼을 눌러
@@ -185,7 +185,7 @@ function NoticeUpdate(props) {
 
 							<FormControl
 								className={classes.formControl}
-								style={{marginLeft: '-0px'}}
+								style={{ marginLeft: '-0px' }}
 							>
 								{/* <InputLabel htmlFor='age-native-simple'>
 									유형 선택
@@ -217,12 +217,12 @@ function NoticeUpdate(props) {
 							<textarea
 								className='form-control'
 								placeholder='내용을 입력해주시기 바랍니다.'
-								style={{height: '300px'}}
+								style={{ height: '300px' }}
 								onChange={noticeContentHandler}
 								value={updateContent}
 							/>
 							<br />
-							<p style={{color: 'skyblue'}}>
+							<p style={{ color: 'skyblue' }}>
 								* 첨부하지 않을 경우 기존 사진이 유지됩니다.
 							</p>
 							<input
@@ -231,7 +231,7 @@ function NoticeUpdate(props) {
 								onChange={uploadFileHandler}
 							/>
 						</DialogContent>
-						<DialogActions style={{marginRight: '15px'}}>
+						<DialogActions style={{ marginRight: '15px' }}>
 							<button
 								type='button'
 								className='btn btn-outline-secondary'

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import defaultImg from './img/404.png';
 import './booking.css';
 
 function BDTop({price, roomData, date, head, num}) {
@@ -21,6 +22,8 @@ function BDTop({price, roomData, date, head, num}) {
 			setCategoryList(res.data);
 		});
 	};
+
+	const onErrorImg = (event) => (event.target.src = defaultImg);
 
 	useEffect(() => {
 		selectFacilityData();
@@ -50,9 +53,11 @@ function BDTop({price, roomData, date, head, num}) {
 				<div className='bdSpaceInfo'>
 					<img
 						alt=''
-						src={imgUrl + roomData.thumbnailImage}
+						// src={imgUrl + roomData.thumbnailImage}
+						src={roomData.thumbnailImage}
 						width='200'
 						height={200}
+						onError={onErrorImg}
 					/>
 					<div
 						style={{

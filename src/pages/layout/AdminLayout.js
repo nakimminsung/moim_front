@@ -11,7 +11,7 @@ import {makeStyles, Typography} from '@material-ui/core';
 import AdminMenu from '../admin/AdminMenu';
 
 function AdminLayout(props) {
-	const [topMenu, setTopMenu] = useState('');
+	const [topMenu, setTopMenu] = useState('관리자 메인화면');
 
 	const useStyles = makeStyles((theme) => ({
 		link: {
@@ -23,11 +23,6 @@ function AdminLayout(props) {
 			height: 20,
 		},
 	}));
-
-	function handleClick(event) {
-		event.preventDefault();
-		console.info('You clicked a breadcrumb.');
-	}
 
 	const classes = useStyles();
 	return (
@@ -87,18 +82,13 @@ function AdminLayout(props) {
 							Admin Main
 						</Link>
 
-						<Typography
-							color='textPrimary'
-							className={classes.link}
-						>
-							<GrainIcon className={classes.icon} />
-							게스트 회원
-						</Typography>
+						<span style={{color: 'textPrimary'}}>{topMenu}</span>
 					</Breadcrumbs>
-					<h4>
+					<span style={{fontSize: '22px', fontWeight: 'bold'}}>
 						<GrainIcon className={classes.icon} />
-						게스트 관리
-					</h4>
+						&nbsp;
+						{topMenu}
+					</span>
 				</div>
 
 				{/* 하위 컴포넌트 호출 */}

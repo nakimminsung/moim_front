@@ -1,10 +1,17 @@
 import {
+	Button,
 	Card,
 	CardActionArea,
+	CardActions,
 	CardContent,
 	CardMedia,
+	InputLabel,
+	MenuItem,
+	Select,
+	TextField,
 	Typography,
 } from '@mui/material';
+import {Box} from '@mui/system';
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
@@ -21,11 +28,11 @@ function SpaceBookingList(props) {
 
 	localStorage.url = 'http://localhost:9000';
 	let imageUrl = localStorage.url + '/image/';
-	const hostNum = 1; // 여기에 호스트넘버 받아야합니다
-	console.log(hostNum);
 	// const {hostNum} = useParams();
+	const hostNum = sessionStorage.num; // 여기에 호스트넘버 받아야합니다
+	console.log(hostNum);
 
-	const [sort, setSort] = useState('');
+	const [sort, setSort] = useState('num desc');
 	const [bookingList, setBookingList] = useState([]);
 	const [bookingStatus, setBookingStatus] = useState('-1');
 	console.log(bookingList);
@@ -123,97 +130,112 @@ function SpaceBookingList(props) {
 			{Number(hostNum) ? (
 				<div className='reservation'>
 					<div className='reservation_list'>
+						<h3
+							style={{
+								fontSize: '26px',
+								lineHeight: '26px',
+								fontWeight: '400',
+							}}
+						>
+							예약리스트
+						</h3>
 						<div className='box_search'>
-							<div className='box_inner'>
-								<div className='one_search'>
-									<div className='flex_wrap'>
-										<div className='flex_box'>
-											<div className='flex'>
-												예약정보 검색
-											</div>
-											<div className='flex'>
-												<div className='input'>
-													<input
-														type={'text'}
-														name='reservation_num'
-														id='reservation_num'
-														placeholder='예약자이름을 입력하세요'
-														// ref={SearchRef}
-														onChange={(e) => {
-															setSearchKeyword(
-																e.target.value,
-															);
-														}}
-													/>
-												</div>
-											</div>
-											<div className='flex'>
-												<label
-													style={{cursor: 'pointer'}}
-												>
-													<span className='search'>
-														<span>
-															검색 돋보기
-															(넣어주기)
-														</span>
-													</span>
-												</label>
-											</div>
-										</div>
+							{/* <div
+								style={{fontSize: '15 px', fontWeight: 'bold'}}
+							>
+								예약정보 검색
+							</div> */}
+							<div className='flex_box'>
+								<div>
+									<TextField
+										placeholder='예약자명 또는 공간명을 입력하세요.'
+										margin='normal'
+										variant='outlined'
+										size='small'
+										style={{
+											width: '300px',
+										}}
+										onChange={(e) => {
+											setSearchKeyword(e.target.value);
+										}}
+									/>
+								</div>
+								<div className='inner_width'>
+									<div className='sorting_filter'>
+										<TextField
+											style={{
+												width: '150px',
+											}}
+											id='select'
+											label='정렬'
+											value={sort}
+											size='small'
+											onChange={handleChangeSort}
+											select
+										>
+											<MenuItem value={`num desc`}>
+												번호순정렬
+											</MenuItem>
+											<MenuItem
+												value={`bookingDate desc`}
+											>
+												이용일자순정렬
+											</MenuItem>
+										</TextField>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div className='filter_area'>
-							<div className='inner_width'>
-								<div className='sorting_filter'>
-									<select
-										name='sort'
-										id='sorting'
-										value={sort}
-										onChange={handleChangeSort}
+								<div className='inner_width inner_width_shallow'>
+									<div className='sorting_filter'>
+										<TextField
+											style={{
+												width: '150px',
+											}}
+											label='상태'
+											name='sort'
+											size='small'
+											id='sorting'
+											value={bookingStatus}
+											onChange={handleChange}
+											defaultValue={-1}
+											select
+										>
+											<MenuItem value={-1}>
+												전체상태
+											</MenuItem>
+											<MenuItem value={1}>
+												승인대기
+											</MenuItem>
+											<MenuItem value={2}>
+												결제대기
+											</MenuItem>
+											<MenuItem value={3}>
+												예약확정
+											</MenuItem>
+											<MenuItem value={4}>
+												이용완료
+											</MenuItem>
+											<MenuItem value={5}>
+												취소환불
+											</MenuItem>
+										</TextField>
+									</div>
+								</div>
+								<div>
+									<button
+										type='button'
+										class='btn btn-dark'
+										onClick={onCalendar}
+										style={{
+											width: '200px',
+											height: '35px',
+										}}
 									>
-										<option value={`num desc`}>
-											예약번호순정렬
-										</option>
-										<option value={`bookingDate desc`}>
-											이용일자순정렬
-										</option>
-									</select>
+										캘린더보기
+									</button>
 								</div>
 							</div>
-							<div className='inner_width inner_width_shallow'>
-								<div className='sorting_filter'>
-									<select
-										name='sort'
-										id='sorting'
-										value={bookingStatus}
-										onChange={handleChange}
-										defaultValue={-1}
-									>
-										<option value={-1}>전체상태</option>
-										<option value={1}>승인대기</option>
-										<option value={2}>결제대기</option>
-										<option value={3}>예약확정</option>
-										<option value={4}>이용완료</option>
-										<option value={5}>취소환불</option>
-									</select>
-								</div>
-							</div>
-							<div
-								className='inner_width inner_width_shallow'
-								style={{backgroundColor: 'yellow'}}
-							>
-								<label
-									style={{cursor: 'pointer'}}
-									onClick={onCalendar}
-								>
-									<span>
-										<span>캘린더 보기</span>
-									</span>
-								</label>
-							</div>
 						</div>
+						<div className='filter_area'></div>
 						{bookingList.length == 0 ? (
 							<div
 								className='reservaion_state_ment'
@@ -226,7 +248,14 @@ function SpaceBookingList(props) {
 							</div>
 						) : (
 							<>
-								<div className='BLContainer'>
+								<div
+									className='BLContainer'
+									style={{
+										width: '100%',
+										marginLeft: '20px',
+										marginTop: '30px',
+									}}
+								>
 									{newBookingList &&
 										newBookingList
 											.filter((data) =>
@@ -260,7 +289,6 @@ function SpaceBookingList(props) {
 																	component='img'
 																	height='140'
 																	image={
-																		imageUrl +
 																		item.thumbnailImage
 																	}
 																/>
@@ -434,6 +462,25 @@ function SpaceBookingList(props) {
 																	</Typography>
 																</CardContent>
 															</CardActionArea>
+															<CardActions>
+																<Button
+																	size='small'
+																	color='primary'
+																	onClick={() => {
+																		navi(
+																			`../bookingdetail/${item.num}`,
+																		);
+																	}}
+																>
+																	<span
+																		style={{
+																			color: '#704de4',
+																		}}
+																	>
+																		상세내역
+																	</span>
+																</Button>
+															</CardActions>
 														</Card>
 													</div>
 												</>

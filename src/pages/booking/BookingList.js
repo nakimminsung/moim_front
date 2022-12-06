@@ -13,6 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import defaultImg from './img/404.png';
 import './booking.css';
 
 function BookingList() {
@@ -43,7 +44,7 @@ function BookingList() {
 
 	const getBookingList = () => {
 		axios.get(url).then((res) => {
-			console.log(res.data);
+			//console.log(res.data);
 			setBookingList(res.data);
 		});
 	};
@@ -55,7 +56,7 @@ function BookingList() {
 	let weekday = new Array();
 	for (let i = 0; i < bookingList.length; i++) {
 		let str = bookingList[i].bookingTime;
-		console.log('aa' + bookingList[i].num);
+		//	console.log('aa' + bookingList[i].num);
 		let arr = str.split(',');
 		// console.log('aa' + Array.isArray(arr));
 		// console.log(arr);
@@ -63,8 +64,8 @@ function BookingList() {
 		let _etime = arr[arr.length - 1];
 
 		stime.push(_stime);
-		etime.push(_etime);
-		calTime.push(_etime - _stime);
+		etime.push(Number(_etime) + 1);
+		calTime.push(_etime - _stime + 1);
 
 		//요일
 		let date = new Date(bookingList[i].bookingDate);
@@ -107,6 +108,11 @@ function BookingList() {
 	newBookingList = [...filter];
 	// console.log(newBookingList);
 
+	// const onErrorImg = (e) => {
+	// 	console.log('sss' + e.target.image);
+	// 	e.target.image = defaultImg;
+	// };
+	const onErrorImg = (event) => (event.target.src = defaultImg);
 	useEffect(() => {
 		getBookingList();
 	}, [bookingStatus, sort]);
@@ -192,10 +198,18 @@ function BookingList() {
 														component='img'
 														height='140'
 														image={
-															imgUrl +
 															item.thumbnailImage
 														}
-														alt='green iguana'
+														// src={
+														// 	item.thumbnailImage.startsWith(
+														// 		'http',
+														// 	)
+														// 		? item.thumbnailImage
+														// 		: imgUrl +
+														// 		  item.thumbnailImage
+														// }
+														alt='room_thumnail_img'
+														onError={onErrorImg}
 													/>
 													<CardContent>
 														<Typography

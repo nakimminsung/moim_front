@@ -7,7 +7,7 @@ import Like from '../pages/like/Like';
 import Detail from '../pages/roomsdetail/Detail';
 import MainTheme from '../pages/main/Theme';
 import Theme from '../pages/theme/Theme';
-import AdminMain from '../pages/admin/AdminMain';
+
 import BookingDetail from '../pages/booking/BookingDetail';
 import BookingList from '../pages/booking/BookingList';
 import BookingMain from '../pages/booking/BookingMain';
@@ -29,6 +29,12 @@ import SpaceUpdateForm2 from '../pages/host/SpaceUpdateForm2';
 import SpaceUpdateForm3 from '../pages/host/SpaceUpdateForm3';
 import SpaceBookingList from '../pages/host/SpaceBookingList';
 import SpaceCalendar from '../pages/host/SpaceCalendar';
+import SpaceBookingDetail from '../pages/host/SpaceBookingDetail';
+import PasswordSearch from '../pages/login/PasswordSearch';
+import PasswordSearch2 from '../pages/login/PasswordSearch2';
+import SpaceAcount from '../pages/host/SpaceAcount';
+import HostReviewQna from '../pages/host/HostReviewQna';
+import SearchRoom from '../pages/search/SearchRoom';
 
 function BasicRouter() {
 	return (
@@ -51,8 +57,9 @@ function BasicRouter() {
 				</Route>
 				{/* 호스트 */}
 				<Route path='host'>
+					{/* 공간리스트 */}
 					<Route path='slist' element={<SpaceList />} />
-					<Route path='addform' element={<SpaceAddForm />} />
+					<Route path='addform/' element={<SpaceAddForm />} />
 					<Route path='addform2/:num' element={<SpaceAddForm2 />} />
 					<Route path='addform3/:num' element={<SpaceAddForm3 />} />
 					<Route
@@ -67,8 +74,16 @@ function BasicRouter() {
 						path='updateform3/:num'
 						element={<SpaceUpdateForm3 />}
 					/>
+					{/* 예약리스트 */}
 					<Route path='bookinglist' element={<SpaceBookingList />} />
 					<Route path='bookingcalendar' element={<SpaceCalendar />} />
+					<Route
+						path='bookingdetail/:bookingDetailNum'
+						element={<SpaceBookingDetail />}
+					/>
+					{/* 정산 */}
+					<Route path='acount' element={<SpaceAcount />} />
+					<Route path='reviewqna' element={<HostReviewQna />} />
 				</Route>
 				{/* 호스트 끝 */}
 
@@ -92,7 +107,9 @@ function BasicRouter() {
 				<Route path='signupEmail' element={<SignUpEmail />} />
 				<Route path='seller' element={<SellerLogin />} />
 				<Route path='sellerJoin' element={<SellerJoin />} />
-				<Route path='mypage' element={<Mypage />} />
+				{/* <Route path='mypage' element={<Mypage />} /> */}
+				<Route path='passwordsearch' element={<PasswordSearch />} />
+				<Route path='passwordsearch2' element={<PasswordSearch2 />} />
 
 				{/* 카테고리별 방 페이지 */}
 				<Route path='categoryroomList'>
@@ -100,7 +117,11 @@ function BasicRouter() {
 				</Route>
 
 				{/* 공간 통합검색 */}
-				<Route path='searchroom' element={<Search name={'React'} />}>
+				{/* <Route path='searchroom' element={<Search name={'React'} />}> */}
+				<Route
+					path='searchroom'
+					element={<SearchRoom name={'React'} />}
+				>
 					{/* <Route path=':searchWord' element={<Search />} /> */}
 				</Route>
 

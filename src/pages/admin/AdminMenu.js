@@ -1,8 +1,22 @@
+import {
+	AccountBalance,
+	AccountBox,
+	AccountCircle,
+	Info,
+	MonetizationOn,
+	ViewCarousel,
+	Warning,
+} from '@material-ui/icons';
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 function AdminMenu(props) {
 	const {topMenu, setTopMenu} = props;
+
+	const menuHandler = (e) => {
+		// console.log(e.target.name);
+		setTopMenu(e.target.name);
+	};
 
 	return (
 		<div>
@@ -52,48 +66,103 @@ function AdminMenu(props) {
 				{/* 메뉴 */}
 				<ul className='adminMenu'>
 					<li>
+						<i class='fas fa-crown'></i>
+						&emsp;
 						<NavLink
 							to={'/admin'}
 							className='NavLink'
-							onClick={(e) => {
-								setTopMenu(e.target.value);
-								console.log(topMenu);
-							}}
-							// value='admin'
+							name='관리자 메인화면'
+							onClick={menuHandler}
 						>
 							관리자 메인화면
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/member'} className='NavLink'>
+						<AccountCircle />
+						&emsp;
+						<NavLink
+							to={'/admin/member'}
+							className='NavLink'
+							name='게스트 관리'
+							onClick={menuHandler}
+						>
 							게스트 관리
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/host'} className='NavLink'>
+						<AccountBox />
+						&emsp;
+						<NavLink
+							to={'/admin/host'}
+							className='NavLink'
+							name='호스트 관리'
+							onClick={menuHandler}
+						>
 							호스트 관리
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/space'} className='NavLink'>
+						<AccountBalance />
+						&emsp;
+						<NavLink
+							to={'/admin/space'}
+							className='NavLink'
+							name='공간 관리'
+							onClick={menuHandler}
+						>
 							공간 관리
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/notice'} className='NavLink'>
+						<Info />
+						&emsp;
+						<NavLink
+							to={'/admin/notice'}
+							className='NavLink'
+							name='공지사항 관리'
+							onClick={menuHandler}
+						>
 							공지사항 관리
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/theme'} className='NavLink'>
+						<ViewCarousel />
+						&emsp;
+						<NavLink
+							to={'/admin/theme'}
+							className='NavLink'
+							name='기획전 관리'
+							onClick={menuHandler}
+						>
 							기획전 관리
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/admin/report'} className='NavLink'>
+						<Warning />
+						&emsp;
+						<NavLink
+							to={'/admin/report'}
+							className='NavLink'
+							name='신고 관리'
+							onClick={menuHandler}
+						>
 							신고 관리
 						</NavLink>
 					</li>
+					<li>
+						<MonetizationOn />
+						&emsp;
+						<NavLink
+							to={'/admin/settlement'}
+							className='NavLink'
+							name='정산 관리'
+							onClick={menuHandler}
+						>
+							정산 관리
+						</NavLink>
+					</li>
+
+					{/* 
 					<li>
 						<NavLink to={'/admin/popup'} className='NavLink'>
 							팝업 관리
@@ -104,6 +173,7 @@ function AdminMenu(props) {
 							배너 관리
 						</NavLink>
 					</li>
+					 */}
 				</ul>
 			</div>
 		</div>

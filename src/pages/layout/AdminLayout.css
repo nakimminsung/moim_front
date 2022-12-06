@@ -115,7 +115,231 @@ li {
 .noticeTable td {
 	border-bottom: 0.5px solid gray;
 	border-left: 0.5px solid gray;
+	height: 45px;
+
+	text-align: center;
+}
+
+/* 메인페이지 */
+.bindingBox h5 {
+	font-weight: bold;
+	margin-top: -2px;
+}
+
+.topBox div {
+	padding: 5px;
+	border-radius: 10px;
+}
+
+.bottomBox div {
+	padding: 5px;
+	border-radius: 10px;
+}
+
+.bindingBox a {
+	text-decoration: none;
+	font-weight: bold;
+	color: #5f5f5f;
+}
+
+/* 신고 관리 */
+.reportTable table {
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+}
+
+.reportTable th {
+	border-bottom: 2px solid gray;
+	border-left: 0.5px solid gray;
 	height: 40px;
+
+	text-align: center;
+
+	background-color: rgba(0, 0, 0);
+	opacity: 0.6;
+	/* color: lightgray; */
+	color: white;
+}
+
+.reportTable td {
+	border-bottom: 0.5px solid gray;
+	border-left: 0.5px solid gray;
+	height: 45px;
+
+	text-align: center;
+}
+
+/* pagination */
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 15px;
+	/* position: fixed; */
+	/* bottom: 1000px; */
+}
+
+ul {
+	list-style: none;
+}
+
+.pageDiv ul.pagination li {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #e2e2e2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1rem;
+
+	background-color: white;
+}
+
+ul.pagination li:first-child {
+	border-radius: 5px 0 0 5px;
+}
+
+ul.pagination li:last-child {
+	border-radius: 0 5px 5px 0;
+}
+
+.pageDiv ul.pagination li a {
+	text-decoration: none;
+	/* color: #704de4; */
+	color: black;
+	font-size: 1rem;
+}
+
+ul.pagination li.active a {
+	color: white;
+}
+
+.pageDiv ul.pagination li.active {
+	/* background-color: #ffd014; */
+	background-color: gray;
+}
+
+.pageDiv ul.pagination li a:hover,
+.pageDiv ul.pagination li a.active {
+	color: black;
+}
+
+.page-selection {
+	width: 48px;
+	height: 30px;
+	color: #704de4;
+}
+
+/* 어드민 메인 */
+.recentMember {
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+
+	min-height: 220px;
+}
+
+.popularSpace {
+	width: 100%;
+	height: 39vh;
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+
+	min-height: 220px;
+}
+
+.popularSpace table {
+	width: 100%;
+	/* height: 30vh; */
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+}
+
+.popularSpace th {
+	border-bottom: 2px solid gray;
+	border-left: 0.5px solid gray;
+	/* height: 40px; */
+	height: 5vh;
+
+	text-align: center;
+
+	background-color: rgba(0, 0, 0);
+	opacity: 0.6;
+	/* color: lightgray; */
+	color: white;
+}
+
+.popularSpace td {
+	border-bottom: 0.5px solid gray;
+	border-left: 0.5px solid gray;
+	/* height: 45px; */
+	height: 5vh;
+
+	text-align: center;
+}
+
+.waitSpaceBox {
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+
+	min-height: 220px;
+}
+
+.reportBox {
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+}
+
+.reportBox table {
+	width: 100%;
+	/* height: 30vh; */
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+}
+
+.reportBox th {
+	border-bottom: 2px solid gray;
+	border-left: 0.5px solid gray;
+	/* height: 40px; */
+	height: 5vh;
+
+	text-align: center;
+
+	background-color: rgba(0, 0, 0);
+	opacity: 0.6;
+	/* color: lightgray; */
+	color: white;
+}
+
+.reportBox td {
+	border-bottom: 0.5px solid gray;
+	border-left: 0.5px solid gray;
+	/* height: 45px; */
+	height: 5vh;
 
 	text-align: center;
 }

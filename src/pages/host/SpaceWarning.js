@@ -7,34 +7,29 @@ function SpaceWarning(props) {
 	// console.log('optionroomNum=' + roomNum);
 	localStorage.url = 'http://localhost:9000';
 	return (
-		<div>
-			<div className='input-group'>
-				<TextField
-					id='precautions'
-					style={{margin: 8, width: '800px'}}
-					placeholder='게스트들이 예약 시 확인해야 하는 주의사항을 상세하게 입력해주세요'
-					InputLabelProps={{
-						shrink: true,
-					}}
-					variant='outlined'
-					size='small'
-					onKeyUp={onchange6}
-				/>
-				<BtnBox>
-					<BtnLabel>
-						<div onClick={onchange5}>추가</div>
-					</BtnLabel>
-				</BtnBox>
-			</div>
+		<div style={{display: 'flex', alignItems: 'center'}}>
+			<TextField
+				id='precautions'
+				style={{marginTop: '5px', width: '100%'}}
+				placeholder='게스트들이 예약 시 확인해야 하는 주의사항을 상세하게 입력해주세요'
+				InputLabelProps={{
+					shrink: true,
+				}}
+				variant='outlined'
+				size='small'
+				onKeyUp={onchange6}
+			/>
+			<BtnBox>
+				<BtnLabel>
+					<div onClick={onchange5}>추가</div>
+				</BtnLabel>
+			</BtnBox>
 		</div>
 	);
 }
 
 export default SpaceWarning;
 const BtnBox = styled.div`
-	position: absolute;
-	top: 0;
-	right: 0;
 	margin-left: 10px;
 	overflow: hidden;
 	width: 154px;
@@ -43,7 +38,6 @@ const BtnBox = styled.div`
 
 const BtnLabel = styled.label`
 	cursor: pointer;
-	display: block;
 	background-color: #704de4;
 	border: 0;
 	color: #fff;

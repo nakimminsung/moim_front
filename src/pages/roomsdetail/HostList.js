@@ -22,14 +22,16 @@ function HostList(props) {
 			hostNum +
 			'&sort=' +
 			sort;
-		console.log(url);
+
 		axios.get(url).then((res) => setHostInfo(res.data));
 	};
+
 	const handleChange = (e) => {
 		setSort(e.target.value);
 	};
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		selectHostRoomList();
 	}, [sort]);
 
