@@ -73,14 +73,14 @@ function BDTop({price, roomData, date, head, num}) {
 				<span
 					style={{
 						marginLeft: '30px',
-						marginRight: '50px',
+						marginRight: '47px',
 					}}
 				>
 					<CheckOutlinedIcon />
 					&nbsp; 공간유형
 				</span>
 				{categoryList.map((item, idx) => (
-					<span key={idx}>{item.cname} </span>
+					<span key={idx}>{item.cname}</span>
 				))}
 				<p style={{marginLeft: '30px'}}>
 					<CheckOutlinedIcon />
