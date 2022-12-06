@@ -6,6 +6,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import WaitSpaceList from './WaitSpaceList';
 import WaitReportList from './WaitReportList';
+import MemberChart from './MemberChart';
 
 function AdminMain(props) {
 	const [topMenu, setTopMenu] = useState('관리자 메인화면');
@@ -46,16 +47,11 @@ function AdminMain(props) {
 						}}
 					>
 						<h5>최근 가입한 멤버</h5>
-						<NavLink
-							to={'/admin/member'}
-							name='게스트 관리'
-							onClick={menuHandler}
-						>
-							더보기 +
-						</NavLink>
 						<br />
 					</div>
-					<div>굉장히 좋은데?</div>
+					<div>
+						<MemberChart />
+					</div>
 				</div>
 
 				<div
