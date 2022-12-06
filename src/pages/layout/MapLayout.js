@@ -1,17 +1,18 @@
 import React from 'react';
 import NoneRouter from '../../Router/NoneRouter';
 import './MapLayout.css';
+import styled from 'styled-components';
 
 function NoneLayout(props) {
 	return (
-		<div clsssName='wrapper'>
-			<main>
-				<div>
-					<NoneRouter />
-				</div>
-			</main>
-		</div>
+		<Wrapper>
+			<NoneRouter />
+		</Wrapper>
 	);
 }
 
 export default NoneLayout;
+
+const Wrapper = styled.div`
+	-ms-overflow-style: none;
+`;

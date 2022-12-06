@@ -15,8 +15,10 @@ function Filter(props) {
 	const [value, setValue] = useState([0, 100000000]);
 	const [now, setNow] = useState(false);
 	const [fix, setFix] = useState(false);
-	const [checked, setChecked] = useState(true);
+	const [checked, setChecked] = useState(false);
+	const [payChecked, setPayChecked] = useState(true);
 	const [facilityList, setFacilityList] = useState([]);
+	const [on, setOn] = useState('');
 	const payRef = useRef('');
 	const spriceRef = useRef('');
 	const epriceRef = useRef('');
@@ -43,8 +45,8 @@ function Filter(props) {
 		setChecked(event.target.checked);
 	};
 	// 결제유형 체크박스 이벤트
-	const handleChecked = (event) => {
-		setChecked(event.target.checked);
+	const handlePayChecked = (event) => {
+		setPayChecked(event.target.checked);
 		setNow(false);
 		setFix(false);
 	};
@@ -62,7 +64,7 @@ function Filter(props) {
 	// 초기화 버튼 이벤트
 	const initRun = () => {
 		// 결제유형
-		setChecked(true);
+		setPayChecked(true);
 		setNow(false);
 		setFix(false);
 		payRef.current = '';
@@ -79,6 +81,7 @@ function Filter(props) {
 		setSprice(spriceRef.current);
 		setEprice(epriceRef.current);
 		setFacility(facilityList);
+		console.log(facilityList);
 	};
 	useEffect(() => {
 		selectFacility();
@@ -96,7 +99,7 @@ function Filter(props) {
 				<TuneIcon style={{color: '#9b4de3', fontSize: '25px;'}} />
 				<FilterText>필터</FilterText>
 			</FilterButton>
-			<Menu
+			<MenuWrapper
 				id='basic-menu'
 				anchorEl={anchorEl}
 				open={open}
@@ -115,14 +118,14 @@ function Filter(props) {
 									name='check'
 									color='secondary'
 									defaultChecked
-									checked={checked}
-									onChange={handleChecked}
+									checked={payChecked}
+									onChange={handlePayChecked}
 								/>
 								모든결제
 							</Typography>
 						</PayTitleWrapper>
 						<PayButtonWrapper>
-							<div class='pay-btn'>
+							<PayBtn>
 								<input
 									id='radio-1'
 									type='radio'
@@ -136,13 +139,13 @@ function Filter(props) {
 										payRef.current = '바로결제';
 										setNow(true);
 										setFix(false);
-										setChecked(false);
+										setPayChecked(false);
 									}}
 								>
 									바로 결제
 								</label>
-							</div>
-							<div class='pay-btn'>
+							</PayBtn>
+							<PayBtn>
 								<input
 									id='radio-2'
 									type='radio'
@@ -156,12 +159,12 @@ function Filter(props) {
 										payRef.current = '승인결제';
 										setNow(false);
 										setFix(true);
-										setChecked(false);
+										setPayChecked(false);
 									}}
 								>
 									승인 결제
 								</label>
-							</div>
+							</PayBtn>
 						</PayButtonWrapper>
 					</InnerWrapper>
 					<InnerWrapper>
@@ -190,7 +193,11 @@ function Filter(props) {
 						<Option>
 							{data &&
 								data.map((item, i) => (
-									<div class='facility-btn' key={i}>
+									<FacilityBtn
+										class='facility-btn'
+										key={i}
+										className={'btn-' + (on ? 'on' : 'off')}
+									>
 										<input
 											id={`facility-${item.num}`}
 											type='checkbox'
@@ -200,6 +207,9 @@ function Filter(props) {
 												onCheckedElement(
 													e.target.checked,
 													e.target.value,
+													console.log(
+														e.target.checked,
+													),
 												);
 												handleFacilityChecked(e);
 											}}
@@ -207,7 +217,7 @@ function Filter(props) {
 										<label for={`facility-${item.num}`}>
 											{item.fname}
 										</label>
-									</div>
+									</FacilityBtn>
 								))}
 						</Option>
 					</InnerWrapper>
@@ -229,12 +239,18 @@ function Filter(props) {
 						</SubmitButton>
 					</ButtonWrapper>
 				</Wrapper>
-			</Menu>
+			</MenuWrapper>
 		</>
 	);
 }
 
 export default Filter;
+
+const MenuWrapper = styled(Menu)`
+	ul {
+		padding-bottom: 0;
+	}
+`;
 
 const Wrapper = styled(Box)`
 	display: flex;
@@ -315,4 +331,67 @@ const FilterButton = styled.button`
 	background-color: #fff;
 	border-radius: 30px;
 	margin-left: auto;
+`;
+
+const FacilityBtn = styled.div`
+	width: 30%;
+	height: 45px;
+	border: 1px solid #eae7e7;
+	border-radius: 10px;
+	margin: 2px;
+	margin-top: 10px;
+	input {
+		display: none;
+	}
+	input[type='checkbox']:checked + label {
+		background: #9b4de3;
+		color: yellow;
+	}
+	label:hover {
+		color: #666;
+	}
+	input[type='checkbox'] + label {
+		background: #f9fafc;
+		color: #666;
+	}
+	label {
+		cursor: pointer;
+		display: block;
+		border-radius: 10px;
+		margin: 0 auto;
+		text-align: center;
+		height: -webkit-fill-available;
+		line-height: 45px;
+		font-size: 14px;
+	}
+`;
+
+const PayBtn = styled.div`
+	width: 48%;
+	height: 45px;
+	border: 1px solid #eae7e7;
+	border-radius: 10px;
+	input {
+		display: none;
+	}
+	label {
+		cursor: pointer;
+		display: block;
+		border-radius: 10px;
+		margin: 0 auto;
+		text-align: center;
+		height: -webkit-fill-available;
+		line-height: 45px;
+	}
+	input[type='radio']:checked + label {
+		background: #9b4de3;
+		color: yellow;
+	}
+	label:hover {
+		color: #666;
+	}
+	input[type='radio'] + label {
+		background: #f9fafc;
+		color: #666;
+	}
 `;
