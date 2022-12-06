@@ -24,7 +24,7 @@ function ReportInsert(props) {
 		? jwt_decode(localStorage.getItem('token')).idx
 		: '';
 
-	//DetailFunction 상위(QnaContent)에서 roomNum 가져오기
+	//DetailFunction 상위에서 roomNum 가져오기
 	const {roomNum} = props;
 
 	//변수 선언
@@ -100,16 +100,15 @@ function ReportInsert(props) {
 			formData.append('roomNum', roomNum);
 			formData.append('userNum', userNum);
 
-			// console.log(reportType);
-			// console.log(reportContent);
-			// console.log(roomNum);
-			// console.log(userNum);
+			console.log(reportType);
+			console.log(reportContent);
+			console.log('방정보' + roomNum);
+			console.log('유저정보' + userNum);
 
 			axios({
 				method: 'post',
 				url: url, //BackEnd로 보낼 url
 				data: formData,
-				headers: {'Content-Type': 'multipart/form-data'},
 			}).then((res) => {
 				alert('신고가 접수되었습니다.');
 
@@ -127,23 +126,17 @@ function ReportInsert(props) {
 
 	return (
 		<div>
-			<div
-				style={{marginTop: '6px', cursor: 'pointer'}}
+			<span
+				class='material-symbols-outlined'
+				style={{
+					fontSize: 'xx-large',
+					cursor: 'pointer',
+				}}
 				onClick={handleClickOpen}
 			>
-				<span
-					class='material-symbols-outlined'
-					style={{
-						fontSize: 'x-large',
-						color: 'red',
-						position: 'relative',
-						top: '5px',
-					}}
-				>
-					e911_emergency
-				</span>
-				&nbsp;<span>신고하기</span>
-			</div>
+				e911_emergency
+			</span>
+
 			{/* Dialogue Modal 화면 : 신고 작성 INSERT 폼 */}
 			{/* Dialogue Modal 화면 : 공지사항 작성 INSERT 폼 */}
 			<div>

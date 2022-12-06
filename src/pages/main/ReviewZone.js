@@ -64,7 +64,7 @@ function ReviewZone(props) {
 	const classes = useStyles();
 
 	// 더보기 more button 관련
-	const max = 3;
+	const max = 6; //한번에 보이게 할 갯수
 	const [now, setNow] = useState(1);
 
 	// 더보기 button event
@@ -103,7 +103,7 @@ function ReviewZone(props) {
 									className={classes.root}
 									style={{
 										width: '30%',
-										height: '390px',
+										height: '430px',
 										padding: '10px',
 										marginBottom: '30px',
 										border: '1px solid lightgray',
@@ -207,8 +207,8 @@ function ReviewZone(props) {
 											{/* 리뷰 내용 */}
 
 											{/* {data.content} */}
-											{data.content.length > 101
-												? data.content.substr(0, 102) +
+											{data.content.length > 109
+												? data.content.substr(0, 110) +
 												  '  .......'
 												: data.content}
 										</span>

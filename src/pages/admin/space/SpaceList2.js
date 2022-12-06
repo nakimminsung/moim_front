@@ -135,9 +135,20 @@ function SpaceList2(props) {
 													width: '100%',
 												}}
 											>
-												{data.thumbnailImage.startsWith(
-													'http',
-												) ? (
+												{data.thumbnailImage == null ? (
+													<img
+														alt=''
+														src=''
+														style={{
+															width: '100%',
+															height: '200px',
+															// height: '70%',
+															borderRadius: '5px',
+														}}
+													/>
+												) : data.thumbnailImage.startsWith(
+														'http',
+												  ) ? (
 													<img
 														alt=''
 														src={
@@ -181,7 +192,7 @@ function SpaceList2(props) {
 														zIndex: '1',
 														// left: '0px',
 														top: '80px',
-														left: '25%',
+														left: '29%',
 													}}
 												>
 													승인 대기
@@ -196,9 +207,20 @@ function SpaceList2(props) {
 													width: '100%',
 												}}
 											>
-												{data.thumbnailImage.startsWith(
-													'http',
-												) ? (
+												{data.thumbnailImage == null ? (
+													<img
+														alt=''
+														src=''
+														style={{
+															width: '100%',
+															height: '200px',
+															// height: '70%',
+															borderRadius: '5px',
+														}}
+													/>
+												) : data.thumbnailImage.startsWith(
+														'http',
+												  ) ? (
 													<img
 														alt=''
 														src={
@@ -238,11 +260,15 @@ function SpaceList2(props) {
 								>
 									<h5>
 										<b style={{color: 'black'}}>
-											{data.name}
+											{data.name == null ? (
+												<br />
+											) : (
+												data.name
+											)}
 										</b>
 									</h5>
-									<br />
 									<span>{data.companyName}</span>
+									<br />
 									<br />
 									<span>
 										<b

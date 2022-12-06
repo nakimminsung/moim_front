@@ -7,8 +7,6 @@ import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import axios from 'axios';
 import './Review.css';
 
-import ReportInsert from '../roomsdetail/ReportInsert';
-
 function QnaContent(props) {
 	const {qnaNum, status, roomNum} = props;
 	const [title, setTitle] = useState('');
@@ -110,8 +108,6 @@ function QnaContent(props) {
 							<h5>
 								<b>A. 답변</b>
 							</h5>
-							{/* jhwon 신고하기 기능 추가 */}
-							<ReportInsert roomNum={roomNum} />
 						</div>
 
 						<DialogContentText>

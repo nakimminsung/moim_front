@@ -82,18 +82,13 @@ function AdminLayout(props) {
 							Admin Main
 						</Link>
 
-						<Typography
-							color='textPrimary'
-							className={classes.link}
-						>
-							<GrainIcon className={classes.icon} />
-							{topMenu}
-						</Typography>
+						<span style={{color: 'textPrimary'}}>{topMenu}</span>
 					</Breadcrumbs>
-					<h5>
+					<span style={{fontSize: '22px', fontWeight: 'bold'}}>
 						<GrainIcon className={classes.icon} />
+						&nbsp;
 						{topMenu}
-					</h5>
+					</span>
 				</div>
 
 				{/* 하위 컴포넌트 호출 */}

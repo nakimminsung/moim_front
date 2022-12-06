@@ -42,7 +42,7 @@ function Notice(props) {
 					}}
 				>
 					<p>
-						<b>공지사항 검색</b>
+						<b style={{fontSize: '16px'}}>공지사항 검색</b>
 					</p>
 					<div
 						style={{
@@ -54,7 +54,7 @@ function Notice(props) {
 						<input
 							type={'text'}
 							className='form-control'
-							placeholder='검색어를 입력해주세요.'
+							placeholder='제목 또는 내용으로 검색해주세요.'
 							style={{width: '85%', borderRadius: '10px'}}
 							ref={input}
 							onKeyPress={handleOnKeyPress}
