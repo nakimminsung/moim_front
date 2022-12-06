@@ -274,6 +274,8 @@ function DetailInfo(props) {
 								{idx + 1}.&nbsp;{' '}
 							</span>
 							{row}
+							<br />
+							<br />
 						</div>
 					))}
 			</div>

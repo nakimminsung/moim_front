@@ -129,9 +129,13 @@ function Review(props) {
 	return (
 		<ListWrapper>
 			<SelectDiv>
-				<span className='memberCount'>
-					총 {memberReviewList.length}개
-				</span>
+				{memberReviewList.length == 0 ? (
+					<span className='memberCount'></span>
+				) : (
+					<span className='memberCount'>
+						총 {memberReviewList.length}개
+					</span>
+				)}
 				<FormControl sx={{m: 1, minWidth: 120}} size='small'>
 					<Select
 						labelId='demo-select-small'

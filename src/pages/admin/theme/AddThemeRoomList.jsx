@@ -192,7 +192,7 @@ EnhancedTableToolbar.propTypes = {
 
 export default function AddThemeRoomList(props) {
 	const [order, setOrder] = React.useState('asc');
-	const [orderBy, setOrderBy] = React.useState('calories');
+	const [orderBy, setOrderBy] = React.useState('num');
 	const [selected, setSelected] = React.useState([]);
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -207,7 +207,6 @@ export default function AddThemeRoomList(props) {
 	};
 	useEffect(() => {
 		selectThemeExclude();
-		console.log(selected);
 		props.setRoomNumList(selected);
 	}, [selected]);
 
