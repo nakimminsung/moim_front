@@ -29,7 +29,21 @@ function WaitSpaceList(props) {
 
 	return (
 		<div style={{width: '100%'}}>
-			{waitSpace &&
+			{waitSpace.length === 0 ? (
+				//데이터가 없을때
+				<div
+					style={{
+						textAlign: 'center',
+						height: '120px',
+						lineHeight: '120px',
+					}}
+				>
+					<span style={{fontSize: '16px'}}>
+						대기 상태의 공간이 없습니다.
+					</span>
+				</div>
+			) : (
+				waitSpace &&
 				waitSpace.slice(0, 2).map((data, idx) => (
 					<div
 						key={idx}
@@ -101,7 +115,8 @@ function WaitSpaceList(props) {
 							</span>
 						</div>
 					</div>
-				))}
+				))
+			)}
 		</div>
 	);
 }
