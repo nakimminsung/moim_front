@@ -304,34 +304,34 @@ function LeftReturn({
 								&nbsp;&nbsp;
 							</p>
 						</div>
-						<p style={{marginBottom: '0'}}>
-							{options.some((item) => item.length !== 0) ? (
-								<>추가옵션&nbsp;&nbsp;</>
-							) : (
-								<></>
-							)}
-							{options.map((item, idx) => (
-								<>
-									<p
-										key={idx}
-										style={{
-											display: 'inline-block',
-										}}
-									>
-										{options.some(
-											(item) => item.length !== 0,
-										) ? (
-											<b>
-												{item}
-												개&nbsp;&nbsp;
-											</b>
-										) : (
-											<></>
-										)}
-									</p>
-								</>
-							))}
-						</p>
+
+						{options.some((item) => item.length !== 0) ? (
+							<>추가옵션&nbsp;&nbsp;</>
+						) : (
+							<></>
+						)}
+						{options.map((item, idx) => (
+							<>
+								<p
+									key={idx}
+									style={{
+										display: 'inline-block',
+									}}
+								>
+									{options.some(
+										(item) => item.length !== 0,
+									) ? (
+										<b>
+											{item}
+											개&nbsp;&nbsp;
+										</b>
+									) : (
+										<></>
+									)}
+								</p>
+							</>
+						))}
+
 						<p
 							style={{
 								borderBottom: '3px solid #704de4',

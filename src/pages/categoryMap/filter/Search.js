@@ -4,23 +4,23 @@ import { Box } from '@material-ui/core';
 import styled from 'styled-components';
 
 function Search(props) {
-    const searchRef = useRef('');
+	const searchRef = useRef('');
 
-    return (
-        <SearchBox>
-            <Icon onClick={() => props.setRoomName(searchRef.current)} />
-            <SearchInput
-                type='text'
-                placeholder='공간명 검색'
-                onChange={(e) => {
-                    searchRef.current = e.target.value;
-                }}
-                onKeyUp={(e) =>
-                    e.keyCode === 13 ? props.setRoomName(searchRef.current) : ''
-                }
-            />
-        </SearchBox>
-    );
+	return (
+		<SearchBox>
+			<Icon onClick={() => props.setRoomName(searchRef.current)} />
+			<SearchInput
+				type='text'
+				placeholder='공간명 검색'
+				onChange={(e) => {
+					searchRef.current = e.target.value;
+				}}
+				onKeyUp={(e) =>
+					e.keyCode === 13 ? props.setRoomName(searchRef.current) : ''
+				}
+			/>
+		</SearchBox>
+	);
 }
 
 export default Search;

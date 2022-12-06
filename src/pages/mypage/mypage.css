@@ -20,7 +20,7 @@ div#wrapper {
 
 div.content {
 	max-width: 1180px;
-	top: 100px;
+	top: 60px;
 	display: flex;
 	justify-content: space-between;
 	margin: 0 auto;

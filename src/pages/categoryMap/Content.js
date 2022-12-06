@@ -96,6 +96,11 @@ function Test(props) {
             };
         });
         overlayInfos.forEach(el => {
+            let like = Math.random() * 100
+            const likeFloor = Math.floor(like)
+            let rev = Math.random() * 100
+            const revFloor = Math.floor(rev)
+
             let marker = new kakao.maps.Marker({
                 map: mapRef.current,
                 position: new kakao.maps.LatLng(el.lat, el.lng),
@@ -106,7 +111,7 @@ function Test(props) {
             let content =
                 '<div class="overlayWrap">' +
                 `    <a href="/detail/${el.num}">` +
-                `        <img class="overlayImg" src=${el.img}/>` +
+                `        <img class="overlayImg" src=${el.img}>` +
                 `    </a>` +
                 '    <div class="accommInfoWrap">' +
                 `        <h1 class="accommName">${el.title}</h1>` +
@@ -123,9 +128,9 @@ function Test(props) {
                 `           <i class='fas fa-user-alt' style='font-size:20px;'></i>` +
                 `           ${el.headcount}` +
                 `           <i class='fas fa-comment-dots' style='font-size:20px'></i>` +
-                `           ${el.headcount}` +
+                `           ${likeFloor}` +
                 `           <i class='fas fa-heart' style='font-size:20px'></i>` +
-                `           ${el.headcount}` +
+                `           ${revFloor}` +
                 '        </div>' +
                 '    </div>' +
                 '</div>' +
