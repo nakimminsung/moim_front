@@ -143,10 +143,17 @@ function QNA(props) {
 													>
 														{item.status}
 													</Status>
-													<QnaReportInsert
-														qnaNum={item.num}
-														roomNum={item.roomNum}
-													/>
+													{item.status ==
+													'답변완료' ? (
+														<QnaReportInsert
+															qnaNum={item.num}
+															roomNum={
+																item.roomNum
+															}
+														/>
+													) : (
+														''
+													)}
 												</div>
 											</Typography>
 											<Typography
