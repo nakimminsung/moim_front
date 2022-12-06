@@ -115,7 +115,7 @@ function BasicRouter() {
 				<Route path='passwordsearch2' element={<PasswordSearch2 />} />
 
 				{/* 최근 본 상품 */}
-				<Route path='recent/:userNum' element={<Recent />} />
+				<Route path='recent' element={<Recent />} />
 
 				{/* 카테고리별 방 페이지 */}
 				<Route path='categoryroomList'>

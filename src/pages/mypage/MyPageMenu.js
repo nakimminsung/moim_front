@@ -52,7 +52,7 @@ function MyPageMenu(props) {
                         <a className="mylike" href="/like"><FavoriteIcon />&nbsp;찜 목록</a>
                         {/* <br /> */}
                         <a className="mylist" href={`../booking/list/${userNum}`}><EventAvailableIcon />&nbsp;나의예약</a>
-                        <a className="recent" href={`/recent/${userNum}`}><HistoryIcon />&nbsp;최근 본 장소</a>
+                        <a className="recent" href={"/recent"}><HistoryIcon />&nbsp;최근 본 장소</a>
                     </div>
                 </div>
             </div>

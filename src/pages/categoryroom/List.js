@@ -16,10 +16,10 @@ function List(props) {
         setSort,
     } = props;
 
-
     const handleChange = (e) => {
         setSort(e.target.value);
     };
+    console.log(roomData)
 
     return (
         <>

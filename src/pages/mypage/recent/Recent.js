@@ -1,29 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import List from './List';
+import MiniCard from './MiniCard';
+import styled from 'styled-components';
+import { Box } from '@mui/system';
 
 function Recent(props) {
-    const { userNum } = useParams();
-    const [categoryData, setCategoryData] = useState('');
-    const [roomData, setRoomData] = useState([]);
-    const [headCount, setHeadCount] = useState(1);
-    const [address, setAddress] = useState('');
-    const [payment, setPayment] = useState('');
-    const [sprice, setSprice] = useState('0');
-    const [eprice, setEprice] = useState('500000');
-    const [stime, setStime] = useState('0');
-    const [etime, setEtime] = useState('24');
-    const [facility, setFacility] = useState('');
-    const [holiday, setHoliday] = useState('');
+    const [data, setData] = useState([]);
+    // let url =
+    // localStorage.url +
+    // '/room?detail=' +
+
+    useEffect(() => {
+        setData(JSON.parse(sessionStorage.getItem('watched')));
+        console.log(sessionStorage.getItem('watched'));
+    }, [sessionStorage.getItem('watched')]);
     return (
         <>
             <h2>최근 본 상품</h2>
             <hr />
             <br />
             {/* {userNum} */}
-            <List roomData={roomData} />
+            <RoomList>
+                {data && data.length !== 0
+                    ? data.reverse()
+                        .map((item, i) => <MiniCard num={item} />)
+                    : ''}
+            </RoomList>
         </>
     );
 }
-
+const RoomList = styled(Box)`
+    margin-top:20px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	width: 100%;
+`;
 export default Recent;
