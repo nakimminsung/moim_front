@@ -5,18 +5,19 @@ import HostList from './HostList';
 
 function HostTotalPlace(props) {
 	const {hostNum} = useParams();
-	const [hostInfo, setHostInfo] = useState('');
+	const [hostName, setHostName] = useState('');
 
 	//호스트관련 데이터 출력
-	const onSelectHost = () => {
-		let hostUrl = localStorage.url + '/detailReview?num=' + hostNum;
-
+	const getNameHost = () => {
+		let hostUrl = localStorage.url + '/host/hostName?num=' + hostNum;
+		//console.log(hostUrl);
 		axios.get(hostUrl).then((res) => {
-			setHostInfo(res.data.host);
+			//console.log(res.data);
+			setHostName(res.data);
 		});
 	};
 	useEffect(() => {
-		onSelectHost(hostNum);
+		getNameHost();
 	}, []);
 
 	return (
@@ -29,7 +30,7 @@ function HostTotalPlace(props) {
 						paddingBottom: '5px',
 					}}
 				>
-					{hostInfo.companyName} 호스트의 공간들
+					{hostName}의 공간들
 				</b>
 			</div>
 			<HostList />
