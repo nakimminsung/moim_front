@@ -194,9 +194,22 @@ function SpaceList1(props) {
 														width: '100%',
 													}}
 												>
-													{data.thumbnailImage.startsWith(
-														'http',
-													) ? (
+													{data.thumbnailImage ==
+													null ? (
+														<img
+															alt=''
+															src=''
+															style={{
+																width: '100%',
+																height: '200px',
+																// height: '70%',
+																borderRadius:
+																	'5px',
+															}}
+														/>
+													) : data.thumbnailImage.startsWith(
+															'http',
+													  ) ? (
 														<img
 															alt=''
 															src={
@@ -242,7 +255,7 @@ function SpaceList1(props) {
 																'absolute',
 															zIndex: '1',
 															top: '80px',
-															left: '32%',
+															left: '35%',
 														}}
 													>
 														승인 대기
@@ -252,9 +265,22 @@ function SpaceList1(props) {
 										) : (
 											<>
 												<div>
-													{data.thumbnailImage.startsWith(
-														'http',
-													) ? (
+													{data.thumbnailImage ==
+													null ? (
+														<img
+															alt=''
+															src=''
+															style={{
+																width: '100%',
+																height: '200px',
+																// height: '70%',
+																borderRadius:
+																	'5px',
+															}}
+														/>
+													) : data.thumbnailImage.startsWith(
+															'http',
+													  ) ? (
 														<img
 															alt=''
 															src={
@@ -300,10 +326,14 @@ function SpaceList1(props) {
 										<h5>
 											<b style={{color: 'black'}}>
 												{/* 방 이름 줄이기 */}
-												{data.name.length > 11
-													? data.name.substr(0, 12) +
-													  '...'
-													: data.name}
+												{data.name == null ? (
+													<br />
+												) : data.name.length > 11 ? (
+													data.name.substr(0, 12) +
+													'...'
+												) : (
+													data.name
+												)}
 											</b>
 										</h5>
 										<br />

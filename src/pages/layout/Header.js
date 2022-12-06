@@ -1,9 +1,13 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {SearchRounded} from '@material-ui/icons';
 import mlogo from '../../asset/logo/m_logo.png';
 import MyMenu from '../../components/MyMenu';
 import styled from 'styled-components';
+
+//jwt user token
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 
 function Header(props) {
 	//useState 가 아닌 버튼 클릭 시 searchWord에 저장되도록 Ref 사용
@@ -24,6 +28,52 @@ function Header(props) {
 		navi('/searchroom?searchWord=' + searchWord);
 	};
 
+	//token 에서 userInfo 가져오기
+	const userNum = localStorage.getItem('token')
+		? jwt_decode(localStorage.getItem('token')).idx
+		: '';
+
+	//호스트가 로그인했는지 체크하기위함
+	const hostLoginOk = sessionStorage.loginok;
+
+	//grade 담기위한 변수
+	const [userGrade, setUserGrade] = useState('');
+
+	//로그인 회원의 grade 가져오기
+	const adminCheck = () => {
+		//로그인 했는지 체크
+		console.log('userNum = ' + userNum);
+		console.log('hostOK = ' + hostLoginOk);
+
+		//member 로그인 정보가 있으면
+		if (userNum != null) {
+			let url = localStorage.url + '/adminCheck?userNum=' + userNum;
+
+			//멤버 등급 가져오기
+			axios.get(url).then((res) => {
+				setUserGrade(res.data);
+
+				//res.data -> ADMIN or USER
+			});
+		}
+		console.log('유저등급 = ' + userGrade);
+	};
+
+	//로그인 멤버의 Grade 담기
+
+	useEffect(() => {
+		adminCheck();
+	}, []);
+
+	//내 공간 등록하기(호스트) 관련 메서드
+	const hostCheck = () => {
+		{
+			sessionStorage.loginok == null
+				? alert('호스트 회원으로 로그인하시기 바랍니다.')
+				: navi('/host/slist');
+		}
+	};
+
 	return (
 		<HeaderWrapper>
 			<InnerWrapper>
@@ -42,14 +92,35 @@ function Header(props) {
 				</SearchBox>
 				<RightWrapper>
 					<NoticeLink>
-						<span onClick={() => navi('/admin')}>관리자</span>
-						&emsp;
-						<span onClick={() => navi('/notice')}>공지사항</span>
+						{userGrade != 'ADMIN' ? (
+							// ADMIN이 아닐때
+							<span
+								onClick={() => navi('/notice')}
+								style={{cursor: 'pointer', marginLeft: '80px'}}
+							>
+								공지사항
+							</span>
+						) : (
+							// ADMIN일때
+							<>
+								<span
+									onClick={() => navi('/admin')}
+									style={{cursor: 'pointer'}}
+								>
+									관리자
+								</span>
+								&emsp;
+								<span
+									onClick={() => navi('/notice')}
+									style={{cursor: 'pointer'}}
+								>
+									공지사항
+								</span>
+							</>
+						)}
 					</NoticeLink>
 					&emsp;
-					<HostLink onClick={() => navi('/')}>
-						내 공간 등록하기
-					</HostLink>
+					<HostLink onClick={hostCheck}>내 공간 등록하기</HostLink>
 					<MyMenu />
 				</RightWrapper>
 			</InnerWrapper>
@@ -157,7 +228,6 @@ const HostLink = styled.div`
 const NoticeLink = styled.div`
 	width: 150px;
 	font-size: 18px;
-	cursor: pointer;
 	color: gray;
 `;
 

@@ -18,5 +18,11 @@ div.footer-right img {
 	margin-top: 10px;
 }
 
-a {
+.a {
+	text-decoration: none;
+	color: lightgray;
+}
+
+.a:hover {
+	color: lightgray;
 }

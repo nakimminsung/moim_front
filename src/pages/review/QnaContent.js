@@ -6,19 +6,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import axios from 'axios';
 import './Review.css';
-import jwt_decode from 'jwt-decode';
 
 function QnaContent(props) {
-	const {qnaNum, status} = props;
+	const {qnaNum, status, roomNum} = props;
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [answer, setAnswer] = useState('');
 	const [writeday, setWriteday] = useState('');
 	const [answerday, setAnswerday] = useState('');
-
-	const userNum = localStorage.getItem('token')
-		? jwt_decode(localStorage.getItem('token')).idx
-		: '';
 
 	//modal dialogue : OPEN / CLOSE
 	const [open, setOpen] = React.useState(false);
@@ -82,7 +77,6 @@ function QnaContent(props) {
 								<b>{title}</b>
 							</h5>
 						</div>
-
 						<div style={{marginTop: '30px'}}>
 							<h5>
 								<b>Q. 질문내용</b>
@@ -104,13 +98,18 @@ function QnaContent(props) {
 								</div>
 							</pre>
 						</DialogContentText>
-
 						<br />
-						<div>
+						<div
+							style={{
+								display: 'flex',
+								justifyContent: 'space-between',
+							}}
+						>
 							<h5>
 								<b>A. 답변</b>
 							</h5>
 						</div>
+
 						<DialogContentText>
 							{answer == null ? (
 								<pre
