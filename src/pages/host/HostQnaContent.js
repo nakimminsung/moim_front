@@ -100,7 +100,12 @@ function HostQnaContent(props) {
 						</DialogContentText>
 						{status == '답변완료' ? (
 							<div>
-								<div>
+								<div
+									style={{
+										display: 'flex',
+										justifyContent: 'space-between',
+									}}
+								>
 									<h6>
 										<b>A. 호스트 답변</b>
 									</h6>

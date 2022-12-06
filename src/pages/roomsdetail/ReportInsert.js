@@ -20,10 +20,12 @@ import jwt_decode from 'jwt-decode';
 
 function ReportInsert(props) {
 	//token 에서 userInfo 가져오기
-	// let userNum = jwt_decode(localStorage.getItem('token')).idx;
+	const userNum = localStorage.getItem('token')
+		? jwt_decode(localStorage.getItem('token')).idx
+		: '';
 
 	//DetailFunction 상위에서 roomNum 가져오기
-	const {roomNum, userNum} = props;
+	const {roomNum} = props;
 
 	//변수 선언
 	const [reportType, setReportType] = useState('');
@@ -98,16 +100,15 @@ function ReportInsert(props) {
 			formData.append('roomNum', roomNum);
 			formData.append('userNum', userNum);
 
-			// console.log(reportType);
-			// console.log(reportContent);
-			// console.log(roomNum);
-			// console.log(userNum);
+			console.log(reportType);
+			console.log(reportContent);
+			console.log('방정보' + roomNum);
+			console.log('유저정보' + userNum);
 
 			axios({
 				method: 'post',
 				url: url, //BackEnd로 보낼 url
 				data: formData,
-				headers: {'Content-Type': 'multipart/form-data'},
 			}).then((res) => {
 				alert('신고가 접수되었습니다.');
 

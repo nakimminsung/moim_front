@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
-import AdminMain from '../pages/admin/AdminMain';
+
 import BannerManagement from '../pages/admin/BannerManagement';
 import HostManagement from '../pages/admin/HostManagement';
 import MemberManagement from '../pages/admin/MemberManagement';
@@ -12,6 +12,7 @@ import SpaceManagement from '../pages/admin/space/SpaceManagement';
 
 import ThemeManagement from '../pages/admin/ThemeManagement';
 import Theme from '../pages/admin/theme/Theme';
+import AdminMain from '../pages/admin/adminmain/AdminMain';
 
 function AdminRouter() {
 	return (

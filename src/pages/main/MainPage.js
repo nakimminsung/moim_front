@@ -54,9 +54,7 @@ function Mainpage(props) {
 			<hr /> */}
 
 			{/* 시작 지점 */}
-			<br />
-			<br />
-			<br />
+
 			<br />
 
 			{/* 카테고리 영역 */}
@@ -77,7 +75,6 @@ function Mainpage(props) {
 
 			{/* 오늘의 추천 공간 영역 */}
 			<SuggestRoom />
-
 			<br />
 			<br />
 			<br />
