@@ -198,9 +198,16 @@ function BookingList() {
 														component='img'
 														height='140'
 														image={
-															imgUrl +
 															item.thumbnailImage
 														}
+														// src={
+														// 	item.thumbnailImage.startsWith(
+														// 		'http',
+														// 	)
+														// 		? item.thumbnailImage
+														// 		: imgUrl +
+														// 		  item.thumbnailImage
+														// }
 														alt='room_thumnail_img'
 														onError={onErrorImg}
 													/>
