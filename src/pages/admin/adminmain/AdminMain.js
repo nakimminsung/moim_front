@@ -88,15 +88,21 @@ function AdminMain(props) {
 						</div>
 						<div
 							style={{
-								backgroundColor: 'gray',
-								color: 'white',
+								backgroundColor: 'white',
+								color: 'gray',
 								width: '80px',
 								height: '30px',
+
 								borderRadius: '30px',
 								textAlign: 'center',
 								fontWeight: 'bold',
 
 								marginTop: '5px',
+								cursor: 'pointer',
+								border: '1.5px solid gray',
+							}}
+							onClick={() => {
+								navi('/admin/space');
 							}}
 						>
 							바로가기
@@ -161,26 +167,55 @@ function AdminMain(props) {
 					<div
 						style={{
 							display: 'flex',
-							// justifyContent: 'space-between',
+							justifyContent: 'space-between',
 						}}
 					>
-						<b style={{fontSize: '20px'}}>
-							접수 대기중인 신고목록{' '}
-							{/* <ThumbUpIcon style={{color: 'gray'}} /> */}
-						</b>
-						&nbsp;
 						<div
 							style={{
-								backgroundColor: 'gray',
-								color: 'white',
-								width: '30px',
+								display: 'flex',
+								justifyContent: 'space-between',
+							}}
+						>
+							<b style={{fontSize: '20px'}}>
+								접수 대기중인 신고목록{' '}
+								{/* <ThumbUpIcon style={{color: 'gray'}} /> */}
+							</b>
+							&nbsp;
+							<div
+								style={{
+									backgroundColor: 'gray',
+									color: 'white',
+									width: '30px',
+									height: '30px',
+									borderRadius: '30px',
+									textAlign: 'center',
+									fontWeight: 'bold',
+								}}
+							>
+								{waitReport.length}
+							</div>
+						</div>
+
+						<div
+							style={{
+								backgroundColor: 'white',
+								color: 'gray',
+								width: '80px',
 								height: '30px',
+
 								borderRadius: '30px',
 								textAlign: 'center',
 								fontWeight: 'bold',
+
+								marginTop: '5px',
+								cursor: 'pointer',
+								border: '1.5px solid gray',
+							}}
+							onClick={() => {
+								navi('/admin/report');
 							}}
 						>
-							{waitReport.length}
+							바로가기
 						</div>
 					</div>
 
