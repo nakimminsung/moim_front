@@ -104,7 +104,7 @@ function DetailHost(props) {
 													);
 												}}
 											>
-												호스트 페이지로 이동
+												호스트 페이지로 이동g
 											</button>
 										</div>
 									</div>
