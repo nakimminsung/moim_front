@@ -286,7 +286,8 @@ function SpaceUpdateForm(props) {
 							style={{margin: 8}}
 							fullWidth
 							required
-							rows={4}
+							multiline
+							rows={5}
 							variant='outlined'
 							size='small'
 							value={fullIntroduction}
@@ -457,9 +458,6 @@ function SpaceUpdateForm(props) {
 						</DialogActions>
 					</BootstrapDialog>
 				</div>
-				<br />
-				<br />
-				<br />
 				<ButtonEvent>
 					<BtnEventWrap>
 						<BtnWrap
