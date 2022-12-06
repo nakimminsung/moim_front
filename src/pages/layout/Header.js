@@ -77,7 +77,7 @@ function Header(props) {
 	return (
 		<HeaderWrapper>
 			<InnerWrapper>
-				<Home onClick={() => navi('/')}>
+				<Home onClick={() => (window.location.href = '/')}>
 					{/* <img alt='' src={mlogo} /> */}
 					<b style={{fontFamily: 'Happiness-Sans-Title'}}>MoiM</b>
 				</Home>

@@ -36,8 +36,7 @@ function Content(props) {
 		});
 
 		// marker image setting
-		let imageSrc =
-			'https://img.icons8.com/office/40/000000/place-marker--v2.png';
+		let imageSrc = 'https://img.icons8.com/glyph-neue/512/marker.png';
 		let imageSize = new kakao.maps.Size(40, 40);
 		let imageOption = {offset: new kakao.maps.Point(27, 69)};
 		let markerImage = new kakao.maps.MarkerImage(
