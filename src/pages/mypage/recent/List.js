@@ -23,29 +23,6 @@ function List(props) {
 
     return (
         <>
-            <ListWrapper>
-                <SelectDiv>
-                    <FormControl sx={{ m: 1, minWidth: 110 }} size='small'>
-                        <Select
-                            labelId='demo-select-small'
-                            id='demo-select-small'
-                            value={sort}
-                            onChange={handleChange}
-                            defaultValue={'a.writeday desc'}
-                        >
-                            <MenuItem value={'a.writeday desc'}>최신순</MenuItem>
-                            <MenuItem value={'a.readCount desc'}>인기순</MenuItem>
-                            <MenuItem value={'a.weekAmPrice asc'}>
-                                낮은 가격순
-                            </MenuItem>
-                            <MenuItem value={'a.weekAmPrice desc'}>
-                                높은 가격순
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
-                </SelectDiv>
-            </ListWrapper>
-            {/* <hr /> */}
             <RoomList>
                 {roomData &&
                     roomData.map((item, i) => (
