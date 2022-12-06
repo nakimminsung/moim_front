@@ -46,37 +46,37 @@ function MemberChart(props) {
 		{
 			name: '7월',
 			게스트: 5,
-			호스트: 3,
+			호스트: 7,
 		},
 		{
 			name: '8월',
 			게스트: 7,
-			호스트: 7,
+			호스트: 3,
 		},
 		{
 			name: '9월',
-			게스트: 12,
-			호스트: 8,
+			게스트: 3,
+			호스트: 5,
 		},
 		{
 			name: '10월',
 			게스트: 1,
-			호스트: 9,
+			호스트: 7,
 		},
 		{
 			name: '11월',
-			게스트: 12,
-			호스트: 8,
+			게스트: 5,
+			호스트: 2,
 		},
 		{
 			name: '12월',
-			게스트: 12,
+			게스트: 4,
 			호스트: 8,
 		},
 	];
 
 	return (
-		<div>
+		<div className='memberChartBox'>
 			<ResponsiveContainer width='100%' aspect={2.3 / 1}>
 				<LineChart
 					width={500}
