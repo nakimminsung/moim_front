@@ -8,6 +8,7 @@ import Fade from '@mui/material/Fade';
 import MiniCard from './MiniCard';
 import {useEffect} from 'react';
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 function ScrollTop(props) {
 	const {children, window} = props;
@@ -46,12 +47,10 @@ ScrollTop.propTypes = {
 
 export default function BasicSpeedDial(props) {
 	const [data, setData] = useState([]);
+	const navi = useNavigate();
+
 	useEffect(() => {
 		setData(JSON.parse(sessionStorage.getItem('watched')));
-	}, []);
-	useEffect(() => {
-		setData(JSON.parse(sessionStorage.getItem('watched')));
-		console.log(data);
 	}, []);
 	return (
 		<>
@@ -71,7 +70,7 @@ export default function BasicSpeedDial(props) {
 								color: '#707070',
 							}}
 						>
-							최근 본 상품
+							최근 본 공간
 						</div>
 						<CardWrapper>
 							{JSON.parse(sessionStorage.getItem('watched'))
@@ -80,7 +79,9 @@ export default function BasicSpeedDial(props) {
 								.map((item, i) => (
 									<MiniCard num={item} />
 								))}
-							<MoreBtn>More</MoreBtn>
+							<MoreBtn onClick={() => navi('/recent')}>
+								More
+							</MoreBtn>
 						</CardWrapper>
 					</Wrapper>
 					<ScrollTop {...props}>

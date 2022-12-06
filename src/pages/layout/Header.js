@@ -94,12 +94,12 @@ function Header(props) {
 					<NoticeLink>
 						{userGrade != 'ADMIN' ? (
 							// ADMIN이 아닐때
-							<span
+							<Notice
 								onClick={() => navi('/notice')}
 								style={{cursor: 'pointer', marginLeft: '80px'}}
 							>
 								공지사항
-							</span>
+							</Notice>
 						) : (
 							// ADMIN일때
 							<>
@@ -185,10 +185,10 @@ const SearchInput = styled.input`
 		width: 320px;
 	}
 	@media (max-width: 1000px) {
-		width: 200px;
+		width: 320px;
 	}
 	@media (max-width: 900px) {
-		width: 200px;
+		width: 320px;
 	}
 `;
 const SearchBox = styled.div`
@@ -198,17 +198,20 @@ const SearchBox = styled.div`
 	display: flex;
 	justify-content: start;
 	border-radius: 100px;
+	position: relative;
 	@media (max-width: 1920px) {
 		width: 500px;
 	}
 	@media (max-width: 1680px) {
+		left: 150px;
 		width: 500px;
 	}
 	@media (max-width: 1000px) {
-		width: 300px;
+		width: 500px;
 	}
 	@media (max-width: 900px) {
-		width: 300px;
+		width: 500px;
+		left: 90px;
 	}
 	> svg {
 		font-size: 40px;
@@ -223,6 +226,20 @@ const HostLink = styled.div`
 	width: 150px;
 	font-size: 18px;
 	cursor: pointer;
+	@media (max-width: 1000px) {
+		display: none;
+	}
+	@media (max-width: 900px) {
+		display: none;
+	}
+`;
+const Notice = styled.span`
+	@media (max-width: 1000px) {
+		display: none;
+	}
+	@media (max-width: 900px) {
+		display: none;
+	}
 `;
 
 const NoticeLink = styled.div`
