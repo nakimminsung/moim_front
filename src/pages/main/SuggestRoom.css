@@ -1,0 +1,33 @@
+/* slick div 영역 */
+.sliderBox .slick-dots {
+	margin-top: 10px;
+}
+
+.sliderBox .slick-prev {
+	color: gray;
+	background-color: transparent;
+	font-size: 3em;
+	top: 38%;
+}
+.sliderBox .slick-prev:hover {
+	color: gray;
+	background-color: transparent;
+	font-size: 3.2em;
+}
+
+.sliderBox .slick-next {
+	color: gray;
+	background-color: transparent;
+	top: 38%;
+	font-size: 3em;
+}
+
+.sliderBox .slick-next:hover {
+	color: gray;
+	background-color: transparent;
+	font-size: 3.2em;
+}
+
+.sliderBox .slick-slide {
+	cursor: pointer;
+}

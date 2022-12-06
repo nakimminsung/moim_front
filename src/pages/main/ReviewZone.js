@@ -11,6 +11,7 @@ import {red} from '@material-ui/core/colors';
 //스타일 컴포넌트 관련
 import styled from '@emotion/styled/macro';
 import {Box, Typography} from '@mui/material';
+import ReviewTag from './ReviewTag';
 
 function ReviewZone(props) {
 	const [review, setReview] = useState('');
@@ -18,6 +19,7 @@ function ReviewZone(props) {
 	//db의 src가 톰캣일때
 	const imgUrl = 'http://localhost:9000/image/';
 
+	//리뷰 리스트 가져오기
 	const getReviewList = () => {
 		let url = localStorage.url + '/reviewList';
 
@@ -62,7 +64,7 @@ function ReviewZone(props) {
 	const classes = useStyles();
 
 	// 더보기 more button 관련
-	const max = 3;
+	const max = 6; //한번에 보이게 할 갯수
 	const [now, setNow] = useState(1);
 
 	// 더보기 button event
@@ -71,16 +73,17 @@ function ReviewZone(props) {
 	};
 
 	return (
-		<div className='reviewArea'>
+		<div className='reviewArea' style={{marginTop: '40px'}}>
 			<div style={{textAlign: 'center'}}>
 				<h2>
 					<b>리뷰 ZONE</b>
 				</h2>
-				<h6 style={{color: 'gray', fontWeight: '500'}}>
+				<span
+					style={{color: 'gray', fontWeight: '500', fontSize: '16px'}}
+				>
 					이용자들의 생생한 후기를 만나보세요!
-				</h6>
+				</span>
 			</div>
-			<br />
 
 			{/* 리스트 전체 div */}
 			<div
@@ -89,6 +92,7 @@ function ReviewZone(props) {
 					display: 'flex',
 					justifyContent: 'space-between',
 					flexWrap: 'wrap',
+					marginTop: '40px',
 				}}
 			>
 				{review &&
@@ -99,9 +103,9 @@ function ReviewZone(props) {
 									className={classes.root}
 									style={{
 										width: '30%',
-										height: '390px',
+										height: '430px',
 										padding: '10px',
-										marginBottom: '20px',
+										marginBottom: '30px',
 										border: '1px solid lightgray',
 										cursor: 'pointer',
 									}}
@@ -110,7 +114,11 @@ function ReviewZone(props) {
 										navi('/detail/' + data.roomNum);
 									}}
 								>
-									<b style={{fontSize: '1.2em'}}>
+									{/* 태그 출력 */}
+									<div>
+										<ReviewTag num={data.roomNum} />
+									</div>
+									<b style={{fontSize: '1.3em'}}>
 										{data.roomName.length > 11
 											? data.roomName.substr(0, 16) +
 											  '...'
@@ -119,15 +127,20 @@ function ReviewZone(props) {
 										{/* {data.roomName} */}
 									</b>
 									<br />
+
 									<div
 										style={{
 											display: 'flex',
 											justifyContent: 'space-between',
-											marginTop: '5px',
 										}}
 									>
 										<div>
-											<span style={{color: 'gray'}}>
+											<span
+												style={{
+													color: 'gray',
+													fontSize: '16px',
+												}}
+											>
 												별점
 											</span>
 											&nbsp;
@@ -135,18 +148,31 @@ function ReviewZone(props) {
 												name='half-rating-read'
 												style={{
 													color: '#704de4',
-													fontSize: '14px',
+													fontSize: '18px',
+													position: 'relative',
+													top: '3px',
 												}}
 												value={data.rating}
 												precision={1}
 												readOnly
 											/>
 										</div>
-										<div>
-											{data.weekAmPrice.toLocaleString(
-												'ko-KR',
-											)}{' '}
-											<span style={{color: 'gray'}}>
+										<div style={{fontSize: '16px'}}>
+											<b
+												style={{
+													color: '#6f42c1',
+													fontSize: '16px',
+												}}
+											>
+												{data.weekAmPrice.toLocaleString(
+													'ko-KR',
+												)}{' '}
+											</b>
+											<span
+												style={{
+													color: 'gray',
+												}}
+											>
 												원/시간
 											</span>
 										</div>
@@ -181,8 +207,8 @@ function ReviewZone(props) {
 											{/* 리뷰 내용 */}
 
 											{/* {data.content} */}
-											{data.content.length > 101
-												? data.content.substr(0, 102) +
+											{data.content.length > 109
+												? data.content.substr(0, 110) +
 												  '  .......'
 												: data.content}
 										</span>

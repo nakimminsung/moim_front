@@ -20,7 +20,9 @@ import jwt_decode from 'jwt-decode';
 
 function QnaReportInsert(props) {
 	//token 에서 userInfo 가져오기
-	let userNum = jwt_decode(localStorage.getItem('token')).idx;
+	const userNum = localStorage.getItem('token')
+		? jwt_decode(localStorage.getItem('token')).idx
+		: '';
 
 	//DetailFunction 상위에서 qnaNum, roomNum 가져오기
 	const {qnaNum, roomNum} = props;
@@ -120,16 +122,20 @@ function QnaReportInsert(props) {
 
 	return (
 		<div>
-			<span
-				class='material-symbols-outlined'
-				style={{
-					fontSize: 'xx-large',
-					cursor: 'pointer',
-				}}
-				onClick={handleClickOpen}
-			>
-				e911_emergency
-			</span>
+			<div onClick={handleClickOpen} style={{cursor: 'pointer'}}>
+				<div
+					class='material-symbols-outlined'
+					style={{
+						fontSize: 'x-large',
+						position: 'relative',
+						top: '5px',
+					}}
+				>
+					e911_emergency
+				</div>
+				&nbsp;
+				<span style={{marginBottom: '10px'}}>신고하기</span>
+			</div>
 
 			{/* Dialogue Modal 화면 : 신고 작성 INSERT 폼 */}
 			{/* Dialogue Modal 화면 : 공지사항 작성 INSERT 폼 */}

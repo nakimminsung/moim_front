@@ -242,9 +242,67 @@ ul.pagination li.active a {
 	border-collapse: collapse;
 	border-style: hidden;
 	border-radius: 10px;
+
+	min-height: 220px;
 }
 
-.warningHost {
+.popularSpace {
+	width: 100%;
+	height: 39vh;
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+
+	min-height: 220px;
+}
+
+.popularSpace table {
+	width: 100%;
+	/* height: 30vh; */
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+}
+
+.popularSpace th {
+	border-bottom: 2px solid gray;
+	border-left: 0.5px solid gray;
+	/* height: 40px; */
+	height: 5vh;
+
+	text-align: center;
+
+	background-color: rgba(0, 0, 0);
+	opacity: 0.6;
+	/* color: lightgray; */
+	color: white;
+}
+
+.popularSpace td {
+	border-bottom: 0.5px solid gray;
+	border-left: 0.5px solid gray;
+	/* height: 45px; */
+	height: 5vh;
+
+	text-align: center;
+}
+
+.waitSpaceBox {
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
+	border-collapse: collapse;
+	border-style: hidden;
+	border-radius: 10px;
+
+	min-height: 220px;
+}
+
+.reportBox {
 	width: 100%;
 	background-color: white;
 	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
@@ -253,8 +311,9 @@ ul.pagination li.active a {
 	border-radius: 10px;
 }
 
-.spaceBox {
+.reportBox table {
 	width: 100%;
+	/* height: 30vh; */
 	background-color: white;
 	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
 	border-collapse: collapse;
@@ -262,11 +321,25 @@ ul.pagination li.active a {
 	border-radius: 10px;
 }
 
-.noticeBox {
-	width: 100%;
-	background-color: white;
-	box-shadow: 0px 2px 2px 1px rgba(0 0 0 / 10%);
-	border-collapse: collapse;
-	border-style: hidden;
-	border-radius: 10px;
+.reportBox th {
+	border-bottom: 2px solid gray;
+	border-left: 0.5px solid gray;
+	/* height: 40px; */
+	height: 5vh;
+
+	text-align: center;
+
+	background-color: rgba(0, 0, 0);
+	opacity: 0.6;
+	/* color: lightgray; */
+	color: white;
+}
+
+.reportBox td {
+	border-bottom: 0.5px solid gray;
+	border-left: 0.5px solid gray;
+	/* height: 45px; */
+	height: 5vh;
+
+	text-align: center;
 }
