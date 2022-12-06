@@ -16,7 +16,7 @@ function Recent(props) {
     }, [sessionStorage.getItem('watched')]);
     return (
         <>
-            <h2>최근 본 상품</h2>
+            <h2>최근 본 장소</h2>
             <hr />
             <br />
             {/* {userNum} */}
