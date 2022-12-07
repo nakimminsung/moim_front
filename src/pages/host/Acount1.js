@@ -69,8 +69,6 @@ function Acount1(props) {
 		});
 	};
 
-	const [bookingStatus, setBookingStatus] = useState(4);
-	const [payStatus, setPayStatus] = useState(0);
 	//리스트 호출하는 것
 	const [acountlist, setAcountList] = useState([]);
 	console.log(acountlist);
@@ -88,11 +86,8 @@ function Acount1(props) {
 			'&roomName=' +
 			roomName +
 			'&hostNum=' +
-			hostNum +
-			'&payStatus=' +
-			payStatus +
-			'&bookingStatus=' +
-			bookingStatus;
+			hostNum;
+
 		console.log(searchUrl);
 		axios.get(searchUrl).then((res) => {
 			console.log(res.data);
@@ -352,9 +347,9 @@ function Acount1(props) {
 						className='table table-dark'
 					>
 						<tr>
-							<th style={{width: '10%'}}>결제일</th>
+							<th style={{width: '7%'}}>결제일</th>
 							<th style={{width: '5%'}}>예약번호</th>
-							<th style={{width: '10%'}}>공간명</th>
+							<th style={{width: '13%'}}>공간명</th>
 							<th style={{width: '5%'}}>PG</th>
 							<th style={{width: '5%'}}>예약자명</th>
 							<th style={{width: '5%'}}>정산금액</th>
@@ -384,7 +379,7 @@ function Acount1(props) {
 											<td>{item.merchantUid}</td>
 											<td>{item.roomName}</td>
 											<td>{item.pg}</td>
-											<td>{item.name}</td>
+											<td>{item.bookingName}</td>
 											{/* <td>{item.totalPrice}</td> */}
 											<td>
 												<b>

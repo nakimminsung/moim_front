@@ -18,7 +18,7 @@ import './booking.css';
 
 function BookingList() {
 	const {userNum} = useParams();
-	const [bookingStatus, setBookingStatus] = useState('');
+	const [bookingStatus, setBookingStatus] = useState('-1');
 	const [sort, setSort] = useState('');
 	const [bookingList, setBookingList] = useState([]);
 	const url = `http://localhost:9000/bookingDetail/list?userNum=${userNum}&bookingStatus=${bookingStatus}&sort=${sort}`;
@@ -142,7 +142,12 @@ function BookingList() {
 											value={bookingStatus}
 											label='bookingStatus'
 											onChange={handleChange}
+											defaultValue={-1}
+											select
 										>
+											<MenuItem value={-1}>
+												전체상태
+											</MenuItem>
 											<MenuItem value={1}>
 												승인대기
 											</MenuItem>
