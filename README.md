@@ -24,44 +24,44 @@
 
 ### 📆 Project Timeline
 
-- 기간 : 2022.11.05 ~ 2022.12.09
-- 개발 언어 : Javascript, Java
-- 개발 라이브러리 : React
-- 개발 프레임워크 : Spring Boot
-- 배포 환경 : Amazon S3
-- 협업 툴 : Git / Notion
+-   기간 : 2022.11.05 ~ 2022.12.09
+-   개발 언어 : Javascript, Java
+-   개발 라이브러리 : React
+-   개발 프레임워크 : Spring Boot
+-   배포 환경 : Amazon S3
+-   협업 툴 : Git / Notion
 
 ## ✨ 페이지 별 기능
 
-- **`메인`**
-  사람들이 공유한 장소들을 둘러볼 수 있습니다.
-  카테고리별, 기획전, 오늘의 추천공간, 리뷰 등으로 구성되어 있습니다.:)
-- **`카테고리별`**
-  카테고리별로 구분된 장소들을 둘러보세요! 
-  원하는 조건에 따라 필터링해서 검색할 수 있고, 지도버튼을 눌러서 지도상에서 위치를 찾아볼 수 있습니다.
-- **`상세페이지`**
+-   **`메인`**
+    사람들이 공유한 장소들을 둘러볼 수 있습니다.
+    카테고리별, 기획전, 오늘의 추천공간, 리뷰 등으로 구성되어 있습니다.:)
+-   **`카테고리별`**
+    카테고리별로 구분된 장소들을 둘러보세요!
+    원하는 조건에 따라 필터링해서 검색할 수 있고, 지도버튼을 눌러서 지도상에서 위치를 찾아볼 수 있습니다.
+-   **`상세페이지`**
 
-- **`관리자페이지`**
+-   **`관리자페이지`**
 
-- **`호스트페이지`**
-  호스트가 공간에 대한 정보를 등록하고, 관련 정보를 수정·삭제할 수 있는 공간입니다.
-- **`예약페이지`**
-  마음에 드는 공간을 예약하고, 예약한 정보들을 다시 확인할 수 있습니다.
-- **`찜한공간`**
-  나만의 찜한 공간을 만들어보세요!
-  마음에 드는 공간들을 찜하여 다시 볼 수 있습니다.
-- **`검색`**
-  원하는 공간 키워드를 검색하여, 해당 공간들을 찾아볼 수 있습니다.
-  최신순&인기순&가격순으로 나눠서 볼 수 있어요!
-- **`이용후기`**
-  해당 공간을 사용한 유저들의 생생하고 솔직한 후기를 작성하고 공유할 수 있습니다.
-- **`마이페이지`**
-  프로필&비밀번호 변경, 회원탈퇴 등 회원정보 수정 및 삭제 기능이 가능하며,
-  사이드메뉴에는 나의리뷰, 찜 목록, 나의예약, 최근 본 장소 등 회원만의 맞춤메뉴를 확인할 수 있습니다.
-- **`최근 본 공간`**
-  회원이 최근에 본 공간들을 볼 수 있는 페이지입니다.
-  유저가 상세페이지에 접속시 해당 공간의 id를 브라우저의 세션 스토리지에 저장하는 방식입니다.
- 
+-   **`호스트페이지`**
+    호스트가 공간에 대한 정보를 등록하고, 관련 정보를 수정·삭제할 수 있는 공간입니다.
+-   **`예약페이지`**
+    마음에 드는 공간을 예약하고, 예약한 정보들을 다시 확인할 수 있습니다.
+-   **`찜한공간`**
+    나만의 찜한 공간을 만들어보세요!
+    마음에 드는 공간들을 찜하여 다시 볼 수 있습니다.
+-   **`검색`**
+    원하는 공간 키워드를 검색하여, 해당 공간들을 찾아볼 수 있습니다.
+    최신순&인기순&가격순으로 나눠서 볼 수 있어요!
+-   **`이용후기`**
+    해당 공간을 사용한 유저들의 생생하고 솔직한 후기를 작성하고 공유할 수 있습니다.
+-   **`마이페이지`**
+    프로필&비밀번호 변경, 회원탈퇴 등 회원정보 수정 및 삭제 기능이 가능하며,
+    사이드메뉴에는 나의리뷰, 찜 목록, 나의예약, 최근 본 장소 등 회원만의 맞춤메뉴를 확인할 수 있습니다.
+-   **`최근 본 공간`**
+    회원이 최근에 본 공간들을 볼 수 있는 페이지입니다.
+    유저가 상세페이지에 접속시 해당 공간의 id를 브라우저의 세션 스토리지에 저장하는 방식입니다.
+
 <br/>
 
 ## 🛠 Tech Stack & Platform
@@ -97,9 +97,11 @@
 </br>
 
 ## 아키텍처✨
+
 <img src="https://user-images.githubusercontent.com/89297158/171176309-a0918a08-0596-43da-810e-e1b9737e98d0.png"/>
 
 ## ERD
+
 ![erd1](https://user-images.githubusercontent.com/84282676/207521184-b64177f3-064a-4b72-9e3f-f54916acb2db.PNG)
 </br></br>
 
@@ -108,43 +110,48 @@
 <details>
 <summary>메인</summary>
 
-|메인페이지|계획세우기|
-|:---:|:---:|
-|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|
-|검색(무한스크롤)|상세페이지|
-|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|
-|회원가입|로그인|
-|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|
+|                                                           메인페이지                                                            |                                                           계획세우기                                                            |
+| :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+|                                                        검색(무한스크롤)                                                         |                                                           상세페이지                                                            |
+| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+|                                                            회원가입                                                             |                                                             로그인                                                              |
+| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+
 </details>
 
 <br />
 <details>
 <summary>로그인</summary>
 
-|메인페이지|계획세우기|
-|:---:|:---:|
-|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|
-|검색(무한스크롤)|상세페이지|
-|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|
-|회원가입|로그인|
-|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|
+|                                                           메인페이지                                                            |                                                           계획세우기                                                            |
+| :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+|                                                        검색(무한스크롤)                                                         |                                                           상세페이지                                                            |
+| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+|                                                            회원가입                                                             |                                                             로그인                                                              |
+| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+
 </details>
 
 <br />
 <details>
 <summary>관리자페이지</summary>
 
-|메인페이지|계획세우기|
-|:---:|:---:|
-|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|
-|검색(무한스크롤)|상세페이지|
-|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|
-|회원가입|로그인|
-|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|<img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/>|
+|                                                           메인페이지                                                            |                                                           계획세우기                                                            |
+| :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+|                                                        검색(무한스크롤)                                                         |                                                           상세페이지                                                            |
+| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+|                                                            회원가입                                                             |                                                             로그인                                                              |
+| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+
 </details>
 
 <br />
 
+## 시연 영상🎥
+
+링크
+
 ## [🏷 프로젝트 노션 🏷](https://shadow-blanket-65e.notion.site/MoiM-a37bb15bcad1427f9d47d23048b76edd)
-
-
