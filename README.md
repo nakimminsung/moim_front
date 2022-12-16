@@ -122,17 +122,20 @@
 
 <br />
 <details>
-<summary>로그인</summary>
+<summary>회원가입 & 로그인</summary>
 
-|                                                           메인페이지                                                            |                                                           계획세우기                                                            |
+|                                                           일반 회원가입                                                            |                                                           소셜 회원가입                                                            |
 | :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
-|                                                        검색(무한스크롤)                                                         |                                                           상세페이지                                                            |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
-|                                                            회원가입                                                             |                                                             로그인                                                              |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+| <img src="https://user-images.githubusercontent.com/84282676/208115955-693b9163-2cc3-434a-b08b-d0c38d65382a.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/208117038-50738402-1d7a-4e07-a4dc-c499021b1af8.gif" width="100%"/> |
+
+|                                                           일반 로그인                                                            |                                                           소셜 로그인                                                            |
+| :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/84282676/208117941-382e7fd1-f0b9-4dd8-8728-8c3e5d6bd1a8.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/208117799-429cf0bb-41ff-40ed-b947-dc5707ea84dd.gif" width="100%"/> |
+
+
 
 </details>
+
 
 <br />
 <details>
