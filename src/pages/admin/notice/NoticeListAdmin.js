@@ -80,8 +80,10 @@ function NoticeListAdmin(props) {
 					{noticeList.length === 0 ? (
 						//데이터가 없을때
 						<tr>
-							<td colSpan={4} style={{textAlign: 'center'}}>
-								<h5>등록된 게시글이 없습니다</h5>
+							<td colSpan={5} style={{textAlign: 'center'}}>
+								<h5>
+									<b>등록된 게시글이 없습니다.</b>
+								</h5>
 							</td>
 						</tr>
 					) : (

@@ -66,9 +66,9 @@ function Acount2(props) {
 		});
 	};
 
-	const [payStatus, setPayStatus] = useState(1);
 	//리스트 호출하는 것
-	const [acountlist, setAcountList] = useState([]);
+	const [acountlist1, setAcountList1] = useState([]);
+	console.log(acountlist1);
 	//검색 버튼 눌렀을때 발생하는 이벤트
 	const onClickSearch = () => {
 		let sdate = moment(sday).format('YYYY-MM-DD');
@@ -76,20 +76,19 @@ function Acount2(props) {
 
 		let searchUrl =
 			localStorage.url +
-			'/host/bsearch?sdate=' +
+			'/host/bsearch2?sdate=' +
 			sdate +
 			'&edate=' +
 			edate +
 			'&roomName=' +
 			roomName +
 			'&hostNum=' +
-			hostNum +
-			'&payStatus=' +
-			payStatus;
+			hostNum;
+
 		console.log(searchUrl);
 		axios.get(searchUrl).then((res) => {
 			console.log(res.data);
-			setAcountList(res.data);
+			setAcountList1(res.data);
 		});
 	};
 	//검색 버튼 눌렀을때 발생하는 이벤트
@@ -101,11 +100,11 @@ function Acount2(props) {
 	}, []);
 
 	const [tot, setTot] = useState();
-	// console.log(tot);
+	console.log(tot);
 
 	const sumtotal = () => {
 		let a = 0;
-		acountlist.map((price, i) => {
+		acountlist1.map((price, i) => {
 			if (price.bookingStatus == 4 && price.payStatus == 1) {
 				a += price.totalPrice;
 			}
@@ -116,7 +115,7 @@ function Acount2(props) {
 	};
 	useEffect(() => {
 		sumtotal();
-	}, [acountlist]);
+	}, [acountlist1]);
 
 	// const scalendarRef = useRef(null);
 	// useEffect(() => {
@@ -329,7 +328,7 @@ function Acount2(props) {
 					}}
 				>
 					<span>정산완료금액: </span>
-					<b style={{color: '#ffd014'}}>{acountlist.length}건</b>
+					<b style={{color: '#ffd014'}}>{acountlist1.length}건</b>
 					&nbsp; / &nbsp;
 					<b>총</b>&nbsp;
 					<b style={{color: '#704de4'}}>{tot}원</b>
@@ -359,15 +358,15 @@ function Acount2(props) {
 						style={{textAlign: 'center'}}
 						className='table table-Light'
 					>
-						{acountlist.length === 0 ? (
+						{acountlist1.length === 0 ? (
 							<tr>
 								<td colSpan={7} style={{textAlign: 'center'}}>
 									<h5>내역이 없습니다</h5>
 								</td>
 							</tr>
 						) : (
-							acountlist &&
-							acountlist.map((item, idx) => {
+							acountlist1 &&
+							acountlist1.map((item, idx) => {
 								if (
 									item.payStatus == 1 &&
 									item.bookingStatus == 4
@@ -378,8 +377,16 @@ function Acount2(props) {
 											<td>{item.merchantUid}</td>
 											<td>{item.roomName}</td>
 											<td>{item.pg}</td>
-											<td>{item.name}</td>
-											<td>{item.totalPrice}</td>
+											<td>{item.bookingName}</td>
+											{/* <td>{item.totalPrice}</td> */}
+											<td>
+												<b>
+													₩
+													{item.totalPrice.toLocaleString(
+														'ko-KR',
+													)}
+												</b>
+											</td>
 											<td>
 												{Number(item.payStatus) ===
 												1 ? (
