@@ -132,10 +132,17 @@
 | :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
 | <img src="https://user-images.githubusercontent.com/84282676/208117941-382e7fd1-f0b9-4dd8-8728-8c3e5d6bd1a8.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/208117799-429cf0bb-41ff-40ed-b947-dc5707ea84dd.gif" width="100%"/> |
 
-
-
 </details>
 
+<br />
+<details>
+<summary>통합검색</summary>
+
+|                                                           메인페이지                                                            |  
+| :-----------------------------------------------------------------------------------------------------------------------------: | 
+| <img src="https://user-images.githubusercontent.com/84282676/208123031-5073d646-070a-431c-999e-2eb83f9a4ae3.gif" width="100%"/> |
+
+</details>
 
 <br />
 <details>
@@ -143,7 +150,7 @@
 
 |                                                           메인페이지                                                            |                                                           계획세우기                                                            |
 | :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/ height="50%"> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
 |                                                        검색(무한스크롤)                                                         |                                                           상세페이지                                                            |
 | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
 |                                                            회원가입                                                             |                                                             로그인                                                              |
