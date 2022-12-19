@@ -136,6 +136,16 @@
 
 <br />
 <details>
+<summary>마이페이지</summary>
+
+|                                                           마이페이지                                                            |  
+| :-----------------------------------------------------------------------------------------------------------------------------: | 
+| <img src="https://user-images.githubusercontent.com/84282676/208371583-055ca39b-f4c3-4432-972f-ec60407903df.gif" width="100%"/> |
+
+</details>
+
+<br />
+<details>
 <summary>통합검색</summary>
 
 |                                                           통합검색                                                            |  
@@ -175,6 +185,6 @@
 
 ## 시연 영상🎥
 
-링크
+링크(https://www.youtube.com/watch?v=kmMcIUePNTU)
 
 ## [🏷 프로젝트 노션 🏷](https://shadow-blanket-65e.notion.site/MoiM-a37bb15bcad1427f9d47d23048b76edd)
