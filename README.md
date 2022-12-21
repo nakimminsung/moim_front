@@ -53,7 +53,7 @@
         하단에 해당 공간을 올린 게스트의 다른 공간들과 상세페이지와 유사한 카테고리를 가진 추천공간을 확인하실 수 있습니다.
 
 -   **`관리자페이지`**
-
+    서비스 이용자, 공간, 공지사항, 기획전, 신고 관리 등의 기능이 있는 관리자를 위한 공간입니다.
 -   **`호스트페이지`**
     호스트가 공간에 대한 정보를 등록하고, 관련 정보를 수정·삭제할 수 있는 공간입니다.
 -   **`예약페이지`**
@@ -94,6 +94,9 @@
 <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
 <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
 <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=white"> 
+<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"> 
+<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+
 <br>
 </p>
 
@@ -101,6 +104,7 @@
 
 <p>
 <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"/>
+<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"/>
 <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white"/>
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/>
@@ -125,41 +129,70 @@
 <details>
 <summary>메인</summary>
 
-|                                                           메인페이지                                                            |                                                           계획세우기                                                            |
-| :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
-|                                                        검색(무한스크롤)                                                         |                                                           상세페이지                                                            |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
-|                                                            회원가입                                                             |                                                             로그인                                                              |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+|                                                                        메인페이지                                                                        |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/MoiM-Project/data/blob/main/readmeImage/mainpage/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.gif?raw=true" width="100%"/> |
 
 </details>
 
 <br />
 <details>
-<summary>로그인</summary>
+<summary>회원가입 & 로그인</summary>
 
-|                                                           메인페이지                                                            |                                                           계획세우기                                                            |
+|                                                          일반 회원가입                                                          |                                                          소셜 회원가입                                                          |
 | :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
-|                                                        검색(무한스크롤)                                                         |                                                           상세페이지                                                            |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
-|                                                           리뷰 리스트                                                           |                                                     호스트 공간 및 추천공간                                                     |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+| <img src="https://user-images.githubusercontent.com/84282676/208115955-693b9163-2cc3-434a-b08b-d0c38d65382a.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/208117038-50738402-1d7a-4e07-a4dc-c499021b1af8.gif" width="100%"/> |
+
+|                                                           일반 로그인                                                           |                                                           소셜 로그인                                                           |
+| :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/84282676/208117941-382e7fd1-f0b9-4dd8-8728-8c3e5d6bd1a8.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/208117799-429cf0bb-41ff-40ed-b947-dc5707ea84dd.gif" width="100%"/> |
 
 </details>
 
 <br />
 <details>
-<summary>관리자페이지</summary>
+<summary>마이페이지</summary>
 
-|                                                           메인페이지                                                            |                                                           계획세우기                                                            |
+|                                                           마이페이지                                                            |
+| :-----------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/84282676/208371583-055ca39b-f4c3-4432-972f-ec60407903df.gif" width="100%"/> |
+
+</details>
+
+<br />
+<details>
+<summary>통합검색</summary>
+
+|                                                            통합검색                                                             |
+| :-----------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/84282676/208123031-5073d646-070a-431c-999e-2eb83f9a4ae3.gif" width="100%"/> |
+
+</details>
+
+<br />
+<details>
+<summary>카테고리</summary>
+
+|                                                       카테고리 메인페이지                                                       |                                                          카테고리 지도                                                          |
 | :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
-|                                                        검색(무한스크롤)                                                         |                                                           상세페이지                                                            |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
-|                                                            회원가입                                                             |                                                             로그인                                                              |
-| <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/207547583-83eaa3f7-8357-4c9c-a0ec-dd940327d4ee.gif" width="100%"/> |
+| <img src="https://user-images.githubusercontent.com/84282676/208364692-366d9302-e829-4e18-a092-289bbb19961a.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/84282676/208369025-af99b493-221f-4866-b129-ac7bb6c05c4c.gif" width="100%"/> |
+
+</details>
+
+<br />
+
+<details>
+<summary>관리자 페이지</summary>
+
+|                                                                                        관리자 메인                                                                                         |                                                                                    게스트 관리                                                                                     |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                   <img src="https://github.com/MoiM-Project/data/blob/main/readmeImage/admin/%EA%B4%80%EB%A6%AC%EC%9E%90_%EB%A9%94%EC%9D%B8.gif?raw=true" width="100%"/>                   | <img src="https://github.com/MoiM-Project/data/blob/main/readmeImage/admin/%EA%B4%80%EB%A6%AC%EC%9E%90_%EA%B2%8C%EC%8A%A4%ED%8A%B8%EA%B4%80%EB%A6%AC1.gif?raw=true" width="100%"/> |
+|                                                                                        호스트 관리                                                                                         |                                                                                     공간 관리                                                                                      |
+|     <img src="https://github.com/MoiM-Project/data/blob/main/readmeImage/admin/%EA%B4%80%EB%A6%AC%EC%9E%90_%ED%98%B8%EC%8A%A4%ED%8A%B8%EA%B4%80%EB%A6%AC.gif?raw=true" width="100%"/>      |      <img src="https://github.com/MoiM-Project/data/blob/main/readmeImage/admin/%EA%B4%80%EB%A6%AC%EC%9E%90_%EA%B3%B5%EA%B0%84%EA%B4%80%EB%A6%AC.gif?raw=true" width="100%"/>      |
+|                                                                                       공지사항 관리                                                                                        |                                                                                    기획전 관리                                                                                     |
+| <img src="https://github.com/MoiM-Project/data/blob/main/readmeImage/admin/%EA%B4%80%EB%A6%AC%EC%9E%90_%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD%EA%B4%80%EB%A6%AC.gif?raw=true" width="100%"/> |                                                                             <img src="" width="100%"/>                                                                             |
+|                                                                                         신고 관리                                                                                          |                                                                                                                                                                                    |
+|          <img src="https://github.com/MoiM-Project/data/blob/main/readmeImage/admin/%EA%B4%80%EB%A6%AC%EC%9E%90_%EC%8B%A0%EA%B3%A0%EA%B4%80%EB%A6%AC.gif?raw=true" width="100%"/>          |                                                                                                                                                                                    |
 
 </details>
 <br/>
@@ -220,6 +253,6 @@
 
 ## 시연 영상🎥
 
-링크
+링크(https://www.youtube.com/watch?v=kmMcIUePNTU)
 
 ## [🏷 프로젝트 노션 🏷](https://shadow-blanket-65e.notion.site/MoiM-a37bb15bcad1427f9d47d23048b76edd)
