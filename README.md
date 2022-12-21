@@ -300,9 +300,9 @@
 
 |                                                    승인대기/예약확정(예약취소)                                                    |                                                      결제대기(예시 토스페이)                                                      |
 | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/105392679/208931369-485ec170-d95c-4cb3-9c8a-53d35f0860cb.gif" width="300px"/> | <img src="https://user-images.githubusercontent.com/111044928/208399542-66fc9a01-18f4-4276-9665-a5de78fab618.gif" width="300px"/> |
-|                                                      **이용완료(리뷰작성)**                                                       |                                                         **결제&리뷰모달**                                                         |
-| <img src="https://user-images.githubusercontent.com/105392679/208932857-7936f0db-7898-4014-a400-39e5ee3c771f.gif" width="300px"/> | <img src="https://user-images.githubusercontent.com/105392679/208933540-34b025fd-5d61-4af0-b6e6-a09cc9487230.png" width="300px"/> |
+| <img src="https://user-images.githubusercontent.com/105392679/208939043-61c35ac7-f2ff-4aae-9db0-bca97d268a47.gif" width="500px"/> | <img src="https://user-images.githubusercontent.com/105392679/208931369-485ec170-d95c-4cb3-9c8a-53d35f0860cb.gif" width="500px"/> |
+|                                                      **이용완료(리뷰작성)**                                                       |                                                         **취소&리뷰모달**                                                         |
+| <img src="https://user-images.githubusercontent.com/105392679/208932857-7936f0db-7898-4014-a400-39e5ee3c771f.gif" width="500px"/> | <img src="https://user-images.githubusercontent.com/105392679/208933540-34b025fd-5d61-4af0-b6e6-a09cc9487230.png" width="500px"/> |
 |                                                                                                                                   |
 
 </details>
