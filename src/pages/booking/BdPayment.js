@@ -82,7 +82,7 @@ function BdPayment({
 	// iamport
 	const {IMP} = window;
 
-	// 결제
+	// 바로  결제
 	function payment(data) {
 		let impCode = process.env.REACT_APP_IMP;
 		IMP.init(`${impCode}`); //아임포트 관리자 콘솔에 서 확인한 '가맹점 식별코드' 입력
@@ -118,6 +118,8 @@ function BdPayment({
 							let merchantUid = rsp.merchant_uid;
 							let totalPrice = rsp.paid_amount;
 							console.log('roomNum' + roomNum);
+							console.log('userNum' + userNum);
+							console.log('bdNum' + bookingDetailNum);
 							axios
 								.post(url, {
 									totalPrice,
