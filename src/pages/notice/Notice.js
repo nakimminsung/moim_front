@@ -25,7 +25,10 @@ function Notice(props) {
 	return (
 		<div className='allDiv'>
 			{/* 공지사항 헤더 */}
-			<div className='noticeHeader' style={{textAlign: 'center'}}>
+			<div
+				className='noticeHeader'
+				style={{textAlign: 'center', marginTop: '-40px'}}
+			>
 				<h2>
 					<b>공지사항</b>
 				</h2>
