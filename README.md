@@ -206,10 +206,8 @@
 | <img src="https://user-images.githubusercontent.com/111044928/208645110-52f984ac-dbe0-4ffe-bb55-ee6cec8681a0.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/208835111-309ca819-0292-4a21-afa6-bd905b32db58.gif" width="100%"/> |
 |                                                             **리뷰**                                                             |                                                     **호스트공간&추천공간**                                                      |
 | <img src="https://user-images.githubusercontent.com/111044928/208640546-1eb9888c-ac97-4b73-a94b-1b4f2d4b1c7a.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/208313348-08a5767f-4e44-4cde-93f0-be903200ab71.gif" width="100%"/> |
-|                                                           **찜누르기**                                                           |                                                           **신고하기**                                                           |
-| <img src="https://user-images.githubusercontent.com/111044928/208633727-6146ee51-b0f0-4bc3-a80e-ce713f130f3f.gif" width="100%"/> |                                                    <img src="" width="100%"/>                                                    |
-|                                                           **예약하기**                                                           |                                                                                                                                  |
-| <img src="https://user-images.githubusercontent.com/111044928/208639102-e9d0bdef-b0d5-4b9a-90eb-0c67b472d099.gif" width="100%"/> |
+|                                                           **찜누르기**                                                           |                                                           **예약하기**                                                           |
+| <img src="https://user-images.githubusercontent.com/111044928/208633727-6146ee51-b0f0-4bc3-a80e-ce713f130f3f.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/208639102-e9d0bdef-b0d5-4b9a-90eb-0c67b472d099.gif" width="100%"/> |
 
 </details>
 
@@ -244,8 +242,6 @@
 | <img src="https://user-images.githubusercontent.com/111044928/208407197-3fd1f22b-3a29-4a81-9c56-c3feb011389c.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/208407189-113dec8d-62a3-4ecf-8d4f-a55a7d2403d1.gif" width="100%"/> |
 |                                                          **정렬(유저)**                                                          |                                                       **수정/삭제(유저)**                                                        |
 | <img src="https://user-images.githubusercontent.com/111044928/208416356-5e073bf2-e550-4504-950d-7b819ccf02ff.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/208410659-80560f14-a8dc-4a7f-af77-29723f0f0327.gif" width="100%"/> |
-|                                                        **신고하기(유저)**                                                        |
-|                                                    <img src="" width="100%"/>                                                    |
 
 </details>
 
