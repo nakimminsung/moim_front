@@ -45,12 +45,12 @@
 -   **`상세페이지`**<br/>
     공간에 대한 정보를 유저들이 보다 편리하게 볼 수 있도록 구성하였고 간편하게 예약기능,찜하기,신고 기능 등 여러가지 기능들을 사용하실 수 있습니다.
 
-    -   공간소개
+    -   공간소개<br/>
         상단 고정 메뉴바를 사용하여 공간소개, 지도, 길찾기, Q&A작성, 리뷰(사진만 보기) 등을 확인하실 수 있습니다.
-    -   사이드 메뉴
+    -   사이드 메뉴<br/>
         사이드 메뉴바를 사용하여 찜, 신고, 예약 기능을 할 수 있으며 예약의 경우 예약 가능한 시간대만 클릭이
         되며 클릭 시 예약 금액을 계산하여 총 예약 금액을 확인할 수 있는 기능을 제공하고 있습니다.
-    -   추가정보
+    -   추가정보<br/>
         하단에 해당 공간을 올린 게스트의 다른 공간들과 상세페이지와 유사한 카테고리를 가진 추천공간을 확인하실 수 있습니다.
 
 -   **`관리자페이지`**
@@ -93,7 +93,7 @@
     <br/>
     호스트의 경우 해당 공간을 사용한 유저들의 생생하고 솔직한 후기를 관리하실 수 있습니다.
     유저의 경우 해당 공간을 사용한 후 생생하고 솔직한 후기를 작성하고 공유/수정/삭제할 수 있습니다.
-    **`Q&A`**
+-   **`Q&A`**
     <br/>
     호스트의 경우 해당 공간에 대한 유저들의 질문을 관리할 수 있으며 답변을 작성할 수 있습니다.
     유저의 경우 해당 공간에 대한 궁금한 점을 작성하고 공유/수정/삭제할 수 있습니다.
@@ -246,7 +246,7 @@
 
 |                                                        &nbsp;정렬 &nbsp;                                                         |                                                              찜삭제                                                              |
 | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/111044928/208314573-33018747-bb4a-4bc7-b704-1c3a9f4814b3.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/208314626-d854ffc1-5247-4f0d-a41a-ea643523b902.gif" width="100%"/> |
+| <img src="https://user-images.githubusercontent.com/111044928/209022843-998e7619-4d62-460e-9cae-b2e5671a915a.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/209022840-7d5eb3ec-67b2-4a59-9853-212c8b4f511d.gif" width="100%"/> |
 
 </details>
 
@@ -256,9 +256,9 @@
 
 |                                                    &nbsp;정렬(호스트) &nbsp;                                                     |                                                           관리(호스트)                                                           |
 | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/111044928/208399364-4d00ac07-3db6-43a0-adec-846d7a087ba8.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/208399542-66fc9a01-18f4-4276-9665-a5de78fab618.gif" width="100%"/> |
+| <img src="https://user-images.githubusercontent.com/111044928/209028207-4576acdf-e4f9-42b7-903c-3647857884b7.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/209027940-e662468a-3da9-4200-915a-f9db39bfffa2.gif" width="100%"/> |
 |                                                          **정렬(유저)**                                                          |                                                       **수정/삭제(유저)**                                                        |
-| <img src="https://user-images.githubusercontent.com/111044928/208413241-5d41cab2-3d81-4e28-9cfd-3a058af92271.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/208414873-73ecfadf-0785-44ea-bd5d-697101485476.gif" width="100%"/> |
+| <img src="https://user-images.githubusercontent.com/111044928/209023846-cb6e1273-15c0-40a7-8d40-75800d1ebb16.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/209023850-10ed4e2b-a62e-471d-890c-b5f6eb574a6b.gif" width="100%"/> |
 
 </details>
 
@@ -268,9 +268,9 @@
 
 |                                                    &nbsp;정렬(호스트) &nbsp;                                                     |                                                         답변하기(호스트)                                                         |
 | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/111044928/208407197-3fd1f22b-3a29-4a81-9c56-c3feb011389c.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/208407189-113dec8d-62a3-4ecf-8d4f-a55a7d2403d1.gif" width="100%"/> |
+| <img src="https://user-images.githubusercontent.com/111044928/209027331-1bbafffa-3291-4756-afda-5a492ea1181c.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/209027158-3ce66f9c-90fc-4a6b-9dff-90ba8674ee1a.gif" width="100%"/> |
 |                                                          **정렬(유저)**                                                          |                                                       **수정/삭제(유저)**                                                        |
-| <img src="https://user-images.githubusercontent.com/111044928/208416356-5e073bf2-e550-4504-950d-7b819ccf02ff.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/208410659-80560f14-a8dc-4a7f-af77-29723f0f0327.gif" width="100%"/> |
+| <img src="https://user-images.githubusercontent.com/111044928/209026246-d726a7d8-6e32-43f3-89ff-2978f686723a.gif" width="100%"/> | <img src="https://user-images.githubusercontent.com/111044928/209026649-304315b2-ec50-4d69-ac0b-c68937bf5451.gif" width="100%"/> |
 
 </details>
 <br />
